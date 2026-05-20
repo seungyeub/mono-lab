@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@import "@repo/tailwind-config";
+
+@layer base {
+  body {
+    cursor: none;
+    background-color: #0a0a0a;
+    color: #ffffff;
+  }
+
+  /* Hide OS cursor on all interactive elements */
+  a, button, input, textarea, select, label, [role="button"] {
+    cursor: none !important;
+  }
+
+  /* Lenis smooth scrolling recommended CSS */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+}
