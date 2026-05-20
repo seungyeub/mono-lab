@@ -80,20 +80,38 @@ function FAQItem({ faq, index }: { faq: typeof FAQS[0]; index: number }) {
 export default function FAQSection() {
   return (
     <section className="w-full px-6 md:px-12 py-24 md:py-32 bg-[#0a0a0a]">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-12 mb-16">
-        <h2 className="text-3xl md:text-5xl font-medium tracking-tight flex-shrink-0">
-          Clarifications©
-        </h2>
-        <p className="text-gray-400 text-sm md:text-base max-w-sm">
-          Answers to questions I get asked the most before starting a project together.
-        </p>
-      </div>
+      <div className="flex flex-col md:flex-row gap-12 md:gap-16">
 
-      <div className="border-t border-white/10">
-        {FAQS.map((faq, i) => (
-          <FAQItem key={i} faq={faq} index={i} />
-        ))}
+        {/* LEFT — 이미지 + 설명 */}
+        <div className="md:w-80 flex-shrink-0 flex flex-col gap-8">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-medium tracking-tight">Clarifications©</h2>
+            <p className="text-gray-400 text-sm md:text-base mt-4 leading-relaxed">
+              Answers to questions I get asked the most before starting a project together.
+            </p>
+          </div>
+
+          {/* 이미지 슬롯 */}
+          <div className="hidden md:block aspect-[3/4] bg-[#1a1a1a] relative overflow-hidden flex-shrink-0">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: "url('/images/faq-visual.jpg')" }}
+            />
+            {/* placeholder */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white text-[9px] uppercase tracking-widest text-center p-4">
+              /images/faq-visual.jpg
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT — 아코디언 */}
+        <div className="flex-1 border-t border-white/10">
+          {FAQS.map((faq, i) => (
+            <FAQItem key={i} faq={faq} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+

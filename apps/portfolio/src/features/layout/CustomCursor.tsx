@@ -3,11 +3,19 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursorStore } from '@/src/store/useCursorStore';
+import { usePathname } from 'next/navigation';
 
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const cursorType = useCursorStore((state) => state.type);
+  const setCursorType = useCursorStore((state) => state.setType);
+  const pathname = usePathname();
+
+  // 페이지 이동 시 커서 상태를 항상 default로 리셋
+  useEffect(() => {
+    setCursorType('default');
+  }, [pathname, setCursorType]);
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {

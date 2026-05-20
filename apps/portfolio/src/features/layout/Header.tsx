@@ -6,9 +6,9 @@ import Link from 'next/link';
 import RollingText from '@/src/components/RollingText';
 
 const NAV_LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/gallery', label: 'Gallery' },
-  { href: '/work', label: 'Work' },
+  { href: '/', label: 'Home,' },
+  { href: '/gallery', label: 'Gallery,' },
+  { href: '/work', label: 'Work,' },
   { href: '/contact', label: 'Contact' },
 ];
 
