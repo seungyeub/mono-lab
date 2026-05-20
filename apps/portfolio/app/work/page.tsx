@@ -10,7 +10,7 @@ export default function WorkPage() {
   const projects = getAllProjects();
 
   return (
-    <main className="min-h-screen w-full bg-[#0a0a0a]">
+    <main className="min-h-screen w-full">
       {/* 페이지 헤더 */}
       <div className="px-6 md:px-12 pt-32 pb-12 border-b border-white/10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">

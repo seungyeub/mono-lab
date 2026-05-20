@@ -79,7 +79,7 @@ function FAQItem({ faq, index }: { faq: typeof FAQS[0]; index: number }) {
 
 export default function FAQSection() {
   return (
-    <section className="w-full px-6 md:px-12 py-24 md:py-32 bg-[#0a0a0a]">
+    <section className="w-full px-6 md:px-12 py-24 md:py-32">
       <div className="flex flex-col md:flex-row gap-12 md:gap-16">
 
         {/* LEFT — 이미지 + 설명 */}

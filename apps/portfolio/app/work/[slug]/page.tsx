@@ -39,7 +39,7 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
   ];
 
   return (
-    <main className="min-h-screen w-full bg-[#0a0a0a]">
+    <main className="min-h-screen w-full">
 
       {/* ── Full-width Hero Image ── */}
       <section className="w-full h-[55vh] md:h-[75vh] relative overflow-hidden bg-[#1a1a1a]">
@@ -51,7 +51,7 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
         <div className="absolute inset-0 flex items-center justify-center opacity-10 text-white text-xs uppercase tracking-widest">
           {meta.image}
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--site-bg)]/60 to-transparent" />
       </section>
 
       {/* ── Split layout: sticky left + scrollable right ── */}

@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const EXPERIENCES = [
   {
@@ -82,7 +82,7 @@ function WordReveal({
 
 export default function ProfileSection() {
   return (
-    <section className="w-full px-6 md:px-12 py-24 md:py-32 bg-[#0a0a0a]">
+    <section className="w-full px-6 md:px-12 py-24 md:py-32">
       {/* Personal Profile */}
       <div className="flex flex-col mb-32">
         <h2 className="text-3xl md:text-5xl font-medium tracking-tight mb-8">Personal Profile©</h2>

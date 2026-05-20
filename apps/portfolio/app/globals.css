@@ -1,35 +1,64 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config";
 
+/* 사이트 토큰 — 여기만 수정 */
+:root {
+  --site-max-width: 1480px;
+  --site-bg: #000;
+}
+
+@layer components {
+  .site-container {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+}
+
 @layer base {
+  html,
+  body {
+    background-color: var(--site-bg);
+  }
+
   body {
     cursor: none;
-    background-color: #0a0a0a;
     color: #ffffff;
+    font-family: "Inter Display", sans-serif;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.1px;
   }
 
   /* Hide OS cursor on all interactive elements */
-  a, button, input, textarea, select, label, [role="button"] {
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  label,
+  [role="button"] {
     cursor: none !important;
   }
 
   /* Lenis smooth scrolling recommended CSS */
-  html.lenis, html.lenis body {
+  html.lenis,
+  html.lenis body {
     height: auto;
   }
-  
+
   .lenis.lenis-smooth {
     scroll-behavior: auto !important;
   }
-  
+
   .lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
   }
-  
+
   .lenis.lenis-stopped {
     overflow: hidden;
   }
-  
+
   .lenis.lenis-smooth iframe {
     pointer-events: none;
   }

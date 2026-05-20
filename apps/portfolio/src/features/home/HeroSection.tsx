@@ -34,7 +34,7 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen overflow-hidden bg-[#0a0a0a]"
+      className="relative w-full min-h-screen overflow-hidden"
     >
       {/* ── 상단 헤더 여백 ── */}
       <div className="pt-24 md:pt-28" />

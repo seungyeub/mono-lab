@@ -18,14 +18,14 @@ export default function RollingText({ text, className = '' }: RollingTextProps) 
 
   return (
     <span
-      className={`group/roll relative inline-flex ${className}`}
+      className={`group/roll relative inline-flex text-inherit ${className}`}
       aria-label={text}
       style={{ lineHeight: '1.1' }}
     >
       {chars.map((char, i) => (
         <span
           key={i}
-          className="relative inline-block overflow-hidden"
+          className='relative inline-block overflow-hidden'
           style={{
             // 각 글자별 높이를 line-height와 맞춤
             height: '1.1em',
@@ -33,7 +33,7 @@ export default function RollingText({ text, className = '' }: RollingTextProps) 
         >
           {/* Top layer — slides UP on hover */}
           <span
-            className="inline-block translate-y-0 transition-transform ease-in-out group-hover/roll:-translate-y-full"
+            className='inline-block translate-y-0 transition-transform ease-in-out group-hover/roll:-translate-y-full'
             style={{
               transitionDuration: '300ms',
               transitionDelay: `${i * 25}ms`,
@@ -44,7 +44,7 @@ export default function RollingText({ text, className = '' }: RollingTextProps) 
 
           {/* Bottom layer — starts below, slides INTO view on hover */}
           <span
-            className="absolute top-0 left-0 inline-block translate-y-full transition-transform ease-in-out group-hover/roll:translate-y-0"
+            className='absolute top-0 left-0 inline-block translate-y-full transition-transform ease-in-out group-hover/roll:translate-y-0'
             style={{
               transitionDuration: '300ms',
               transitionDelay: `${i * 25}ms`,
