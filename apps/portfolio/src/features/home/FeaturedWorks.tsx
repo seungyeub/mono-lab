@@ -29,7 +29,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[3/4]' }: CardP
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: false, margin: '-80px' }}
       transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col gap-3"
     >

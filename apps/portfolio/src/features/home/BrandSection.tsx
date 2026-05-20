@@ -26,7 +26,7 @@ export default function BrandSection() {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 1.2 }}
           className="relative w-full min-h-[50vw] md:min-h-full overflow-hidden bg-[#111]"
         >
@@ -44,7 +44,7 @@ export default function BrandSection() {
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col justify-between px-8 md:px-12 py-12 md:py-16 gap-10"
         >
