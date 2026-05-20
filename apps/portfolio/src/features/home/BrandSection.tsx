@@ -19,7 +19,7 @@ export default function BrandSection() {
   const setCursorType = useCursorStore((s) => s.setType);
 
   return (
-    <section className="w-full bg-[#0a0a0a]">
+    <section className="w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh]">
 
         {/* LEFT — 대형 이미지 슬롯 */}

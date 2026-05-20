@@ -38,10 +38,10 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="w-full bg-[#0a0a0a] text-white overflow-hidden">
+    <footer className="w-full text-white overflow-hidden">
 
-      {/* ── 1. 가로 스크롤 캐러셀 ── */}
-      <div className="overflow-hidden border-t border-white/10">
+      {/* ── 1. 가로 스크롤 캐러셀 (site-container와 동일 최대 너비) ── */}
+      <div className="site-container w-full overflow-hidden border-t border-white/10">
         <div
           className="flex gap-4 py-4 px-4"
           style={{ animation: 'marquee-scroll 30s linear infinite' }}
@@ -66,14 +66,14 @@ export default function Footer() {
       </div>
 
       {/* ── 2. 태그 바 ── */}
-      <div className="px-6 md:px-12 py-4 border-y border-white/10 flex flex-wrap gap-4 md:gap-8 text-[10px] uppercase tracking-[0.2em] text-white/30">
+      <div className="site-container w-full px-6 md:px-12 py-4 border-y border-white/10 flex flex-wrap gap-4 md:gap-8 text-[10px] uppercase tracking-[0.2em] text-white/30">
         {['Independent', 'Brand Focus', 'Strategic', 'Detail-Driven', 'Seoul, 한국'].map((tag) => (
           <span key={tag}>{tag}</span>
         ))}
       </div>
 
       {/* ── 3. 본문 (설명 + 링크) ── */}
-      <div className="px-6 md:px-12 py-16 md:py-20 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12">
+      <div className="site-container w-full px-6 md:px-12 py-16 md:py-20 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12">
         {/* 좌측: 설명 + Back to Top */}
         <div className="flex flex-col gap-8 max-w-xl">
           <p className="text-xl md:text-2xl font-medium leading-relaxed">
@@ -131,7 +131,7 @@ export default function Footer() {
       </div>
 
       {/* ── 4. 거대한 ©2026 텍스트 ── */}
-      <div className="overflow-hidden border-t border-white/10">
+      <div className="site-container w-full overflow-hidden border-t border-white/10">
         <p
           className="px-6 md:px-12 py-4 font-medium tracking-tighter leading-none text-white/[0.06] select-none"
           style={{ fontSize: 'clamp(4rem, 18vw, 18rem)' }}

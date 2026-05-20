@@ -21,13 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-[#0a0a0a]">
-      <body className={`${inter.className} text-white bg-[#0a0a0a] min-h-screen antialiased selection:bg-white selection:text-black`}>
+    <html lang="en">
+      <body className={`${inter.className} text-white min-h-screen antialiased selection:bg-white selection:text-black`}>
         <PageLoader />
         <CustomCursor />
         <SmoothScroll>
           <Header />
-          <main className="min-h-screen">
+          <main className="site-container min-h-screen w-full">
             {children}
           </main>
           <Footer />

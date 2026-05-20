@@ -63,7 +63,7 @@ export default function FeaturedWorks() {
   const setCursorType = useCursorStore((s) => s.setType);
 
   return (
-    <section className="w-full bg-[#0a0a0a] pb-24 md:pb-32">
+    <section className="w-full pb-24 md:pb-32">
       {/* 대형 마르퀴 제목 */}
       <div className="overflow-hidden border-y border-white/10 py-4 mb-12 md:mb-16">
         <div

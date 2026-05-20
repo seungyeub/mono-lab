@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useCursorStore } from '@/src/store/useCursorStore';
+import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -49,33 +49,31 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center"
+      className='fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center'
       animate={{
         x: mousePosition.x - offset,
         y: mousePosition.y - offset,
         width: size,
         height: size,
-        backgroundColor: isView
-          ? 'rgba(255, 255, 255, 1)'
-          : 'rgba(255, 255, 255, 1)',
+        backgroundColor: isView ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 1)',
         mixBlendMode: isView ? 'normal' : 'difference',
       }}
       transition={{
         type: 'spring',
-        stiffness: 150,
-        damping: 15,
+        stiffness: 900,
+        damping: 20,
         mass: 0.1,
       }}
     >
       <AnimatePresence>
         {isView && (
           <motion.span
-            key="view-label"
+            key='view-label'
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.7 }}
             transition={{ duration: 0.15 }}
-            className="text-black text-[10px] font-bold uppercase tracking-widest select-none"
+            className='text-black text-[10px] font-bold uppercase tracking-widest select-none'
           >
             VIEW
           </motion.span>

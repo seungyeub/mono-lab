@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen w-full px-6 md:px-12 pt-32 pb-24 bg-[#0a0a0a]">
+    <main className="min-h-screen w-full px-6 md:px-12 pt-32 pb-24">
       <div className="flex flex-col md:flex-row justify-between gap-16 border-b border-white/10 pb-16">
         <div className="flex flex-col gap-4">
           <h1 className="text-4xl md:text-6xl font-medium tracking-tight">
