@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CustomCursor />
         <SmoothScroll>
           <Header />
-          <main className='min-h-screen w-full'>{children}</main>
+          <main className='w-full min-h-screen pt-24'>{children}</main>
           <Footer />
         </SmoothScroll>
       </body>

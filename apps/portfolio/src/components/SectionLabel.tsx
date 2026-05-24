@@ -2,11 +2,12 @@ interface SectionLabelProps {
   scene: string;
   leftLabel: string;
   rightLabel: string;
+  className?: string;
 }
 
-export default function SectionLabel({ scene, leftLabel, rightLabel }: SectionLabelProps) {
+export default function SectionLabel({ scene, leftLabel, rightLabel, className }: SectionLabelProps) {
   return (
-    <div className='w-full text-[13px]'>
+    <div className={`w-full text-[13px] ${className || ''}`.trim()}>
       <div className='flex flex-col gap-2.5 overflow-hidden'>
         <div className='flex items-center justify-between px-6 md:px-12 uppercase text-[#bbbbbb]'>
           <h6 className='whitespace-pre text-white'>{leftLabel}</h6>

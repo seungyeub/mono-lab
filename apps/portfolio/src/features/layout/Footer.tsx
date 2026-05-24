@@ -1,7 +1,7 @@
 'use client';
 
 import RollingText from '@/src/components/RollingText';
-import SectionLabel from '@/src/features/layout/SectionLabel';
+import SectionLabel from '@/src/components/SectionLabel';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -47,35 +47,35 @@ export default function Footer() {
           style={{ animation: 'marquee-scroll 60s linear infinite' }}
         >
           {/* 배열 복사로 무한 스크롤 트릭 */}
-          {[...CAROUSEL_CARDS, ...CAROUSEL_CARDS, ...CAROUSEL_CARDS, ...CAROUSEL_CARDS].map(
-            (card, i) => (
-              <div key={i} className='shrink-0 pr-4'>
-                <div
-                  className='relative overflow-hidden rounded-md'
-                  style={{ width: card.width, height: card.height }}
-                >
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    sizes='200px'
-                    className='object-cover'
-                  />
-                  {/* 가독성을 위한 하단 그라데이션 */}
-                  <div className='absolute inset-0 bg-linear-to-t from-black/50 to-transparent' />
-                  <div className='absolute bottom-3 left-3 text-xs text-white/90 uppercase tracking-widest'>
-                    {card.title}
-                  </div>
+          {Array.from({ length: 5 })
+            .flatMap(() => CAROUSEL_CARDS)
+            .map((card, i) => (
+            <div key={i} className='shrink-0 pr-4'>
+              <div
+                className='relative overflow-hidden rounded-md'
+                style={{ width: card.width, height: card.height }}
+              >
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  sizes='200px'
+                  className='object-cover'
+                />
+                {/* 가독성을 위한 하단 그라데이션 */}
+                <div className='absolute inset-0 bg-linear-to-t from-black/50 to-transparent' />
+                <div className='absolute bottom-3 left-3 text-xs text-white/90 uppercase tracking-widest'>
+                  {card.title}
                 </div>
               </div>
-            ),
-          )}
+            </div>
+          ))}
         </div>
       </div>
 
       {/* ── 3. 태그 바 ── */}
       <div className='w-full border-y border-black/10 bg-white'>
-        <div className='px-6 py-1 md:px-12'>
+        <div className='px-6 py-0.5 md:px-12'>
           <ul className='flex items-center justify-between'>
             {TAGS.map((tag, index) => (
               <li
@@ -94,9 +94,6 @@ export default function Footer() {
       {/* ── 4. 본문 (철학 + Back to Top) ── */}
       <div className='w-full px-6 md:px-12 py-16 md:py-20'>
         <div className='flex flex-col items-center gap-8 max-w-xl mx-auto'>
-          {/*
-            [EN] I deliver highly polished digital products by combining invisible structural depth with uncompromising visual precision. I carefully curate every state and transition, ensuring each interaction shows up clearly, consistently, and with profound intention across any screen.
-          */}
           <p className='w-full max-w-[550px] break-keep text-pretty font-semibold text-center'>
             보이지 않는 탄탄한 구조와 타협하지 않는 시각적 섬세함을 결합해 밀도 높은 프로덕트를
             완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는
@@ -108,7 +105,7 @@ export default function Footer() {
             onMouseLeave={() => setCursorType('default')}
             className='group/roll border-white border-2 rounded-full px-4 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
           >
-            <RollingText text='Back to Top' className='font-bold' />
+            <RollingText text='Back to Top' className='font-bold tracking-tight' />
           </button>
         </div>
       </div>
@@ -125,7 +122,7 @@ export default function Footer() {
                   key={href}
                   href={href}
                   // 전체 호버 시 옅어지고(#555), 선택한 것만 완전한 흰색(white)으로 강조
-                  className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:!text-white'
+                  className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:text-white!'
                 >
                   <RollingText text={label} className='font-medium' />
                 </Link>
@@ -142,7 +139,7 @@ export default function Footer() {
                   href={href}
                   target='_blank' // 외부 링크이므로 새 창 열기 속성 추가
                   rel='noopener noreferrer' // 보안을 위한 속성 추가
-                  className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:!text-white'
+                  className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:text-white!'
                 >
                   <RollingText text={label} className='font-medium' />
                 </Link>
@@ -158,7 +155,7 @@ export default function Footer() {
             <span>All Rights Reserved</span>
           </div>
 
-          <div className='w-full flex flex-col md:flex-row md:justify-center items-baseline gap-2 md:gap-4 pt-8 md:pt-16 pb-4 text-white/10 hover:text-white transition-colors duration-700 select-none cursor-default'>
+          <div className='w-full flex flex-col lg:flex-row lg:justify-center items-baseline gap-2 lg:gap-4 pt-8 md:pt-16 pb-4 text-white/30 hover:text-white transition-colors duration-700 select-none cursor-default'>
             <p
               className='font-bold tracking-tighter leading-none'
               style={{ fontSize: 'min(14vw, 12rem)' }}
