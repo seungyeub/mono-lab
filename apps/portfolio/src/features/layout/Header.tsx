@@ -36,9 +36,10 @@ export default function Header() {
       }}
       animate={hidden ? 'hidden' : 'visible'}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
-      className='fixed top-0 left-0 w-full z-10'
+      className='fixed top-0 left-0 w-full z-10 bg-black'
     >
-      <nav className='site-container flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-0 md:py-6.5 md:pr-35 md:pl-6'>
+      {/* <nav className='flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5 md:pr-35 md:pl-12'> */}
+      <nav className='site-container flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5'>
         {/* LEFT — Avatar (difference 블렌드 제외: 사진은 그대로 보여야 함) */}
         <Link
           href='/'
@@ -66,13 +67,12 @@ export default function Header() {
         >
           <div className='relative flex flex-col flex-none content-start items-start gap-[3px] w-min max-w-[300px] h-min overflow-visible opacity-100 p-0'>
             <p className='text-white font-semibold'>Quick Links</p>
-            {/* group/nav: nav에 마우스 올리면 형제는 #666, hover/focus 링크만 #999 */}
             <div className='group/nav relative flex flex-row items-center content-start w-full h-min gap-x-0.5 overflow-visible opacity-100 p-0'>
               {NAV_LINKS.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:text-[#999] focus-visible:text-[#999]'
+                  className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:text-white focus-visible:text-white'
                 >
                   <RollingText text={label} className='font-medium' />
                 </Link>
@@ -84,7 +84,7 @@ export default function Header() {
               <p className='text-white font-semibold'>Based in Seoul, 한국</p>
             </div>
             <div className='relative flex flex-col justify-center whitespace-pre transform-none text-[#999]'>
-              <p>Logo / Brand Designer</p>
+              <p>Front-End Developer</p>
             </div>
           </div>
         </div>

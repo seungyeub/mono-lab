@@ -226,7 +226,7 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
 
 export default function FAQSection() {
   return (
-    <section className='flex w-full flex-col items-start pt-[80px] gap-[60px] md:pt-[120px] md:gap-[80px] xl:pt-[180px] xl:gap-[120px]'>
+    <section className='flex w-full flex-col items-start pt-[80px] md:pt-[120px] xl:pt-[180px] gap-[60px] md:gap-[80px] xl:gap-[120px]'>
       <SectionLabel scene='04' leftLabel='© Help Center 도움말' rightLabel='Clarifications' />
       <div className='site-container w-full flex flex-col xl:flex-row gap-12 xl:gap-16 px-6 md:px-12'>
         {/* LEFT — 이미지 + 설명 */}
@@ -238,7 +238,7 @@ export default function FAQSection() {
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className='w-full block xl:hidden'
           >
-            <h1 className='text-7xl md:text-9xl tracking-tight'>FAQ.</h1>
+            <h1 className='text-7xl md:text-8xl lg:text-9xl tracking-tight'>FAQ.</h1>
           </motion.div>
 
           {/* 이미지 + h3 blend 영역 — isolation으로 blend context 격리 */}

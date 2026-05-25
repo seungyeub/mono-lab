@@ -2,6 +2,7 @@
 
 import RollingText from '@/src/components/RollingText';
 import SectionLabel from '@/src/components/SectionLabel';
+import TagBar from '@/src/components/TagBar';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -74,22 +75,7 @@ export default function Footer() {
       </div>
 
       {/* ── 3. 태그 바 ── */}
-      <div className='w-full border-y border-black/10 bg-white'>
-        <div className='px-6 py-0.5 md:px-12'>
-          <ul className='flex items-center justify-between'>
-            {TAGS.map((tag, index) => (
-              <li
-                key={tag}
-                className={`whitespace-nowrap text-[16px] font-semibold text-black ${
-                  index >= 2 ? 'hidden sm:block' : ''
-                }`}
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <TagBar tags={TAGS} />
 
       {/* ── 4. 본문 (철학 + Back to Top) ── */}
       <div className='w-full px-6 md:px-12 py-16 md:py-20'>
@@ -113,7 +99,7 @@ export default function Footer() {
       {/* ── 5. 하단 영역 (Links + 거대한 타이포그래피) ── */}
       <div className='w-full flex flex-col'>
         {/* Quick Links & Networks */}
-        <div className='p-6 md:p-12 flex flex-col items-start w-full gap-5 md:flex-row md:justify-between md:gap-0'>
+        <div className='site-container px-6 md:px-12 py-6 md:py-12 flex flex-col items-start w-full gap-5 md:flex-row md:justify-between md:gap-0'>
           <div className='flex flex-col gap-[3px] max-w-[300px]'>
             <p className='text-white font-semibold'>Quick Links</p>
             <div className='group/nav flex flex-row items-center gap-x-0.5'>
@@ -149,13 +135,13 @@ export default function Footer() {
         </div>
 
         {/* 거대한 포트폴리오 푸터 */}
-        <div className='px-6 md:px-12 w-full flex flex-col border-t border-white/10 group/footer'>
-          <div className='w-full flex flex-col md:flex-row justify-between pt-6 md:pt-10 text-[10px] md:text-xs text-white/40 uppercase tracking-widest gap-2'>
+        <div className='w-full flex flex-col border-t border-white/10 group/footer'>
+          <div className='site-container px-6 md:px-12 w-full flex flex-col md:flex-row justify-between pt-6 md:pt-10 text-[10px] md:text-xs text-white/40 uppercase tracking-widest gap-2'>
             <span>Front-end Development</span>
             <span>All Rights Reserved</span>
           </div>
 
-          <div className='w-full flex flex-col lg:flex-row lg:justify-center items-baseline gap-2 lg:gap-4 pt-8 md:pt-16 pb-4 text-white/30 hover:text-white transition-colors duration-700 select-none cursor-default'>
+          <div className='site-container px-6 md:px-12 w-full flex flex-col lg:flex-row lg:justify-center items-baseline gap-2 lg:gap-4 pt-8 md:pt-16 pb-4 text-white/30 hover:text-white transition-colors duration-700 select-none cursor-default'>
             <p
               className='font-bold tracking-tighter leading-none'
               style={{ fontSize: 'min(14vw, 12rem)' }}
