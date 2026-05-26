@@ -1,11 +1,12 @@
 'use client';
 
-import RollingText from '@/src/components/RollingText';
+import RollingLink from '@/src/components/RollingText/RollingLink';
+import RollingButton from '@/src/components/RollingText/RollingButton';
 import SectionLabel from '@/src/components/SectionLabel';
 import TagBar from '@/src/components/TagBar';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import Image from 'next/image';
-import Link from 'next/link';
+
 
 // 가로 캐러셀에 표시될 프로젝트 카드
 const CAROUSEL_CARDS = [
@@ -85,14 +86,14 @@ export default function Footer() {
             완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는
             순간들이 명확하고 한결같으며 흔들림 없는 의도를 갖도록 설계합니다.
           </p>
-          <button
+          <RollingButton
             onClick={scrollToTop}
             onMouseEnter={() => setCursorType('pointer')}
             onMouseLeave={() => setCursorType('default')}
-            className='group/roll border-white border-2 rounded-full px-4 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
-          >
-            <RollingText text='Back to Top' className='font-bold tracking-tight' />
-          </button>
+            text='Back to Top'
+            textClassName='font-bold tracking-tight'
+            className='border-white border-2 rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
+          />
         </div>
       </div>
 
@@ -104,14 +105,14 @@ export default function Footer() {
             <p className='text-white font-semibold'>Quick Links</p>
             <div className='group/nav flex flex-row items-center gap-x-0.5'>
               {QUICK_LINKS.map(({ href, label }) => (
-                <Link
+                <RollingLink
                   key={href}
                   href={href}
+                  text={label}
+                  textClassName='font-medium'
                   // 전체 호버 시 옅어지고(#555), 선택한 것만 완전한 흰색(white)으로 강조
                   className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:text-white!'
-                >
-                  <RollingText text={label} className='font-medium' />
-                </Link>
+                />
               ))}
             </div>
           </div>
@@ -120,15 +121,15 @@ export default function Footer() {
             <p className='text-white font-semibold text-left md:text-right'>Networks</p>
             <div className='group/nav flex flex-row items-center gap-x-0.5'>
               {NETWORKS.map(({ href, label }) => (
-                <Link
+                <RollingLink
                   key={href}
                   href={href}
                   target='_blank' // 외부 링크이므로 새 창 열기 속성 추가
                   rel='noopener noreferrer' // 보안을 위한 속성 추가
+                  text={label}
+                  textClassName='font-medium'
                   className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:text-white!'
-                >
-                  <RollingText text={label} className='font-medium' />
-                </Link>
+                />
               ))}
             </div>
           </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import RollingText from '@/src/components/RollingText';
+import RollingLink from '@/src/components/RollingText/RollingLink';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -69,13 +69,13 @@ export default function Header() {
             <p className='text-white font-semibold'>Quick Links</p>
             <div className='group/nav relative flex flex-row items-center content-start w-full h-min gap-x-0.5 overflow-visible opacity-100 p-0'>
               {NAV_LINKS.map(({ href, label }) => (
-                <Link
+                <RollingLink
                   key={href}
                   href={href}
+                  text={label}
+                  textClassName='font-medium'
                   className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:text-white focus-visible:text-white'
-                >
-                  <RollingText text={label} className='font-medium' />
-                </Link>
+                />
               ))}
             </div>
           </div>

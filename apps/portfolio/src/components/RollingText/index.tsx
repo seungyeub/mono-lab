@@ -18,9 +18,9 @@ export default function RollingText({ text, className = '' }: RollingTextProps) 
 
   return (
     <span
-      className={`group/roll relative inline-flex text-inherit ${className}`}
+      className={`relative inline-flex text-inherit ${className}`}
       aria-label={text}
-      style={{ lineHeight: '1.1' }}
+      style={{ lineHeight: '1.25' }}
     >
       {chars.map((char, i) => (
         <span
@@ -28,7 +28,7 @@ export default function RollingText({ text, className = '' }: RollingTextProps) 
           className='relative inline-block overflow-hidden'
           style={{
             // 각 글자별 높이를 line-height와 맞춤
-            height: '1.1em',
+            height: '1.25em',
           }}
         >
           {/* Top layer — slides UP on hover */}
