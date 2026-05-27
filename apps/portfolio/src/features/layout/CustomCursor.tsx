@@ -43,20 +43,19 @@ export default function CustomCursor() {
   const isView = cursorType === 'view';
   const isPointer = cursorType === 'pointer';
 
-  // 커서 크기: default=16, pointer=48, view=80
-  const size = isView ? 80 : isPointer ? 48 : 16;
+  const size = isPointer ? 48 : 16;
   const offset = size / 2;
 
   return (
     <motion.div
-      className='fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center'
+      className='fixed top-0 left-0 rounded-full pointer-events-none z-9999 flex items-center justify-center'
       animate={{
         x: mousePosition.x - offset,
         y: mousePosition.y - offset,
         width: size,
         height: size,
-        backgroundColor: isView ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 1)',
-        mixBlendMode: isView ? 'normal' : 'difference',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        mixBlendMode: 'difference',
       }}
       transition={{
         type: 'spring',
@@ -73,9 +72,9 @@ export default function CustomCursor() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.7 }}
             transition={{ duration: 0.15 }}
-            className='text-black text-[10px] font-bold uppercase tracking-widest select-none'
+            className='absolute bg-white px-5 py-2 rounded-full text-black text-[16px] md:text-[23px] font-bold uppercase tracking-tight select-none whitespace-nowrap'
           >
-            VIEW
+            View
           </motion.span>
         )}
       </AnimatePresence>

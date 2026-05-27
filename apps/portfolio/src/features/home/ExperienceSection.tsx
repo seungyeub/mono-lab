@@ -54,13 +54,13 @@ const ACHIEVEMENTS = [
 
 export default function ExperienceSection() {
   return (
-    <section className='flex w-full flex-col items-start pt-[80px] md:pt-[120px] xl:pt-[180px] gap-[60px] md:gap-[80px]'>
-      <SectionLabel scene='03' leftLabel='© Experience 경력 / 자격증' rightLabel='Engineering' />
+    <section className='flex w-full flex-col items-start pt-[140px] md:pt-[120px] xl:pt-[180px] gap-10 sm:gap-[60px] md:gap-[80px]'>
+      <SectionLabel scene='03' leftLabel='© Experience 경력 / 자격증' rightLabel='Practice' />
 
       {/* ── 롤링 헤드라인 ── */}
       <div className='site-container px-6 md:px-12 w-full'>
         <h2
-          className='text-7xl md:text-8xl lg:text-9xl tracking-tight font-semibold'
+          className='text-[44px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight font-semibold'
           aria-label={`Years of ${ROLLING_WORDS.join(' / ')}`}
         >
           <WordRoller words={ROLLING_WORDS} interval={2000} staggerMs={48} duration={0.4} />
