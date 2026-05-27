@@ -6,7 +6,7 @@ import SectionLabel from '@/src/components/SectionLabel';
 import TagBar from '@/src/components/TagBar';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import Image from 'next/image';
-
+import ScrollRevealText from '@/src/components/ScrollRevealText';
 
 // 가로 캐러셀에 표시될 프로젝트 카드
 const CAROUSEL_CARDS = [
@@ -38,9 +38,9 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className='relative w-full flex flex-col items-center gap-[50px] pt-[120px] overflow-hidden'>
+    <footer className='relative w-full flex flex-col items-center gap-[50px] pt-[140px] xl:pt-[200px] overflow-hidden'>
       {/* ── 1. Section Label ── */}
-      <SectionLabel scene='05' leftLabel='© Final Section 에필로그' rightLabel='Portfolio Wrap' />
+      <SectionLabel scene='05' leftLabel='© Final Section 에필로그' rightLabel='Epilogue' />
 
       {/* ── 2. 가로 스크롤 캐러셀 ── */}
       <div className='w-full overflow-hidden py-10'>
@@ -79,13 +79,15 @@ export default function Footer() {
       <TagBar tags={TAGS} />
 
       {/* ── 4. 본문 (철학 + Back to Top) ── */}
-      <div className='w-full px-6 md:px-12 py-16 md:py-20'>
-        <div className='flex flex-col items-center gap-8 max-w-xl mx-auto'>
-          <p className='w-full max-w-[550px] break-keep text-pretty font-semibold text-center'>
-            보이지 않는 탄탄한 구조와 타협하지 않는 시각적 섬세함을 결합해 밀도 높은 프로덕트를
-            완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는
-            순간들이 명확하고 한결같으며 흔들림 없는 의도를 갖도록 설계합니다.
-          </p>
+      <div className='w-full px-6 md:px-12 py-4 sm:py-16 md:py-20'>
+        <div className='flex flex-col items-center gap-10 lg:gap-12 max-w-xl mx-auto text-pretty'>
+          <ScrollRevealText
+              lines={[
+                '보이지 않는 탄탄한 구조와 타협하지 않는 시각적 섬세함을 결합해 밀도 높은 프로덕트를 완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는 순간들이 명확하고 한결같으며 흔들림 없는 의도를 갖도록 설계합니다.'
+              ]}
+              align='center'
+              className='w-full max-w-[556px] break-keep font-semibold'
+            />
           <RollingButton
             onClick={scrollToTop}
             onMouseEnter={() => setCursorType('pointer')}

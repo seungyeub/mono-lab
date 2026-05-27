@@ -12,7 +12,7 @@ export default function SectionLabel({ scene, leftLabel, rightLabel, className }
         <div className='site-container flex items-center justify-between px-6 md:px-12 uppercase text-[#bbbbbb]'>
           <h6 className='whitespace-pre text-white'>{leftLabel}</h6>
           <h6 className='hidden whitespace-pre text-[#bbbbbb]/60 md:block'>SCENE — {scene}</h6>
-          <h6 className='whitespace-pre'>{rightLabel}</h6>
+          <h6 className='hidden min-[360px]:block whitespace-pre'>{rightLabel}</h6>
         </div>
         <div className='h-px w-full bg-[#bbbbbb]/20' />
       </div>

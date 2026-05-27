@@ -5,57 +5,9 @@ import { useCursorStore } from '@/src/store/useCursorStore';
 import { motion, type MotionValue, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import RollingLink from '@/src/components/RollingText/RollingLink';
-import { useRef } from 'react';
 
-/** 단어별 scroll-reveal — 스크롤에 따라 앞부터 순서대로 밝아집니다 */
-function ScrollRevealText({ text, className = '' }: { text: string; className?: string }) {
-  const containerRef = useRef<HTMLParagraphElement>(null);
-  const words = text.split(' ');
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start 0.9', 'end 0.4'],
-  });
 
-  return (
-    <p ref={containerRef} className={`flex flex-wrap gap-x-[0.3em] gap-y-1 ${className}`}>
-      {words.map((word, i) => {
-        const start = i / words.length;
-        const end = (i + 1) / words.length;
-
-        return (
-          <WordReveal
-            key={i}
-            word={word}
-            scrollYProgress={scrollYProgress}
-            start={start}
-            end={end}
-          />
-        );
-      })}
-    </p>
-  );
-}
-
-function WordReveal({
-  word,
-  scrollYProgress,
-  start,
-  end,
-}: {
-  word: string;
-  scrollYProgress: MotionValue<number>;
-  start: number;
-  end: number;
-}) {
-  const opacity = useTransform(scrollYProgress, [start, end], [0.12, 1]);
-
-  return (
-    <motion.span style={{ opacity }} className='inline-block'>
-      {word}
-    </motion.span>
-  );
-}
 
 const PROJECTS = [
   {
@@ -149,7 +101,7 @@ export default function WorksSection() {
   const rightColProjects = PROJECTS.filter((_, i) => i % 2 !== 0);
 
   return (
-    <section className='w-full pt-[80px] md:pt-[120px] pb-24 md:pb-32'>
+    <section className='w-full pt-[140px] xl:pt-[200px]'>
       <SectionLabel
         scene='02'
         leftLabel='© Featured Projects 프로젝트'
@@ -159,17 +111,33 @@ export default function WorksSection() {
       <div className='site-container px-6 md:px-12 w-full mt-12 md:mt-24'>
         <div className='flex flex-col lg:flex-row gap-12 lg:gap-24 items-start'>
           {/* Left Column: Sticky Profile */}
-          <div className='w-full lg:w-5/12 lg:sticky lg:top-32 flex flex-col gap-8'>
-            <ScrollRevealText
-              text='Building brand systems with strategic clarity and visual precision. Delivering cohesive identities with structure, consistency, and intentional detail.'
-              className='text-2xl md:text-3xl lg:text-4xl font-medium leading-tight'
-            />
-            <ScrollRevealText
-              text='I combine brand strategy with visual execution, turning positioning and research into complete identity systems that work across every touchpoint — clear, consistent, and built to last.'
-              className='text-gray-400 text-base md:text-lg lg:text-xl'
-            />
-
-            <div className='mt-8 hidden lg:block'>
+          <div className='w-full lg:mt-4 lg:w-5/12 lg:sticky lg:top-60 flex flex-col gap-12'>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: '-40px' }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className='w-full font-semibold'
+            >
+              <h1 className='text-7xl md:text-8xl lg:text-9xl tracking-tight'>Works.</h1>
+            </motion.div>
+            {/* <ScrollRevealText
+              lines={[
+                '모든 프로젝트는 추상적인 비전을 직관적이고 매끄러운 사용자 경험으로 구현해 내는 과정입니다.',
+                '분명한 의도, 정교한 구현, 그리고 서비스의 완성도를 결정짓는 세심한 디테일을 바탕으로 바닥부터 견고하게 서비스를 구축합니다.',
+                // '전략적인 기술 선택과 섬세한 UI 구현으로 아이디어를 완벽한 웹 화면으로 구현해 냅니다.',
+                // '기획의 의도를 구조화하고, 일관성 있는 사용자 경험을 만들어냅니다.',
+              ]}
+              className='text-xl font-medium leading-tight'
+            /> */}
+            <p className='text-gray-400 text-base md:text-lg'>
+              모든 프로젝트는 추상적인 비전을 직관적이고 매끄러운 사용자 경험으로 구현해 내는 과정입니다.<br />
+              분명한 의도, 정교한 구현, 그리고 서비스의 완성도를 결정짓는 세심한 디테일을 바탕으로 바닥부터 견고하게 서비스를 구축합니다.
+              {/* 기획안 속의 정적인 화면을 생동감 있게 숨 쉬는 인터랙티브 시스템으로 탈바꿈시킵니다.
+              다양한 디바이스와 브라우저 등 어떤 터치포인트에서도 흔들림 없이 명확하고, 직관적이며,
+              완성도 높은 인터페이스를 지향합니다. */}
+            </p>
+            <div className='relative'>
               <RollingLink
                 href='/work'
                 onMouseEnter={() => setCursorType('pointer')}
@@ -183,7 +151,7 @@ export default function WorksSection() {
 
           {/* Right Column: Scrolling Works Grid */}
           <div className='w-full lg:w-7/12'>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8'>
               {/* Col 1 */}
               <div className='flex flex-col gap-12'>
                 {leftColProjects.map((p, i) => (
@@ -191,7 +159,7 @@ export default function WorksSection() {
                 ))}
               </div>
               {/* Col 2 (Staggered) */}
-              <div className='flex flex-col gap-12 pt-0 md:pt-16'>
+              <div className='flex flex-col gap-12 pt-0 md:pt-16 lg:pt-0 xl:pt-16'>
                 {rightColProjects.map((p, i) => (
                   <ProjectCard
                     key={p.id}
