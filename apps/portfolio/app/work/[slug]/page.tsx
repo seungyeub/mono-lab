@@ -12,20 +12,22 @@ export async function generateStaticParams() {
 }
 
 const mdxComponents = {
-  h1: (props: ComponentPropsWithoutRef<"h1">) => <h1 className='text-2xl md:text-3xl font-medium mt-10 mb-4' {...props} />,
-  h2: (props: ComponentPropsWithoutRef<"h2">) => (
+  h1: (props: ComponentPropsWithoutRef<'h1'>) => (
+    <h1 className='text-2xl md:text-3xl font-medium mt-10 mb-4' {...props} />
+  ),
+  h2: (props: ComponentPropsWithoutRef<'h2'>) => (
     <h2 className='text-xl md:text-2xl font-medium mt-8 mb-3 text-gray-200' {...props} />
   ),
-  p: (props: ComponentPropsWithoutRef<"p">) => (
+  p: (props: ComponentPropsWithoutRef<'p'>) => (
     <p className='text-base md:text-lg text-gray-400 leading-relaxed mb-5' {...props} />
   ),
-  ul: (props: ComponentPropsWithoutRef<"ul">) => (
+  ul: (props: ComponentPropsWithoutRef<'ul'>) => (
     <ul
       className='list-disc list-inside text-base md:text-lg text-gray-400 mb-5 flex flex-col gap-1.5'
       {...props}
     />
   ),
-  li: (props: ComponentPropsWithoutRef<"li">) => <li {...props} />,
+  li: (props: ComponentPropsWithoutRef<'li'>) => <li {...props} />,
 };
 
 export default function ProjectDetail({ params }: { params: { slug: string } }) {
