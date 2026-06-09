@@ -41,6 +41,7 @@ export default function CustomCursor() {
 
   // view 상태는 크기가 커지며 "VIEW" 텍스트 표시
   const isView = cursorType === 'view';
+  const isDrag = cursorType === 'drag';
   const isPointer = cursorType === 'pointer';
 
   const size = isPointer ? 48 : 16;
@@ -65,16 +66,16 @@ export default function CustomCursor() {
       }}
     >
       <AnimatePresence>
-        {isView && (
+        {(isView || isDrag) && (
           <motion.span
-            key='view-label'
+            key='view-drag-label'
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.7 }}
             transition={{ duration: 0.15 }}
             className='absolute bg-white px-5 py-2 rounded-full text-black text-[16px] md:text-[23px] font-bold uppercase tracking-tight select-none whitespace-nowrap'
           >
-            View
+            {isDrag ? 'Drag' : 'View'}
           </motion.span>
         )}
       </AnimatePresence>

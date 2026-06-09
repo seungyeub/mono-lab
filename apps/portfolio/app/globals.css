@@ -5,7 +5,7 @@
 /* 사이트 토큰 — 여기만 수정 */
 :root {
   --site-max-width: 1480px;
-  --site-bg: #000;
+  --site-bg: #0A0A0A;
   --font-pretendard: 'Pretendard', sans-serif;
 }
 
