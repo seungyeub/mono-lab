@@ -23,13 +23,13 @@
 
 ### 1.2 핵심 인프라 기술 스택
 
-| 영역 | 기술 |
-|------|------|
-| **패키지 매니저** | pnpm 10.19.0 (workspaces) |
-| **빌드 시스템** | Turborepo 2.9.14 |
-| **코드 포맷팅** | Prettier 3.6.0 (prettier-plugin-tailwindcss 포함) |
-| **노드 요구사항** | ≥ 18 |
-| **라이선스** | MIT |
+| 영역              | 기술                                              |
+| ----------------- | ------------------------------------------------- |
+| **패키지 매니저** | pnpm 10.19.0 (workspaces)                         |
+| **빌드 시스템**   | Turborepo 2.9.14                                  |
+| **코드 포맷팅**   | Prettier 3.6.0 (prettier-plugin-tailwindcss 포함) |
+| **노드 요구사항** | ≥ 18                                              |
+| **라이선스**      | MIT                                               |
 
 ---
 
@@ -56,8 +56,8 @@ mono-lab/
 
 ```yaml
 packages:
-  - "apps/*"
-  - "packages/*"
+  - 'apps/*'
+  - 'packages/*'
 ```
 
 `apps/`과 `packages/` 하위의 모든 디렉토리를 워크스페이스 패키지로 인식합니다. 새로운 앱이나 패키지를 추가하면 자동으로 워크스페이스에 포함됩니다.
@@ -88,14 +88,15 @@ packages:
 }
 ```
 
-| 태스크 | dependsOn | cache | 출력 |
-|--------|-----------|-------|------|
-| `build` | `^build` (의존 패키지 먼저) | ✅ | `dist/**`, `.next/**` (캐시 제외: `.next/cache/**`) |
-| `lint` | `^lint` | ✅ | — |
-| `check-types` | `^check-types` | ✅ | — |
-| `dev` | — | ❌ (캐시 없음) | persistent: true |
+| 태스크        | dependsOn                   | cache          | 출력                                                |
+| ------------- | --------------------------- | -------------- | --------------------------------------------------- |
+| `build`       | `^build` (의존 패키지 먼저) | ✅             | `dist/**`, `.next/**` (캐시 제외: `.next/cache/**`) |
+| `lint`        | `^lint`                     | ✅             | —                                                   |
+| `check-types` | `^check-types`              | ✅             | —                                                   |
+| `dev`         | —                           | ❌ (캐시 없음) | persistent: true                                    |
 
 **핵심 포인트:**
+
 - `build`는 **위상 정렬** 기반 — 의존되는 `packages/*`가 먼저 빌드된 후 `apps/*`가 빌드
 - `dev`는 캐시를 사용하지 않으며 `persistent: true`로 지속 실행 (watch 모드)
 - `inputs`에 `.env*`를 포함하여 환경변수 변경 시 캐시 무효화
@@ -140,6 +141,7 @@ auto-install-peers = true
 ### 2.6 `.gitignore`
 
 주요 무시 항목:
+
 - `node_modules`, `.next/`, `dist/` — 빌드/의존성 산출물
 - `.turbo` — Turborepo 캐시
 - `.env.local`, `.env.*.local` — 로컬 환경변수
@@ -153,11 +155,11 @@ auto-install-peers = true
 
 **역할:** 모든 프로젝트에서 상속하는 TypeScript 기본 설정
 
-| 파일 | 용도 |
-|------|------|
-| `base.json` | 공통 기본 설정 (ES2022, strict, NodeNext 모듈) |
-| `nextjs.json` | Next.js 앱용 확장 설정 |
-| `react-library.json` | React 라이브러리용 설정 |
+| 파일                 | 용도                                           |
+| -------------------- | ---------------------------------------------- |
+| `base.json`          | 공통 기본 설정 (ES2022, strict, NodeNext 모듈) |
+| `nextjs.json`        | Next.js 앱용 확장 설정                         |
+| `react-library.json` | React 라이브러리용 설정                        |
 
 **`base.json` 전체 설정:**
 
@@ -183,6 +185,7 @@ auto-install-peers = true
 ```
 
 **주요 설정 의미:**
+
 - `strict: true` — 엄격한 타입 체킹 (null 안전성, 암시적 any 금지 등)
 - `noUncheckedIndexedAccess: true` — 인덱스 접근 시 `T | undefined` 체크 강제
 - `isolatedModules: true` — 파일별 독립 변환 보장 (SWC, esbuild 호환)
@@ -197,13 +200,14 @@ auto-install-peers = true
 
 **역할:** ESLint 규칙을 프로젝트 유형별로 분리 관리
 
-| 파일 | 용도 | 대상 |
-|------|------|------|
-| `base.js` | 공통 ESLint 규칙 | 모든 프로젝트 |
-| `next.js` | Next.js 앱 전용 규칙 | `apps/*` (Next.js) |
-| `react-internal.js` | React 라이브러리 패키지용 규칙 | `packages/ui` 등 |
+| 파일                | 용도                           | 대상               |
+| ------------------- | ------------------------------ | ------------------ |
+| `base.js`           | 공통 ESLint 규칙               | 모든 프로젝트      |
+| `next.js`           | Next.js 앱 전용 규칙           | `apps/*` (Next.js) |
+| `react-internal.js` | React 라이브러리 패키지용 규칙 | `packages/ui` 등   |
 
 **의존성:**
+
 ```json
 {
   "@next/eslint-plugin-next": "^16.2.0",
@@ -224,6 +228,7 @@ auto-install-peers = true
 **역할:** Tailwind CSS 공유 설정 및 디자인 토큰
 
 **`package.json` exports:**
+
 ```json
 {
   "exports": {
@@ -234,8 +239,9 @@ auto-install-peers = true
 ```
 
 **`shared-styles.css`:**
+
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-blue-1000: #2a8af6;
@@ -247,10 +253,11 @@ auto-install-peers = true
 Tailwind CSS v4의 `@theme` 디렉티브를 사용하여 커스텀 색상 토큰을 정의합니다. 각 앱에서 `@import "@repo/tailwind-config"`로 공유 스타일을 임포트합니다.
 
 **`postcss.config.js`:**
+
 ```javascript
 export const postcssConfig = {
   plugins: {
-    "@tailwindcss/postcss": {},
+    '@tailwindcss/postcss': {},
   },
 };
 ```
@@ -264,6 +271,7 @@ export const postcssConfig = {
 **역할:** 여러 앱에서 공유 가능한 React UI 컴포넌트 라이브러리
 
 **`package.json` exports:**
+
 ```json
 {
   "exports": {
@@ -275,23 +283,24 @@ export const postcssConfig = {
 
 **현재 포함된 컴포넌트:**
 
-| 파일 | 설명 |
-|------|------|
-| `src/card.tsx` | 카드 컴포넌트 |
-| `src/gradient.tsx` | 그라데이션 컴포넌트 |
-| `src/turborepo-logo.tsx` | Turborepo 로고 SVG |
-| `src/styles.css` | 공유 스타일 (Tailwind 기반) |
+| 파일                     | 설명                        |
+| ------------------------ | --------------------------- |
+| `src/card.tsx`           | 카드 컴포넌트               |
+| `src/gradient.tsx`       | 그라데이션 컴포넌트         |
+| `src/turborepo-logo.tsx` | Turborepo 로고 SVG          |
+| `src/styles.css`         | 공유 스타일 (Tailwind 기반) |
 
 **빌드 스크립트:**
 
-| 스크립트 | 명령 | 설명 |
-|----------|------|------|
-| `build:styles` | `tailwindcss -i ./src/styles.css -o ./dist/index.css` | Tailwind CLI 빌드 |
-| `build:components` | `tsc` | TypeScript 컴파일 |
-| `dev:styles` | `tailwindcss ... --watch` | 개발 중 스타일 감시 |
-| `dev:components` | `tsc --watch` | 개발 중 TS 감시 |
+| 스크립트           | 명령                                                  | 설명                |
+| ------------------ | ----------------------------------------------------- | ------------------- |
+| `build:styles`     | `tailwindcss -i ./src/styles.css -o ./dist/index.css` | Tailwind CLI 빌드   |
+| `build:components` | `tsc`                                                 | TypeScript 컴파일   |
+| `dev:styles`       | `tailwindcss ... --watch`                             | 개발 중 스타일 감시 |
+| `dev:components`   | `tsc --watch`                                         | 개발 중 TS 감시     |
 
 **`turbo.json` (패키지 로컬):**
+
 ```json
 {
   "tasks": {
@@ -311,6 +320,7 @@ export const postcssConfig = {
 빌드가 `build:styles` + `build:components` 두 단계로 분리되어 있으며, Turborepo가 이를 조합하여 실행합니다.
 
 **사용 방법:**
+
 - 스타일: `import '@repo/ui/styles.css'` (layout에서 전역 임포트)
 - 컴포넌트: `import { Card } from '@repo/ui/card'`
 
@@ -324,8 +334,8 @@ export const postcssConfig = {
 
 ### 4.1 현재 등록된 앱
 
-| 앱 | 경로 | 설명 |
-|----|------|------|
+| 앱            | 경로              | 설명                                  |
+| ------------- | ----------------- | ------------------------------------- |
 | **portfolio** | `apps/portfolio/` | Next.js 기반 개인 포트폴리오 웹사이트 |
 
 ### 4.2 새 앱 추가 방법

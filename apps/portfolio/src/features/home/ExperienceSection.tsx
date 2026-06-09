@@ -93,9 +93,7 @@ export default function ExperienceSection() {
               {/* col 2 (소형) — 역할+지역, 오른쪽 정렬. lg 이상에서는 숨김 */}
               <div className='flex flex-col gap-1 text-right lg:hidden'>
                 <span className='text-base md:text-lg font-medium text-gray-300'>{exp.role}</span>
-                <span className='text-xs text-gray-500 uppercase tracking-widest'>
-                  {exp.stack}
-                </span>
+                <span className='text-xs text-gray-500 uppercase tracking-widest'>{exp.stack}</span>
               </div>
               {/* col 2 (lg+) — 기간 단독 */}
               <div className='hidden lg:flex items-center'>
@@ -107,9 +105,7 @@ export default function ExperienceSection() {
               </div>
               {/* col 4 (lg+) — 지역, 오른쪽 정렬 */}
               <div className='hidden lg:flex items-center justify-end'>
-                <span className='text-xs text-gray-500 uppercase tracking-widest'>
-                  {exp.stack}
-                </span>
+                <span className='text-xs text-gray-500 uppercase tracking-widest'>{exp.stack}</span>
               </div>
             </motion.div>
           ))}
@@ -153,7 +149,9 @@ export default function ExperienceSection() {
               </div>
               {/* col 3 (lg+) — 발급기관 */}
               <div className='hidden lg:flex items-center'>
-                <span className='text-gray-300 text-sm md:text-base'>{achievement.organization}</span>
+                <span className='text-gray-300 text-sm md:text-base'>
+                  {achievement.organization}
+                </span>
               </div>
               {/* col 4 (lg+) — 결과, 오른쪽 정렬 */}
               <div className='hidden lg:flex items-center justify-end'>

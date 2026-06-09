@@ -38,7 +38,11 @@ function WordReveal({
 }
 
 /** 단어별 scroll-reveal — 스크롤에 따라 앞부터 순서대로 밝아집니다 */
-export default function ScrollRevealText({ lines, align = 'left', className = '' }: ScrollRevealTextProps) {
+export default function ScrollRevealText({
+  lines,
+  align = 'left',
+  className = '',
+}: ScrollRevealTextProps) {
   const containerRef = useRef<HTMLParagraphElement>(null);
 
   // 전체 단어 수 계산 (delay 비율 산정용)

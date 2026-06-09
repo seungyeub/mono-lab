@@ -9,7 +9,12 @@ interface RollingLinkProps extends ComponentProps<typeof Link> {
   textClassName?: string;
 }
 
-export default function RollingLink({ text, textClassName, className = '', ...props }: RollingLinkProps) {
+export default function RollingLink({
+  text,
+  textClassName,
+  className = '',
+  ...props
+}: RollingLinkProps) {
   return (
     <Link className={`group/roll ${className}`} {...props}>
       <RollingText text={text} className={textClassName} />

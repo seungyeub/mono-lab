@@ -22,7 +22,9 @@
 1. **저장소 체크아웃 & 환경 세팅**: `actions/checkout`과 `actions/setup-node`를 사용하여 기본 환경 구성.
 2. **의존성 설치 및 pnpm 스토어 캐싱**: `pnpm install`을 수행하되, 매번 수백 MB의 패키지를 다운로드하지 않도록 pnpm global store를 캐싱합니다.
 3. **Turborepo 전용 빌드 캐싱**: 가장 중요한 단계입니다. `.turbo` 디렉토리를 GitHub Actions 캐시에 연동합니다. 이렇게 하면 코드가 변경되지 않은 패키지(예: `@repo/ui`를 수정하지 않고 `portfolio` 앱만 수정한 경우)는 빌드와 린트를 생략하여 시간을 획기적으로 단축합니다.
+
 - 질문: github cache를 쓸 필요는 없는건가?
+
 4. **코드 포맷팅 검증**: `pnpm run format`을 실행하여 Prettier 룰이 지켜졌는지 확인합니다. (위반 시 즉시 에러 발생 및 CI Block)
 5. **Linting 검증**: `pnpm run lint`를 실행. `@repo/eslint-config`에 정의된 룰을 모든 워크스페이스에 걸쳐 병렬 검사합니다.
 6. **Type Checking 검증**: `pnpm run check-types`를 실행. `@repo/typescript-config` 기반의 엄격한 컴파일 에러를 사전에 차단합니다.
@@ -53,10 +55,10 @@
   - 누군가 PR을 올리면 변경된 Diff를 분석하여 사람이 리뷰하는 것처럼 라인별 코멘트(Inline Comment)를 달아줍니다.
 - **mono-lab 특화 커스텀 (프롬프트 주입)**:
   - 프로젝트 루트에 `.coderabbit.yaml` 파일을 생성하여 다음과 파이프라인 mono-lab 고유의 룰을 주입합니다.
-    - *"해당 프로젝트는 Next.js App Router 환경입니다. Server Component와 Client Component(`"use client"`)의 구분을 명확히 하고 있는지 확인하세요."*
-    - *"모든 커스텀 스타일링은 Tailwind CSS v4 토큰을 사용해야 하며, 공유 패키지인 `@repo/ui`의 패턴을 재사용하는 방향으로 조언하세요."*
-    - *"테스트 코드가 누락된 중요한 비즈니스 로직이 있다면 Jest 테스트를 작성하도록 권장하세요."*
-    - *"이 리뷰는 참고용이므로 병합을 Block하지 않습니다."*
+    - _"해당 프로젝트는 Next.js App Router 환경입니다. Server Component와 Client Component(`"use client"`)의 구분을 명확히 하고 있는지 확인하세요."_
+    - _"모든 커스텀 스타일링은 Tailwind CSS v4 토큰을 사용해야 하며, 공유 패키지인 `@repo/ui`의 패턴을 재사용하는 방향으로 조언하세요."_
+    - _"테스트 코드가 누락된 중요한 비즈니스 로직이 있다면 Jest 테스트를 작성하도록 권장하세요."_
+    - _"이 리뷰는 참고용이므로 병합을 Block하지 않습니다."_
 
 ---
 

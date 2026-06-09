@@ -3,13 +3,7 @@ import SectionLabel from './SectionLabel';
 
 describe('SectionLabel', () => {
   it('renders correctly with given props', () => {
-    render(
-      <SectionLabel 
-        scene="01" 
-        leftLabel="Left Text" 
-        rightLabel="Right Text" 
-      />
-    );
+    render(<SectionLabel scene='01' leftLabel='Left Text' rightLabel='Right Text' />);
 
     expect(screen.getByText('Left Text')).toBeInTheDocument();
     expect(screen.getByText('SCENE — 01')).toBeInTheDocument();

@@ -22,6 +22,7 @@
 ## 2. 작업 상세 단계 (Proposed Steps)
 
 ### Step 1. 패키지 의존성 추가
+
 - **위치:** `apps/portfolio/package.json`
 - **추가할 devDependencies:**
   - `jest`, `@types/jest`
@@ -29,6 +30,7 @@
   - `@testing-library/react`, `@testing-library/jest-dom`
 
 ### Step 2. Next.js 특화 Jest 설정 파일 생성
+
 기존의 복잡한 Babel 세팅을 버리고 Next.js가 내장 지원하는 `next/jest` 플러그인(SWC 컴파일러 연동)을 사용합니다.
 
 - **`apps/portfolio/jest.config.ts` 생성**:
@@ -40,6 +42,7 @@
   - `import '@testing-library/jest-dom'` 코드를 추가하여 `expect(el).toBeInTheDocument()` 와 같은 직관적인 DOM 매처(matcher)를 전역으로 사용할 수 있게 세팅합니다.
 
 ### Step 3. 터보레포(Turborepo) 파이프라인 연동
+
 모노레포의 꽃인 터보레포를 활용하여 테스트도 캐싱의 이점을 받도록 만듭니다.
 
 - **루트 `turbo.json` 수정**:
