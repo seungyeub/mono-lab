@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -23,7 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
   // ── [에러 상태 업데이트] ──
   // 하위 컴포넌트(예: 3D Canvas)에서 렌더링 중 에러가 발생하면 이 메서드가 호출됩니다.
   // 에러 발생 시 state를 업데이트하여 다음 렌더링에서 폴백(fallback) UI가 보이도록 합니다.
-  public static getDerivedStateFromError(_: Error): State {
+  public static getDerivedStateFromError(/*_: Error*/): State {
     return { hasError: true };
   }
 

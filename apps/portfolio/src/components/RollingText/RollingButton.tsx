@@ -8,7 +8,12 @@ interface RollingButtonProps extends ComponentProps<'button'> {
   textClassName?: string;
 }
 
-export default function RollingButton({ text, textClassName, className = '', ...props }: RollingButtonProps) {
+export default function RollingButton({
+  text,
+  textClassName,
+  className = '',
+  ...props
+}: RollingButtonProps) {
   return (
     <button className={`group/roll ${className}`} {...props}>
       <RollingText text={text} className={textClassName} />

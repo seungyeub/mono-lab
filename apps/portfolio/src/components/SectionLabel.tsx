@@ -5,7 +5,12 @@ interface SectionLabelProps {
   className?: string;
 }
 
-export default function SectionLabel({ scene, leftLabel, rightLabel, className }: SectionLabelProps) {
+export default function SectionLabel({
+  scene,
+  leftLabel,
+  rightLabel,
+  className,
+}: SectionLabelProps) {
   return (
     <div className={`w-full text-[13px] ${className || ''}`.trim()}>
       <div className='flex flex-col gap-2.5 overflow-hidden'>

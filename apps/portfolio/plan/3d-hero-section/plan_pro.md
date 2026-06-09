@@ -199,7 +199,6 @@
 - [x] **`InteractiveCardCanvas.tsx` 상세 주석 추가**: R3F `<Canvas>` 내부의 환경(Environment), 조명(ambientLight, Lightformer), 물리 엔진 Provider(`<Physics>`), 그리고 반응형 FOV 카메라 등 3D 환경 셋업 전반에 대한 동작 원리를 주석으로 상세히 남깁니다.
 - [x] **`ErrorBoundary.tsx` 상세 주석 추가**: WebGL 컨텍스트 유실이나 렌더링 크래시 상황을 대비하기 위한 에러 바운더리 클래스의 생명주기(`getDerivedStateFromError`, `componentDidCatch`)와 폴백(Fallback) 처리의 목적을 명확히 주석으로 작성합니다.
 
-
 ## Step 11: 랜야드(줄) 시각적 렌더링 한계 극복 대안 검토 (시각적 트릭)
 
 가장 안정적인 2D `MeshLine` 형태를 유지하되, 3D 클립과 선이 만나면서 발생하는 교차 단면의 깨짐(Jittering)을 숨기기 위한 눈속임 대안을 계획합니다.

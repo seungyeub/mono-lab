@@ -10,7 +10,7 @@ import {
   RigidBody,
   useRopeJoint,
   useSphericalJoint,
-  RapierRigidBody
+  RapierRigidBody,
 } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import { useCursorStore } from '@/src/store/useCursorStore';
@@ -51,7 +51,13 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
   const ang = new THREE.Vector3();
   const dir = new THREE.Vector3();
 
-  const segmentProps = { type: 'dynamic' as const, canSleep: true, colliders: false as const, angularDamping: 2, linearDamping: 2 };
+  const segmentProps = {
+    type: 'dynamic' as const,
+    canSleep: true,
+    colliders: false as const,
+    angularDamping: 2,
+    linearDamping: 2,
+  };
 
   const gltf = useGLTF('/assets/3d/ID-Card.glb');
   const cardMesh = gltf.nodes.card as THREE.Mesh;
@@ -96,12 +102,15 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
     };
   }, [get]);
 
-  const [curve] = useState(() => new THREE.CatmullRomCurve3([
-    new THREE.Vector3(),
-    new THREE.Vector3(),
-    new THREE.Vector3(),
-    new THREE.Vector3()
-  ]));
+  const [curve] = useState(
+    () =>
+      new THREE.CatmullRomCurve3([
+        new THREE.Vector3(),
+        new THREE.Vector3(),
+        new THREE.Vector3(),
+        new THREE.Vector3(),
+      ]),
+  );
 
   const [dragged, drag] = useState<THREE.Vector3 | false>(false);
 
@@ -117,7 +126,10 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
   // 사원증과 마지막 줄 관절은 구면 관절(Spherical Joint)로 연결하여 360도로 자유롭게 회전할 수 있게 합니다.
-  useSphericalJoint(j3, card, [[0, 0, 0], [0, 1.45, 0]]);
+  useSphericalJoint(j3, card, [
+    [0, 0, 0],
+    [0, 1.45, 0],
+  ]);
 
   // ── [프레임 단위 렌더링 로직 (useFrame)] ──
   useFrame((state, delta) => {
@@ -130,7 +142,7 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
       card.current?.setNextKinematicTranslation({
         x: vec.x - dragged.x,
         y: vec.y - dragged.y,
-        z: vec.z - dragged.z
+        z: vec.z - dragged.z,
       });
     }
 
@@ -150,7 +162,11 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
       const j1Trans = new THREE.Vector3(j1TransObj?.x ?? 0, j1TransObj?.y ?? 0, j1TransObj?.z ?? 0);
       const j2Trans = new THREE.Vector3(j2TransObj?.x ?? 0, j2TransObj?.y ?? 0, j2TransObj?.z ?? 0);
       const j3Trans = new THREE.Vector3(j3TransObj?.x ?? 0, j3TransObj?.y ?? 0, j3TransObj?.z ?? 0);
-      const fixedTrans = new THREE.Vector3(fixedTransObj?.x ?? 0, fixedTransObj?.y ?? 0, fixedTransObj?.z ?? 0);
+      const fixedTrans = new THREE.Vector3(
+        fixedTransObj?.x ?? 0,
+        fixedTransObj?.y ?? 0,
+        fixedTransObj?.z ?? 0,
+      );
 
       if (j1Lerped.current.lengthSq() === 0) j1Lerped.current.copy(j1Trans);
       if (j2Lerped.current.lengthSq() === 0) j2Lerped.current.copy(j2Trans);
@@ -174,7 +190,12 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
 
       const quaternionObj = cardRef.rotation();
       const euler = new THREE.Euler().setFromQuaternion(
-        new THREE.Quaternion(quaternionObj?.x ?? 0, quaternionObj?.y ?? 0, quaternionObj?.z ?? 0, quaternionObj?.w ?? 1)
+        new THREE.Quaternion(
+          quaternionObj?.x ?? 0,
+          quaternionObj?.y ?? 0,
+          quaternionObj?.z ?? 0,
+          quaternionObj?.w ?? 1,
+        ),
       );
 
       cardRef.setAngvel({ x: ang.x, y: ang.y - euler.y * 0.25, z: ang.z }, true);
@@ -187,7 +208,7 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
   return (
     <>
       <group position={[0, 4, 0]}>
-        <RigidBody ref={fixed} {...segmentProps} type="fixed" />
+        <RigidBody ref={fixed} {...segmentProps} type='fixed' />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
@@ -197,12 +218,17 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
         <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
+        <RigidBody
+          position={[2, 0, 0]}
+          ref={card}
+          {...segmentProps}
+          type={dragged ? 'kinematicPosition' : 'dynamic'}
+        >
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           {/* 가림막(Cap): 2D 선과 3D 클립이 만나는 지점(j3 조인트)의 찢어짐을 시각적으로 덮는 역할 */}
           <mesh position={[0, 1.47, 0]}>
             <sphereGeometry args={[0.13, 16, 16]} />
-            <meshStandardMaterial color="#111111" roughness={0.9} />
+            <meshStandardMaterial color='#111111' roughness={0.9} />
           </mesh>
           <group
             scale={2.25}
@@ -220,7 +246,8 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
                 const cardTrans = new THREE.Vector3(cardTransObj.x, cardTransObj.y, cardTransObj.z);
                 drag(new THREE.Vector3().copy(e.point).sub(vec.copy(cardTrans)));
               }
-            }}>
+            }}
+          >
             <mesh geometry={cardMesh?.geometry}>
               <meshPhysicalMaterial
                 map={baseMaterial?.map}
@@ -240,7 +267,7 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
         <meshLineGeometry />
         <meshLineMaterial
           ref={materialRef}
-          color="white"
+          color='white'
           depthTest
           resolution={initialResolution}
           useMap={1}

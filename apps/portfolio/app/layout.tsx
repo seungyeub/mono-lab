@@ -11,7 +11,7 @@ import './globals.css';
 const inter = Inter_Tight({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'swap'
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
