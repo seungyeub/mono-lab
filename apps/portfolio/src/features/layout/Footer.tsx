@@ -10,11 +10,36 @@ import ScrollRevealText from '@/src/components/ScrollRevealText';
 
 // 가로 캐러셀에 표시될 프로젝트 카드
 const CAROUSEL_CARDS = [
-  { title: 'Meltdown Studios', image: '/images/projects/01.jpg', width: '132px', height: '193px' },
-  { title: 'Rootwise', image: '/images/projects/02.jpg', width: '154px', height: '110px' },
-  { title: 'Meridiem', image: '/images/projects/03.jpg', width: '150px', height: '193px' },
-  { title: 'Nutree Bakery', image: '/images/projects/04.jpg', width: '165px', height: '245px' },
-  { title: 'Animal & Birds', image: '/images/projects/05.jpg', width: '190px', height: '136px' },
+  {
+    title: 'Meltdown Studios',
+    image: '/images/projects/01.jpg',
+    width: '132px',
+    height: '193px',
+  },
+  {
+    title: 'Rootwise',
+    image: '/images/projects/02.jpg',
+    width: '154px',
+    height: '110px',
+  },
+  {
+    title: 'Meridiem',
+    image: '/images/projects/03.jpg',
+    width: '150px',
+    height: '193px',
+  },
+  {
+    title: 'Nutree Bakery',
+    image: '/images/projects/04.jpg',
+    width: '165px',
+    height: '245px',
+  },
+  {
+    title: 'Animal & Birds',
+    image: '/images/projects/05.jpg',
+    width: '190px',
+    height: '136px',
+  },
 ];
 
 const QUICK_LINKS = [
@@ -52,26 +77,26 @@ export default function Footer() {
           {Array.from({ length: 5 })
             .flatMap(() => CAROUSEL_CARDS)
             .map((card, i) => (
-            <div key={i} className='shrink-0 pr-4'>
-              <div
-                className='relative overflow-hidden rounded-md'
-                style={{ width: card.width, height: card.height }}
-              >
-                <Image
-                  src={card.image}
-                  alt={card.title}
-                  fill
-                  sizes='200px'
-                  className='object-cover'
-                />
-                {/* 가독성을 위한 하단 그라데이션 */}
-                <div className='absolute inset-0 bg-linear-to-t from-black/50 to-transparent' />
-                <div className='absolute bottom-3 left-3 text-xs text-white/90 uppercase tracking-widest'>
-                  {card.title}
+              <div key={i} className='shrink-0 pr-4'>
+                <div
+                  className='relative overflow-hidden rounded-md'
+                  style={{ width: card.width, height: card.height }}
+                >
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    sizes='200px'
+                    className='object-cover'
+                  />
+                  {/* 가독성을 위한 하단 그라데이션 */}
+                  <div className='absolute inset-0 bg-linear-to-t from-black/50 to-transparent' />
+                  <div className='absolute bottom-3 left-3 text-xs text-white/90 uppercase tracking-widest'>
+                    {card.title}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
 
@@ -80,14 +105,14 @@ export default function Footer() {
 
       {/* ── 4. 본문 (철학 + Back to Top) ── */}
       <div className='w-full px-6 md:px-12 py-4 sm:py-16 md:py-20'>
-        <div className='flex flex-col items-center gap-10 lg:gap-12 max-w-xl mx-auto text-pretty'>
+        <div className='flex flex-col items-center gap-10 lg:gap-12 max-w-[640px] mx-auto text-pretty'>
           <ScrollRevealText
-              lines={[
-                '보이지 않는 탄탄한 구조와 타협하지 않는 시각적 섬세함을 결합해 밀도 높은 프로덕트를 완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는 순간들이 명확하고 한결같으며 흔들림 없는 의도를 갖도록 설계합니다.'
-              ]}
-              align='center'
-              className='w-full max-w-[556px] break-keep font-semibold'
-            />
+            lines={[
+              '보이지 않는 탄탄한 구조와 타협하지 않는 시각적 섬세함을 결합해 밀도 높은 프로덕트를 완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는 순간들이 명확하고 한결같으며 흔들림 없는 의도를 갖도록 설계합니다.',
+            ]}
+            align='center'
+            className='w-full break-keep text-sm sm:text-base font-semibold'
+          />
           <RollingButton
             onClick={scrollToTop}
             onMouseEnter={() => setCursorType('pointer')}
@@ -144,7 +169,7 @@ export default function Footer() {
             <span>All Rights Reserved</span>
           </div>
 
-          <div className='site-container px-6 md:px-12 w-full flex flex-col lg:flex-row lg:justify-center items-baseline gap-2 lg:gap-4 pt-8 md:pt-16 pb-4 text-white/30 hover:text-white transition-colors duration-700 select-none cursor-default'>
+          <div className='site-container px-6 md:px-12 w-full flex flex-col lg:flex-row lg:justify-center items-baseline gap-2 lg:gap-4 pt-8 md:pt-16 pb-8 text-white/30 hover:text-white transition-colors duration-700 select-none cursor-default'>
             <p
               className='font-bold tracking-tighter leading-none'
               style={{ fontSize: 'min(14vw, 12rem)' }}

@@ -33,10 +33,10 @@ export default function ServicesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="w-full px-6 md:px-12 py-24 md:py-32">
-      <div className="flex flex-col mb-16 gap-4">
-        <h2 className="text-3xl md:text-5xl font-medium tracking-tight">Capabilities©</h2>
-        <div className="flex flex-wrap gap-8 text-xs md:text-sm text-gray-400 uppercase tracking-widest mt-4">
+    <section className='w-full px-6 md:px-12 py-24 md:py-32'>
+      <div className='flex flex-col mb-16 gap-4'>
+        <h2 className='text-3xl md:text-5xl font-medium tracking-tight'>Capabilities©</h2>
+        <div className='flex flex-wrap gap-8 text-xs md:text-sm text-gray-400 uppercase tracking-widest mt-4'>
           <span>Precise</span>
           <span>Structured</span>
           <span>Focused</span>
@@ -44,7 +44,7 @@ export default function ServicesSection() {
         </div>
       </div>
 
-      <div className="flex flex-col border-t border-white/10 pt-12">
+      <div className='flex flex-col border-t border-white/10 pt-12'>
         {CAPABILITIES.map((service, index) => {
           // 다른 항목이 hovered 중이면 이 항목을 dim 처리
           const isDimmed = hoveredIndex !== null && hoveredIndex !== index;
@@ -58,16 +58,14 @@ export default function ServicesSection() {
                 opacity: isDimmed ? 0.35 : 1,
                 transition: 'opacity 0.25s ease',
               }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 border-b border-white/10 py-8 md:py-12"
+              className='grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 border-b border-white/10 py-8 md:py-12'
             >
-              <div className="md:col-span-1 text-sm text-gray-500 font-mono mt-1">
-                {service.id}
+              <div className='md:col-span-1 text-sm text-gray-500 font-mono mt-1'>{service.id}</div>
+              <div className='md:col-span-4'>
+                <h3 className='text-xl md:text-2xl font-medium'>{service.title}</h3>
               </div>
-              <div className="md:col-span-4">
-                <h3 className="text-xl md:text-2xl font-medium">{service.title}</h3>
-              </div>
-              <div className="md:col-span-7">
-                <p className="text-gray-400 text-base md:text-lg">{service.description}</p>
+              <div className='md:col-span-7'>
+                <p className='text-gray-400 text-base md:text-lg'>{service.description}</p>
               </div>
             </div>
           );
