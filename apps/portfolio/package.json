@@ -13,12 +13,16 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^5.2.2",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@react-three/rapier": "^2.2.0",
     "@repo/ui": "workspace:*",
     "@studio-freight/lenis": "^1.0.42",
     "clsx": "^2.1.1",
     "framer-motion": "^12.39.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.16.0",
+    "meshline": "^3.3.1",
     "next": "16.2.0",
     "next-mdx-remote": "^6.0.0",
     "react": "^19.2.0",
@@ -26,6 +30,7 @@
     "react-hook-form": "^7.76.0",
     "resend": "^6.12.3",
     "tailwind-merge": "^3.6.0",
+    "three": "^0.184.0",
     "zod": "^4.4.3",
     "zustand": "^5.0.13"
   },
@@ -38,10 +43,12 @@
     "@types/node": "^22.15.30",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.1",
+    "@types/three": "^0.184.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.39.1",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.5",
+    "three-stdlib": "^2.36.1",
     "typescript": "5.9.2"
   }
 }

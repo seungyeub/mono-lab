@@ -44,7 +44,7 @@ export default function Marquee({
   const allItems = [...items, ...items];
 
   return (
-    <div className={`w-full overflow-hidden border-y border-white/10 py-3 ${className}`}>
+    <div className={`w-full overflow-hidden border-y border-white/10 py-2 ${className}`}>
       <div
         ref={trackRef}
         className='flex gap-0 whitespace-nowrap will-change-transform'
@@ -57,7 +57,7 @@ export default function Marquee({
             <span className='text-xs md:text-sm uppercase tracking-[0.2em] font-medium'>
               {item}
             </span>
-            <span className='text-gray-600 text-xs'>{separator}</span>
+            <span className='text-gray-600 text-xs mr-1'>{separator}</span>
           </span>
         ))}
       </div>
