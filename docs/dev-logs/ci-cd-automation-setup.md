@@ -169,6 +169,13 @@ reviews:
         - 모든 스타일링은 Tailwind CSS v4를 사용하며, @repo/ui 패턴을 재사용하도록 조언하세요.
 ```
 
+### 4.3. 트러블슈팅: CodeRabbit v2 마이그레이션 및 브랜치 감시 에러
+
+- **현상 (v1 vs v2 스키마 충돌):** 초기 설정 시 구버전(v1) 문법인 `language`, `tone_instructions`, `profile` 등을 섞어 썼더니 봇이 파싱 에러를 내며 '영어권 기본 페르소나(깡통)'로 동작했습니다.
+- **해결책:** `.coderabbit.yaml` 파일을 최신 v2 스키마에 맞춰 `chatbot.tone`, `reviews.profile` 구조 등으로 완벽하게 마이그레이션하여, "한국어 시니어 멘토" 페르소나를 성공적으로 주입했습니다.
+- **현상 (Base Branches 누락):** 봇이 `master` 브랜치에만 반응하고 `develop` 브랜치 PR에는 이모지(👀)조차 달지 않고 철저히 무시하는 현상이 발생했습니다.
+- **해결책:** CodeRabbit 웹 대시보드(Reviews 메뉴) -> `Base branches` 칸에 `develop`을 명시적으로 추가하고 저장(Save)하여, 봇이 모든 개발용 PR을 정상적으로 감시하도록 조치했습니다.
+
 ---
 
 ## 5. 정적 코드 분석 연동 가이드 (SonarCloud)
@@ -299,3 +306,33 @@ sonar.coverage.exclusions=**/*.tsx,**/*.ts
 
 - **현상:** pnpm과 터보레포 캐싱 덕분에 10초 만에 끝나던 CI 파이프라인이, 프로젝트가 커진 몇 달 뒤 갑자기 몇 분씩 걸리기 시작합니다.
 - **원인:** GitHub Actions는 저장소당 최대 **10GB**의 캐시 공간만 제공합니다. 용량이 10GB를 초과하면 가장 오래된 캐시부터 시스템이 강제로 삭제(Eviction)하기 때문에 캐시 적중률이 떨어지며 일시적으로 느려질 수 있습니다. 에러가 아니라 자연스러운 현상이니 당황하지 않으셔도 됩니다!
+
+---
+
+## 8. 🤖 AI 코드 리뷰(CodeRabbit) 기반 파이프라인 고도화 일지
+
+위 과정을 거쳐 완벽하게 자아를 찾은 **'한국어 시니어 멘토'** CodeRabbit이 파이프라인 코드(\`yml\`, \`cjs\`, \`ts\`)를 정독하고 잡아낸 치명적인 버그와 보안/안정성 개선 사례들입니다. 이 피드백들을 모두 반영하여 파이프라인을 실무 엔터프라이즈급으로 고도화했습니다.
+
+### 1. Playwright 타임아웃 해결 (Flaky Test 원천 차단)
+
+- **문제:** 스냅샷 테스트 시 \`await page.waitForLoadState('networkidle')\`를 사용했으나, Next.js 환경 특성상 백그라운드 요청이 지속되어 간헐적 타임아웃 에러(Flaky)가 발생했습니다.
+- **개선:** \`networkidle\` 대신 \`domcontentloaded\` 대기로 전환하고, 핵심 UI 요소인 \`<main>\` 태그의 가시성 검증(\`expect(locator).toBeVisible()\`)을 도입하여 테스트 기준점을 견고하게 다졌습니다.
+
+### 2. Lighthouse CI 무한 대기 버그 해결
+
+- **문제:** Next.js 15 버전업으로 인해 로컬 서버 켜짐 알림 메시지가 \`ready on\`에서 \`Ready in 1250ms\` 형태로 변경되었으나, 설정 파일(\`.lighthouserc.cjs\`)의 \`startServerReadyPattern\`이 과거 버전에 머물러 있어 Lighthouse CI가 무한 대기(Timeout)에 빠졌습니다.
+- **개선:** 패턴을 \`Ready in\`으로 정밀하게 수정하여 CI 타임아웃을 미연에 방지했습니다.
+
+### 3. 방어적 프로그래밍 (Defensive Programming) 전면 적용
+
+Lighthouse가 오류로 인해 결괏값을 빼먹거나 손상된 파일을 생성할 경우, 파싱 로직(\`JSON.parse\`)에서 런타임 에러(\`TypeError\`)가 발생해 파이프라인 전체가 뻗어버리는 문제가 있었습니다. (이는 실패 시에도 점수를 띄워주려 했던 \`if: always()\`의 설계 의도를 무너뜨립니다.)
+
+- **개선 1 (빈 배열 및 객체 예외 처리):** \`manifest.length === 0\` 검사를 추가하고, 속성이 누락되었을 때를 대비해 \`const summary = result.summary || {}\` 및 널 병합 연산자(\`(res ?? 0)\`)를 도입하여 \`NaN\` 쓰레기 값이 뜨지 않도록 처리했습니다.
+- **개선 2 (try...catch 안전망):** \`manifest.json\`과 \`links.json\`을 읽을 때 \`JSON.parse\` 구문을 모두 \`try...catch\` 블록으로 감싸, 파일이 깨졌더라도 파이프라인이 터지지 않고 "파싱 실패함" 로그만 예쁘게 남긴 뒤 우아하게(Gracefully) 종료되도록 안전망을 두 번 쳤습니다.
+
+### 4. CI/CD 보안 강화 및 리소스 낭비 방지
+
+- **보안 (공급망 방어):** \`playwright.yml\`의 \`actions/checkout@v4\` 단계에서 \`persist-credentials: false\`를 추가하여 토큰 정보의 잔류를 막고, \`permissions: contents: read\`를 명시하여 서드파티 액션의 불필요한 권한 탈취를 막았습니다.
+- **효율 (중복 실행 방지):** 모든 워크플로우에 \`concurrency\` (동시성 제어) 옵션을 추가하여, 동일한 브랜치에 코드가 연속으로 Push 될 경우 기존에 돌고 있던 낭비성 파이프라인을 즉각 \`Cancel\` 처리하도록 최적화했습니다.
+
+이 모든 고도화 작업은 AI 리뷰 봇의 단 한 번의 Full Review를 통해 이루어졌으며, 인프라의 내구성이 상상 이상으로 단단해졌습니다.
