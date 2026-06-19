@@ -149,20 +149,20 @@ jobs:
 
 ```yaml
 # 봇이 한국어로 대답하도록 강제합니다.
-language: "ko-KR"
+language: 'ko-KR'
 # 기본적으로 main 브랜치만 감시하므로, 우리가 쓰는 develop 브랜치에서도 동작하게 추가합니다.
-base_branches: ["main", "develop"]
+base_branches: ['main', 'develop']
 # 봇의 페르소나(성격)를 부여합니다.
-tone_instructions: "친절하고 건설적인 시니어 개발자(멘토)의 톤으로 리뷰해주세요."
+tone_instructions: '친절하고 건설적인 시니어 개발자(멘토)의 톤으로 리뷰해주세요.'
 
 reviews:
   # 리뷰 성향: 'chill'(칭찬 위주 가벼운 리뷰) vs 'assertive'(깐깐하고 엄격한 피드백 위주)
   # 포트폴리오의 완성도를 높이기 위해 assertive로 설정합니다.
-  profile: "assertive"
+  profile: 'assertive'
 
   # 특정 경로에 대해 봇에게 내릴 특별 지시사항입니다.
   path_instructions:
-    - path: "apps/portfolio/**/*.tsx"
+    - path: 'apps/portfolio/**/*.tsx'
       instructions: |
         - 해당 프로젝트는 Next.js App Router 환경입니다.
         - Server Component와 Client Component(`"use client"`)의 구분을 명확히 하고 있는지 확인하세요.
