@@ -2,7 +2,7 @@ name: Lighthouse CI
 
 on:
   pull_request:
-    branches: ["master", "develop"]
+    branches: ['master', 'develop']
     types: [opened, synchronize, reopened]
 
 concurrency:
@@ -81,6 +81,10 @@ jobs:
             }
 
             const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            if (!Array.isArray(manifest) || manifest.length === 0) {
+              console.log('Manifest is empty');
+              return;
+            }
             const result = manifest[0];
             const formatResult = (res) => Math.round(res * 100);
 
