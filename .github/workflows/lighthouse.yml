@@ -80,7 +80,13 @@ jobs:
               return;
             }
 
-            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            let manifest;
+            try {
+              manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            } catch (error) {
+              console.log('Failed to parse manifest.json:', error.message);
+              return;
+            }
             if (!Array.isArray(manifest) || manifest.length === 0) {
               console.log('Manifest is empty');
               return;
