@@ -52,7 +52,7 @@ jobs:
       - name: Install Playwright Browsers
         run: |
           cd apps/portfolio
-          pnpm exec playwright install --with-deps chromium
+          pnpm exec playwright install --with-deps
 
       - name: Build Portfolio App
         run: pnpm run build --filter portfolio
