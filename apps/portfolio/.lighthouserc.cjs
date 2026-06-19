@@ -4,7 +4,7 @@ module.exports = {
     collect: {
       // 빌드된 Next.js 프로덕션 서버를 띄움
       startServerCommand: 'pnpm run start',
-      startServerReadyPattern: 'ready on', // Next.js가 준비 완료 시 출력하는 메시지
+      startServerReadyPattern: 'Ready in', // Next.js가 준비 완료 시 출력하는 메시지
       url: ['http://localhost:3000/'],
       numberOfRuns: 1, // PR 체크를 위해 빠른 속도를 유지하도록 1회만 실행
       // 모바일 우선 색인(Mobile-First Indexing) 기준에 맞춰 기본값인 모바일 환경으로 성능 테스트 진행

@@ -21,7 +21,7 @@
 > **목표:** PR이 생성될 때마다 성능 및 접근성 지표를 자동 검사하여 품질 하락을 방지.
 
 - [ ] `.github/workflows/ci.yml` 내에(또는 `lighthouse.yml`로 분리하여) Lighthouse CI Job 추가.
-- [ ] `@lhci/cli` 패키지 설치 및 `lighthouserc.js` 설정 파일 세팅.
+- [ ] `@lhci/cli` 패키지 설치 및 `.lighthouserc.cjs` 설정 파일 세팅.
 - [ ] 검사 임계점(Baseline) 설정:
   - 성능(Performance): 70점 이상 (3D 애니메이션 등을 고려하여 초기엔 낮게 설정 후 상향)
   - 접근성(Accessibility): 90점 이상
@@ -49,7 +49,7 @@
 
 ### 3.3. GitHub Actions CI 파이프라인 통합
 
-- [ ] 기존 `.github/workflows/ci.yml`에 Playwright 테스트 Step 추가.
+- [ ] 별도 `.github/workflows/playwright.yml` 파일 생성 및 Playwright 테스트 Step 추가.
 - [ ] CI 실행 환경 내 브라우저 바이너리 설치 로직 추가 (`npx playwright install --with-deps`).
 - [ ] 테스트 실패 시, 실패한 이미지와 Diff(차이점) 이미지를 GitHub Artifacts로 자동 업로드하도록 설정하여 리뷰어가 PR에서 바로 확인할 수 있도록 구성.
 
@@ -76,7 +76,7 @@
 위 결정을 바탕으로 다음 순서에 따라 코드를 실제 구축합니다. 에러를 방지하기 위해 한 번에 하나씩 세세하게 진행 및 검증합니다.
 
 - [ ] **Step 1:** `docs/plan/pipeline-implementation-plan.md` 내용 확정 (현재 완료)
-- [ ] **Step 2:** Lighthouse CI 세팅 (`.lighthouserc.js` 작성 및 `.github/workflows/lighthouse.yml` 구축)
+- [ ] **Step 2:** Lighthouse CI 세팅 (`.lighthouserc.cjs` 작성 및 `.github/workflows/lighthouse.yml` 구축)
 - [ ] **Step 3:** Playwright 기반 구축 (`playwright.config.ts` 및 `.github/workflows/playwright.yml` 구축, 스냅샷 업데이트 스크립트 작성)
 - [ ] **Step 4:** GitHub Repository 설정 내 Branch Protection (`master` 및 `develop` 브랜치) Ruleset 수동 구축
   - [ ] **Settings > Branches > Add branch ruleset** 클릭 및 적용

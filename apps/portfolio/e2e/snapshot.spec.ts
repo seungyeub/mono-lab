@@ -6,7 +6,8 @@ test.describe('Visual Snapshot Tests', () => {
     await page.goto('/');
 
     // 2. 폰트/이미지 등 네트워크 리소스가 모두 로드될 때까지 대기
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('main')).toBeVisible();
 
     // 3. 전체 화면 스냅샷 촬영 및 기준점(Golden Master)과 비교
     // 로컬 최초 실행 시 에러가 발생하며 기준점 이미지 자동 생성

@@ -25,8 +25,8 @@
 
 - **이슈:** Upstream(공용)과 Local(개인 Fork)이 구분되지 않은 1인 개발/단일 저장소 환경에서 실무와 최대한 비슷한 워크플로우를 구성하려면?
 - **해결 방안 (Feature Branch Workflow 적용):**
-  - **main 브랜치 보호 (Branch Protection):** GitHub Repository 설정에서 `main` 브랜치에 대해 `Require a pull request before merging`과 `Require status checks to pass before merging(CI 성공 필수)` 옵션을 활성화하여 직접 push를 원천 차단합니다.
-  - **작업 원칙:** 모든 작업은 `main`에서 파생된 `feature/*` 브랜치에서 진행하고, 스스로 PR을 열어 CI 검증 및 리뷰를 거친 뒤 **Squash and Merge**로 `main`에 병합합니다.
+  - **master 브랜치 보호 (Branch Protection):** GitHub Repository 설정에서 `master` 브랜치에 대해 `Require a pull request before merging`과 `Require status checks to pass before merging(CI 성공 필수)` 옵션을 활성화하여 직접 push를 원천 차단합니다.
+  - **작업 원칙:** 모든 작업은 `master`에서 파생된 `feature/*` 브랜치에서 진행하고, 스스로 PR을 열어 CI 검증 및 리뷰를 거친 뒤 **Squash and Merge**로 `master`에 병합합니다.
 
 ### 1.4. Branch Protection 관리 전략 (Rulesets vs Classic)
 
