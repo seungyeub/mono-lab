@@ -86,21 +86,26 @@ jobs:
               return;
             }
             const result = manifest[0];
-            const formatResult = (res) => Math.round(res * 100);
+            const formatResult = (res) => Math.round((res ?? 0) * 100);
 
-            const performance = formatResult(result.summary.performance);
-            const accessibility = formatResult(result.summary.accessibility);
-            const bestPractices = formatResult(result.summary['best-practices']);
-            const seo = formatResult(result.summary.seo);
+            const summary = result.summary || {};
+            const performance = formatResult(summary.performance);
+            const accessibility = formatResult(summary.accessibility);
+            const bestPractices = formatResult(summary['best-practices']);
+            const seo = formatResult(summary.seo);
 
             // 링크 데이터가 있다면 상세 리포트 URL 파싱
             let reportUrlStr = '';
             if (fs.existsSync(linksPath)) {
-               const links = JSON.parse(fs.readFileSync(linksPath, 'utf8'));
-               const urlKeys = Object.keys(links);
-               if (urlKeys.length > 0) {
-                 reportUrlStr = `\n[🔗 상세 리포트 보러가기](${links[urlKeys[0]]})`;
-               }
+              try {
+                const links = JSON.parse(fs.readFileSync(linksPath, 'utf8'));
+                const urlKeys = Object.keys(links);
+                if (urlKeys.length > 0) {
+                  reportUrlStr = `\n[🔗 상세 리포트 보러가기](${links[urlKeys[0]]})`;
+                }
+              } catch (error) {
+                console.log('Failed to parse links.json:', error.message);
+              }
             }
 
             // 마크다운 표 형태의 댓글 포맷
