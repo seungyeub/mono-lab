@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://coderabbit.ai/export/schema.json
-language: "ko-KR",
+language: "ko-KR"
 base_branches: ["main", "develop"] # develop 브랜치에서도 작동하게 허용
 tone_instructions: "친절하고 건설적인 시니어 개발자(멘토)의 톤으로 리뷰해주세요."
 reviews:
