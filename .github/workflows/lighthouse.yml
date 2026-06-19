@@ -54,7 +54,7 @@ jobs:
             ${{ runner.os }}-turbo-lighthouse-
 
       - name: Build Portfolio App
-        run: pnpm --filter portfolio build
+        run: pnpm run build --filter portfolio
 
       - name: Run Lighthouse CI
         run: |
