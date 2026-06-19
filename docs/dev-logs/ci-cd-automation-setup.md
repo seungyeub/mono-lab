@@ -38,7 +38,7 @@ name: CI & Quality Check
 on:
   push:
     branches:
-      - main
+      - master
       - develop
   pull_request:
     # PR이 열릴 때, 코드가 추가로 푸시(동기화)될 때, 닫혔던 PR이 다시 열릴 때 실행합니다.
@@ -150,8 +150,8 @@ jobs:
 ```yaml
 # 봇이 한국어로 대답하도록 강제합니다.
 language: 'ko-KR'
-# 기본적으로 main 브랜치만 감시하므로, 우리가 쓰는 develop 브랜치에서도 동작하게 추가합니다.
-base_branches: ['main', 'develop']
+# 기본적으로 master 브랜치만 감시하므로, 우리가 쓰는 develop 브랜치에서도 동작하게 추가합니다.
+base_branches: ['master', 'develop']
 # 봇의 페르소나(성격)를 부여합니다.
 tone_instructions: '친절하고 건설적인 시니어 개발자(멘토)의 톤으로 리뷰해주세요.'
 
@@ -256,7 +256,7 @@ sonar.coverage.exclusions=**/*.tsx,**/*.ts
 
 1. 깃허브 레포지토리 **`Settings`** -> 좌측 메뉴 **`Branches`** 로 이동합니다.
 2. `Branch protection rules` 옆의 **`Add rule`** 버튼을 클릭합니다.
-3. **Branch name pattern**에 `develop` (또는 `main`)을 입력합니다.
+3. **Branch name pattern**에 `develop` (또는 `master`)을 입력합니다.
 4. 아래 옵션 중 **`Require status checks to pass before merging`** 체크박스를 켭니다.
 5. 검색창에 다음 두 가지 필수 체크 항목을 검색해서 추가합니다:
    - `Build, Test & Scan` (우리가 만든 GitHub Actions 파이프라인 이름)
