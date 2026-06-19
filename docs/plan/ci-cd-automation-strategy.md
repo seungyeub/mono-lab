@@ -14,7 +14,7 @@
 
 ### 1.1 GitHub Actions 기반 기본 파이프라인 (`.github/workflows/ci.yml`)
 
-- **실행 조건 (Triggers)**: `main` 및 `develop` 브랜치로 향하는 PR(Pull Request) 생성 시, 혹은 해당 브랜치에 직접 Push 될 때.
+- **실행 조건 (Triggers)**: `master` 및 `develop` 브랜치로 향하는 PR(Pull Request) 생성 시, 혹은 해당 브랜치에 직접 Push 될 때.
 - **실행 환경**: `ubuntu-latest`, Node.js 18.x, pnpm 10.19.0
 
 ### 1.2 핵심 단계 (Steps) 및 최적화 전략
