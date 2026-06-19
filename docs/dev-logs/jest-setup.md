@@ -6,9 +6,10 @@
 
 ## 1. 개요 및 요구사항
 
-이번 작업의 핵심 목표는 모노레포 환경(Turborepo) 내에 위치한 Next.js 프로젝트(`apps/portfolio`)에 **가장 빠르고 최적화된 형태의 Jest 테스트 인프라를 구축**하는 것입니다. 
+이번 작업의 핵심 목표는 모노레포 환경(Turborepo) 내에 위치한 Next.js 프로젝트(`apps/portfolio`)에 **가장 빠르고 최적화된 형태의 Jest 테스트 인프라를 구축**하는 것입니다.
 
 **[초기 프롬프트 및 요구사항]**
+
 > "Jest 테스트 환경 구축에 대해 흐름대로 시작부터 끝까지 모든 과정을 상세히 적어주세요. 작성한 파일과 내용들을 코드 블록으로 작성해서 한 줄 한 줄 왜 필요한지 주석으로 정리해 주세요. 추가로 `jest-setup-strategy.md` 내용과 추후 발생할 수 있는 이슈도 포함해 주세요."
 
 ---
@@ -28,19 +29,23 @@
 ## 3. 구축 과정 상세 (Step-by-Step)
 
 ### Step 3.1. 패키지 의존성 설치
+
 Next.js 환경에서 DOM 테스트를 수행하기 위해 아래 패키지들을 `apps/portfolio/package.json`의 `devDependencies`로 설치했습니다.
 
 ```bash
 pnpm --filter portfolio add -D jest @types/jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom
 ```
+
 - **`jest`, `@types/jest`:** 기본 테스트 러너 및 타입 추론을 위한 패키지
 - **`jest-environment-jsdom`:** Node.js 환경에서 브라우저의 DOM API(document, window 등)를 흉내 내는 가상 환경 제공
 - **`@testing-library/*`:** 리액트 컴포넌트를 렌더링하고, 유저가 화면을 보듯(getByText, getByRole 등) 요소를 테스트할 수 있게 돕는 핵심 라이브러리
 
 ### Step 3.2. Jest 설정 파일 작성 (`jest.config.ts`)
+
 과거에는 복잡한 Babel 세팅이 필요했지만, 현재 Next.js는 `next/jest`라는 훌륭한 SWC 플러그인을 기본 제공합니다. 이를 활용해 설정 파일을 작성했습니다.
 
 **`apps/portfolio/jest.config.ts`**
+
 ```typescript
 import type { Config } from 'jest';
 // Next.js에서 제공하는 Jest 래퍼 플러그인. 내부적으로 SWC 컴파일러와 연동됩니다.
@@ -54,25 +59,25 @@ const createJestConfig = nextJest({
 const config: Config = {
   // V8 엔진의 기본 커버리지 수집기를 사용하여 속도를 높입니다.
   coverageProvider: 'v8',
-  
+
   // 브라우저와 유사한 가상 환경(jsdom)을 렌더링 세팅으로 지정합니다.
   testEnvironment: 'jest-environment-jsdom',
-  
+
   // 각 테스트 코드가 실행되기 직전에 한 번씩 먼저 실행될 설정 파일의 경로입니다.
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  
+
   // Next.js에서 사용하는 절대 경로 매핑(Alias: @/*)을 Jest가 이해할 수 있도록 번역해 줍니다.
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
-  
+
   // 커버리지를 측정할 파일의 범위를 지정합니다. 타입 파일(.d.ts)이나 배럴 파일(index.ts)은 제외합니다.
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/index.{js,jsx,ts,tsx}',
   ],
-  
+
   // 로컬 터미널이나 CI 환경에서 테스트 실행 시 기본적으로 코드 커버리지를 계산하도록 켭니다.
   collectCoverage: true,
 };
@@ -82,9 +87,11 @@ export default createJestConfig(config);
 ```
 
 ### Step 3.3. Jest Setup 파일 작성 (`jest.setup.ts`)
+
 매 테스트 파일마다 DOM 검증용 메서드를 불러오면 코드가 지저분해지므로, 이를 전역으로 설정하는 파일입니다.
 
 **`apps/portfolio/jest.setup.ts`**
+
 ```typescript
 // .toBeInTheDocument(), .toHaveStyle() 등 직관적이고 강력한 DOM 매처(matcher)들을
 // 모든 테스트 코드에서 'import' 없이 기본적으로 사용할 수 있도록 전역 환경을 확장합니다.
@@ -92,9 +99,11 @@ import '@testing-library/jest-dom';
 ```
 
 ### Step 3.4. Colocation 더미 테스트 작성
+
 작성된 설정이 실제로 DOM 요소들을 렌더링하고 테스트를 통과시키는지 확인하기 위해, 기존 `SectionLabel` 컴포넌트 바로 옆에 테스트 코드를 작성했습니다.
 
 **`apps/portfolio/src/components/SectionLabel.test.tsx`**
+
 ```tsx
 import { render, screen } from '@testing-library/react';
 import SectionLabel from './SectionLabel';
@@ -113,9 +122,11 @@ describe('SectionLabel', () => {
 ```
 
 ### Step 3.5. Turborepo 통합 및 파이프라인 연동
+
 모노레포 내에서 단 한 번의 명령어로 전체 프로젝트의 테스트를 실행하고, 터보레포의 캐싱 시스템을 태우기 위한 설정입니다.
 
 **`turbo.json` (루트)**
+
 ```json
 {
   "tasks": {
@@ -130,6 +141,7 @@ describe('SectionLabel', () => {
 ```
 
 **`package.json` (루트)**
+
 ```json
 {
   "scripts": {
@@ -146,13 +158,16 @@ describe('SectionLabel', () => {
 이러한 테스트 환경을 기반으로 실제 UI 개발을 진행해 나갈 때, **추후 마주치게 될 대표적인 문제**와 해결책을 기록해 둡니다.
 
 ### 1. "3D(Three.js/Canvas) 컴포넌트 테스트가 자꾸 깨져요!"
+
 - **원인:** 우리가 세팅한 `jsdom`은 단순한 HTML 브라우저 껍데기일 뿐, 그래픽 연산을 하는 WebGL이나 `<canvas>` 태그를 렌더링할 능력이 0%입니다. 따라서 `InteractiveCardCanvas` 같은 3D 컴포넌트를 `render()` 하려고 시도하면 에러가 뿜어져 나옵니다.
 - **해결책:** 3D 요소가 포함된 컴포넌트를 테스트해야 한다면 `jest-canvas-mock` 라이브러리를 추가 설치하여 Canvas를 강제로 흉내(Mock) 내어 무력화시켜야 합니다. 또는 3D 로직은 별도 e2e 툴로 검사하고 Jest 단위 테스트에서는 해당 렌더링 부분을 `jest.mock()`으로 건너뛰는(Skip) 방식을 추천합니다. (아래 5번 섹션 예시 참조)
 
 ### 2. "로컬에서는 에러가 없는데 왜 CI에서는 자꾸 테스트가 실패할까요?"
+
 - **원인 (대소문자 파편화):** Mac OS 환경은 폴더/파일 이름의 대소문자를 엄격하게 구분하지 않아서 경로 오타를 내도 `import`가 되지만, Linux 기반의 CI 서버는 1글자의 대소문자만 틀려도 파일이 없다며 에러를 뱉습니다. 테스트 코드 내의 `import` 경로 대소문자가 정확한지 점검해야 합니다.
 
 ### 3. "테스트 코드가 늘어나니까 터미널에서 실행할 때 너무 느려요!"
+
 - **해결책:** 로컬에서 개발 중일 때 매번 모든 파일의 `Coverage(코드 커버리지)`를 계산하는 것은 자원 낭비입니다. 속도가 답답해지면 `jest.config.ts`의 맨 마지막 줄을 `collectCoverage: process.env.CI === 'true'` 처럼 수정하여, **로컬에서는 테스트 통과 여부만 빠르게 확인**하고 커버리지 계산은 CI 서버에서만 진행하도록 최적화할 수 있습니다.
 
 ---
@@ -162,7 +177,9 @@ describe('SectionLabel', () => {
 앞으로 `apps/portfolio` 프로젝트에서 테스트 코드를 작성할 때 참고할 수 있는 4가지 핵심 패턴입니다. 필요할 때 복사해서 응용하세요!
 
 ### 패턴 1: 사용자 상호작용 (User Interaction)
+
 버튼 클릭, 인풋 타이핑 등 사용자의 행동에 따라 UI가 어떻게 변하는지 테스트합니다.
+
 > **필요 라이브러리:** `pnpm add -D @testing-library/user-event`
 
 ```tsx
@@ -192,6 +209,7 @@ describe('Counter Component', () => {
 ```
 
 ### 패턴 2: 비동기 데이터 로딩 (Async Rendering)
+
 API 데이터를 받아오거나, 로딩 스피너가 돌다가 결과가 렌더링되는 과정을 테스트합니다.
 
 ```tsx
@@ -207,7 +225,7 @@ describe('UserProfile Component', () => {
 
     // 2. 비동기 작업이 끝난 뒤 결과가 렌더링될 때까지 기다림 (findBy*는 자동으로 waitFor를 포함함)
     const userName = await screen.findByText('Seungyeub');
-    
+
     // 3. 최종 결과 검증
     expect(userName).toBeInTheDocument();
     // 로딩 텍스트가 사라졌는지 검증 (queryBy*는 요소가 없어도 에러를 내지 않고 null 반환)
@@ -217,6 +235,7 @@ describe('UserProfile Component', () => {
 ```
 
 ### 패턴 3: Next.js 라우터 모킹 (useRouter Mocking)
+
 Next.js의 라우터를 의존하는 컴포넌트(`next/navigation`, `next/router`)를 테스트할 때 발생하는 에러를 방지합니다.
 
 ```tsx
@@ -239,7 +258,7 @@ describe('GoBackButton Component', () => {
     (useRouter as jest.Mock).mockReturnValue({ back: mockBack });
 
     render(<GoBackButton />);
-    
+
     // 버튼 클릭 시뮬레이션
     await user.click(screen.getByRole('button', { name: /뒤로 가기/i }));
 
@@ -250,6 +269,7 @@ describe('GoBackButton Component', () => {
 ```
 
 ### 패턴 4: Three.js / Canvas 렌더링 무력화 (Mocking)
+
 `InteractiveCardCanvas.tsx`처럼 3D 렌더링이 포함된 복잡한 컴포넌트를 테스트할 때, 무거운 WebGL 렌더링을 건너뛰고 껍데기만 테스트하는 방법입니다.
 
 ```tsx
@@ -259,7 +279,7 @@ import HeroSection from './HeroSection';
 // Three.js 캔버스 컴포넌트 자체를 가짜 HTML <div> 태그로 통째로 덮어씌웁니다.
 jest.mock('./InteractiveCardCanvas', () => {
   return function DummyCanvas() {
-    return <div data-testid="mock-3d-canvas">3D 렌더링 건너뜀</div>;
+    return <div data-testid='mock-3d-canvas'>3D 렌더링 건너뜀</div>;
   };
 });
 
@@ -269,7 +289,7 @@ describe('HeroSection Component', () => {
 
     // 일반 텍스트 렌더링 정상 여부 확인
     expect(screen.getByText(/Creative Developer/i)).toBeInTheDocument();
-    
+
     // 3D 캔버스 영역이 가짜(Mock) 컴포넌트로 에러 없이 대체되었는지 확인
     expect(screen.getByTestId('mock-3d-canvas')).toBeInTheDocument();
   });

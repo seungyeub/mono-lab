@@ -1,11 +1,13 @@
 # 인프라 및 파이프라인 구축 실행 계획서 (Implementation Plan)
 
 ## 개요
+
 이 문서는 `docs/dev-logs/infrastructure-and-testing-strategy.md`의 고찰을 바탕으로 실제 모노레포(`mono-lab`) 환경에 인프라와 CI/CD 파이프라인을 구축하기 위한 구체적인 액션 플랜입니다. 한 번에 모든 것을 완벽하게 세팅하기보다는, 현재 프로젝트 단계에 가장 필요한 **안전망(Branch Protection, Lighthouse, Visual Snapshot)**을 최우선으로 구축합니다.
 
 ---
 
 ## 1. Branch Protection 및 PR 워크플로우 세팅
+
 > **목표:** Upstream이 없는 단일 저장소 환경에서 실무와 유사한 브랜치 보호 및 PR 강제화.
 
 - [ ] GitHub Repository Settings > Branches 이동하여 `master` 및 `develop` 브랜치 룰(Rule) 생성.
@@ -15,20 +17,23 @@
 - [ ] 작업 시 `feature/*` 브랜치 사용 및 Draft PR 수동 생성 원칙 수립.
 
 ## 2. Lighthouse CI 구축 (성능 하한선 방어막)
+
 > **목표:** PR이 생성될 때마다 성능 및 접근성 지표를 자동 검사하여 품질 하락을 방지.
 
 - [ ] `.github/workflows/ci.yml` 내에(또는 `lighthouse.yml`로 분리하여) Lighthouse CI Job 추가.
 - [ ] `@lhci/cli` 패키지 설치 및 `lighthouserc.js` 설정 파일 세팅.
-- [ ] 검사 임계점(Baseline) 설정: 
+- [ ] 검사 임계점(Baseline) 설정:
   - 성능(Performance): 70점 이상 (3D 애니메이션 등을 고려하여 초기엔 낮게 설정 후 상향)
   - 접근성(Accessibility): 90점 이상
   - SEO / Best Practices: 90점 이상
 - [ ] CI Fail 시 병합을 차단하도록 설정.
 
 ## 3. Visual Snapshot Testing 기반 구축 (Playwright)
+
 > **목표:** UI 변경 시 일일이 테스트 코드를 고치지 않도록, 기준점 캡처 및 자동 픽셀 검증 환경 구성.
 
 ### 3.1. 패키지 설치 및 환경 세팅
+
 - [ ] `apps/portfolio` 내에 Playwright 의존성 설치 (`@playwright/test`).
 - [ ] `apps/portfolio/playwright.config.ts` 생성:
   - `webServer` 설정: 테스트 실행 전 로컬 서버(`localhost:3000`)를 자동으로 띄우고 대기.
@@ -36,17 +41,20 @@
   - **OS 픽셀 오차 보정:** `expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.05 } }` (약 5% 오차 허용) 설정 추가.
 
 ### 3.2. 스냅샷 스크립트 작성 및 1차 기준점 생성
+
 - [ ] `apps/portfolio/e2e/snapshot.spec.ts` 파일 생성.
 - [ ] Home, Work 등 핵심 페이지로 이동하여 `expect(page).toHaveScreenshot()`을 호출하는 기초 코드 작성.
 - [ ] `apps/portfolio/package.json`에 업데이트 명령어 추가: `"test:e2e:update": "playwright test --update-snapshots"`
 - [ ] 로컬에서 업데이트 명령어를 실행하여 첫 기준점(Golden Master) 이미지를 생성하고 Git에 커밋.
 
 ### 3.3. GitHub Actions CI 파이프라인 통합
+
 - [ ] 기존 `.github/workflows/ci.yml`에 Playwright 테스트 Step 추가.
 - [ ] CI 실행 환경 내 브라우저 바이너리 설치 로직 추가 (`npx playwright install --with-deps`).
 - [ ] 테스트 실패 시, 실패한 이미지와 Diff(차이점) 이미지를 GitHub Artifacts로 자동 업로드하도록 설정하여 리뷰어가 PR에서 바로 확인할 수 있도록 구성.
 
 ## 4. CI 환경 최적화 (Turborepo & 패키지 매니저 캐싱)
+
 > **목표:** CI 파이프라인(Lighthouse, Playwright 등)이 추가되면서 늘어나는 빌드/테스트 시간을 최소화.
 
 - [ ] `ci.yml`의 Node.js 세팅 스텝에서 pnpm 전역 캐시 활성화.

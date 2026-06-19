@@ -19,12 +19,12 @@ export default defineConfig({
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
   },
-  
+
   // OS 간 폰트 렌더링 차이 허용치 (5%) 및 애니메이션 비활성화 (Flaky 테스트 방지)
   expect: {
-    toHaveScreenshot: { 
+    toHaveScreenshot: {
       maxDiffPixelRatio: 0.05,
-      animations: 'disabled'
+      animations: 'disabled',
     },
   },
 
