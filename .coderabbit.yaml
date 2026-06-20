@@ -4,6 +4,11 @@ language: "ko-KR"
 reviews:
   profile: "assertive"
   request_changes_workflow: false
+  auto_review:
+    enabled: true
+    base_branches:
+      - "master"
+      - "develop"
   tone_instructions: "친절하고 건설적인 시니어 개발자(멘토)의 톤으로 리뷰해주세요."
   path_instructions:
     - path: "apps/portfolio/**/*.tsx"
