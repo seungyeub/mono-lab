@@ -226,59 +226,37 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
 
 export default function FAQSection() {
   return (
-    <section className='flex w-full flex-col items-start pt-[140px] xl:pt-[200px] gap-[60px] md:gap-[80px] xl:gap-[120px]'>
+    <section className='flex w-full flex-col items-start pt-[140px] xl:pt-[200px] gap-[60px] md:gap-[80px]'>
       <SectionLabel scene='04' leftLabel='© Help Center 도움말' rightLabel='Information' />
-      <div className='site-container w-full flex flex-col xl:flex-row gap-12 xl:gap-20 px-6 md:px-12'>
-        {/* LEFT — 이미지 + 설명 */}
-        <div className='w-full max-w-[540px] xl:grow shrink-0 xl:flex xl:flex-col font-semibold'>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-40px' }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className='w-full block xl:hidden'
-          >
-            <h1 className='text-7xl md:text-8xl lg:text-9xl tracking-tight'>FAQ.</h1>
-          </motion.div>
 
-          {/* 이미지 + h3 blend 영역 — isolation으로 blend context 격리 */}
-          <div
-            className='hidden xl:block relative w-[306px] aspect-3/4 shrink-0'
-            style={{ isolation: 'isolate' }}
-          >
-            {/* 이미지 */}
-            <div className='absolute inset-0 bg-[#1a1a1a] overflow-hidden rounded-2xl'>
-              <div
-                className='absolute inset-0 bg-cover bg-center'
-                style={{ backgroundImage: "url('/images/faq-visual.jpg')" }}
-              />
-              {/* placeholder */}
-              <div className='absolute inset-0 flex items-center justify-center opacity-10 text-white text-[9px] uppercase tracking-widest text-center p-4'>
-                /images/faq-visual.jpg
-              </div>
-            </div>
-
-            {/* h3 — 이미지 위에 절대 배치, difference로 색상 반전 */}
-            <h3
-              className='absolute -bottom-36 left-0 w-[540px] text-white text-[40px] leading-none z-10'
-              // style={{ mixBlendMode: 'difference' }}
+      <div className='site-container px-6 md:px-12 w-full mt-12 md:mt-24'>
+        <div className='flex flex-col gap-16 md:gap-24 items-start w-full'>
+          {/* TOP — Title & Desc */}
+          <div className='w-full flex flex-col gap-6 md:gap-12 font-semibold'>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: '-40px' }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className='w-full'
             >
-              Clarifying Goals
-              <br />
-              Before Development Begins
-              <br />
-              through Structured Process
-              <br />
-              and Honest Communication.
+              <h1 className='text-7xl md:text-8xl lg:text-9xl tracking-tight font-semibold'>
+                FAQ.
+              </h1>
+            </motion.div>
+
+            <h3 className='text-gray-400 text-base md:text-lg max-w-5xl'>
+              작은 결정들이 모여 더 나은 서비스를 만듭니다. <br className='hidden lg:block' />
+              개발 과정에서 중요하게 생각하는 기준과 원칙을 정리했습니다.
             </h3>
           </div>
-        </div>
 
-        {/* RIGHT — 아코디언 */}
-        <div className='flex-1 border-t border-white/20'>
-          {FAQS.map((faq, i) => (
-            <FAQItem key={i} faq={faq} index={i} />
-          ))}
+          {/* BOTTOM — Accordion */}
+          <div className='w-full border-t border-white/20'>
+            {FAQS.map((faq, i) => (
+              <FAQItem key={i} faq={faq} index={i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-// import BrandSection from '@/src/features/home/BrandSection';
+import BrandSection from '@/src/features/home/BrandSection';
 import ExperienceSection from '@/src/features/home/ExperienceSection';
 import FAQSection from '@/src/features/home/FAQSection';
 import HeroSection from '@/src/features/home/HeroSection';
@@ -16,7 +16,7 @@ export default function Home() {
         right='BRAND DESIGNER ブランド'
       /> */}
 
-      {/* <BrandSection /> */}
+      <BrandSection />
 
       {/* <EditorialDivider
         left='Selected Works 選ばれた作品'
