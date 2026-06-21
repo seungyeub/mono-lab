@@ -106,7 +106,7 @@ export default function WorksSection() {
   const rightColProjects = PROJECTS.filter((_, i) => i % 2 !== 0);
 
   return (
-    <section className='w-full relative flex flex-col pt-16'>
+    <section data-testid='works-section' className='w-full relative flex flex-col pt-16'>
       <SectionLabel
         scene='02'
         leftLabel='© Featured Projects 프로젝트'

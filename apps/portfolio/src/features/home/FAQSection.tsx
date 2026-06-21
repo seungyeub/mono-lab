@@ -226,7 +226,7 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
 
 export default function FAQSection() {
   return (
-    <section className='flex w-full flex-col items-start pt-[140px] xl:pt-[200px] gap-[60px] md:gap-[80px]'>
+    <section data-testid='faq-section' className='flex w-full flex-col items-start pt-[140px] xl:pt-[200px] gap-[60px] md:gap-[80px]'>
       <SectionLabel scene='04' leftLabel='© Help Center 도움말' rightLabel='Information' />
 
       <div className='site-container px-6 md:px-12 w-full mt-12 md:mt-24'>

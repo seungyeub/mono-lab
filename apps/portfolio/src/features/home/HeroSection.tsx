@@ -39,6 +39,7 @@ export default function HeroSection() {
 
   return (
     <section
+      data-testid='hero-section'
       ref={containerRef}
       className='relative w-full min-h-8/12 md:min-h-0 flex flex-col gap-6 md:gap-16 pb-6 md:pb-10 overflow-hidden'
     >

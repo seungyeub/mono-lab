@@ -63,7 +63,7 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className='relative w-full flex flex-col items-center gap-[50px] pt-[140px] xl:pt-[200px]'>
+    <footer data-testid='footer' className='relative w-full flex flex-col items-center gap-[50px] pt-[140px] xl:pt-[200px]'>
       {/* ── 1. Section Label ── */}
       <SectionLabel scene='05' leftLabel='© Final Section 에필로그' rightLabel='Epilogue' />
 

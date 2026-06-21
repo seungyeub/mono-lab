@@ -27,7 +27,7 @@ pnpm run lint && pnpm run check-types
 
 ## 2. 🟡 UI 및 컴포넌트를 수정했을 때 (Playwright Snapshot)
 
-Playwright 시각적 회귀 테스트(Visual Regression Test)가 세팅되어 있기 때문에, **버튼 색상이나 여백(Margin/Padding) 하나만 바뀌어도 CI가 기존 스냅샷과 다르다며 에러를 발생**시킵니다.
+Playwright 시각적 회귀 테스트(Visual Regression Test)가 세팅되어 있습니다. OS 간 렌더링 오차를 방지하기 위해 **전체 페이지가 아닌 각 컴포넌트 단위(Hero, Works 등)로 분리되어 촬영**됩니다. 버튼 색상이나 여백 하나만 바뀌어도 CI가 기존 스냅샷과 다르다며 에러를 발생시킵니다.
 
 UI 디자인에 변경이 있었다면, 반드시 로컬에서 **새로운 스냅샷(Golden Master)을 촬영하여 기존 파일을 덮어씌워야 합니다.**
 
@@ -38,11 +38,17 @@ cd apps/portfolio
 # (중요) Playwright는 프로덕션 빌드(pnpm start)를 기준으로 테스트하므로 반드시 먼저 빌드해야 합니다.
 pnpm run build
 
-# 기존 스냅샷을 새로운 UI에 맞춰 업데이트
+# 기존 스냅샷을 새로운 UI에 맞춰 업데이트 (각 컴포넌트별로 사진이 분할 촬영됨)
 pnpm run test:e2e:update
 ```
 
-⚠️ **주의사항:** 스냅샷 업데이트 후 새로 생성되거나 변경된 `.png` 이미지 파일들도 반드시 `git add`에 포함하여 함께 커밋해야 합니다.
+> [!WARNING]  
+> **새로운 섹션/페이지를 개발할 때의 필수 수동 등록 절차**
+> 전체 화면 자동 촬영 방식(`fullPage: true`)을 폐기했으므로, 향후 새로운 섹션(예: Skills)을 개발할 때는 **반드시 2단계의 수동 등록 절차**를 거쳐야 시각적 회귀 테스트(VRT) 보호를 받을 수 있습니다.
+> 1. 해당 컴포넌트 최상위 태그에 식별자 부여: `<section data-testid='skills-section'>`
+> 2. `e2e/snapshot.spec.ts`에 테스트 코드 추가: `await expect(page.locator('data-testid=skills-section')).toHaveScreenshot('skills-baseline.png');`
+
+⚠️ **주의사항:** 스냅샷 업데이트 후 새로 생성되거나 변경된 `-baseline.png` 이미지 파일들도 반드시 `git add`에 포함하여 함께 커밋해야 합니다.
 
 ---
 
