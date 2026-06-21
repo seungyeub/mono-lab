@@ -151,7 +151,7 @@ export default function WorksSection() {
           </div>
 
           {/* Right Column: 자연 스크롤. 시작 시 좌측 텍스트와 균형을 맞추기 위해 상단 여백 추가 */}
-          <div className='w-full lg:w-7/12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8 lg:pt-[8vh]'>
+          <div className='w-full lg:w-7/12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8 lg:pt-24'>
             {/* Col 1 */}
             <div className='flex flex-col gap-12'>
               {leftColProjects.map((p, i) => (
