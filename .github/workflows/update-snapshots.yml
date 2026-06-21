@@ -8,9 +8,14 @@ on:
         required: false
         default: ''
 
+concurrency:
+  group: update-snapshots-${{ github.event.inputs.branch || github.ref }}
+  cancel-in-progress: false
+
+# Workflow permissions:
+# - contents: write: 스냅샷 파일 변경사항을 커밋하고 브랜치에 푸시하기 위해 필요
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   update-snapshots:
@@ -21,8 +26,14 @@ jobs:
       - name: Get Target Branch
         id: branch
         run: |
-          if [ -n "${{ github.event.inputs.branch }}" ]; then
-            echo "target=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
+          BRANCH_INPUT="${{ github.event.inputs.branch }}"
+          # 브랜치 이름 형식 검증 (영숫자, 하이픈, 슬래시, 언더스코어만 허용)
+          if [ -n "$BRANCH_INPUT" ]; then
+            if [[ ! "$BRANCH_INPUT" =~ ^[a-zA-Z0-9/_-]+$ ]]; then
+              echo "::error::Invalid branch name format"
+              exit 1
+            fi
+            echo "target=$BRANCH_INPUT" >> $GITHUB_OUTPUT
           else
             echo "target=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
           fi
@@ -31,7 +42,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.branch.outputs.target }}
-          fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

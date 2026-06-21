@@ -30,13 +30,14 @@ export default function Header() {
 
   return (
     <motion.header
+      data-testid='header'
       variants={{
         visible: { y: 0 },
         hidden: { y: '-100%' },
       }}
       animate={hidden ? 'hidden' : 'visible'}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
-      className='fixed top-0 left-0 w-full z-10 bg-black'
+      className='fixed top-0 left-0 w-full z-100 bg-neutral-950'
     >
       {/* <nav className='flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5 md:pr-35 md:pl-12'> */}
       <nav className='site-container flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5'>
