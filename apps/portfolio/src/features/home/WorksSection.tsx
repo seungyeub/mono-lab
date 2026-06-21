@@ -68,8 +68,8 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[3/4]' }: CardP
 
   return (
     <motion.div
-      // initial={{ opacity: 0, y: 40 }}
-      // whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: '-80px' }}
       transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
       className='flex flex-col gap-3'
@@ -119,7 +119,7 @@ export default function WorksSection() {
         <div className='flex flex-col lg:flex-row gap-12 lg:gap-24 w-full relative'>
           {/* Left Column: 데스크톱에서 화면 전체 높이(h-screen)를 차지하며 top-0에 Sticky */}
           <div className='w-full lg:w-5/12'>
-            <div className='lg:sticky lg:top-0 lg:h-screen flex flex-col justify-center gap-10 lg:gap-12 z-10 py-10 lg:py-0'>
+            <div className='lg:sticky lg:top-0 flex flex-col justify-center gap-10 lg:gap-12 z-10 py-10 lg:py-0'>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
