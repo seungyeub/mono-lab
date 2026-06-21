@@ -68,8 +68,8 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[3/4]' }: CardP
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      // initial={{ opacity: 0, y: 40 }}
+      // whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: '-80px' }}
       transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
       className='flex flex-col gap-3'
@@ -155,12 +155,7 @@ export default function WorksSection() {
             {/* Col 1 */}
             <div className='flex flex-col gap-12'>
               {leftColProjects.map((p, i) => (
-                <ProjectCard
-                  key={p.id}
-                  project={p}
-                  delay={i * 0.1}
-                  // aspectClass='aspect-[4/5]'
-                />
+                <ProjectCard key={p.id} project={p} delay={i * 0.1} aspectClass='aspect-[4/5]' />
               ))}
             </div>
             {/* Col 2 (Staggered) */}
@@ -170,7 +165,7 @@ export default function WorksSection() {
                   key={p.id}
                   project={p}
                   delay={0.15 + i * 0.1}
-                  // aspectClass='aspect-[3/4]'
+                  aspectClass='aspect-[3/4]'
                 />
               ))}
             </div>
