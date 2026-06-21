@@ -45,6 +45,7 @@ pnpm run test:e2e:update
 > [!WARNING]  
 > **새로운 섹션/페이지를 개발할 때의 필수 수동 등록 절차**
 > 전체 화면 자동 촬영 방식(`fullPage: true`)을 폐기했으므로, 향후 새로운 섹션(예: Skills)을 개발할 때는 **반드시 2단계의 수동 등록 절차**를 거쳐야 시각적 회귀 테스트(VRT) 보호를 받을 수 있습니다.
+>
 > 1. 해당 컴포넌트 최상위 태그에 식별자 부여: `<section data-testid='skills-section'>`
 > 2. `e2e/snapshot.spec.ts`에 테스트 코드 추가: `await expect(page.locator('data-testid=skills-section')).toHaveScreenshot('skills-baseline.png');`
 

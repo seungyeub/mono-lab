@@ -14,7 +14,9 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
     await expect(page.locator('data-testid=header')).toHaveScreenshot('header-baseline.png');
     await expect(page.locator('data-testid=hero-section')).toHaveScreenshot('hero-baseline.png');
     await expect(page.locator('data-testid=works-section')).toHaveScreenshot('works-baseline.png');
-    await expect(page.locator('data-testid=experience-section')).toHaveScreenshot('experience-baseline.png');
+    await expect(page.locator('data-testid=experience-section')).toHaveScreenshot(
+      'experience-baseline.png',
+    );
     await expect(page.locator('data-testid=faq-section')).toHaveScreenshot('faq-baseline.png');
     await expect(page.locator('data-testid=footer')).toHaveScreenshot('footer-baseline.png');
   });
