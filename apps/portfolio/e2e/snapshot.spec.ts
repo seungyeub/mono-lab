@@ -13,7 +13,18 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
     // fullPage: true를 제거하여 전체 페이지 촬영 시 발생하는 폰트 누적 오차(나비효과)를 방지합니다.
     await expect(page.locator('data-testid=header')).toHaveScreenshot('header-baseline.png');
     await expect(page.locator('data-testid=hero-section')).toHaveScreenshot('hero-baseline.png');
-    await expect(page.locator('data-testid=works-section')).toHaveScreenshot('works-baseline.png');
+    const worksBox = await page.locator('data-testid=works-section').boundingBox();
+    if (worksBox) {
+      await expect(page).toHaveScreenshot('works-baseline.png', {
+        clip: {
+          x: worksBox.x,
+          y: worksBox.y,
+          width: Math.floor(worksBox.width),
+          height: Math.floor(worksBox.height), // 소수점 강제 제거!
+        },
+        fullPage: true,
+      });
+    }
     await expect(page.locator('data-testid=experience-section')).toHaveScreenshot(
       'experience-baseline.png',
     );
