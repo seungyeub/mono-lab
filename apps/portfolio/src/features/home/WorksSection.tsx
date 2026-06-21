@@ -119,7 +119,7 @@ export default function WorksSection() {
         <div className='flex flex-col lg:flex-row gap-12 lg:gap-24 w-full relative'>
           {/* Left Column: 데스크톱에서 화면 전체 높이(h-screen)를 차지하며 top-0에 Sticky */}
           <div className='w-full lg:w-5/12'>
-            <div className='lg:sticky lg:top-0 flex flex-col justify-center gap-10 lg:gap-12 z-10 py-10 lg:py-0'>
+            <div className='lg:sticky lg:top-0 lg:h-screen flex flex-col justify-center gap-10 lg:gap-12 z-10 py-10 lg:py-0'>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -171,7 +171,7 @@ export default function WorksSection() {
             </div>
 
             {/* 'See All Works' Button (모바일/태블릿 전용 하단 고정) */}
-            <div className='col-span-1 md:col-span-2 lg:hidden flex justify-center pt-16 pb-8 sticky bottom-10 z-10 pointer-events-none'>
+            {/* <div className='col-span-1 md:col-span-2 lg:hidden flex justify-center pt-16 pb-8 sticky bottom-10 z-10 pointer-events-none'>
               <div className='pointer-events-auto'>
                 <RollingLink
                   href='/work'
@@ -182,7 +182,7 @@ export default function WorksSection() {
                   className='inline-block bg-neutral-950/85 backdrop-blur-md border-2 border-white rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
