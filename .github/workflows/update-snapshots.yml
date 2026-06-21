@@ -1,0 +1,80 @@
+name: Update Visual Snapshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to update snapshots on (leave empty to use current)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-snapshots:
+    name: Update Playwright Snapshots
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get Target Branch
+        id: branch
+        run: |
+          if [ -n "${{ github.event.inputs.branch }}" ]; then
+            echo "target=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
+          else
+            echo "target=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.branch.outputs.target }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.19.0
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: |
+          cd apps/portfolio
+          pnpm exec playwright install --with-deps
+
+      - name: Build Portfolio App
+        run: pnpm run build --filter portfolio
+
+      - name: Update Snapshots
+        run: |
+          cd apps/portfolio
+          pnpm run test:e2e:update
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "test: 🤖 Update visual snapshots from CI (Ubuntu)"
+          branch: ${{ steps.branch.outputs.target }}
+          file_pattern: "apps/portfolio/e2e/snapshot.spec.ts-snapshots/*"

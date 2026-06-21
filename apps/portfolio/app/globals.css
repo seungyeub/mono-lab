@@ -22,6 +22,7 @@
   html,
   body {
     background-color: var(--site-bg);
+    overflow-x: hidden;
   }
 
   body {
