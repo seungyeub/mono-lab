@@ -155,7 +155,12 @@ export default function WorksSection() {
             {/* Col 1 */}
             <div className='flex flex-col gap-12'>
               {leftColProjects.map((p, i) => (
-                <ProjectCard key={p.id} project={p} delay={i * 0.1} aspectClass='aspect-[4/5]' />
+                <ProjectCard
+                  key={p.id}
+                  project={p}
+                  delay={i * 0.1}
+                  // aspectClass='aspect-[4/5]'
+                />
               ))}
             </div>
             {/* Col 2 (Staggered) */}
@@ -165,7 +170,7 @@ export default function WorksSection() {
                   key={p.id}
                   project={p}
                   delay={0.15 + i * 0.1}
-                  aspectClass='aspect-[3/4]'
+                  // aspectClass='aspect-[3/4]'
                 />
               ))}
             </div>
