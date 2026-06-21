@@ -40,7 +40,7 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className='relative w-full min-h-8/12 md:min-h-auto flex flex-col gap-6 md:gap-16 pb-6 md:pb-10 overflow-hidden'
+      className='relative w-full min-h-8/12 md:min-h-0 flex flex-col gap-6 md:gap-16 pb-6 md:pb-10 overflow-hidden'
     >
       {/* ── 2단 메인 그리드 (상단 자연 흐름 배치) ── */}
       <div className='w-full'>
@@ -145,8 +145,8 @@ export default function HeroSection() {
             textClassName='text-white/70'
           />
         </motion.div>
-        <div className='mt-12 md:mt-16 h-px w-full bg-[#bbbbbb]/20' />
-        <div className='mt-0.5 h-px w-full bg-[#bbbbbb]/20' />
+        <div className='mt-12 md:mt-16 h-px w-full bg-white/15' />
+        <div className='mt-0.5 h-px w-full bg-white/15' />
       </div>
     </section>
   );

@@ -119,7 +119,7 @@ export default function Footer() {
             onMouseLeave={() => setCursorType('default')}
             text='Back to Top'
             textClassName='font-bold tracking-tight'
-            className='border-white border-2 rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
+            className='border-white border-2 bg-neutral-950 rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
           />
         </div>
       </div>

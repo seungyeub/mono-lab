@@ -179,7 +179,7 @@ export default function WorksSection() {
                   onMouseLeave={() => setCursorType('default')}
                   text='See All Works'
                   textClassName='font-bold tracking-tight'
-                  className='inline-block bg-[#0A0A0A]/80 backdrop-blur-md border-2 border-white rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
+                  className='inline-block bg-neutral-950/85 backdrop-blur-md border-2 border-white rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
                 />
               </div>
             </div>
