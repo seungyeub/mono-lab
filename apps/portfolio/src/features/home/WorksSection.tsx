@@ -119,7 +119,7 @@ export default function WorksSection() {
         <div className='flex flex-col lg:flex-row gap-12 lg:gap-24 w-full relative'>
           {/* Left Column: 데스크톱에서 화면 전체 높이(h-screen)를 차지하며 top-0에 Sticky */}
           <div className='w-full lg:w-5/12'>
-            <div className='lg:sticky lg:top-0 lg:h-screen flex flex-col justify-center gap-10 lg:gap-12 z-10 py-10 lg:py-0'>
+            {/* <div className='lg:sticky lg:top-0 lg:h-screen flex flex-col justify-center gap-10 lg:gap-12 z-10 py-10 lg:py-0'>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -136,7 +136,6 @@ export default function WorksSection() {
                 분명한 의도, 정교한 구현, 그리고 서비스의 완성도를 결정짓는 세심한 디테일을 바탕으로
                 바닥부터 견고하게 서비스를 구축합니다.
               </p>
-              {/* 모바일/태블릿(<1024px)에서는 하단 고정 버튼이 있으므로 숨김 처리 */}
               <div className='relative hidden lg:block'>
                 <RollingLink
                   href='/work'
@@ -147,7 +146,7 @@ export default function WorksSection() {
                   className='inline-block border-2 border-white rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
                 />
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column: 자연 스크롤. 시작 시 좌측 텍스트와 균형을 맞추기 위해 상단 여백 추가 */}
