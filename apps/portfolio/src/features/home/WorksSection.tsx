@@ -1,10 +1,10 @@
 'use client';
 
+import RollingLink from '@/src/components/RollingText/RollingLink';
 import SectionLabel from '@/src/components/SectionLabel';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import RollingLink from '@/src/components/RollingText/RollingLink';
 
 const PROJECTS = [
   {
