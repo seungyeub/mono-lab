@@ -54,7 +54,10 @@ const ACHIEVEMENTS = [
 
 export default function ExperienceSection() {
   return (
-    <section className='flex w-full flex-col items-start pt-[140px] md:pt-[120px] xl:pt-[180px] gap-10 sm:gap-[60px] md:gap-[80px]'>
+    <section
+      data-testid='experience-section'
+      className='flex w-full flex-col items-start pt-[140px] md:pt-[120px] xl:pt-[180px] gap-10 sm:gap-[60px] md:gap-[80px]'
+    >
       <SectionLabel scene='03' leftLabel='© Experience 경력 / 자격증' rightLabel='Practice' />
 
       {/* ── 롤링 헤드라인 ── */}
