@@ -171,7 +171,7 @@ export default function WorksSection() {
             </div>
 
             {/* 'See All Works' Button (모바일/태블릿 전용 하단 고정) */}
-            {/* <div className='col-span-1 md:col-span-2 lg:hidden flex justify-center pt-16 pb-8 sticky bottom-10 z-10 pointer-events-none'>
+            <div className='col-span-1 md:col-span-2 lg:hidden flex justify-center pt-16 pb-8 sticky bottom-10 z-10 pointer-events-none'>
               <div className='pointer-events-auto'>
                 <RollingLink
                   href='/work'
@@ -182,7 +182,7 @@ export default function WorksSection() {
                   className='inline-block bg-neutral-950/85 backdrop-blur-md border-2 border-white rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
                 />
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
