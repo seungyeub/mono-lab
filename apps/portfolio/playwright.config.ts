@@ -27,6 +27,8 @@ export default defineConfig({
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.05,
       animations: 'disabled',
+      // 스크린샷을 찍을 때 스크롤바를 숨겨서 1px 오차 방지
+      stylePath: 'e2e/screenshot-spec.css',
     },
   },
 
