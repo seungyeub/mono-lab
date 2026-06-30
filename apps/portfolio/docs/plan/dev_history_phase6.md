@@ -169,7 +169,7 @@ label,
 
 각 row 구성:
 
-```
+```text
 (01)  Rootwise Architects            Visual Identity   ↗
 (02)  Meltdown Studios               Visual Identity   ↗
 ```

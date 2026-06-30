@@ -82,7 +82,7 @@ Skills 전용 페이지(`/about/skills`)에서 다양한 패턴 혼합:
 
 ### 3.2 확정 기술 스택 데이터
 
-#### Frontend (13개)
+#### Frontend (16개)
 
 | #   | 이름            | 아이콘 컴포넌트명 | 브랜드 컬러                        | 지원             |
 | --- | --------------- | ----------------- | ---------------------------------- | ---------------- |
@@ -128,7 +128,7 @@ Skills 전용 페이지(`/about/skills`)에서 다양한 패턴 혼합:
 | 6   | GitHub Actions | `SiGithubactions`     | `#2088FF`             | ✅   |
 | 7   | Turborepo      | `SiTurborepo`         | `#EF4444`             | ✅   |
 
-#### Tooling (13개)
+#### Tooling (14개)
 
 | #   | 이름             | 아이콘 컴포넌트명   | 브랜드 컬러           | 지원             |
 | --- | ---------------- | ------------------- | --------------------- | ---------------- |
@@ -207,13 +207,14 @@ import { SiReact } from '@icons-pack/react-simple-icons';
 
 ### 4.3 커스텀 아이콘 처리
 
-미지원 2개 항목(Zustand, Antigravity)은 래퍼 컴포넌트로 통일:
+"npm 미지원 2개 항목(Zustand, Antigravity) + 추가 커스텀 배치 5개"는 래퍼 컴포넌트로 통일:
 
 ```tsx
 // SkillIcon 래퍼 — simpleicons 컴포넌트와 커스텀 SVG를 동일 인터페이스로 제공
 interface SkillIconProps {
   size?: number;
   color?: string;
+  customIconPath?: string;
 }
 
 // 커스텀 아이콘은 /public/icons/zustand.svg 등에 배치 후
@@ -228,7 +229,7 @@ interface SkillIconProps {
 
 ### Layout A: 카드 그리드
 
-```
+```text
 Frontend
 ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
 │   [React]   │ │    [TS]     │ │  [Next.js]  │ │  [Tailwind] │ │  [Framer]   │
@@ -264,7 +265,7 @@ Frontend
 
 ### Layout B: 인라인 칩 (flex-wrap)
 
-```
+```text
 Frontend
 [JS JavaScript] [TS TypeScript] [⚛ React.js] [▲ Next.js] [🟧 HTML5]
 [🟣 CSS3] [💅 SCSS] [🔵 Tailwind CSS] [🔲 Framer Motion] [△ Three.js]
@@ -297,7 +298,7 @@ Frontend
 
 개발 시 `SkillsSection` 내에 토글 스위치를 임시로 배치:
 
-```
+```text
 [Grid] [Chips]  ·  [Mono] [Brand] [Hover]
 ```
 
@@ -341,7 +342,7 @@ Frontend
 
 ### 전체 흐름
 
-```
+```text
 ┌──────────────────────────────────────────────────────────────────┐
 │  SectionLabel                                                    │
 │    scene: '03'                                                   │
@@ -383,13 +384,13 @@ Frontend
 
 ExperienceSection의 "경력" / "자격증" 헤딩과 동일:
 
-```
+```text
 pb-4 md:pb-6 border-b border-white/20 text-lg md:text-xl font-bold uppercase
 ```
 
 ### 카테고리 간 간격
 
-```
+```text
 각 카테고리 사이: mt-12 md:mt-16 (여유 있는 수직 간격)
 ```
 
@@ -464,7 +465,7 @@ pb-4 md:pb-6 border-b border-white/20 text-lg md:text-xl font-bold uppercase
 
 ## 10. 컴포넌트 구조
 
-```
+```text
 SkillsSection.tsx (메인 섹션)
 ├── SectionLabel (기존 공유 컴포넌트)
 ├── 정적 "Skills." 헤딩 + 설명 문단
@@ -475,7 +476,7 @@ SkillsSection.tsx (메인 섹션)
     └── SkillGrid (Layout A) 또는 SkillChips (Layout B)
         └── SkillIcon (개별 아이콘 + 이름)
             ├── SimpleIcons 컴포넌트 (지원되는 경우)
-            └── CustomIcon (미지원 4개 — 커스텀 SVG)
+            └── CustomIcon (커스텀 배치 7개 (npm 미지원 2개 + 추가 커스텀 5개))
 ```
 
 ### 주요 Props
@@ -502,15 +503,18 @@ interface SkillIconProps {
 
 ## 11. 파일 구조
 
-```
+```text
 apps/portfolio/
 ├── app/
 │   └── page.tsx                         ← SkillsSection import 추가
 ├── public/
 │   └── icons/                           ← [NEW] 커스텀 SVG 아이콘
 │       ├── zustand.svg
-│       ├── jsp.svg (또는 제거)
-│       ├── creatie.svg
+│       ├── aws.svg
+│       ├── mssql.svg
+│       ├── playwright.svg
+│       ├── slack.svg
+│       ├── openai.svg
 │       └── antigravity.svg
 ├── src/
 │   └── features/
