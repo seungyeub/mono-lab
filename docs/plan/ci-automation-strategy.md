@@ -1,4 +1,4 @@
-# CI/CD 및 자동화 봇 구축 전략 (mono-lab)
+# CI 및 자동화 봇 구축 전략 (mono-lab)
 
 > **작성일:** 2026-06-09
 > **대상 프로젝트:** mono-lab (Turborepo + pnpm 기반 모노레포)

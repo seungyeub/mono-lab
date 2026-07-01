@@ -1,4 +1,4 @@
-# 🛠️ 개발 일지: GitHub Actions CI/CD 및 자동화 봇(CodeRabbit, SonarCloud) 구축기
+# 🛠️ 개발 일지: GitHub Actions CI 및 자동화 봇(CodeRabbit, SonarCloud) 구축기
 
 > **작성일:** 2026-06-10
 > **작성자:** Seungyeub
@@ -6,7 +6,7 @@
 
 ## 1. 개요 및 요구사항
 
-이 문서는 프로젝트의 안정성을 보장하기 위해 GitHub Actions 기반의 CI/CD 파이프라인을 구축하고, AI 코드 리뷰 봇(CodeRabbit)과 정적 코드 분석 봇(SonarCloud)을 도입하여 완벽한 자동화 테스트/리뷰 환경을 구성한 과정을 상세히 기록한 일지입니다.
+이 문서는 프로젝트의 안정성을 보장하기 위해 GitHub Actions 기반의 CI 파이프라인을 구축하고, AI 코드 리뷰 봇(CodeRabbit)과 정적 코드 분석 봇(SonarCloud)을 도입하여 완벽한 자동화 테스트/리뷰 환경을 구성한 과정을 상세히 기록한 일지입니다.
 
 **[요청사항 프롬프트 요약]**
 
