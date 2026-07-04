@@ -25,11 +25,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 24
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.19.0
 
       - name: Install Vercel CLI
         run: npm install --global vercel@34.0.0
