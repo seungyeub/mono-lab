@@ -1,0 +1,91 @@
+name: Update Visual Snapshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to update snapshots on (leave empty to use current)'
+        required: false
+        default: ''
+
+concurrency:
+  group: update-snapshots-${{ github.event.inputs.branch || github.ref }}
+  cancel-in-progress: false
+
+# Workflow permissions:
+# - contents: write: 스냅샷 파일 변경사항을 커밋하고 브랜치에 푸시하기 위해 필요
+permissions:
+  contents: write
+
+jobs:
+  update-snapshots:
+    name: Update Playwright Snapshots
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get Target Branch
+        id: branch
+        run: |
+          BRANCH_INPUT="${{ github.event.inputs.branch }}"
+          # 브랜치 이름 형식 검증 (영숫자, 하이픈, 슬래시, 언더스코어만 허용)
+          if [ -n "$BRANCH_INPUT" ]; then
+            if [[ ! "$BRANCH_INPUT" =~ ^[a-zA-Z0-9/_-]+$ ]]; then
+              echo "::error::Invalid branch name format"
+              exit 1
+            fi
+            echo "target=$BRANCH_INPUT" >> $GITHUB_OUTPUT
+          else
+            echo "target=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.branch.outputs.target }}
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.19.0
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: |
+          cd apps/portfolio
+          pnpm exec playwright install --with-deps
+
+      - name: Build Portfolio App
+        run: pnpm run build --filter portfolio
+
+      - name: Update Snapshots
+        run: |
+          cd apps/portfolio
+          pnpm run test:e2e:update
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "test: 🤖 Update visual snapshots from CI (Ubuntu)"
+          branch: ${{ steps.branch.outputs.target }}
+          file_pattern: "apps/portfolio/e2e/snapshot.spec.ts-snapshots/*"

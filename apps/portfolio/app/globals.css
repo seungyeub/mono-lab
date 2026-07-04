@@ -1,36 +1,80 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 @import "tailwindcss";
 @import "@repo/tailwind-config";
 
+/* 사이트 토큰 — 여기만 수정 */
+:root {
+  --site-max-width: 1480px;
+  --site-bg: #0A0A0A;
+  --font-pretendard: 'Pretendard', sans-serif;
+}
+
+@layer components {
+  .site-container {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+}
+
 @layer base {
+
+  html,
+  body {
+    background-color: var(--site-bg);
+  }
+
   body {
     cursor: none;
-    background-color: #0a0a0a;
     color: #ffffff;
+    font-size: 14px;
+    line-height: 1.25;
+    letter-spacing: 0.1px;
+    font-family: var(--font-inter), var(--font-pretendard);
+    font-optical-sizing: auto;
   }
 
   /* Hide OS cursor on all interactive elements */
-  a, button, input, textarea, select, label, [role="button"] {
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  label,
+  [role="button"] {
     cursor: none !important;
   }
 
   /* Lenis smooth scrolling recommended CSS */
-  html.lenis, html.lenis body {
+  html.lenis,
+  html.lenis body {
     height: auto;
   }
-  
+
   .lenis.lenis-smooth {
     scroll-behavior: auto !important;
   }
-  
+
   .lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
   }
-  
+
   .lenis.lenis-stopped {
     overflow: hidden;
   }
-  
+
   .lenis.lenis-smooth iframe {
     pointer-events: none;
+  }
+}
+
+/* Keyframe 정의 */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
   }
 }

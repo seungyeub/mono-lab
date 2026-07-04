@@ -44,6 +44,9 @@ export async function sendContactEmail(data: ContactFormData): Promise<ActionRes
     return { success: true };
   } catch (error) {
     console.error('Email sending failed:', error);
-    return { success: false, error: 'Failed to send message. Please try again.' };
+    return {
+      success: false,
+      error: 'Failed to send message. Please try again.',
+    };
   }
 }
