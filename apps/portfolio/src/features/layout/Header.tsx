@@ -44,6 +44,7 @@ export default function Header() {
         {/* LEFT — Avatar (difference 블렌드 제외: 사진은 그대로 보여야 함) */}
         <Link
           href='/'
+          aria-label='홈으로 이동'
           className='relative block w-11.5 h-11.5 shrink-0 rounded-full overflow-hidden border border-white/20'
         >
           {!avatarLoadFailed ? (

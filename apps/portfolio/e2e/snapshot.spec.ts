@@ -6,7 +6,8 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
     await page.goto('/');
 
     // 2. 폰트/이미지 등 네트워크 리소스가 모두 로드될 때까지 대기
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('load');
+    await page.evaluate(() => document.fonts.ready);
     await expect(page.locator('main')).toBeVisible();
 
     // 3. 각 구역(Component)별 스냅샷 촬영

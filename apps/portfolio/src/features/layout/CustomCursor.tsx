@@ -39,7 +39,7 @@ export default function CustomCursor() {
 
   if (!isVisible) return null;
 
-  // view 상태는 크기가 커지며 "VIEW" 텍스트 표시
+  // pointer 상태는 크기가 커지고, view/drag 상태는 라벨만 표시됨
   const isView = cursorType === 'view';
   const isDrag = cursorType === 'drag';
   const isPointer = cursorType === 'pointer';

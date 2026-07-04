@@ -16,7 +16,7 @@
 
 ### Apps
 
-- `apps/web`: Next.js 14 웹 애플리케이션 (메인 포트폴리오/서비스용)
+- `apps/portfolio`: Next.js 포트폴리오 애플리케이션 (메인 포트폴리오/서비스용)
 
 ### Packages
 

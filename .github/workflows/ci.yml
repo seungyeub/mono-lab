@@ -16,12 +16,15 @@ jobs:
   build-and-test:
     name: Build, Test & Scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # SonarCloud needs full history for accurate analysis
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,23 +32,10 @@ jobs:
           node-version: 24
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v6
         with:
           version: 10.19.0
           run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
