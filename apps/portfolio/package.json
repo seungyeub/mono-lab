@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
   "private": true,
   "scripts": {
@@ -28,7 +28,7 @@
     "next": "16.2.0",
     "next-mdx-remote": "^6.0.0",
     "react": "^19.2.0",
-    "react-dom": "^19.1.0",
+    "react-dom": "^19.2.0",
     "react-hook-form": "^7.76.0",
     "resend": "^6.12.3",
     "tailwind-merge": "^3.6.0",
