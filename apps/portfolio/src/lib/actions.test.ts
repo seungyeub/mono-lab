@@ -59,7 +59,7 @@ describe('sendContactEmail Server Action', () => {
         from: 'Portfolio Contact <onboarding@resend.dev>',
         to: 'test@example.com', // CONTACT_EMAIL이 없으므로 입력받은 email 사용
         subject: 'New message from Test User',
-      })
+      }),
     );
   });
 
@@ -74,7 +74,7 @@ describe('sendContactEmail Server Action', () => {
     expect(mockSend).toHaveBeenCalledWith(
       expect.objectContaining({
         to: 'admin@example.com',
-      })
+      }),
     );
   });
 
