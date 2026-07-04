@@ -172,10 +172,16 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
       if (j2Lerped.current.lengthSq() === 0) j2Lerped.current.copy(j2Trans);
 
       const dist1 = Math.max(0.1, Math.min(1, j1Lerped.current.distanceTo(j1Trans)));
-      j1Lerped.current.lerp(j1Trans, Math.min(1, delta * (minSpeed + dist1 * (maxSpeed - minSpeed))));
+      j1Lerped.current.lerp(
+        j1Trans,
+        Math.min(1, delta * (minSpeed + dist1 * (maxSpeed - minSpeed))),
+      );
 
       const dist2 = Math.max(0.1, Math.min(1, j2Lerped.current.distanceTo(j2Trans)));
-      j2Lerped.current.lerp(j2Trans, Math.min(1, delta * (minSpeed + dist2 * (maxSpeed - minSpeed))));
+      j2Lerped.current.lerp(
+        j2Trans,
+        Math.min(1, delta * (minSpeed + dist2 * (maxSpeed - minSpeed))),
+      );
 
       if (curve.points[0]) curve.points[0].copy(j3Trans);
       if (curve.points[1]) curve.points[1].copy(j2Lerped.current);
