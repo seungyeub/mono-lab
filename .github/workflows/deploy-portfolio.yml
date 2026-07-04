@@ -16,9 +16,6 @@ env:
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/portfolio
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -27,7 +24,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        # version 생략 시 package.json의 packageManager 필드(pnpm@10.19.0)를 자동 인식합니다
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -35,7 +31,6 @@ jobs:
           node-version: 20
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
-
 
       - name: Install Vercel CLI
         run: npm install --global vercel@34.0.0
