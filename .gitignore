@@ -34,3 +34,14 @@ yarn-error.log*
 
 # ui
 dist/
+
+# Playwright (UI 테스트 임시 파일 및 리포트)
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Lighthouse CI (성능 테스트 임시 파일 및 리포트)
+.lighthouseci/
+.vercel
+.env*

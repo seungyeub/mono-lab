@@ -31,17 +31,18 @@ export default function PageLoader() {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          key="page-loader"
+          key='page-loader'
           initial={{ y: 0 }}
           exit={{ y: '-100%' }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[99999] bg-[#0a0a0a] flex items-center justify-center"
+          className='fixed inset-0 z-99999 flex items-center justify-center'
+          style={{ backgroundColor: 'var(--site-bg)' }}
         >
           {/* 스피너 */}
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
-            className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full"
+            className='w-8 h-8 border-2 border-white/20 border-t-white rounded-full'
           />
         </motion.div>
       )}

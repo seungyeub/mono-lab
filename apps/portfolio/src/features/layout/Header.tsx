@@ -1,9 +1,10 @@
 'use client';
 
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { useState } from 'react';
+import RollingLink from '@/src/components/RollingText/RollingLink';
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
-import RollingText from '@/src/components/RollingText';
+import { useState } from 'react';
 
 const NAV_LINKS = [
   { href: '/', label: 'Home,' },
@@ -15,6 +16,7 @@ const NAV_LINKS = [
 export default function Header() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
+  const [avatarLoadFailed, setAvatarLoadFailed] = useState(false);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const previous = scrollY.getPrevious();
@@ -28,59 +30,67 @@ export default function Header() {
 
   return (
     <motion.header
+      data-testid='header'
       variants={{
         visible: { y: 0 },
         hidden: { y: '-100%' },
       }}
       animate={hidden ? 'hidden' : 'visible'}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
-      className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 py-4 text-white"
-      style={{ mixBlendMode: 'difference' }}
+      className='fixed top-0 left-0 w-full z-100 bg-neutral-950'
     >
-      {/* ── 3-column grid matching Helios layout ── */}
-      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
-
-        {/* LEFT — Avatar (circular profile image) */}
+      {/* <nav className='flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5 md:pr-35 md:pl-12'> */}
+      <nav className='site-container flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5'>
+        {/* LEFT — Avatar (difference 블렌드 제외: 사진은 그대로 보여야 함) */}
         <Link
-          href="/"
-          className="block w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border border-white/20 flex-shrink-0"
+          href='/'
+          className='relative block w-11.5 h-11.5 shrink-0 rounded-full overflow-hidden border border-white/20'
         >
-          <img
-            src="/images/avatar.jpg"
-            alt="Profile"
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              // avatar 없을 때 initials fallback
-              (e.currentTarget as HTMLImageElement).style.display = 'none';
-            }}
-          />
-          {/* fallback ring if no image */}
-          <div className="w-full h-full bg-white/10 rounded-full" />
+          {!avatarLoadFailed ? (
+            <Image
+              src='/images/avatar.jpg'
+              alt='Profile'
+              fill
+              sizes='(max-width: 768px) 44px, 44px'
+              className='object-cover'
+              priority
+              onError={() => setAvatarLoadFailed(true)}
+            />
+          ) : (
+            <div className='absolute inset-0 bg-white/10 rounded-full' aria-hidden />
+          )}
         </Link>
 
-        {/* CENTER — Quick Links nav */}
-        <div className="flex flex-col items-center">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-white/50 mb-0.5 hidden md:block">
-            Quick Links
-          </span>
-          <nav className="flex gap-4 md:gap-6 text-xs md:text-sm font-medium">
-            {NAV_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-              >
-                <RollingText text={label} className="text-xs md:text-sm font-medium" />
-              </Link>
-            ))}
-          </nav>
+        {/* Right — Helios 스타일 difference는 텍스트 영역만 (이미지에 쓰면 사라짐) */}
+        <div
+          className='relative flex flex-row flex-none content-center items-center gap-[270px] w-min h-min overflow-hidden opacity-100 p-0'
+          style={{ mixBlendMode: 'difference' }}
+        >
+          <div className='relative flex flex-col flex-none content-start items-start gap-[3px] w-min max-w-[300px] h-min overflow-visible opacity-100 p-0'>
+            <p className='text-white font-semibold'>Quick Links</p>
+            <div className='group/nav relative flex flex-row items-center content-start w-full h-min gap-x-0.5 overflow-visible opacity-100 p-0'>
+              {NAV_LINKS.map(({ href, label }) => (
+                <RollingLink
+                  key={href}
+                  href={href}
+                  text={label}
+                  textClassName='font-medium'
+                  className='text-[#999] transition-colors duration-200 group-hover/nav:text-[#555] hover:text-white focus-visible:text-white'
+                />
+              ))}
+            </div>
+          </div>
+          <div className='relative hidden lg:flex flex-col flex-none content-start items-start gap-[3px] w-min max-w-[300px] h-min overflow-visible opacity-100 p-0'>
+            <div className='relative flex flex-col justify-center whitespace-pre transform-none'>
+              <p className='text-white font-semibold'>Based in Seoul, 한국</p>
+            </div>
+            <div className='relative flex flex-col justify-center whitespace-pre transform-none text-[#999]'>
+              <p>Front-End Developer</p>
+            </div>
+          </div>
         </div>
-
-        {/* RIGHT — Meta text */}
-        <div className="hidden md:flex flex-col items-end text-[11px] leading-snug text-white/70 flex-shrink-0">
-          <span>Based in Seoul, 한국</span>
-          <span>Logo / Brand Designer</span>
-        </div>
-      </div>
+      </nav>
+      <div className='flex-none w-full h-px relative overflow-hidden bg-neutral-400/20 will-change-transform'></div>
     </motion.header>
   );
 }

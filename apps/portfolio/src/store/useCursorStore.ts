@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type CursorType = 'default' | 'pointer' | 'view';
+type CursorType = 'default' | 'pointer' | 'view' | 'drag';
 
 interface CursorState {
   type: CursorType;

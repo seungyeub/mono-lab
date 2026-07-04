@@ -1,0 +1,9 @@
+/* 스냅샷 캡처 시 스크롤바 렌더링으로 인한 1px 오차 방지 */
+::-webkit-scrollbar {
+    display: none !important;
+}
+
+* {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+}
