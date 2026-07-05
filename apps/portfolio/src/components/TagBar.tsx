@@ -20,7 +20,7 @@ export default function TagBar({ tags, hideFromIndex = 2, className = '' }: TagB
           {tags.map((tag, index) => (
             <li
               key={tag}
-              className={`whitespace-nowrap text-sm sm:text-base font-semibold text-black ${
+              className={`text-sm font-semibold whitespace-nowrap text-black sm:text-base ${
                 index >= hideFromIndex ? 'hidden sm:block' : ''
               }`}
             >

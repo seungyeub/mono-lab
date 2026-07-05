@@ -25,8 +25,9 @@ jobs:
     steps:
       - name: Get Target Branch
         id: branch
+        env:
+          BRANCH_INPUT: ${{ github.event.inputs.branch }}
         run: |
-          BRANCH_INPUT="${{ github.event.inputs.branch }}"
           # 브랜치 이름 형식 검증 (영숫자, 하이픈, 슬래시, 언더스코어만 허용)
           if [ -n "$BRANCH_INPUT" ]; then
             if [[ ! "$BRANCH_INPUT" =~ ^[a-zA-Z0-9/_-]+$ ]]; then

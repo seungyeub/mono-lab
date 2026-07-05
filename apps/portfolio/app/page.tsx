@@ -7,7 +7,7 @@ import WorksSection from '@/src/features/home/WorksSection';
 
 export default function Home() {
   return (
-    <div className='flex flex-col w-full'>
+    <div className='flex w-full flex-col'>
       <HeroSection />
 
       {/* <EditorialDivider

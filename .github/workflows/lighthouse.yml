@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -115,18 +117,18 @@ jobs:
             }
 
             // 마크다운 표 형태의 댓글 포맷
-            const commentBody = `
-            ## ⚡️ Lighthouse Report
-            | Category | Score |
-            | --- | --- |
-            | 🚀 Performance | ${performance} |
-            | ♿ Accessibility | ${accessibility} |
-            | 💡 Best Practices | ${bestPractices} |
-            | 🔎 SEO | ${seo} |
-            ${reportUrlStr}
-
-            *Tested on: \`${result.url}\`*
-            `;
+            const commentBody = [
+              '## ⚡️ Lighthouse Report',
+              '| Category | Score |',
+              '| --- | --- |',
+              `| 🚀 Performance | ${performance} |`,
+              `| ♿ Accessibility | ${accessibility} |`,
+              `| 💡 Best Practices | ${bestPractices} |`,
+              `| 🔎 SEO | ${seo} |`,
+              reportUrlStr,
+              '',
+              `*Tested on: \`${result.url}\`*`,
+            ].join('\n');
 
             // PR에 코멘트 작성
             await github.rest.issues.createComment({

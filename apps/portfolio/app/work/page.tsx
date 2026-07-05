@@ -12,10 +12,10 @@ export default function WorkPage() {
   return (
     <main className='min-h-screen w-full'>
       {/* 페이지 헤더 */}
-      <div className='px-6 md:px-12 pt-32 pb-12 border-b border-white/10'>
-        <div className='flex flex-col md:flex-row md:items-end justify-between gap-6'>
-          <h1 className='text-4xl md:text-6xl font-medium tracking-tight'>Selected Works©</h1>
-          <p className='text-gray-400 max-w-sm text-sm md:text-base'>
+      <div className='border-b border-white/10 px-6 pt-32 pb-12 md:px-12'>
+        <div className='flex flex-col justify-between gap-6 md:flex-row md:items-end'>
+          <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Selected Works©</h1>
+          <p className='max-w-sm text-sm text-gray-400 md:text-base'>
             Brand identities, visual systems,
             <br className='hidden md:block' /> and strategic design projects.
           </p>
@@ -23,7 +23,7 @@ export default function WorkPage() {
       </div>
 
       {/* Split Layout */}
-      <div className='px-6 md:px-12 pt-12 pb-24'>
+      <div className='px-6 pt-12 pb-24 md:px-12'>
         <WorkGrid projects={projects} />
       </div>
     </main>

@@ -7,40 +7,40 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className='min-h-screen w-full px-6 md:px-12 pt-32 pb-24'>
-      <div className='flex flex-col md:flex-row justify-between gap-16 border-b border-white/10 pb-16'>
+    <main className='min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
+      <div className='flex flex-col justify-between gap-16 border-b border-white/10 pb-16 md:flex-row'>
         <div className='flex flex-col gap-4'>
-          <h1 className='text-4xl md:text-6xl font-medium tracking-tight'>
+          <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>
             Let&apos;s Work
             <br />
             Together©
           </h1>
         </div>
-        <div className='flex flex-col gap-8 md:max-w-xs text-gray-400 text-sm md:text-base justify-end'>
+        <div className='flex flex-col justify-end gap-8 text-sm text-gray-400 md:max-w-xs md:text-base'>
           <div>
-            <p className='text-white font-medium mb-1 uppercase tracking-widest text-xs'>Email</p>
-            <a href='mailto:hello@example.com' className='hover:text-white transition-colors'>
+            <p className='mb-1 text-xs font-medium tracking-widest text-white uppercase'>Email</p>
+            <a href='mailto:hello@example.com' className='transition-colors hover:text-white'>
               hello@example.com
             </a>
           </div>
           <div>
-            <p className='text-white font-medium mb-1 uppercase tracking-widest text-xs'>
+            <p className='mb-1 text-xs font-medium tracking-widest text-white uppercase'>
               Based in
             </p>
             <p>Seoul, 한국</p>
           </div>
           <div>
-            <p className='text-white font-medium mb-1 uppercase tracking-widest text-xs'>
+            <p className='mb-1 text-xs font-medium tracking-widest text-white uppercase'>
               Networks
             </p>
             <div className='flex flex-col gap-1'>
-              <a href='#' className='hover:text-white transition-colors'>
+              <a href='#' className='transition-colors hover:text-white'>
                 Instagram
               </a>
-              <a href='#' className='hover:text-white transition-colors'>
+              <a href='#' className='transition-colors hover:text-white'>
                 LinkedIn
               </a>
-              <a href='#' className='hover:text-white transition-colors'>
+              <a href='#' className='transition-colors hover:text-white'>
                 Behance
               </a>
             </div>

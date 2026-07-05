@@ -54,10 +54,10 @@ export default function Marquee({
       >
         {allItems.map((item, i) => (
           <span key={i} className={`inline-flex items-center gap-6 md:gap-10 ${textClassName}`}>
-            <span className='text-xs md:text-sm uppercase tracking-[0.2em] font-medium'>
+            <span className='text-xs font-medium tracking-[0.2em] uppercase md:text-sm'>
               {item}
             </span>
-            <span className='text-gray-600 text-xs mr-1'>{separator}</span>
+            <span className='mr-1 text-xs text-gray-600'>{separator}</span>
           </span>
         ))}
       </div>
