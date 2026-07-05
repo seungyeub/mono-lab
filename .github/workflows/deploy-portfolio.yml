@@ -16,9 +16,6 @@ env:
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/portfolio
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
