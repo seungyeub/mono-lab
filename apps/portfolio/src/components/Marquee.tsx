@@ -8,7 +8,7 @@
  *   <Marquee items={['Art Direction', 'Branding', 'Strategy', 'Web Design']} />
  */
 
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface MarqueeProps {
   /** 반복할 텍스트 아이템 배열 */
@@ -44,33 +44,23 @@ export default function Marquee({
   const allItems = [...items, ...items];
 
   return (
-    <div
-      className={`w-full overflow-hidden border-y border-white/10 py-3 ${className}`}
-    >
+    <div className={`w-full overflow-hidden border-y border-white/10 py-2 ${className}`}>
       <div
         ref={trackRef}
-        className="flex gap-0 whitespace-nowrap will-change-transform"
+        className='flex gap-0 whitespace-nowrap will-change-transform'
         style={{
           animation: `marquee-scroll ${duration}s linear infinite`,
         }}
       >
         {allItems.map((item, i) => (
           <span key={i} className={`inline-flex items-center gap-6 md:gap-10 ${textClassName}`}>
-            <span className="text-xs md:text-sm uppercase tracking-[0.2em] font-medium">
+            <span className='text-xs font-medium tracking-[0.2em] uppercase md:text-sm'>
               {item}
             </span>
-            <span className="text-gray-600 text-xs">{separator}</span>
+            <span className='mr-1 text-xs text-gray-600'>{separator}</span>
           </span>
         ))}
       </div>
-
-      {/* Keyframe 정의 */}
-      <style>{`
-        @keyframes marquee-scroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
     </div>
   );
 }

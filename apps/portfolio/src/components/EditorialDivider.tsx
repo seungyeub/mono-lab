@@ -21,11 +21,11 @@ export default function EditorialDivider({
   className = '',
 }: EditorialDividerProps) {
   return (
-    <div className={`w-full border-t border-white/10 px-6 md:px-12 py-3 ${className}`}>
-      <div className="grid grid-cols-3 text-[10px] uppercase tracking-[0.18em] text-white/30">
+    <div className={`w-full border-t border-white/10 px-6 py-3 md:px-12 ${className}`}>
+      <div className='grid grid-cols-3 text-[10px] tracking-[0.18em] text-white/30 uppercase'>
         <span>{left}</span>
-        <span className="text-center">{center}</span>
-        <span className="text-right">{right}</span>
+        <span className='text-center'>{center}</span>
+        <span className='text-right'>{right}</span>
       </div>
     </div>
   );

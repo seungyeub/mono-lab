@@ -1,54 +1,46 @@
-import HeroSection from '@/src/features/home/HeroSection';
-import BrandSection from '@/src/features/home/BrandSection';
-import FeaturedWorks from '@/src/features/home/FeaturedWorks';
-import ServicesSection from '@/src/features/home/ServicesSection';
-import ProfileSection from '@/src/features/home/ProfileSection';
+// import BrandSection from '@/src/features/home/BrandSection';
+import ExperienceSection from '@/src/features/home/ExperienceSection';
 import FAQSection from '@/src/features/home/FAQSection';
-import EditorialDivider from '@/src/components/EditorialDivider';
+import HeroSection from '@/src/features/home/HeroSection';
+// import ServicesSection from '@/src/features/home/ServicesSection';
+import WorksSection from '@/src/features/home/WorksSection';
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full bg-[#0a0a0a]">
+    <div className='flex w-full flex-col'>
       <HeroSection />
 
-      <EditorialDivider
-        left="© CURATED INTERFACES ビジュアル"
-        center="LOGO DESIGNER ロゴデザイン"
-        right="BRAND DESIGNER ブランド"
-      />
+      {/* <EditorialDivider
+        left='© CURATED INTERFACES ビジュアル'
+        center='LOGO DESIGNER ロゴデザイン'
+        right='BRAND DESIGNER ブランド'
+      /> */}
 
-      <BrandSection />
+      {/* <BrandSection /> */}
 
-      <EditorialDivider
-        left="Selected Works 選ばれた作品"
-        center="Portfolio ポートフォリオ"
-        right="Brand Identity ブランドアイデンティティ"
-      />
+      {/* <EditorialDivider
+        left='Selected Works 選ばれた作品'
+        center='Portfolio ポートフォリオ'
+        right='Brand Identity ブランドアイデンティティ'
+      /> */}
 
-      <FeaturedWorks />
+      <WorksSection />
 
-      <EditorialDivider
-        left="Capabilities サービス内容"
-        center="Services 業務"
-        right="Strategy · Design · Identity 戦略"
-      />
+      {/* <EditorialDivider
+        left='Capabilities サービス内容'
+        center='Services 業務'
+        right='Strategy · Design · Identity 戦略'
+      /> */}
 
-      <ServicesSection />
+      {/* <ServicesSection /> */}
 
-      <EditorialDivider
-        left="Personal Info 個人情報"
-        center="Profile プロフィール"
-        right="Seoul, 한국 ソウル"
-      />
+      {/* <EditorialDivider
+        left='Personal Info 個人情報'
+        center='Profile プロフィール'
+        right='Seoul, 한국 ソウル'
+      /> */}
 
-      <ProfileSection />
-
-      <EditorialDivider
-        left="FAQ よくある質問"
-        center="Clarifications 説明"
-        right="Before We Start 始める前に"
-      />
-
+      <ExperienceSection />
       <FAQSection />
     </div>
   );

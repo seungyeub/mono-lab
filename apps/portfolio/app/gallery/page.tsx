@@ -1,20 +1,17 @@
 export default function GalleryPage() {
   return (
-    <main className="min-h-screen w-full px-6 md:px-12 pt-32 pb-24 bg-[#0a0a0a]">
-      <div className="flex flex-col mb-16 gap-4 border-b border-white/10 pb-12">
-        <h1 className="text-4xl md:text-6xl font-medium tracking-tight">Gallery©</h1>
-        <p className="text-gray-400 max-w-xl text-lg mt-4">
+    <main className='min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
+      <div className='mb-16 flex flex-col gap-4 border-b border-white/10 pb-12'>
+        <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Gallery©</h1>
+        <p className='mt-4 max-w-xl text-lg text-gray-400'>
           A visual collection of experiments, ongoing work, and random explorations.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-12">
+      <div className='mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3'>
         {[1, 2, 3, 4, 5, 6].map((item) => (
-          <div 
-            key={item}
-            className="group overflow-hidden bg-[#1a1a1a] aspect-square relative"
-          >
-            <div className="w-full h-full flex items-center justify-center opacity-10 text-white font-bold text-xl tracking-widest border border-white/5">
+          <div key={item} className='group relative aspect-square overflow-hidden bg-[#1a1a1a]'>
+            <div className='flex h-full w-full items-center justify-center border border-white/5 text-xl font-bold tracking-widest text-white opacity-10'>
               IMAGE {item}
             </div>
           </div>

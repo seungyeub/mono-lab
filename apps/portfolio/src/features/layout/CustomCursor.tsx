@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useCursorStore } from '@/src/store/useCursorStore';
+import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -41,43 +41,41 @@ export default function CustomCursor() {
 
   // view 상태는 크기가 커지며 "VIEW" 텍스트 표시
   const isView = cursorType === 'view';
+  const isDrag = cursorType === 'drag';
   const isPointer = cursorType === 'pointer';
 
-  // 커서 크기: default=16, pointer=48, view=80
-  const size = isView ? 80 : isPointer ? 48 : 16;
+  const size = isPointer ? 48 : 16;
   const offset = size / 2;
 
   return (
     <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center"
+      className='pointer-events-none fixed top-0 left-0 z-9999 flex items-center justify-center rounded-full'
       animate={{
         x: mousePosition.x - offset,
         y: mousePosition.y - offset,
         width: size,
         height: size,
-        backgroundColor: isView
-          ? 'rgba(255, 255, 255, 1)'
-          : 'rgba(255, 255, 255, 1)',
-        mixBlendMode: isView ? 'normal' : 'difference',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        mixBlendMode: 'difference',
       }}
       transition={{
         type: 'spring',
-        stiffness: 150,
-        damping: 15,
+        stiffness: 900,
+        damping: 20,
         mass: 0.1,
       }}
     >
       <AnimatePresence>
-        {isView && (
+        {(isView || isDrag) && (
           <motion.span
-            key="view-label"
+            key='view-drag-label'
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.7 }}
             transition={{ duration: 0.15 }}
-            className="text-black text-[10px] font-bold uppercase tracking-widest select-none"
+            className='absolute rounded-full bg-white px-5 py-2 text-[16px] font-bold tracking-tight whitespace-nowrap text-black uppercase select-none md:text-[23px]'
           >
-            VIEW
+            {isDrag ? 'Drag' : 'View'}
           </motion.span>
         )}
       </AnimatePresence>
