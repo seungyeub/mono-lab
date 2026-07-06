@@ -1,4 +1,5 @@
 {
+  "buildCommand": "cd ../.. && turbo run build --filter=portfolio",
   "git": {
     "deploymentEnabled": {
       "master": false

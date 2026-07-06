@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: deploy-portfolio-production
+  cancel-in-progress: false
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PORTFOLIO }}
@@ -16,9 +20,6 @@ env:
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/portfolio
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -36,7 +37,7 @@ jobs:
           cache-dependency-path: 'pnpm-lock.yaml'
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@34.0.0
+        run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"

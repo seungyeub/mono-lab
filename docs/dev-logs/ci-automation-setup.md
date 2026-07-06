@@ -283,7 +283,7 @@ sonar.coverage.exclusions=**/*.tsx,**/*.ts
 ### 1. "Node.js 버전 불일치로 인한 Type Check 에러"
 
 - **현상:** 로컬(내 맥북)에서는 `pnpm check-types`가 멀쩡히 돌아가는데, GitHub Actions에만 올리면 `Next.js requires Node.js >= 20.9.0` 에러를 뿜으며 장렬히 전사했습니다.
-- **해결책:** `ci.yml` 파일 내에 `setup-node` 스텝의 `node-version`이 `18`로 구버전 세팅되어 있었습니다. 이를 내 로컬과 똑같은 `24` 버전으로 상향시켜 **환경의 파편화**를 원천 차단했습니다.
+- **해결책:** `ci.yml` 파일 내에 `setup-node` 스텝의 `node-version`이 `18`로 구버전 세팅되어 있었습니다. 이를 Vercel이 지원하는 최신 버전인 `24` 버전으로 상향시켜 **환경의 파편화**를 원천 차단했습니다.
 
 ### 2. "Lint 파이프라인의 극악무도한 깐깐함 (max-warnings 0)"
 

@@ -49,7 +49,7 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className='fixed top-0 left-0 rounded-full pointer-events-none z-9999 flex items-center justify-center'
+      className='pointer-events-none fixed top-0 left-0 z-9999 flex items-center justify-center rounded-full'
       animate={{
         x: mousePosition.x - offset,
         y: mousePosition.y - offset,
@@ -73,7 +73,7 @@ export default function CustomCursor() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.7 }}
             transition={{ duration: 0.15 }}
-            className='absolute bg-white px-5 py-2 rounded-full text-black text-[16px] md:text-[23px] font-bold uppercase tracking-tight select-none whitespace-nowrap'
+            className='absolute rounded-full bg-white px-5 py-2 text-[16px] font-bold tracking-tight whitespace-nowrap text-black uppercase select-none md:text-[23px]'
           >
             {isDrag ? 'Drag' : 'View'}
           </motion.span>

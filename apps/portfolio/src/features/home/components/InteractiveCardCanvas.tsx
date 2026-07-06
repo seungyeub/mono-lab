@@ -8,7 +8,7 @@ import Band from './Band';
 
 export default function InteractiveCardCanvas() {
   return (
-    <div className='w-full h-full touch-pan-y'>
+    <div className='h-full w-full touch-pan-y'>
       {/* ── [3D 캔버스 초기 셋업] ──
           camera: 데스크탑/모바일 전 구간에서 fov: 25로 고정하여 사원증을 크고 왜곡 없이 렌더링합니다.
           dpr: 레티나 디스플레이 등 고해상도 환경을 위해 기기 픽셀 비율(1~2)을 유동적으로 대응합니다. */}

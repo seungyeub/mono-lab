@@ -76,7 +76,7 @@ export default function ContactForm() {
     'w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors duration-300';
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-12 mt-16 max-w-2xl'>
+    <form onSubmit={handleSubmit(onSubmit)} className='mt-16 flex max-w-2xl flex-col gap-12'>
       {/* Name */}
       <div className='flex flex-col gap-2'>
         <input
@@ -86,7 +86,7 @@ export default function ContactForm() {
           onMouseEnter={() => setCursorType('pointer')}
           onMouseLeave={() => setCursorType('default')}
         />
-        {errors.name && <p className='text-red-400 text-sm mt-1'>{errors.name.message}</p>}
+        {errors.name && <p className='mt-1 text-sm text-red-400'>{errors.name.message}</p>}
       </div>
 
       {/* Email */}
@@ -99,7 +99,7 @@ export default function ContactForm() {
           onMouseEnter={() => setCursorType('pointer')}
           onMouseLeave={() => setCursorType('default')}
         />
-        {errors.email && <p className='text-red-400 text-sm mt-1'>{errors.email.message}</p>}
+        {errors.email && <p className='mt-1 text-sm text-red-400'>{errors.email.message}</p>}
       </div>
 
       {/* Message */}
@@ -112,7 +112,7 @@ export default function ContactForm() {
           onMouseEnter={() => setCursorType('pointer')}
           onMouseLeave={() => setCursorType('default')}
         />
-        {errors.message && <p className='text-red-400 text-sm mt-1'>{errors.message.message}</p>}
+        {errors.message && <p className='mt-1 text-sm text-red-400'>{errors.message.message}</p>}
       </div>
 
       {/* Submit Button */}
@@ -122,7 +122,7 @@ export default function ContactForm() {
           disabled={status === 'loading'}
           onMouseEnter={() => setCursorType('pointer')}
           onMouseLeave={() => setCursorType('default')}
-          className='text-lg md:text-xl uppercase tracking-widest border border-white/40 px-8 py-4 hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
+          className='border border-white/40 px-8 py-4 text-lg tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-50 md:text-xl'
         >
           {status === 'loading' ? 'Sending...' : 'Send Message'}
         </button>
@@ -134,7 +134,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className='text-green-400 text-sm'
+              className='text-sm text-green-400'
             >
               ✓ Message sent successfully!
             </motion.p>
@@ -145,7 +145,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className='text-red-400 text-sm'
+              className='text-sm text-red-400'
             >
               {errorMessage}
             </motion.p>

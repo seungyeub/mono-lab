@@ -13,17 +13,17 @@ export async function generateStaticParams() {
 
 const mdxComponents = {
   h1: (props: ComponentPropsWithoutRef<'h1'>) => (
-    <h1 className='text-2xl md:text-3xl font-medium mt-10 mb-4' {...props} />
+    <h1 className='mt-10 mb-4 text-2xl font-medium md:text-3xl' {...props} />
   ),
   h2: (props: ComponentPropsWithoutRef<'h2'>) => (
-    <h2 className='text-xl md:text-2xl font-medium mt-8 mb-3 text-gray-200' {...props} />
+    <h2 className='mt-8 mb-3 text-xl font-medium text-gray-200 md:text-2xl' {...props} />
   ),
   p: (props: ComponentPropsWithoutRef<'p'>) => (
-    <p className='text-base md:text-lg text-gray-400 leading-relaxed mb-5' {...props} />
+    <p className='mb-5 text-base leading-relaxed text-gray-400 md:text-lg' {...props} />
   ),
   ul: (props: ComponentPropsWithoutRef<'ul'>) => (
     <ul
-      className='list-disc list-inside text-base md:text-lg text-gray-400 mb-5 flex flex-col gap-1.5'
+      className='mb-5 flex list-inside list-disc flex-col gap-1.5 text-base text-gray-400 md:text-lg'
       {...props}
     />
   ),
@@ -53,25 +53,25 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
   return (
     <main className='min-h-screen w-full'>
       {/* ── Full-width Hero Image ── */}
-      <section className='w-full h-[55vh] md:h-[75vh] relative overflow-hidden bg-[#1a1a1a]'>
+      <section className='relative h-[55vh] w-full overflow-hidden bg-[#1a1a1a] md:h-[75vh]'>
         <div
           className='absolute inset-0 bg-cover bg-center'
           style={{ backgroundImage: `url(${meta.image})` }}
         />
         {/* placeholder */}
-        <div className='absolute inset-0 flex items-center justify-center opacity-10 text-white text-xs uppercase tracking-widest'>
+        <div className='absolute inset-0 flex items-center justify-center text-xs tracking-widest text-white uppercase opacity-10'>
           {meta.image}
         </div>
         <div className='absolute inset-0 bg-gradient-to-t from-[var(--site-bg)]/60 to-transparent' />
       </section>
 
       {/* ── Split layout: sticky left + scrollable right ── */}
-      <section className='flex flex-col md:flex-row gap-0 px-6 md:px-12 pt-16 pb-32'>
+      <section className='flex flex-col gap-0 px-6 pt-16 pb-32 md:flex-row md:px-12'>
         {/* LEFT — Sticky meta panel */}
-        <div className='hidden md:block w-72 flex-shrink-0'>
+        <div className='hidden w-72 flex-shrink-0 md:block'>
           <div className='sticky top-28 flex flex-col gap-10'>
             <div className='flex flex-col gap-2'>
-              <h1 className='text-2xl md:text-3xl font-medium tracking-tight'>{meta.title}</h1>
+              <h1 className='text-2xl font-medium tracking-tight md:text-3xl'>{meta.title}</h1>
             </div>
 
             {/* Meta rows */}
@@ -79,9 +79,9 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
               {META_ROWS.map(({ label, value }) => (
                 <div
                   key={label}
-                  className='flex justify-between py-3 border-b border-white/10 text-sm'
+                  className='flex justify-between border-b border-white/10 py-3 text-sm'
                 >
-                  <span className='text-white/40 uppercase tracking-widest text-[10px]'>
+                  <span className='text-[10px] tracking-widest text-white/40 uppercase'>
                     {label}
                   </span>
                   <span className='text-white/80'>{value}</span>
@@ -92,7 +92,7 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
             {/* Live Website placeholder */}
             <a
               href='#'
-              className='self-start border border-white/30 rounded-full px-6 py-2.5 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
+              className='self-start rounded-full border border-white/30 px-6 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black'
             >
               Live Website ↗
             </a>
@@ -100,7 +100,7 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
             {/* Back to work */}
             <Link
               href='/work'
-              className='text-xs text-white/30 uppercase tracking-widest hover:text-white transition-colors duration-200'
+              className='text-xs tracking-widest text-white/30 uppercase transition-colors duration-200 hover:text-white'
             >
               ← All Works
             </Link>
@@ -108,11 +108,11 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
         </div>
 
         {/* RIGHT — Scrollable content */}
-        <div className='flex-1 md:pl-16 flex flex-col gap-10'>
+        <div className='flex flex-1 flex-col gap-10 md:pl-16'>
           {/* Mobile title */}
-          <div className='md:hidden flex flex-col gap-4 mb-4'>
+          <div className='mb-4 flex flex-col gap-4 md:hidden'>
             <h1 className='text-3xl font-medium'>{meta.title}</h1>
-            <p className='text-sm text-white/40 uppercase tracking-widest'>{meta.category}</p>
+            <p className='text-sm tracking-widest text-white/40 uppercase'>{meta.category}</p>
           </div>
 
           {/* MDX article */}
@@ -121,20 +121,20 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
           </article>
 
           {/* Extra image gallery slots (이미지 경로 기반) */}
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-8'>
+          <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-2'>
             {[
               `/images/work/${slug}/01.jpg`,
               `/images/work/${slug}/02.jpg`,
               `/images/work/${slug}/03.jpg`,
               `/images/work/${slug}/04.jpg`,
             ].map((imgPath) => (
-              <div key={imgPath} className='aspect-[4/3] bg-[#1a1a1a] relative overflow-hidden'>
+              <div key={imgPath} className='relative aspect-[4/3] overflow-hidden bg-[#1a1a1a]'>
                 <div
                   className='absolute inset-0 bg-cover bg-center'
                   style={{ backgroundImage: `url(${imgPath})` }}
                 />
                 {/* placeholder */}
-                <div className='absolute inset-0 flex items-center justify-center opacity-10 text-white text-[9px] uppercase tracking-widest break-all p-2 text-center'>
+                <div className='absolute inset-0 flex items-center justify-center p-2 text-center text-[9px] tracking-widest break-all text-white uppercase opacity-10'>
                   {imgPath}
                 </div>
               </div>
@@ -156,19 +156,19 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
             className='border-none py-2'
           />
 
-          <div className='px-6 md:px-12 pb-24 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8'>
+          <div className='grid grid-cols-1 gap-6 px-6 pb-24 md:grid-cols-2 md:gap-8 md:px-12'>
             {moreProjects.map((p) => (
               <Link key={p.slug} href={`/work/${p.slug}`} className='group flex flex-col gap-3'>
-                <div className='aspect-[3/4] bg-[#1a1a1a] relative overflow-hidden'>
+                <div className='relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]'>
                   <div
                     className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105'
                     style={{ backgroundImage: `url(${p.meta.image})` }}
                   />
-                  <div className='absolute inset-0 flex items-center justify-center opacity-10 text-white text-xs uppercase tracking-widest'>
+                  <div className='absolute inset-0 flex items-center justify-center text-xs tracking-widest text-white uppercase opacity-10'>
                     {p.meta.title}
                   </div>
                 </div>
-                <div className='flex justify-between items-start'>
+                <div className='flex items-start justify-between'>
                   <span className='text-base font-medium'>{p.meta.title}</span>
                   <span className='text-xs text-white/40'>{p.meta.category}</span>
                 </div>

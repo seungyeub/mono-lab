@@ -177,16 +177,16 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={`faq-answer-${index}`}
-        className='w-full flex flex-row items-start py-6 md:py-8 gap-6 xl:gap-[160px] text-left group cursor-pointer'
+        className='group flex w-full cursor-pointer flex-row items-start gap-6 py-6 text-left md:py-8 xl:gap-[160px]'
       >
         {/* 번호 — xl에서만 표시 */}
-        <span className='hidden xl:block text-sm text-white font-mono shrink-0 mt-1'>
+        <span className='mt-1 hidden shrink-0 font-mono text-sm text-white xl:block'>
           {String(index + 1).padStart(2, '0')}
         </span>
 
         {/* Q + A 컬럼 */}
-        <div className='flex flex-col flex-1 min-w-0'>
-          <span className='text-base md:text-lg font-medium group-hover:text-white/70 transition-colors duration-200'>
+        <div className='flex min-w-0 flex-1 flex-col'>
+          <span className='text-base font-medium transition-colors duration-200 group-hover:text-white/70 md:text-lg'>
             {faq.q}
           </span>
 
@@ -203,7 +203,7 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className='overflow-hidden'
               >
-                <p className='pt-3 text-gray-400 text-sm md:text-base leading-relaxed max-w-2xl'>
+                <p className='max-w-2xl pt-3 text-sm leading-relaxed text-gray-400 md:text-base'>
                   {faq.a}
                 </p>
               </motion.div>
@@ -215,7 +215,7 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
         <motion.span
           animate={{ rotate: open ? 45 : 0 }}
           transition={{ duration: 0.25 }}
-          className='shrink-0 text-xl text-white leading-none mt-0.5'
+          className='mt-0.5 shrink-0 text-xl leading-none text-white'
         >
           +
         </motion.span>
@@ -228,14 +228,14 @@ export default function FAQSection() {
   return (
     <section
       data-testid='faq-section'
-      className='flex w-full flex-col items-start pt-[140px] xl:pt-[200px] gap-[60px] md:gap-[80px]'
+      className='flex w-full flex-col items-start gap-[60px] pt-[140px] md:gap-[80px] xl:pt-[200px]'
     >
       <SectionLabel scene='04' leftLabel='© Help Center 도움말' rightLabel='Information' />
 
-      <div className='site-container px-6 md:px-12 w-full mt-12 md:mt-24'>
-        <div className='flex flex-col gap-16 md:gap-24 items-start w-full'>
+      <div className='site-container mt-12 w-full px-6 md:mt-24 md:px-12'>
+        <div className='flex w-full flex-col items-start gap-16 md:gap-24'>
           {/* TOP — Title & Desc */}
-          <div className='w-full flex flex-col gap-6 md:gap-12 font-semibold'>
+          <div className='flex w-full flex-col gap-6 font-semibold md:gap-12'>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -243,12 +243,12 @@ export default function FAQSection() {
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className='w-full'
             >
-              <h1 className='text-7xl md:text-8xl lg:text-9xl tracking-tight font-semibold'>
+              <h1 className='text-7xl font-semibold tracking-tight md:text-8xl lg:text-9xl'>
                 FAQ.
               </h1>
             </motion.div>
 
-            <h3 className='text-gray-400 text-base md:text-lg max-w-5xl'>
+            <h3 className='max-w-5xl text-base text-gray-400 md:text-lg'>
               작은 결정들이 모여 더 나은 서비스를 만듭니다. <br className='hidden lg:block' />
               개발 과정에서 중요하게 생각하는 기준과 원칙을 정리했습니다.
             </h3>

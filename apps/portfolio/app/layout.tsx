@@ -40,13 +40,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body
-        className={`${inter.variable} text-white min-h-screen antialiased selection:bg-white selection:text-black`}
+        className={`${inter.variable} min-h-screen text-white antialiased selection:bg-white selection:text-black`}
       >
         <PageLoader />
         <CustomCursor />
         <SmoothScroll>
           <Header />
-          <main className='w-full min-h-screen pt-24'>{children}</main>
+          <main className='min-h-screen w-full pt-24'>{children}</main>
           <Footer />
         </SmoothScroll>
       </body>

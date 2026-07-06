@@ -65,7 +65,7 @@ export default function Footer() {
   return (
     <footer
       data-testid='footer'
-      className='relative w-full flex flex-col items-center gap-[50px] pt-[140px] xl:pt-[200px]'
+      className='relative flex w-full flex-col items-center gap-[50px] pt-[140px] xl:pt-[200px]'
     >
       {/* ── 1. Section Label ── */}
       <SectionLabel scene='05' leftLabel='© Final Section 에필로그' rightLabel='Epilogue' />
@@ -73,7 +73,7 @@ export default function Footer() {
       {/* ── 2. 가로 스크롤 캐러셀 ── */}
       <div className='w-full overflow-hidden py-10'>
         <div
-          className='flex items-start w-max'
+          className='flex w-max items-start'
           style={{ animation: 'marquee-scroll 60s linear infinite' }}
         >
           {/* 배열 복사로 무한 스크롤 트릭 */}
@@ -94,7 +94,7 @@ export default function Footer() {
                   />
                   {/* 가독성을 위한 하단 그라데이션 */}
                   <div className='absolute inset-0 bg-linear-to-t from-black/50 to-transparent' />
-                  <div className='absolute bottom-3 left-3 text-xs text-white/90 uppercase tracking-widest'>
+                  <div className='absolute bottom-3 left-3 text-xs tracking-widest text-white/90 uppercase'>
                     {card.title}
                   </div>
                 </div>
@@ -107,14 +107,14 @@ export default function Footer() {
       <TagBar tags={TAGS} />
 
       {/* ── 4. 본문 (철학 + Back to Top) ── */}
-      <div className='w-full px-6 md:px-12 py-4 sm:py-16 md:py-20'>
-        <div className='flex flex-col items-center gap-10 lg:gap-12 max-w-[640px] mx-auto text-pretty'>
+      <div className='w-full px-6 py-4 sm:py-16 md:px-12 md:py-20'>
+        <div className='mx-auto flex max-w-[640px] flex-col items-center gap-10 text-pretty lg:gap-12'>
           <ScrollRevealText
             lines={[
               '보이지 않는 탄탄한 구조와 타협하지 않는 시각적 섬세함을 결합해 밀도 높은 프로덕트를 완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는 순간들이 명확하고 한결같으며 흔들림 없는 의도를 갖도록 설계합니다.',
             ]}
             align='center'
-            className='w-full break-keep text-sm sm:text-base font-semibold'
+            className='w-full text-sm font-semibold break-keep sm:text-base'
           />
           <RollingButton
             onClick={scrollToTop}
@@ -122,17 +122,17 @@ export default function Footer() {
             onMouseLeave={() => setCursorType('default')}
             text='Back to Top'
             textClassName='font-bold tracking-tight'
-            className='border-white border-2 bg-neutral-950 rounded-full px-5 py-2 text-[16px] md:text-[23px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300'
+            className='rounded-full border-2 border-white bg-neutral-950 px-5 py-2 text-[16px] tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black md:text-[23px]'
           />
         </div>
       </div>
 
       {/* ── 5. 하단 영역 (Links + 거대한 타이포그래피) ── */}
-      <div className='w-full flex flex-col'>
+      <div className='flex w-full flex-col'>
         {/* Quick Links & Networks */}
-        <div className='site-container px-6 md:px-12 py-6 md:py-12 flex flex-col items-start w-full gap-5 md:flex-row md:justify-between md:gap-0'>
-          <div className='flex flex-col gap-[3px] max-w-[300px]'>
-            <p className='text-white font-semibold'>Quick Links</p>
+        <div className='site-container flex w-full flex-col items-start gap-5 px-6 py-6 md:flex-row md:justify-between md:gap-0 md:px-12 md:py-12'>
+          <div className='flex max-w-[300px] flex-col gap-[3px]'>
+            <p className='font-semibold text-white'>Quick Links</p>
             <div className='group/nav flex flex-row items-center gap-x-0.5'>
               {QUICK_LINKS.map(({ href, label }) => (
                 <RollingLink
@@ -147,8 +147,8 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className='flex flex-col gap-[3px] max-w-[300px]'>
-            <p className='text-white font-semibold text-left md:text-right'>Networks</p>
+          <div className='flex max-w-[300px] flex-col gap-[3px]'>
+            <p className='text-left font-semibold text-white md:text-right'>Networks</p>
             <div className='group/nav flex flex-row items-center gap-x-0.5'>
               {NETWORKS.map(({ href, label }) => (
                 <RollingLink
@@ -166,22 +166,22 @@ export default function Footer() {
         </div>
 
         {/* 거대한 포트폴리오 푸터 */}
-        <div className='w-full flex flex-col border-t border-white/10 group/footer'>
-          <div className='site-container px-6 md:px-12 w-full flex flex-col md:flex-row justify-between pt-6 md:pt-10 text-[10px] md:text-xs text-white/40 uppercase tracking-widest gap-2'>
+        <div className='group/footer flex w-full flex-col border-t border-white/10'>
+          <div className='site-container flex w-full flex-col justify-between gap-2 px-6 pt-6 text-[10px] tracking-widest text-white/40 uppercase md:flex-row md:px-12 md:pt-10 md:text-xs'>
             <span>Front-end Development</span>
             <span>All Rights Reserved</span>
           </div>
 
-          <div className='site-container px-6 md:px-12 w-full flex flex-col lg:flex-row lg:justify-center items-baseline gap-2 lg:gap-4 pt-8 md:pt-16 pb-8 text-white/30 hover:text-white transition-colors duration-700 select-none cursor-default'>
+          <div className='site-container flex w-full cursor-default flex-col items-baseline gap-2 px-6 pt-8 pb-8 text-white/30 transition-colors duration-700 select-none hover:text-white md:px-12 md:pt-16 lg:flex-row lg:justify-center lg:gap-4'>
             <p
-              className='font-bold tracking-tighter leading-none'
+              className='leading-none font-bold tracking-tighter'
               style={{ fontSize: 'min(14vw, 12rem)' }}
             >
               SEUNGYEUB
             </p>
 
             <p
-              className='font-light tracking-tight leading-none'
+              className='leading-none font-light tracking-tight'
               style={{ fontSize: 'min(5vw, 4rem)' }}
             >
               ©2026
