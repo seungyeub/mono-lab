@@ -230,7 +230,7 @@ export default function FAQSection() {
       data-testid='faq-section'
       className='flex w-full flex-col items-start gap-[60px] pt-[140px] md:gap-[80px] xl:pt-[200px]'
     >
-      <SectionLabel scene='04' leftLabel='© Help Center 도움말' rightLabel='Information' />
+      <SectionLabel scene='05' leftLabel='© Help Center 도움말' rightLabel='Information' />
 
       <div className='site-container mt-12 w-full px-6 md:mt-24 md:px-12'>
         <div className='flex w-full flex-col items-start gap-16 md:gap-24'>

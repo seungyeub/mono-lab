@@ -1,0 +1,143 @@
+'use client';
+
+import { useCursorStore } from '@/src/store/useCursorStore';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+
+import type { SkillItem } from '../skillsData';
+import type { ColorMode } from './SkillIcon';
+import SkillIcon from './SkillIcon';
+
+// ─────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────
+
+interface SkillChipsProps {
+  skills: SkillItem[];
+  colorMode: ColorMode;
+  categoryName?: string;
+  /** stagger 애니메이션 시작 인덱스 오프셋 */
+  indexOffset?: number;
+}
+
+// ─────────────────────────────────────────────
+// Sub-component: SkillChip
+// ─────────────────────────────────────────────
+
+interface SkillChipProps {
+  skill: SkillItem;
+  colorMode: ColorMode;
+  categoryName?: string;
+  animationDelay: number;
+}
+
+function SkillChip({ skill, colorMode, categoryName, animationDelay }: SkillChipProps) {
+  const setCursorType = useCursorStore((s) => s.setType);
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: '-40px' }}
+      transition={{ duration: 0.5, delay: animationDelay, ease: 'easeOut' }}
+      onMouseEnter={() => {
+        setCursorType('pointer');
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        setCursorType('default');
+        setIsHovered(false);
+      }}
+      className={[
+        'relative group inline-flex items-center gap-2',
+        'rounded-full border border-white/10 bg-white/[0.02]',
+        // 모바일: 작게 / sm+: 중간 / md+: 넉넉하게
+        'px-2.5 py-1.5 sm:px-3.5 sm:py-2',
+        'cursor-default transition-colors duration-200',
+        'hover:border-white/25 hover:bg-white/[0.06]',
+      ].join(' ')}
+    >
+      {/* ── 툴팁 (Hover Card) ── */}
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className={[
+              'absolute bottom-full mb-3 left-1/2 -translate-x-1/2 z-50',
+              'w-[200px] flex flex-col items-center justify-center gap-4',
+              'rounded-xl border border-white/10 bg-neutral-900/60 backdrop-blur-xl',
+              'p-6 shadow-2xl pointer-events-none',
+            ].join(' ')}
+          >
+            <SkillIcon skill={skill} colorMode='brand' size={48} />
+            <div className='flex flex-col items-center gap-1.5 text-center'>
+              <span className='font-bold text-white uppercase tracking-wider text-[15px]'>
+                {skill.name}
+              </span>
+              {categoryName && (
+                <span className='text-[10px] text-white/40 uppercase tracking-widest font-mono'>
+                  {categoryName}
+                </span>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 아이콘: 모바일 14px, sm+ 16px */}
+      <SkillIcon
+        skill={skill}
+        colorMode={colorMode}
+        size={14}
+        className='sm:hidden'
+      />
+      <SkillIcon
+        skill={skill}
+        colorMode={colorMode}
+        size={16}
+        className='hidden sm:inline-flex'
+      />
+
+      {/* 이름 */}
+      <span
+        className={[
+          'whitespace-nowrap leading-none text-white/60',
+          'text-[10px] sm:text-xs md:text-[13px]',
+          'transition-colors duration-200',
+          'group-hover:text-white', // 호버 시 텍스트 하얗게
+        ].join(' ')}
+      >
+        {skill.name}
+      </span>
+    </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Main Component: SkillChips
+// ─────────────────────────────────────────────
+
+export default function SkillChips({
+  skills,
+  colorMode,
+  categoryName,
+  indexOffset = 0,
+}: SkillChipsProps) {
+  return (
+    <div className='flex flex-wrap gap-2 sm:gap-2.5'>
+      {skills.map((skill, index) => (
+        <SkillChip
+          key={skill.name}
+          skill={skill}
+          colorMode={colorMode}
+          categoryName={categoryName}
+          animationDelay={(indexOffset + index) * 0.04}
+        />
+      ))}
+    </div>
+  );
+}
