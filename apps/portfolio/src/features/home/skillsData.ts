@@ -3,8 +3,6 @@ import {
   SiTypescript,
   SiReact,
   SiNextdotjs,
-  SiHtml5,
-  SiCss,
   SiSass,
   SiTailwindcss,
   SiFramer,
@@ -38,7 +36,6 @@ import {
   SiCoderabbit,
   SiLighthouse,
   SiGoogleanalytics,
-  SiNotion,
   SiAnthropic,
   SiCursor,
   SiGithubcopilot,
@@ -72,44 +69,42 @@ export interface SkillCategory {
 // ─────────────────────────────────────────────
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
-  // ── Frontend (16개) ──
+  // ── Frontend (14개) ──
   {
     title: 'Frontend',
     skills: [
-      { name: 'JavaScript', icon: SiJavascript, brandColor: '#F7DF1E' },
       { name: 'TypeScript', icon: SiTypescript, brandColor: '#3178C6' },
+      { name: 'JavaScript', icon: SiJavascript, brandColor: '#F7DF1E' },
       { name: 'React.js', icon: SiReact, brandColor: '#61DAFB' },
       { name: 'Next.js', icon: SiNextdotjs, brandColor: '#FFFFFF' },
-      { name: 'HTML5', icon: SiHtml5, brandColor: '#E34F26' },
-      { name: 'CSS3', icon: SiCss, brandColor: '#663399' },
-      { name: 'SCSS / Sass', icon: SiSass, brandColor: '#CC6699' },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, brandColor: '#06B6D4' },
-      { name: 'Framer Motion', icon: SiFramer, brandColor: '#0055FF' },
-      { name: 'Three.js', icon: SiThreedotjs, brandColor: '#FFFFFF' },
       {
         name: 'Zustand',
         icon: null,
         brandColor: '#453F39',
         customIconPath: '/icons/zustand.svg',
       },
+      { name: 'React Query', icon: SiReactquery, brandColor: '#FF4154' },
       { name: 'Redux', icon: SiRedux, brandColor: '#764ABC' },
       { name: 'Recoil', icon: SiRecoil, brandColor: '#3578E5' },
-      { name: 'React Query', icon: SiReactquery, brandColor: '#FF4154' },
+      { name: 'Tailwind CSS', icon: SiTailwindcss, brandColor: '#06B6D4' },
+      { name: 'SCSS / Sass', icon: SiSass, brandColor: '#CC6699' },
+      { name: 'Framer Motion', icon: SiFramer, brandColor: '#0055FF' },
+      { name: 'Three.js', icon: SiThreedotjs, brandColor: '#FFFFFF' },
       { name: 'Storybook', icon: SiStorybook, brandColor: '#FF4785' },
       { name: 'React Hook Form', icon: SiReacthookform, brandColor: '#EC5990' },
     ],
   },
 
-  // ── Backend (8개) ──
+  // ── Backend & DB (8개) ──
   {
-    title: 'Backend',
+    title: 'Backend & DB',
     skills: [
       { name: 'Java', icon: SiOpenjdk, brandColor: '#437291' },
       { name: 'Spring', icon: SiSpring, brandColor: '#6DB33F' },
+      { name: 'Node.js', icon: SiNodedotjs, brandColor: '#5FA04E' },
       { name: 'Python', icon: SiPython, brandColor: '#3776AB' },
       { name: 'Django', icon: SiDjango, brandColor: '#FFFFFF' },
       { name: 'FastAPI', icon: SiFastapi, brandColor: '#009688' },
-      { name: 'Node.js', icon: SiNodedotjs, brandColor: '#5FA04E' },
       { name: 'MySQL', icon: SiMysql, brandColor: '#4479A1' },
       {
         name: 'MSSQL',
@@ -120,9 +115,9 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     ],
   },
 
-  // ── Infrastructure (7개) ──
+  // ── DevOps & Infra (6개) ──
   {
-    title: 'Infrastructure',
+    title: 'DevOps & Infra',
     skills: [
       {
         name: 'AWS',
@@ -130,21 +125,20 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         brandColor: '#FF9900',
         customIconPath: '/icons/aws.svg',
       },
-      { name: 'Vercel', icon: SiVercel, brandColor: '#FFFFFF' },
-      { name: 'Nginx', icon: SiNginx, brandColor: '#009639' },
       { name: 'Docker', icon: SiDocker, brandColor: '#2496ED' },
-      { name: 'Linux', icon: SiLinux, brandColor: '#FCC624' },
       { name: 'GitHub Actions', icon: SiGithubactions, brandColor: '#2088FF' },
-      { name: 'Turborepo', icon: SiTurborepo, brandColor: '#EF4444' },
+      { name: 'Linux', icon: SiLinux, brandColor: '#FCC624' },
+      { name: 'Nginx', icon: SiNginx, brandColor: '#009639' },
+      { name: 'Vercel', icon: SiVercel, brandColor: '#FFFFFF' },
     ],
   },
 
-  // ── Tooling (14개) ──
+  // ── Tooling & Config (13개) ──
   {
-    title: 'Tooling',
+    title: 'Tooling & Config',
     skills: [
-      { name: 'Figma', icon: SiFigma, brandColor: '#F24E1E' },
       { name: 'Git', icon: SiGit, brandColor: '#F05032' },
+      { name: 'Turborepo', icon: SiTurborepo, brandColor: '#EF4444' },
       { name: 'pnpm', icon: SiPnpm, brandColor: '#F69220' },
       { name: 'yarn-berry', icon: SiYarn, brandColor: '#2C8EBB' },
       { name: 'Jest', icon: SiJest, brandColor: '#C21325' },
@@ -160,29 +154,23 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'CodeRabbit', icon: SiCoderabbit, brandColor: '#FF6C37' },
       { name: 'Lighthouse', icon: SiLighthouse, brandColor: '#F44B21' },
       { name: 'Google Analytics', icon: SiGoogleanalytics, brandColor: '#E37400' },
-      { name: 'Notion', icon: SiNotion, brandColor: '#FFFFFF' },
-      {
-        name: 'Slack',
-        icon: null,
-        brandColor: '#4A154B',
-        customIconPath: '/icons/slack.svg',
-      },
+      { name: 'Figma', icon: SiFigma, brandColor: '#F24E1E' },
     ],
   },
 
-  // ── AI (5개) ──
+  // ── AI Tools (5개) ──
   {
-    title: 'AI',
+    title: 'AI Tools',
     skills: [
-      { name: 'Claude Code', icon: SiAnthropic, brandColor: '#FFFFFF' },
       { name: 'Cursor', icon: SiCursor, brandColor: '#FFFFFF' },
+      { name: 'GitHub Copilot', icon: SiGithubcopilot, brandColor: '#FFFFFF' },
+      { name: 'Claude Code', icon: SiAnthropic, brandColor: '#FFFFFF' },
       {
         name: 'Codex',
         icon: null,
         brandColor: '#FFFFFF',
         customIconPath: '/icons/openai.svg',
       },
-      { name: 'GitHub Copilot', icon: SiGithubcopilot, brandColor: '#FFFFFF' },
       {
         name: 'Antigravity',
         icon: null,
