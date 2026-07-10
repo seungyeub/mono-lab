@@ -71,10 +71,8 @@ export default function SkillIcon({ skill, colorMode, size = 24, className = '' 
   }
 
   // ── 커스텀 SVG 아이콘 (7/50) ──
-  // Next.js Image는 SVG를 <img>로 렌더링하므로 fill 색상 제어가 불가.
-  // CSS filter를 사용하여 흰색 SVG를 원하는 색상으로 변환하기엔 정확도가 떨어짐.
-  // 따라서 커스텀 SVG는 mask-image 기법으로 색상을 제어합니다.
-  // SVG를 mask로 사용하고, background-color로 원하는 색상을 적용.
+  // 원본 SVG의 색상을 그대로 렌더링하기 위해 background-image를 사용합니다.
+  // (mask-image를 사용하면 단색 실루엣으로 처리됨)
   if (skill.customIconPath) {
     return (
       <span {...wrapperProps}>
@@ -83,16 +81,10 @@ export default function SkillIcon({ skill, colorMode, size = 24, className = '' 
             display: 'inline-block',
             width: size,
             height: size,
-            backgroundColor: color,
-            maskImage: `url(${skill.customIconPath})`,
-            maskSize: 'contain',
-            maskRepeat: 'no-repeat',
-            maskPosition: 'center',
-            WebkitMaskImage: `url(${skill.customIconPath})`,
-            WebkitMaskSize: 'contain',
-            WebkitMaskRepeat: 'no-repeat',
-            WebkitMaskPosition: 'center',
-            transition: 'background-color 0.3s ease',
+            backgroundImage: `url(${skill.customIconPath})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
           }}
           aria-hidden='true'
         />

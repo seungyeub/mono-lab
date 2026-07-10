@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
 import type { SkillItem } from '../skillsData';
-import type { ColorMode } from './SkillIcon';
 import SkillIcon from './SkillIcon';
 
 // ─────────────────────────────────────────────
@@ -14,7 +13,6 @@ import SkillIcon from './SkillIcon';
 
 interface SkillChipsProps {
   skills: SkillItem[];
-  colorMode: ColorMode;
   categoryName?: string;
   /** stagger 애니메이션 시작 인덱스 오프셋 */
   indexOffset?: number;
@@ -26,12 +24,11 @@ interface SkillChipsProps {
 
 interface SkillChipProps {
   skill: SkillItem;
-  colorMode: ColorMode;
   categoryName?: string;
   animationDelay: number;
 }
 
-function SkillChip({ skill, colorMode, categoryName, animationDelay }: SkillChipProps) {
+function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
   const setCursorType = useCursorStore((s) => s.setType);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -91,13 +88,13 @@ function SkillChip({ skill, colorMode, categoryName, animationDelay }: SkillChip
       {/* 아이콘: 모바일 14px, sm+ 16px */}
       <SkillIcon
         skill={skill}
-        colorMode={colorMode}
+        colorMode='brand'
         size={14}
         className='sm:hidden'
       />
       <SkillIcon
         skill={skill}
-        colorMode={colorMode}
+        colorMode='brand'
         size={16}
         className='hidden sm:inline-flex'
       />
@@ -123,7 +120,6 @@ function SkillChip({ skill, colorMode, categoryName, animationDelay }: SkillChip
 
 export default function SkillChips({
   skills,
-  colorMode,
   categoryName,
   indexOffset = 0,
 }: SkillChipsProps) {
@@ -133,7 +129,6 @@ export default function SkillChips({
         <SkillChip
           key={skill.name}
           skill={skill}
-          colorMode={colorMode}
           categoryName={categoryName}
           animationDelay={(indexOffset + index) * 0.04}
         />

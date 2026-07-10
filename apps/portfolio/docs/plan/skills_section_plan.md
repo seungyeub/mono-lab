@@ -1,6 +1,10 @@
 # Skills Section 구현 계획서 (v2)
 
-> **v2 변경사항**: 사용자 피드백 반영 — 정적 "Skills." 헤딩, 아이콘 그리드 레이아웃, 5개 카테고리 확정, 두 가지 레이아웃 비교 구현
+> **v2.2 변경사항 (최종 확정)**: 
+> - **레이아웃**: `SkillGrid` 제거, `SkillChips` (인라인 칩) 단일 레이아웃으로 최종 확정
+> - **색상/스타일**: Brand Color 고정 + Hover 시 Glassmorphism 효과 적용
+> - **데이터 최적화**: HTML5, CSS3, Linux, Slack, Notion 등 비핵심 스킬 제거 (총 45개로 정리)
+> - **커스텀 아이콘**: 14개의 커스텀 SVG (`/public/icons/`) 적용 완료
 
 ---
 
@@ -10,8 +14,8 @@
 2. [레퍼런스 사이트 분석 요약](#2-레퍼런스-사이트-분석-요약)
 3. [카테고리 구조 및 데이터](#3-카테고리-구조-및-데이터)
 4. [아이콘 전략](#4-아이콘-전략)
-5. [레이아웃 — 두 가지 비교 구현](#5-레이아웃--두-가지-비교-구현)
-6. [아이콘 색상 — 세 가지 비교 구현](#6-아이콘-색상--세-가지-비교-구현)
+5. [레이아웃 — 최종 확정 (Chips)](#5-레이아웃--최종-확정-chips)
+6. [아이콘 색상 — 최종 확정 (Brand)](#6-아이콘-색상--최종-확정-brand)
 7. [섹션 오프닝 구조](#7-섹션-오프닝-구조)
 8. [애니메이션 전략](#8-애니메이션-전략)
 9. [반응형 전략](#9-반응형-전략)
@@ -27,13 +31,13 @@
 | 항목        | 결정                                                 | 근거                                             |
 | ----------- | ---------------------------------------------------- | ------------------------------------------------ |
 | 헤딩        | 정적 `<h1>Skills.</h1>` (WordRoller 미사용)          | WorksSection "Works."와 동일 패턴, 시각적 일관성 |
-| 카테고리 수 | 5개                                                  | Frontend, Backend, Infrastructure, Tooling, AI   |
+| 카테고리 수 | 5개                                                  | Frontend, Backend & DB, DevOps & Infra, Tooling & Config, AI Tools |
 | 설명 텍스트 | 헤딩 아래 설명 문단 포함                             | WorksSection 패턴 준수                           |
 | TagBar      | 사용                                                 | 5개 카테고리명 표시                              |
-| 스킬 표현   | 아이콘 + 이름 (설명 없음, Option B)                  | 항목이 많아 compact한 표현 필요                  |
-| 레이아웃    | **카드 그리드 + 인라인 칩 2가지 모두 구현**하여 비교 | 사용자가 실물을 보고 결정                        |
-| 아이콘 색상 | **3가지 모드 모두 구현**하여 비교                    | 모노크롬, 브랜드컬러, 회색→호버 브랜드컬러       |
-| 아이콘 소스 | `@icons-pack/react-simple-icons` npm 패키지          | CDN보다 안정적, props로 색상 제어                |
+| 스킬 표현   | 아이콘 + 이름 (설명 없음)                            | 항목이 많아 compact한 표현 필요                  |
+| 레이아웃    | **인라인 칩 (SkillChips) 확정**                      | 유동적이고 다이나믹한 느낌 선호, Grid UI 삭제 완료|
+| 아이콘 색상 | **Brand Color + Hover Glassmorphism 확정**           | 생동감 있는 인터랙션, 토글 제거 완료             |
+| 아이콘 소스 | `@icons-pack/react-simple-icons` + 커스텀 SVG 혼합   | 단색(npm)과 원본 컬러(svg) 동시 지원             |
 | 설명 언어   | 한국어 (헤딩 아래 설명 문단)                         |                                                  |
 
 ---
@@ -223,63 +227,26 @@ interface SkillIconProps {
 
 ---
 
-## 5. 레이아웃 — 두 가지 비교 구현
+## 5. 레이아웃 — 최종 확정 (Chips)
 
-구현 시 **두 레이아웃을 모두 만들어** 실물을 보고 최종 결정합니다.
-
-### Layout A: 카드 그리드
-
-```text
-Frontend
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│   [React]   │ │    [TS]     │ │  [Next.js]  │ │  [Tailwind] │ │  [Framer]   │
-│   React.js  │ │  TypeScript │ │   Next.js   │ │ Tailwind CSS│ │Framer Motion│
-└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│  [Three.js] │ │  [Zustand]  │ │   [Redux]   │
-│   Three.js  │ │   Zustand   │ │    Redux    │
-└─────────────┘ └─────────────┘ └─────────────┘
-```
-
-**스타일:**
-
-- 각 카드: `bg-white/[0.03]` or `bg-transparent`, `border border-white/10`, `rounded-lg`
-- 아이콘: 카드 중앙, 24~32px
-- 이름: 아이콘 아래, `text-xs` or `text-sm`, `text-white/70`
-- 그리드: `grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7`
-- 카드 간격: `gap-3` or `gap-4`
-- hover: `border-white/30` + `bg-white/[0.06]` + scale `1.02`
-
-**장점:**
-
-- 각 기술이 독립적인 시각적 무게를 가짐
-- BrandSection 클라이언트 그리드, Site A Technical Stack과 일관
-- 정렬이 깔끔함
-
-**단점:**
-
-- 항목 수에 따라 마지막 줄이 비대칭적일 수 있음
-- 카드가 작으면 아이콘이 잘 안 보일 수 있음
-
----
+구현 결과 인라인 칩 레이아웃을 최종 채택하였고, 카드 그리드(`SkillGrid`)는 삭제되었습니다.
 
 ### Layout B: 인라인 칩 (flex-wrap)
 
 ```text
 Frontend
-[JS JavaScript] [TS TypeScript] [⚛ React.js] [▲ Next.js] [🟧 HTML5]
-[🟣 CSS3] [💅 SCSS] [🔵 Tailwind CSS] [🔲 Framer Motion] [△ Three.js]
+[JS JavaScript] [TS TypeScript] [⚛ React.js] [▲ Next.js] [💅 SCSS]
+[🔵 Tailwind CSS] [💅 styled-components] [🔲 Framer Motion] [△ Three.js]
 [🐻 Zustand] [💜 Redux] [🔴 Recoil]
 ```
 
 **스타일:**
 
 - 각 칩: `inline-flex items-center gap-2`, `px-3 py-1.5` or `px-4 py-2`
-- 배경: `bg-white/[0.03]`, `border border-white/10`, `rounded-full`
-- 아이콘: 16~20px, 칩 왼쪽
+- 배경: Hover Card 글래스모피즘 효과 (`bg-white/[0.03]`, 호버 시 밝아짐)
+- 아이콘: 16~20px, 칩 왼쪽 (단색 아이콘은 currentColor, 커스텀 아이콘은 원본 색상 유지)
 - 이름: `text-xs` or `text-sm`, `text-white/70`
 - 컨테이너: `flex flex-wrap gap-2` or `gap-3`
-- hover: `border-white/30` + `bg-white/[0.06]`
 
 **장점:**
 
@@ -287,54 +254,18 @@ Frontend
 - 유동적 — 항목 수에 관계없이 자연스러운 줄바꿈
 - 칩 크기가 텍스트 길이에 맞춰 가변 → 다이나믹한 느낌
 
-**단점:**
-
-- 줄마다 칩 수가 달라 비정형적
-- 아이콘이 작아 인식력이 다소 떨어질 수 있음
-
 ---
 
-### 비교 구현 방법
+## 6. 아이콘 색상 — 최종 확정 (Brand)
 
-개발 시 `SkillsSection` 내에 토글 스위치를 임시로 배치:
+### Mode 2: 브랜드 컬러 (Brand Color) 확정
 
-```text
-[Grid] [Chips]  ·  [Mono] [Brand] [Hover]
-```
-
-- 레이아웃 토글: Grid ↔ Chips
-- 색상 토글: Monochrome ↔ Brand Color ↔ Gray→Hover
-- 최종 결정 후 토글 제거, 선택되지 않은 레이아웃 코드 삭제
-
----
-
-## 6. 아이콘 색상 — 세 가지 비교 구현
-
-### Mode 1: 모노크롬 (Monochrome)
-
-- 모든 아이콘: `color="#ffffff"` 또는 `color="#888888"`
-- **톤**: 미니멀, 에디토리얼, 현재 사이트와 가장 일관
-- **리스크**: 아이콘 인식력이 떨어질 수 있음 (React, Vue 구분 어려움)
-
-### Mode 2: 브랜드 컬러 (Brand Color)
-
-- 각 아이콘: 고유 브랜드 컬러 사용 (React `#61DAFB`, TypeScript `#3178C6` 등)
-- **톤**: 활기있고, 기술 포트폴리오 느낌
-- **리스크**: 컬러풀해서 현재 사이트의 모노톤 다크 테마와 충돌 가능
-
-### Mode 3: 회색 → 호버 시 브랜드 컬러 (Interactive)
-
-- 기본: `color="#666666"` (subtle gray)
-- 호버: `color={brandColor}` + `transition: color 0.3s ease`
-- **톤**: 절충안, 인터랙션 요소 추가
-- **리스크**: 구현 복잡도 약간 증가, 모바일에서는 hover가 없음
-
-### 다크 테마 특수 처리
-
-일부 브랜드 컬러가 어두운 경우 (Next.js `#000000`, Django `#092E20` 등):
-
-- Mode 2/3에서 어두운 브랜드 컬러는 `#FFFFFF`로 대체
-- 데이터에 `darkModeBrandColor` 필드 추가하여 관리
+- **동작 방식**: 
+  - 기본 상태부터 고유 브랜드 컬러 노출 (React `#61DAFB`, TypeScript `#3178C6` 등).
+  - 커스텀 SVG는 `mask-image`가 아닌 `background-image` 방식으로 렌더링되어 다채로운 원본 컬러 유지.
+  - Hover 시 카드의 밝기 증가와 함께 시각적 생동감 제공.
+- **다크 테마 특수 처리**:
+  - 브랜드 컬러가 어두운 경우 (Next.js, Django 등) 기본 화이트로 오버라이드.
 
 ---
 
@@ -470,13 +401,12 @@ SkillsSection.tsx (메인 섹션)
 ├── SectionLabel (기존 공유 컴포넌트)
 ├── 정적 "Skills." 헤딩 + 설명 문단
 ├── TagBar (기존 공유 컴포넌트)
-├── [비교 토글 UI — 임시, 최종 결정 후 제거]
 └── SkillCategoryGroup (카테고리 반복 렌더링)
-    ├── 카테고리 헤딩 ("Frontend", "Backend", ...)
-    └── SkillGrid (Layout A) 또는 SkillChips (Layout B)
+    ├── 카테고리 헤딩 ("Frontend", "Backend & DB", ...)
+    └── SkillChips (Layout B)
         └── SkillIcon (개별 아이콘 + 이름)
-            ├── SimpleIcons 컴포넌트 (지원되는 경우)
-            └── CustomIcon (커스텀 배치 7개 (npm 미지원 2개 + 추가 커스텀 5개))
+            ├── SimpleIcons 컴포넌트 (npm 지원되는 단색 아이콘)
+            └── CustomIcon (원본 SVG 사용: 14개)
 ```
 
 ### 주요 Props
@@ -508,23 +438,20 @@ apps/portfolio/
 ├── app/
 │   └── page.tsx                         ← SkillsSection import 추가
 ├── public/
-│   └── icons/                           ← [NEW] 커스텀 SVG 아이콘
-│       ├── zustand.svg
-│       ├── aws.svg
-│       ├── mssql.svg
-│       ├── playwright.svg
-│       ├── slack.svg
-│       ├── openai.svg
-│       └── antigravity.svg
+│   └── icons/                           ← [NEW] 커스텀 SVG 아이콘 14개
+│       ├── zustand.svg, aws.svg, mssql.svg, playwright.svg, 
+│       ├── slack.svg, openai.svg, antigravity.svg, pnpm.svg,
+│       ├── prettier.svg, react-query.svg, turborepo.svg, 
+│       ├── yarn.svg, framer-motion.svg, fastapi.svg, claude.svg
 ├── src/
 │   └── features/
 │       └── home/
 │           ├── SkillsSection.tsx         ← [NEW] 메인 섹션
 │           ├── ExperienceSection.tsx     ← [MODIFY] scene '03' → '04'
 │           └── components/
-│               ├── SkillGrid.tsx         ← [NEW] Layout A (카드 그리드)
-│               ├── SkillChips.tsx        ← [NEW] Layout B (인라인 칩)
-│               └── SkillIcon.tsx         ← [NEW] 아이콘 래퍼 (색상 모드 처리)
+│               ├── SkillChips.tsx        ← [NEW] 인라인 칩 레이아웃
+│               └── SkillIcon.tsx         ← [NEW] 아이콘 래퍼
+│               (SkillGrid.tsx는 비교 후 최종 삭제됨)
 ```
 
 ### 의존성 추가
@@ -570,11 +497,11 @@ pnpm add @icons-pack/react-simple-icons -F portfolio
 10. 개발 서버에서 두 레이아웃 × 세 색상 = 6가지 조합 비교
 11. **[중요]** `SkillsSection.tsx` 최상위에 `data-testid='skills-section'`을 부여하고, `e2e/snapshot.spec.ts`에 시각적 회귀 테스트(VRT) 코드를 수동으로 추가합니다.
 
-### Phase 4: 확정
+### Phase 4: 확정 (완료)
 
-11. 사용자 결정 후 선택되지 않은 레이아웃 제거
-12. 비교 토글 UI 제거
-13. 최종 반응형/애니메이션 미세 조정
+11. [x] 사용자 결정 후 선택되지 않은 레이아웃(Grid) 제거
+12. [x] 비교 토글 UI 제거 및 `colorMode` Props 제거
+13. [x] 최종 칩 디자인(Hover Glassmorphism) 적용 및 반응형 확인 완료
 
 ---
 

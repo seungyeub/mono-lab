@@ -45,3 +45,4 @@ playwright/.cache/
 .lighthouseci/
 .vercel
 .env*
+tmp/

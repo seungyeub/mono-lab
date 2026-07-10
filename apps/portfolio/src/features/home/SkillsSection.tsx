@@ -3,91 +3,15 @@
 import SectionLabel from '@/src/components/SectionLabel';
 import TagBar from '@/src/components/TagBar';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 import SkillChips from './components/SkillChips';
-import type { ColorMode } from './components/SkillIcon';
-import SkillGrid from './components/SkillGrid';
 import { SKILL_CATEGORIES, SKILL_TAGS } from './skillsData';
-
-// ─────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────
-
-type LayoutMode = 'grid' | 'chips';
-
-// ─────────────────────────────────────────────
-// Sub-component: CompareToggle (임시 — Phase 4에서 제거)
-// ─────────────────────────────────────────────
-
-interface CompareToggleProps {
-  layout: LayoutMode;
-  colorMode: ColorMode;
-  onLayoutChange: (v: LayoutMode) => void;
-  onColorChange: (v: ColorMode) => void;
-}
-
-function CompareToggle({ layout, colorMode, onLayoutChange, onColorChange }: CompareToggleProps) {
-  const btnBase = 'px-3 py-1 rounded text-xs font-mono transition-colors duration-150';
-  const active = 'bg-white text-black';
-  const inactive = 'bg-white/10 text-white/50 hover:bg-white/20 hover:text-white/80';
-
-  return (
-    <div className='fixed bottom-6 left-1/2 z-50 -translate-x-1/2'>
-      <div className='flex items-center gap-3 rounded-full border border-white/20 bg-neutral-900/90 px-4 py-2 backdrop-blur-md shadow-2xl'>
-        {/* 레이아웃 토글 */}
-        <div className='flex items-center gap-1'>
-          <button
-            className={`${btnBase} ${layout === 'grid' ? active : inactive}`}
-            onClick={() => onLayoutChange('grid')}
-          >
-            Grid
-          </button>
-          <button
-            className={`${btnBase} ${layout === 'chips' ? active : inactive}`}
-            onClick={() => onLayoutChange('chips')}
-          >
-            Chips
-          </button>
-        </div>
-
-        {/* 구분선 */}
-        <div className='h-4 w-px bg-white/20' />
-
-        {/* 색상 모드 토글 */}
-        <div className='flex items-center gap-1'>
-          <button
-            className={`${btnBase} ${colorMode === 'mono' ? active : inactive}`}
-            onClick={() => onColorChange('mono')}
-          >
-            Mono
-          </button>
-          <button
-            className={`${btnBase} ${colorMode === 'brand' ? active : inactive}`}
-            onClick={() => onColorChange('brand')}
-          >
-            Brand
-          </button>
-          <button
-            className={`${btnBase} ${colorMode === 'interactive' ? active : inactive}`}
-            onClick={() => onColorChange('interactive')}
-          >
-            Hover
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ─────────────────────────────────────────────
 // Main Component: SkillsSection
 // ─────────────────────────────────────────────
 
 export default function SkillsSection() {
-  const [layout, setLayout] = useState<LayoutMode>('grid');
-  const [colorMode, setColorMode] = useState<ColorMode>('interactive');
-
   return (
     <section
       data-testid='skills-section'
@@ -141,33 +65,15 @@ export default function SkillsSection() {
                 <h3>{category.title}</h3>
               </motion.div>
 
-              {/* 레이아웃 토글에 따라 Grid 또는 Chips 렌더링 */}
-              {layout === 'grid' ? (
-                <SkillGrid
-                  skills={category.skills}
-                  colorMode={colorMode}
-                  indexOffset={catIndex * 3}
-                />
-              ) : (
-                <SkillChips
-                  skills={category.skills}
-                  colorMode={colorMode}
-                  categoryName={category.title}
-                  indexOffset={catIndex * 3}
-                />
-              )}
+              <SkillChips
+                skills={category.skills}
+                categoryName={category.title}
+                indexOffset={catIndex * 3}
+              />
             </div>
           ))}
         </div>
       </div>
-
-      {/* ── 비교 토글 UI (임시 — Phase 4에서 제거) ── */}
-      <CompareToggle
-        layout={layout}
-        colorMode={colorMode}
-        onLayoutChange={setLayout}
-        onColorChange={setColorMode}
-      />
     </section>
   );
 }
