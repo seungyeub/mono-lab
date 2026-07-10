@@ -1,9 +1,13 @@
+/* eslint-disable react/display-name */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import SkillsSection from './SkillsSection';
 
 // framer-motion mock to prevent test warnings/errors
 jest.mock('framer-motion', () => {
-  const React = require('react');
   const removeProps = ({
     initial,
     whileInView,
