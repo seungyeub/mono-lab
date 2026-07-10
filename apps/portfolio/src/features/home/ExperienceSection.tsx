@@ -58,7 +58,7 @@ export default function ExperienceSection() {
       data-testid='experience-section'
       className='flex w-full flex-col items-start gap-10 pt-[140px] sm:gap-[60px] md:gap-[80px] md:pt-[120px] xl:pt-[180px]'
     >
-      <SectionLabel scene='03' leftLabel='© Experience 경력 / 자격증' rightLabel='Practice' />
+      <SectionLabel scene='04' leftLabel='© Experience 경력 / 자격증' rightLabel='Practice' />
 
       {/* ── 롤링 헤드라인 ── */}
       <div className='site-container w-full px-6 md:px-12'>

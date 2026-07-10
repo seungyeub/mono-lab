@@ -2,6 +2,7 @@
 import ExperienceSection from '@/src/features/home/ExperienceSection';
 import FAQSection from '@/src/features/home/FAQSection';
 import HeroSection from '@/src/features/home/HeroSection';
+import SkillsSection from '@/src/features/home/SkillsSection';
 // import ServicesSection from '@/src/features/home/ServicesSection';
 import WorksSection from '@/src/features/home/WorksSection';
 
@@ -31,6 +32,8 @@ export default function Home() {
         center='Services 業務'
         right='Strategy · Design · Identity 戦略'
       /> */}
+
+      <SkillsSection />
 
       {/* <ServicesSection /> */}
 
