@@ -47,7 +47,7 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
         setIsHovered(false);
       }}
       className={[
-        'relative group inline-flex items-center gap-2',
+        'group relative inline-flex items-center gap-2',
         'rounded-full border border-white/10 bg-white/[0.02]',
         // 모바일: 작게 / sm+: 중간 / md+: 넉넉하게
         'px-2.5 py-1.5 sm:px-3.5 sm:py-2',
@@ -64,19 +64,19 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className={[
-              'absolute bottom-full mb-3 left-1/2 -translate-x-1/2 z-50',
-              'w-[200px] flex flex-col items-center justify-center gap-4',
+              'absolute bottom-full left-1/2 z-50 mb-3 -translate-x-1/2',
+              'flex w-[200px] flex-col items-center justify-center gap-4',
               'rounded-xl border border-white/10 bg-neutral-900/60 backdrop-blur-xl',
-              'p-6 shadow-2xl pointer-events-none',
+              'pointer-events-none p-6 shadow-2xl',
             ].join(' ')}
           >
             <SkillIcon skill={skill} colorMode='brand' size={48} />
             <div className='flex flex-col items-center gap-1.5 text-center'>
-              <span className='font-bold text-white uppercase tracking-wider text-[15px]'>
+              <span className='text-[15px] font-bold tracking-wider text-white uppercase'>
                 {skill.name}
               </span>
               {categoryName && (
-                <span className='text-[10px] text-white/40 uppercase tracking-widest font-mono'>
+                <span className='font-mono text-[10px] tracking-widest text-white/40 uppercase'>
                   {categoryName}
                 </span>
               )}
@@ -86,23 +86,13 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
       </AnimatePresence>
 
       {/* 아이콘: 모바일 14px, sm+ 16px */}
-      <SkillIcon
-        skill={skill}
-        colorMode='brand'
-        size={14}
-        className='sm:hidden'
-      />
-      <SkillIcon
-        skill={skill}
-        colorMode='brand'
-        size={16}
-        className='hidden sm:inline-flex'
-      />
+      <SkillIcon skill={skill} colorMode='brand' size={14} className='sm:hidden' />
+      <SkillIcon skill={skill} colorMode='brand' size={16} className='hidden sm:inline-flex' />
 
       {/* 이름 */}
       <span
         className={[
-          'whitespace-nowrap leading-none text-white/60',
+          'leading-none whitespace-nowrap text-white/60',
           'text-[10px] sm:text-xs md:text-[13px]',
           'transition-colors duration-200',
           'group-hover:text-white', // 호버 시 텍스트 하얗게
@@ -118,11 +108,7 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
 // Main Component: SkillChips
 // ─────────────────────────────────────────────
 
-export default function SkillChips({
-  skills,
-  categoryName,
-  indexOffset = 0,
-}: SkillChipsProps) {
+export default function SkillChips({ skills, categoryName, indexOffset = 0 }: SkillChipsProps) {
   return (
     <div className='flex flex-wrap gap-2 sm:gap-2.5'>
       {skills.map((skill, index) => (

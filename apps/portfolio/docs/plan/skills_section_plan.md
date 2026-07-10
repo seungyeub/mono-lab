@@ -1,6 +1,7 @@
 # Skills Section 구현 계획서 (v2)
 
-> **v2.2 변경사항 (최종 확정)**: 
+> **v2.2 변경사항 (최종 확정)**:
+>
 > - **레이아웃**: `SkillGrid` 제거, `SkillChips` (인라인 칩) 단일 레이아웃으로 최종 확정
 > - **색상/스타일**: Brand Color 고정 + Hover 시 Glassmorphism 효과 적용
 > - **데이터 최적화**: HTML5, CSS3, Linux, Slack, Notion 등 비핵심 스킬 제거 (총 45개로 정리)
@@ -28,17 +29,17 @@
 
 ## 1. 확정된 결정사항
 
-| 항목        | 결정                                                 | 근거                                             |
-| ----------- | ---------------------------------------------------- | ------------------------------------------------ |
-| 헤딩        | 정적 `<h1>Skills.</h1>` (WordRoller 미사용)          | WorksSection "Works."와 동일 패턴, 시각적 일관성 |
-| 카테고리 수 | 5개                                                  | Frontend, Backend & DB, DevOps & Infra, Tooling & Config, AI Tools |
-| 설명 텍스트 | 헤딩 아래 설명 문단 포함                             | WorksSection 패턴 준수                           |
-| TagBar      | 사용                                                 | 5개 카테고리명 표시                              |
-| 스킬 표현   | 아이콘 + 이름 (설명 없음)                            | 항목이 많아 compact한 표현 필요                  |
-| 레이아웃    | **인라인 칩 (SkillChips) 확정**                      | 유동적이고 다이나믹한 느낌 선호, Grid UI 삭제 완료|
-| 아이콘 색상 | **Brand Color + Hover Glassmorphism 확정**           | 생동감 있는 인터랙션, 토글 제거 완료             |
-| 아이콘 소스 | `@icons-pack/react-simple-icons` + 커스텀 SVG 혼합   | 단색(npm)과 원본 컬러(svg) 동시 지원             |
-| 설명 언어   | 한국어 (헤딩 아래 설명 문단)                         |                                                  |
+| 항목        | 결정                                               | 근거                                                               |
+| ----------- | -------------------------------------------------- | ------------------------------------------------------------------ |
+| 헤딩        | 정적 `<h1>Skills.</h1>` (WordRoller 미사용)        | WorksSection "Works."와 동일 패턴, 시각적 일관성                   |
+| 카테고리 수 | 5개                                                | Frontend, Backend & DB, DevOps & Infra, Tooling & Config, AI Tools |
+| 설명 텍스트 | 헤딩 아래 설명 문단 포함                           | WorksSection 패턴 준수                                             |
+| TagBar      | 사용                                               | 5개 카테고리명 표시                                                |
+| 스킬 표현   | 아이콘 + 이름 (설명 없음)                          | 항목이 많아 compact한 표현 필요                                    |
+| 레이아웃    | **인라인 칩 (SkillChips) 확정**                    | 유동적이고 다이나믹한 느낌 선호, Grid UI 삭제 완료                 |
+| 아이콘 색상 | **Brand Color + Hover Glassmorphism 확정**         | 생동감 있는 인터랙션, 토글 제거 완료                               |
+| 아이콘 소스 | `@icons-pack/react-simple-icons` + 커스텀 SVG 혼합 | 단색(npm)과 원본 컬러(svg) 동시 지원                               |
+| 설명 언어   | 한국어 (헤딩 아래 설명 문단)                       |                                                                    |
 
 ---
 
@@ -260,7 +261,7 @@ Frontend
 
 ### Mode 2: 브랜드 컬러 (Brand Color) 확정
 
-- **동작 방식**: 
+- **동작 방식**:
   - 기본 상태부터 고유 브랜드 컬러 노출 (React `#61DAFB`, TypeScript `#3178C6` 등).
   - 커스텀 SVG는 `mask-image`가 아닌 `background-image` 방식으로 렌더링되어 다채로운 원본 컬러 유지.
   - Hover 시 카드의 밝기 증가와 함께 시각적 생동감 제공.
@@ -439,9 +440,9 @@ apps/portfolio/
 │   └── page.tsx                         ← SkillsSection import 추가
 ├── public/
 │   └── icons/                           ← [NEW] 커스텀 SVG 아이콘 14개
-│       ├── zustand.svg, aws.svg, mssql.svg, playwright.svg, 
+│       ├── zustand.svg, aws.svg, mssql.svg, playwright.svg,
 │       ├── slack.svg, openai.svg, antigravity.svg, pnpm.svg,
-│       ├── prettier.svg, react-query.svg, turborepo.svg, 
+│       ├── prettier.svg, react-query.svg, turborepo.svg,
 │       ├── yarn.svg, framer-motion.svg, fastapi.svg, claude.svg
 ├── src/
 │   └── features/

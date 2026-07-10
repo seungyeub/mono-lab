@@ -15,7 +15,7 @@ export default function SkillsSection() {
   return (
     <section
       data-testid='skills-section'
-      className='flex w-full flex-col items-start pt-[140px] md:pt-[120px] xl:pt-[180px] gap-10 sm:gap-[60px] md:gap-[80px]'
+      className='flex w-full flex-col items-start gap-10 pt-[140px] sm:gap-[60px] md:gap-[80px] md:pt-[120px] xl:pt-[180px]'
     >
       {/* ── SectionLabel ── */}
       <SectionLabel scene='03' leftLabel='© Technical Skills 기술 역량' rightLabel='Stack' />
@@ -27,7 +27,7 @@ export default function SkillsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: '-60px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className='text-[44px] sm:text-7xl md:text-8xl lg:text-9xl tracking-tight font-semibold'
+          className='text-[44px] font-semibold tracking-tight sm:text-7xl md:text-8xl lg:text-9xl'
         >
           Skills.
         </motion.h2>
@@ -37,7 +37,7 @@ export default function SkillsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: '-60px' }}
           transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
-          className='mt-6 max-w-2xl text-base md:text-lg text-gray-400 leading-relaxed'
+          className='mt-6 max-w-2xl text-base leading-relaxed text-gray-400 md:text-lg'
         >
           프론트엔드를 중심으로 백엔드, 인프라, 디자인까지 서비스의 전체 생애주기를 다루는 기술
           역량입니다.
@@ -60,7 +60,7 @@ export default function SkillsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: catIndex * 0.05 }}
-                className='pb-4 md:pb-6 mb-5 md:mb-6 border-b border-white/20 text-lg md:text-xl font-bold uppercase'
+                className='mb-5 border-b border-white/20 pb-4 text-lg font-bold uppercase md:mb-6 md:pb-6 md:text-xl'
               >
                 <h3>{category.title}</h3>
               </motion.div>
