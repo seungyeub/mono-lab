@@ -85,9 +85,12 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
         )}
       </AnimatePresence>
 
-      {/* 아이콘: 모바일 14px, sm+ 16px */}
-      <SkillIcon skill={skill} colorMode='brand' size={14} className='sm:hidden' />
-      <SkillIcon skill={skill} colorMode='brand' size={16} className='hidden sm:inline-flex' />
+      {/* 아이콘: 모바일 14px, 데스크톱 16px를 CSS 클래스로 제어 (컴포넌트 단일화) */}
+      <SkillIcon
+        skill={skill}
+        colorMode='brand'
+        className='h-[14px] w-[14px] sm:h-[16px] sm:w-[16px]'
+      />
 
       {/* 이름 */}
       <span
