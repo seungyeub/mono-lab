@@ -8,8 +8,6 @@
 
 가장 먼저 해야 하는 작업
 
-- [ ] Skills Section — Phase 4: 레이아웃(Grid vs Chips) 및 색상(Mono / Brand / Interactive) 최종 확정
-- [ ] Skills Section — Phase 4: 비교 토글 UI 제거 및 선택되지 않은 레이아웃 코드 정리
 - [ ] Skills Section — Phase 4: 최종 반응형/애니메이션 미세 조정
 - [ ] Skills Section — Phase 4: Playwright VRT 기준점 갱신
 
@@ -27,7 +25,7 @@
 
 외부 일정이나 다른 작업을 기다리는 항목
 
-- [ ] Skills Section Phase 4 확정: 사용자의 레이아웃/색상 최종 결정 대기
+- [ ] VRT 결과 확인 후 마무리
 
 ---
 
@@ -71,3 +69,5 @@
 - [x] 2026-06-21 — Skills Section Phase 3: `SkillsSection.tsx` 완성 + `page.tsx` 삽입
 - [x] 2026-06-22 — PR #11: CSS Sticky 레이아웃 전면 개편 + VRT 자동화 파이프라인 구축
 - [x] 2026-06-22 — PR #12: 전역 레이아웃 충돌 해결 + 컴포넌트 단위 VRT 아키텍처 원복
+- [x] 2026-06-23 — Skills Section Phase 4: 레이아웃(Chips) 및 색상(Brand) 최종 확정
+- [x] 2026-06-23 — Skills Section Phase 4: 비교 토글 UI 제거 및 `SkillGrid` 컴포넌트 삭제

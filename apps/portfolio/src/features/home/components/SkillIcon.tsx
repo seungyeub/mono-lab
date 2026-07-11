@@ -13,7 +13,7 @@ export type ColorMode = 'mono' | 'brand' | 'interactive';
 interface SkillIconProps {
   skill: SkillItem;
   colorMode: ColorMode;
-  size?: number;
+  size?: number | string;
   className?: string;
 }
 
@@ -48,44 +48,42 @@ function getIconColor(colorMode: ColorMode, brandColor: string, isHovered: boole
  * - brand: 각 아이콘 고유 브랜드 컬러
  * - interactive: 기본 #666666, hover 시 브랜드 컬러
  */
-export default function SkillIcon({ skill, colorMode, size = 24, className = '' }: SkillIconProps) {
+export default function SkillIcon({ skill, colorMode, size, className = '' }: SkillIconProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const color = getIconColor(colorMode, skill.brandColor, isHovered);
+
+  // size가 주어지면 인라인 스타일 적용, 없으면 className 기반 반응형 크기 사용
+  const wrapperStyle = size ? { width: size, height: size } : undefined;
 
   const wrapperProps = {
     className: `inline-flex items-center justify-center transition-colors duration-300 ${className}`,
     onMouseEnter: () => setIsHovered(true),
     onMouseLeave: () => setIsHovered(false),
-    style: { width: size, height: size },
+    style: wrapperStyle,
   };
+
+  // SVG 내부 크기는 부모 컨테이너에 맞춤 (size가 없으면 100%)
+  const innerSize = size ?? '100%';
 
   // ── npm 패키지 아이콘 (43/50) ──
   if (skill.icon) {
-    const IconComponent = skill.icon;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const IconComponent = skill.icon as any; // Type override for innerSize="100%"
     return (
       <span {...wrapperProps}>
-        <IconComponent color={color} size={size} />
+        <IconComponent color={color} size={innerSize} />
       </span>
     );
   }
 
   // ── 커스텀 SVG 아이콘 (7/50) ──
-  // 원본 SVG의 색상을 그대로 렌더링하기 위해 background-image를 사용합니다.
-  // (mask-image를 사용하면 단색 실루엣으로 처리됨)
   if (skill.customIconPath) {
     return (
       <span {...wrapperProps}>
         <span
-          style={{
-            display: 'inline-block',
-            width: size,
-            height: size,
-            backgroundImage: `url(${skill.customIconPath})`,
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-          }}
+          className='block h-full w-full bg-contain bg-center bg-no-repeat'
+          style={{ backgroundImage: `url(${skill.customIconPath})` }}
           aria-hidden='true'
         />
       </span>
@@ -96,8 +94,8 @@ export default function SkillIcon({ skill, colorMode, size = 24, className = '' 
   return (
     <span {...wrapperProps}>
       <span
-        className='flex items-center justify-center rounded-sm bg-white/10 font-mono text-xs font-bold'
-        style={{ width: size, height: size, color }}
+        className='flex h-full w-full items-center justify-center rounded-sm bg-white/10 font-mono text-xs font-bold'
+        style={{ color }}
       >
         {skill.name.charAt(0).toUpperCase()}
       </span>
