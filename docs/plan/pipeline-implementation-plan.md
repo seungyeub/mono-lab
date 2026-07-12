@@ -1,5 +1,9 @@
 # 인프라 및 파이프라인 구축 실행 계획서 (Implementation Plan)
 
+> **작성일:** 2026-06-19
+> **Title:** 인프라 및 파이프라인 구축 실행 계획
+> **Description:** 단일 저장소 환경의 Branch Protection, Lighthouse CI, Vercel 배포 등 필수 CI/CD 인프라 구축 세부 액션 플랜.
+
 ## 개요
 
 이 문서는 `docs/dev-logs/infrastructure-and-testing-strategy.md`의 고찰을 바탕으로 실제 모노레포(`mono-lab`) 환경에 인프라와 CI/CD 파이프라인을 구축하기 위한 구체적인 액션 플랜입니다. 한 번에 모든 것을 완벽하게 세팅하기보다는, 현재 프로젝트 단계에 가장 필요한 **안전망(Branch Protection, Lighthouse, Visual Snapshot)**을 최우선으로 구축합니다.

@@ -39,13 +39,14 @@ jest.mock('framer-motion', () => {
 });
 
 describe('SkillChips', () => {
-  it('renders correctly', () => {
+  it('전달된 스킬 객체들의 이름이 올바르게 렌더링되어야 합니다', () => {
     const skills = [
-      { name: 'Skill 1', icon: null, brandColor: '#000', customIconPath: '/icon.svg' },
-      { name: 'Skill 2', icon: () => <svg data-testid='mock-icon' />, brandColor: '#fff' },
+      { name: 'React', icon: null, brandColor: '#61DAFB', customIconPath: '/icons/react.svg' },
+      { name: 'TypeScript', icon: () => <svg data-testid='ts-icon' />, brandColor: '#3178C6' },
     ];
-    render(<SkillChips categoryName='Test' skills={skills} indexOffset={0} />);
-    expect(screen.getByText('Skill 1')).toBeInTheDocument();
-    expect(screen.getByText('Skill 2')).toBeInTheDocument();
+    render(<SkillChips categoryName='Frontend' skills={skills} indexOffset={0} />);
+
+    expect(screen.getByText('React')).toBeInTheDocument();
+    expect(screen.getByText('TypeScript')).toBeInTheDocument();
   });
 });

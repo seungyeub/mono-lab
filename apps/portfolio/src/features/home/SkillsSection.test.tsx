@@ -6,7 +6,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import SkillsSection from './SkillsSection';
 
-// framer-motion mock to prevent test warnings/errors
+// framer-motion mock
 jest.mock('framer-motion', () => {
   const removeProps = ({
     initial,
@@ -20,6 +20,7 @@ jest.mock('framer-motion', () => {
     layoutId,
     ...rest
   }: any) => rest;
+
   return {
     motion: {
       div: React.forwardRef(({ children, ...rest }: any, ref: any) => (
@@ -50,7 +51,7 @@ jest.mock('framer-motion', () => {
   };
 });
 
-// IntersectionObserver mock for framer-motion whileInView
+// IntersectionObserver mock
 beforeAll(() => {
   window.IntersectionObserver = jest.fn().mockImplementation(() => ({
     observe: jest.fn(),
@@ -60,9 +61,17 @@ beforeAll(() => {
 });
 
 describe('SkillsSection', () => {
-  it('renders correctly', () => {
+  it('Skills 타이틀과 핵심 기술 스택이 화면에 렌더링되어야 합니다', () => {
     render(<SkillsSection />);
+
     expect(screen.getByText('Skills.')).toBeInTheDocument();
-    expect(screen.getByTestId('skills-section')).toBeInTheDocument();
+
+    // 특정 카테고리가 렌더링되었는지 확인 (예: Frontend, Backend 등)
+    expect(screen.getAllByText('Frontend')[0]).toBeInTheDocument();
+
+    // 주요 기술 스택이 표출되는지 확인
+    expect(screen.getAllByText('React')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Next.js')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('TypeScript')[0]).toBeInTheDocument();
   });
 });

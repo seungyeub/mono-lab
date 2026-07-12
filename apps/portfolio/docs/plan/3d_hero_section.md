@@ -1,5 +1,9 @@
 # PRD & 구현 계획: 3D 인터랙티브 Hero Section (사원증 카드)
 
+> **작성일:** 2026-06-30
+> **Title:** 3D 인터랙티브 Hero Section 계획
+> **Description:** 정적 이미지를 3D 물리 기반 사원증 모델(Canvas)로 교체하여 사실적이고 동적인 메인 화면을 구축하는 기획서.
+
 ---
 
 ## 1. 개요 (Overview)

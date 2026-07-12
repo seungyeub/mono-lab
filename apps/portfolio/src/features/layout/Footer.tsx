@@ -6,6 +6,7 @@ import SectionLabel from '@/src/components/SectionLabel';
 import TagBar from '@/src/components/TagBar';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import ScrollRevealText from '@/src/components/ScrollRevealText';
 
 // 가로 캐러셀에 표시될 프로젝트 카드
@@ -172,7 +173,12 @@ export default function Footer() {
             <span>All Rights Reserved</span>
           </div>
 
-          <div className='site-container flex w-full cursor-default flex-col items-baseline gap-2 px-6 pt-8 pb-8 text-white/30 transition-colors duration-700 select-none hover:text-white md:px-12 md:pt-16 lg:flex-row lg:justify-center lg:gap-4'>
+          <motion.div
+            whileInView={{ color: 'rgba(255, 255, 255, 1)' }}
+            transition={{ duration: 3, ease: 'easeOut' }}
+            viewport={{ once: false, amount: 'some' }}
+            className='site-container flex w-full cursor-none flex-col items-baseline gap-2 px-6 pt-8 pb-8 text-white/20 select-none md:px-12 md:pt-16 lg:flex-row lg:justify-center lg:gap-4'
+          >
             <p
               className='leading-none font-bold tracking-tighter'
               style={{ fontSize: 'min(14vw, 12rem)' }}
@@ -186,7 +192,7 @@ export default function Footer() {
             >
               ©2026
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </footer>

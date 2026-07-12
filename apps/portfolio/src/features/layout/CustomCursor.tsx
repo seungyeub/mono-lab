@@ -49,7 +49,7 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className='pointer-events-none fixed top-0 left-0 z-9999 flex items-center justify-center rounded-full'
+      className='pointer-events-none fixed top-0 left-0 z-9999 hidden items-center justify-center rounded-full [@media(hover:hover)_and_(pointer:fine)]:flex'
       animate={{
         x: mousePosition.x - offset,
         y: mousePosition.y - offset,

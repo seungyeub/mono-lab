@@ -1,5 +1,9 @@
 # Header Redesign & Theme Toggle Plan
 
+> **작성일:** 2026-06-30
+> **Title:** Header Redesign 및 다크/라이트 테마 토글 계획
+> **Description:** 헤더 텍스트 제거 및 테마 토글 버튼 적용을 통해 레이아웃 반응성을 높이고 디자인 미니멀리즘을 강화하는 계획.
+
 ## 1. 개요 (Overview)
 
 기존 `Header.tsx`의 우측 정보("Based in Seoul...") 제거 여부부터 시작하여, 다크/라이트 모드 테마 토글의 적용 여부, 그리고 레퍼런스 사이트와의 비교 분석을 통해 포트폴리오의 **디자인 일관성(Tone & Manner)**을 훼손하지 않는 최적의 헤더 방향성을 정립합니다.

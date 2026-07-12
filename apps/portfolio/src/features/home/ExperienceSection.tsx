@@ -84,7 +84,7 @@ export default function ExperienceSection() {
               key={exp.company + index}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '-40px' }}
+              viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
               className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-4'
             >
@@ -126,7 +126,7 @@ export default function ExperienceSection() {
               key={achievement.certificate + index}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '-40px' }}
+              viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
               className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-4'
             >

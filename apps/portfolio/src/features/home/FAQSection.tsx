@@ -168,7 +168,7 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '-40px' }}
+      viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.6, delay: index * 0.07 }}
       className='border-b border-white/20'
     >
@@ -239,7 +239,7 @@ export default function FAQSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '-40px' }}
+              viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className='w-full'
             >
