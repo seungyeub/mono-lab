@@ -1,5 +1,9 @@
 # CSS Sticky Layout Architecture Plan
 
+> **작성일:** 2026-06-22
+> **Title:** CSS Sticky Layout 구조 개편 계획
+> **Description:** 자바스크립트 기반의 스크롤 제어를 제거하고 순수 CSS Sticky를 도입하여 성능 및 뷰포트 반응형 이슈를 해결하는 구조.
+
 ## 1. 개요 및 목적 (Purpose)
 
 ### 1.1. 배경 및 문제점

@@ -36,7 +36,7 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '-40px' }}
+      viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: animationDelay, ease: 'easeOut' }}
       onMouseEnter={() => {
         setCursorType('pointer');

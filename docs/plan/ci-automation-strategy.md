@@ -1,8 +1,8 @@
 # CI 및 자동화 봇 구축 전략 (mono-lab)
 
-> **작성일:** 2026-06-09
-> **대상 프로젝트:** mono-lab (Turborepo + pnpm 기반 모노레포)
-> **레포지토리 상태:** Public (SaaS 도구 완전 무료 사용 가능)
+> **작성일:** 2026-07-02
+> **Title:** CI 및 자동화 봇 구축 전략
+> **Description:** Turborepo 기반 모노레포에 GitHub Actions, SonarCloud, CodeRabbit을 활용한 CI/CD 및 품질 검사 통합 전략.
 
 이 문서는 mono-lab 프로젝트에 단단한 CI 파이프라인을 구축하고, 그 위에 AI PR 리뷰 봇과 코드 품질 검사 봇을 통합하기 위한 전체 전략과 아키텍처를 정의합니다.
 

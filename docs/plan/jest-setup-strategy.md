@@ -1,7 +1,8 @@
 # Jest 테스트 환경 구축 전략 (apps/portfolio 전용)
 
-> **작성일:** 2026-06-09
-> **대상:** `mono-lab` 모노레포 내 `apps/portfolio` (Next.js App Router)
+> **작성일:** 2026-06-10
+> **Title:** Jest 테스트 환경 구축 전략
+> **Description:** Next.js App Router 환경의 모노레포를 위한 Colocation(응집) 구조 기반 Jest 테스트 인프라 구축 계획.
 
 이 문서는 모노레포의 독립성을 훼손하지 않으면서, Next.js 환경에 가장 최적화된 Jest 테스트 인프라를 구축하기 위한 계획입니다. 추후 다른 앱(`apps/resume` 등)에서 Vitest를 쓰더라도 충돌 없이 공존할 수 있도록 설계되었습니다.
 

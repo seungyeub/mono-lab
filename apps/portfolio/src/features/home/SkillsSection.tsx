@@ -25,7 +25,7 @@ export default function SkillsSection() {
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '-60px' }}
+          viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className='text-[44px] font-semibold tracking-tight sm:text-7xl md:text-8xl lg:text-9xl'
         >
@@ -35,7 +35,7 @@ export default function SkillsSection() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '-60px' }}
+          viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
           className='mt-6 max-w-2xl text-base leading-relaxed text-gray-400 md:text-lg'
         >
@@ -58,7 +58,7 @@ export default function SkillsSection() {
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '-40px' }}
+                viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: catIndex * 0.05 }}
                 className='mb-5 border-b border-white/20 pb-4 text-lg font-bold uppercase md:mb-6 md:pb-6 md:text-xl'
               >

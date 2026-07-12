@@ -1,5 +1,9 @@
 # Vercel 배포 전략 명세서 (Turborepo 모노레포)
 
+> **작성일:** 2026-07-02
+> **Title:** Vercel 배포 전략 명세서
+> **Description:** Turborepo 모노레포 환경에서 개별 앱의 효율적인 빌드(turbo-ignore) 및 Preview/Production Vercel 배포 파이프라인.
+
 ## 1. 개요
 
 이 문서는 `mono-lab` 모노레포(Turborepo) 환경에서 개별 앱(Portfolio, Resume 등)을 안전하고 효율적으로 배포하기 위한 CI/CD 전략과 세팅 방법을 명세합니다.

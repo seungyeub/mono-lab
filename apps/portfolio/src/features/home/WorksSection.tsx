@@ -70,7 +70,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[3/4]' }: CardP
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '-80px' }}
+      viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
       className='flex flex-col gap-3'
     >
@@ -123,7 +123,7 @@ export default function WorksSection() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '-40px' }}
+                viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 className='w-full font-semibold'
               >
@@ -171,7 +171,7 @@ export default function WorksSection() {
             </div>
 
             {/* 'See All Works' Button (모바일/태블릿 전용 하단 고정) */}
-            <div className='pointer-events-none sticky bottom-10 z-10 col-span-1 flex justify-center pt-16 pb-8 md:col-span-2 lg:hidden'>
+            <div className='pointer-events-none sticky bottom-4 z-10 col-span-1 flex justify-center pt-16 pb-8 md:col-span-2 lg:hidden'>
               <div className='pointer-events-auto'>
                 <RollingLink
                   href='/work'
