@@ -70,7 +70,7 @@ describe('SkillsSection', () => {
     expect(screen.getAllByText('Frontend')[0]).toBeInTheDocument();
 
     // 주요 기술 스택이 표출되는지 확인
-    expect(screen.getAllByText('React')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('React.js')[0]).toBeInTheDocument();
     expect(screen.getAllByText('Next.js')[0]).toBeInTheDocument();
     expect(screen.getAllByText('TypeScript')[0]).toBeInTheDocument();
   });

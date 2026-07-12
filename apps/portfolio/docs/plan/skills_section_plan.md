@@ -3,7 +3,6 @@
 > **작성일:** 2026-06-30
 > **Title:** Skills Section 구현 계획서 (v2)
 > **Description:** SkillChips 기반 단일 레이아웃과 브랜드 컬러 Glassmorphism, 커스텀 SVG 아이콘을 적용한 Skills 영역 최종 디자인 및 구현 계획.
-
 > **v2.2 변경사항 (최종 확정)**:
 >
 > - **레이아웃**: `SkillGrid` 제거, `SkillChips` (인라인 칩) 단일 레이아웃으로 최종 확정

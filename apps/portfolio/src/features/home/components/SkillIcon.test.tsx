@@ -17,7 +17,11 @@ describe('SkillIcon', () => {
         colorMode='brand'
       />,
     );
-    expect(container.firstChild).toBeInTheDocument();
+    const innerSpan = container.querySelector('span > span[aria-hidden="true"]');
+    expect(innerSpan).toBeInTheDocument();
+    expect(innerSpan).toHaveStyle({
+      backgroundImage: 'url(/icons/framer-motion.svg)',
+    });
   });
 
   it('리액트 컴포넌트 아이콘이 제공된 경우 정상적으로 렌더링되어야 합니다', () => {

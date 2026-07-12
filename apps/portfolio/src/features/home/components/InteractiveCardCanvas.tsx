@@ -10,10 +10,10 @@ export default function InteractiveCardCanvas() {
   return (
     <div className='h-full w-full touch-none'>
       {/* ── [3D 캔버스 초기 셋업] ──
-          camera: 데스크탑/모바일 전 구간에서 fov: 25로 고정하여 사원증을 크고 왜곡 없이 렌더링합니다.
-          dpr: 레티나 디스플레이 등 고해상도 환경을 위해 기기 픽셀 비율(1~2)을 유동적으로 대응합니다. */}
+          camera: 데스크탑/모바일 전 구간에서 fov: 20으로 고정하여 사원증을 크고 왜곡 없이 렌더링합니다.
+          dpr: 레티나 디스플레이 등 고해상도 환경을 위해 기기 픽셀 비율(1~1.5)을 유동적으로 대응합니다. */}
       <Canvas camera={{ position: [0, 0, 13], fov: 20 }} dpr={[1, 1.5]}>
-        <ambientLight intensity={Math.PI * 1} />
+        <ambientLight intensity={Math.PI} />
         {/* ── [물리 엔진 환경 셋업 (Rapier)] ──
             gravity: [0, -40, 0]으로 강한 중력을 설정하여 초기 낙하 속도를 높이고 무거운 사원증의 물리적 느낌을 살립니다.
             timeStep: 초당 60프레임(1/60) 기준으로 물리 연산을 고정하여 브라우저 주사율에 따른 시뮬레이션 오차를 줄입니다. */}

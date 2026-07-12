@@ -5,9 +5,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import BrandSection from './BrandSection';
 
-// Framer Motion Mocking 전략:
-// 스크롤 연동 애니메이션 고정 여부(viewport={{ once: true }})를 검증하기 위해,
-// 전달받은 viewport 속성을 제거하지 않고 data-viewport 속성으로 치환하여 JSDom 요소에 남겨둡니다.
+// Framer Motion Mocking:
+// 애니메이션 관련 props(initial, whileInView, viewport, transition 등)를 제거하고
+// 나머지 속성만 DOM 요소에 전달합니다.
 jest.mock('framer-motion', () => {
   const removeProps = ({
     initial,
