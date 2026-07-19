@@ -1,47 +1,14 @@
 'use client';
 
-import RollingLink from '@/src/components/RollingText/RollingLink';
 import RollingButton from '@/src/components/RollingText/RollingButton';
+import RollingLink from '@/src/components/RollingText/RollingLink';
+import ScrollRevealText from '@/src/components/ScrollRevealText';
 import SectionLabel from '@/src/components/SectionLabel';
 import TagBar from '@/src/components/TagBar';
 import { useCursorStore } from '@/src/store/useCursorStore';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import ScrollRevealText from '@/src/components/ScrollRevealText';
 
-// 가로 캐러셀에 표시될 프로젝트 카드
-const CAROUSEL_CARDS = [
-  {
-    title: 'Meltdown Studios',
-    image: '/images/projects/01.jpg',
-    width: '132px',
-    height: '193px',
-  },
-  {
-    title: 'Rootwise',
-    image: '/images/projects/02.jpg',
-    width: '154px',
-    height: '110px',
-  },
-  {
-    title: 'Meridiem',
-    image: '/images/projects/03.jpg',
-    width: '150px',
-    height: '193px',
-  },
-  {
-    title: 'Nutree Bakery',
-    image: '/images/projects/04.jpg',
-    width: '165px',
-    height: '245px',
-  },
-  {
-    title: 'Animal & Birds',
-    image: '/images/projects/05.jpg',
-    width: '190px',
-    height: '136px',
-  },
-];
+import { CAROUSEL_CARDS } from '@/src/data/carouselGifs';
 
 const QUICK_LINKS = [
   { label: 'Home,', href: '/' },
@@ -63,6 +30,8 @@ export default function Footer() {
   const setCursorType = useCursorStore((state) => state.setType);
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  const cards = CAROUSEL_CARDS;
+
   return (
     <footer
       data-testid='footer'
@@ -72,31 +41,37 @@ export default function Footer() {
       <SectionLabel scene='05' leftLabel='© Final Section 에필로그' rightLabel='Epilogue' />
 
       {/* ── 2. 가로 스크롤 캐러셀 ── */}
-      <div className='w-full overflow-hidden py-10'>
+      <div className='box-content h-[250px] w-full overflow-hidden pt-12 pb-8 sm:h-[300px] lg:h-[360px]'>
+        {/* GPU 가속을 위한 will-change-transform 추가 및 무한 스크롤 애니메이션 */}
         <div
-          className='flex w-max items-start'
-          style={{ animation: 'marquee-scroll 60s linear infinite' }}
+          className='flex w-max items-start will-change-transform'
+          style={{
+            animation: 'marquee-scroll 700s linear infinite',
+          }}
         >
-          {/* 배열 복사로 무한 스크롤 트릭 */}
-          {Array.from({ length: 5 })
-            .flatMap(() => CAROUSEL_CARDS)
+          {/* 배열을 3번 복사하여 무한 스크롤이 끊기지 않게 함 */}
+          {Array.from({ length: 3 })
+            .flatMap(() => cards)
             .map((card, i) => (
-              <div key={i} className='shrink-0 pr-4'>
-                <div
-                  className='relative overflow-hidden rounded-md'
-                  style={{ width: card.width, height: card.height }}
-                >
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    sizes='200px'
-                    className='object-cover'
-                  />
-                  {/* 가독성을 위한 하단 그라데이션 */}
-                  <div className='absolute inset-0 bg-linear-to-t from-black/50 to-transparent' />
-                  <div className='absolute bottom-3 left-3 text-xs tracking-widest text-white/90 uppercase'>
-                    {card.title}
+              <div key={i} className='w-[320px] shrink-0 px-2 sm:w-[360px] lg:w-[400px]'>
+                <div className='group relative flex flex-col justify-between overflow-hidden rounded-lg bg-neutral-900 transition-all duration-500 hover:z-20 hover:scale-105 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)] max-h-[250px] sm:max-h-[300px] lg:max-h-[360px]'>
+                  {/* GIF 배경 이미지 */}
+                  {card.gif && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={card.gif}
+                      alt={card.title}
+                      loading='lazy'
+                      decoding='async'
+                      className='block h-auto w-full'
+                    />
+                  )}
+
+                  {/* 텍스트를 Absolute 로 띄워서 이미지 위를 덮음 */}
+                  <div className='pointer-events-none absolute inset-0 z-10 flex flex-col justify-end bg-linear-to-t from-black/80 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
+                    <h3 className='text-sm font-bold tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]'>
+                      {card.title}
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -115,7 +90,7 @@ export default function Footer() {
               '보이지 않는 탄탄한 구조와 타협하지 않는 시각적 섬세함을 결합해 밀도 높은 프로덕트를 완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는 순간들이 명확하고 한결같으며 흔들림 없는 의도를 갖도록 설계합니다.',
             ]}
             align='center'
-            className='w-full text-sm font-semibold break-keep sm:text-base'
+            className='w-full text-sm font-semibold break-keep sm:text-base lg:text-lg'
           />
           <RollingButton
             onClick={scrollToTop}
