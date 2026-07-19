@@ -43,24 +43,21 @@ export default function Footer() {
       {/* ── 2. 가로 스크롤 캐러셀 ── */}
       <div className='box-content h-[250px] w-full overflow-hidden pt-12 pb-8 sm:h-[300px] lg:h-[360px]'>
         {/* GPU 가속을 위한 will-change-transform 추가 및 무한 스크롤 애니메이션 */}
-        <div
-          className='flex w-max items-start will-change-transform'
-          style={{
-            animation: 'marquee-scroll 700s linear infinite',
-          }}
-        >
+        <div className='flex w-max animate-[marquee-scroll_700s_linear_infinite] items-start will-change-transform'>
           {/* 배열을 3번 복사하여 무한 스크롤이 끊기지 않게 함 */}
           {Array.from({ length: 3 })
             .flatMap(() => cards)
             .map((card, i) => (
               <div key={i} className='w-[320px] shrink-0 px-2 sm:w-[360px] lg:w-[400px]'>
-                <div className='group relative flex flex-col justify-between overflow-hidden rounded-lg bg-neutral-900 transition-all duration-500 hover:z-20 hover:scale-105 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)] max-h-[250px] sm:max-h-[300px] lg:max-h-[360px]'>
+                <div className='group relative flex max-h-[250px] flex-col justify-between overflow-hidden rounded-lg bg-neutral-900 transition-all duration-500 hover:z-20 hover:scale-105 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)] sm:max-h-[300px] lg:max-h-[360px]'>
                   {/* GIF 배경 이미지 */}
                   {card.gif && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={card.gif}
                       alt={card.title}
+                      width={card.width}
+                      height={card.height}
                       loading='lazy'
                       decoding='async'
                       className='block h-auto w-full'
@@ -154,19 +151,11 @@ export default function Footer() {
             viewport={{ once: false, amount: 'some' }}
             className='site-container flex w-full cursor-none flex-col items-baseline gap-2 px-6 pt-8 pb-8 text-white/20 select-none md:px-12 md:pt-16 lg:flex-row lg:justify-center lg:gap-4'
           >
-            <p
-              className='leading-none font-bold tracking-tighter'
-              style={{ fontSize: 'min(14vw, 12rem)' }}
-            >
+            <p className='text-[min(14vw,12rem)] leading-none font-bold tracking-tighter'>
               SEUNGYEUB
             </p>
 
-            <p
-              className='leading-none font-light tracking-tight'
-              style={{ fontSize: 'min(5vw, 4rem)' }}
-            >
-              ©2026
-            </p>
+            <p className='text-[min(5vw,4rem)] leading-none font-light tracking-tight'>©2026</p>
           </motion.div>
         </div>
       </div>
