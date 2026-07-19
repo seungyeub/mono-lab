@@ -28,7 +28,7 @@ describe('SkillIcon', () => {
     const MockReactIcon = () => <svg data-testid='mock-react-icon' />;
     const { container } = render(
       <SkillIcon
-        skill={{ name: 'React', icon: MockReactIcon as any, brandColor: '#61DAFB' }}
+        skill={{ name: 'React', icon: MockReactIcon as React.ComponentType<{ color?: string; size?: number }>, brandColor: '#61DAFB' }}
         colorMode='brand'
       />,
     );
