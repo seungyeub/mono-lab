@@ -20,21 +20,31 @@ jest.mock('framer-motion', () => {
     layoutId,
     whileHover,
     ...rest
-  }: any) => rest;
+  }: Record<string, unknown>) => rest;
   return {
     motion: {
-      div: React.forwardRef(({ children, ...rest }: any, ref: any) => (
-        <div ref={ref} {...removeProps(rest)}>
-          {children}
-        </div>
-      )),
-      li: React.forwardRef(({ children, ...rest }: any, ref: any) => (
-        <li ref={ref} {...removeProps(rest)}>
-          {children}
-        </li>
-      )),
+      div: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <div ref={ref} {...removeProps(rest)}>
+            {children}
+          </div>
+        ),
+      ),
+      li: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <li ref={ref} {...removeProps(rest)}>
+            {children}
+          </li>
+        ),
+      ),
     },
-    AnimatePresence: ({ children }: any) => <>{children}</>,
+    AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
   };
 });
 

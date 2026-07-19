@@ -20,21 +20,32 @@ jest.mock('framer-motion', () => {
     layoutId,
     whileHover,
     ...rest
-  }: any) => rest;
+  }: Record<string, unknown>) => rest;
   return {
     motion: {
-      div: React.forwardRef(({ children, ...rest }: any, ref: any) => (
-        <div ref={ref} {...removeProps(rest)}>
-          {children}
-        </div>
-      )),
-      span: React.forwardRef(({ children, ...rest }: any, ref: any) => (
-        <span ref={ref} {...removeProps(rest)}>
-          {children}
-        </span>
-      )),
+      div: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <div ref={ref} {...removeProps(rest)}>
+            {children}
+          </div>
+        ),
+      ),
+      span: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <span ref={ref} {...removeProps(rest)}>
+            {children}
+          </span>
+        ),
+      ),
     },
-    AnimatePresence: ({ children }: any) => <>{children}</>,
+    AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
+    useMotionValue: (val: unknown) => ({ set: jest.fn(), get: () => val }),
   };
 });
 
@@ -72,9 +83,9 @@ describe('CustomCursor', () => {
   });
 
   // 상태 변화에 따라 조건부 텍스트 렌더링 검증
-  it('스토어 상태가 "drag"일 때 "Drag" 텍스트가 올바르게 렌더링되어야 합니다', () => {
+  it('스토어 상태가 "grab"일 때 "Grab" 텍스트가 올바르게 렌더링되어야 합니다', () => {
     mockUseCursorStore.mockImplementation((selector) => {
-      const state = { type: 'drag', setType: mockSetType };
+      const state = { type: 'grab', setType: mockSetType };
       return selector(state);
     });
 
@@ -84,7 +95,7 @@ describe('CustomCursor', () => {
       fireEvent.mouseMove(window);
     });
 
-    expect(screen.getByText('Drag')).toBeInTheDocument();
+    expect(screen.getByText('Grab')).toBeInTheDocument();
   });
 
   // 모바일 환경 방어 로직 (CSS 클래스) 존재 여부 검증

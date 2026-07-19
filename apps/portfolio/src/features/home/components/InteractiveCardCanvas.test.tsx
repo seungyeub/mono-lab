@@ -1,20 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { render } from '@testing-library/react';
 import InteractiveCardCanvas from './InteractiveCardCanvas';
 
 // JSDom에서는 WebGL(Three.js) 환경을 렌더링할 수 없으므로 관련 라이브러리들을 Mocking 합니다.
 jest.mock('@react-three/fiber', () => ({
-  Canvas: ({ children }: any) => <div data-testid='mock-canvas'>{children}</div>,
+  Canvas: ({ children }: { children?: React.ReactNode }) => (
+    <div data-testid='mock-canvas'>{children}</div>
+  ),
 }));
 
 jest.mock('@react-three/drei', () => ({
-  Environment: ({ children }: any) => <div data-testid='mock-environment'>{children}</div>,
+  Environment: ({ children }: { children?: React.ReactNode }) => (
+    <div data-testid='mock-environment'>{children}</div>
+  ),
   Lightformer: () => <div data-testid='mock-lightformer' />,
 }));
 
 jest.mock('@react-three/rapier', () => ({
-  Physics: ({ children }: any) => <div data-testid='mock-physics'>{children}</div>,
+  Physics: ({ children }: { children?: React.ReactNode }) => (
+    <div data-testid='mock-physics'>{children}</div>
+  ),
 }));
 
 jest.mock('./Band', () => {

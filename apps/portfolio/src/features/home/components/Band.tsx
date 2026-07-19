@@ -233,7 +233,7 @@ export default function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
           <group
             scale={2.25}
             position={[0, -1.2, -0.05]}
-            onPointerOver={() => setCursorType('drag')}
+            onPointerOver={() => setCursorType('grab')}
             onPointerOut={() => setCursorType('default')}
             onPointerUp={(e) => {
               (e.target as Element).releasePointerCapture(e.pointerId);

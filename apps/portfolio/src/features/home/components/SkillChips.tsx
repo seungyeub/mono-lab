@@ -1,6 +1,5 @@
 'use client';
 
-import { useCursorStore } from '@/src/store/useCursorStore';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -29,7 +28,6 @@ interface SkillChipProps {
 }
 
 function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
-  const setCursorType = useCursorStore((s) => s.setType);
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -39,11 +37,9 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: animationDelay, ease: 'easeOut' }}
       onMouseEnter={() => {
-        setCursorType('pointer');
         setIsHovered(true);
       }}
       onMouseLeave={() => {
-        setCursorType('default');
         setIsHovered(false);
       }}
       className={[
@@ -51,7 +47,7 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
         'rounded-full border border-white/10 bg-white/[0.02]',
         // 모바일: 작게 / sm+: 중간 / md+: 넉넉하게
         'px-2.5 py-1.5 sm:px-3.5 sm:py-2',
-        'cursor-default transition-colors duration-200',
+        'cursor-none transition-colors duration-200',
         'hover:border-white/25 hover:bg-white/[0.06]',
       ].join(' ')}
     >
