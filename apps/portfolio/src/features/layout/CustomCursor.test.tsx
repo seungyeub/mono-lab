@@ -45,6 +45,7 @@ jest.mock('framer-motion', () => {
       ),
     },
     AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
+    useMotionValue: (val: unknown) => ({ set: jest.fn(), get: () => val }),
   };
 });
 
