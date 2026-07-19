@@ -173,6 +173,7 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
       className='border-b border-white/20'
     >
       <button
+        type='button'
         id={`faq-question-${index}`}
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
