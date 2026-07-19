@@ -20,11 +20,16 @@ jest.mock('framer-motion', () => {
 
   return {
     motion: {
-      span: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
-        <span ref={ref} {...removeProps(rest)}>
-          {children}
-        </span>
-      )),
+      span: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <span ref={ref} {...removeProps(rest)}>
+            {children}
+          </span>
+        ),
+      ),
     },
     useScroll: jest.fn(() => ({
       scrollYProgress: {

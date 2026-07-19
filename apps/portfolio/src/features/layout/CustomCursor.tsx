@@ -38,7 +38,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [isVisible]);
+  }, [isVisible, mouseX, mouseY]);
 
   if (!isVisible) return null;
 

@@ -23,26 +23,46 @@ jest.mock('framer-motion', () => {
 
   return {
     motion: {
-      div: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
-        <div ref={ref} {...removeProps(rest)}>
-          {children}
-        </div>
-      )),
-      h2: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
-        <h2 ref={ref} {...removeProps(rest)}>
-          {children}
-        </h2>
-      )),
-      p: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
-        <p ref={ref} {...removeProps(rest)}>
-          {children}
-        </p>
-      )),
-      li: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
-        <li ref={ref} {...removeProps(rest)}>
-          {children}
-        </li>
-      )),
+      div: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <div ref={ref} {...removeProps(rest)}>
+            {children}
+          </div>
+        ),
+      ),
+      h2: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <h2 ref={ref} {...removeProps(rest)}>
+            {children}
+          </h2>
+        ),
+      ),
+      p: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <p ref={ref} {...removeProps(rest)}>
+            {children}
+          </p>
+        ),
+      ),
+      li: React.forwardRef(
+        (
+          { children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>,
+          ref: React.ForwardedRef<any>,
+        ) => (
+          <li ref={ref} {...removeProps(rest)}>
+            {children}
+          </li>
+        ),
+      ),
     },
     AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
     useScroll: () => ({ scrollY: { onChange: jest.fn(), get: jest.fn(), getPrevious: jest.fn() } }),

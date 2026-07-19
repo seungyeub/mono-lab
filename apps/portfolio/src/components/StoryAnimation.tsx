@@ -41,15 +41,15 @@ export default function StoryAnimation() {
           phase === 'enter'
             ? { x: 0, scale: 1, opacity: 1 }
             : phase === 'pulse'
-            ? { x: 0, scale: [1, 1.8, 1], opacity: 1 }
-            : { x: 0, scale: 0, opacity: 0 }
+              ? { x: 0, scale: [1, 1.8, 1], opacity: 1 }
+              : { x: 0, scale: 0, opacity: 0 }
         }
         transition={
           phase === 'enter'
             ? { duration: 1.2, ease: [0.16, 1, 0.3, 1] } // Custom spring-like ease
             : phase === 'pulse'
-            ? { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
-            : { duration: 0.2 }
+              ? { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
+              : { duration: 0.2 }
         }
         className='absolute z-10 h-2 w-2 rounded-full bg-white'
         style={{ boxShadow: '0 0 20px 6px rgba(255,255,255,0.6)' }}
