@@ -69,7 +69,7 @@ export default function SkillIcon({ skill, colorMode, size, className = '' }: Sk
   // ── npm 패키지 아이콘 (43/50) ──
   if (skill.icon) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const IconComponent = skill.icon as any; // Type override for innerSize="100%"
+    const IconComponent = skill.icon as React.ComponentType<{ color?: string; size?: string | number }>; // Type override for innerSize="100%"
     return (
       <span {...wrapperProps}>
         <IconComponent color={color} size={innerSize} />

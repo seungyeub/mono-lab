@@ -203,7 +203,7 @@ function FAQItem({ faq, index }: { faq: (typeof FAQS)[0]; index: number }) {
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className='overflow-hidden'
               >
-                <p className='max-w-2xl pt-3 text-sm leading-relaxed text-gray-400 md:text-base'>
+                <p className='max-w-2xl pt-3 text-sm leading-relaxed text-gray-400 md:text-base lg:text-lg'>
                   {faq.a}
                 </p>
               </motion.div>
