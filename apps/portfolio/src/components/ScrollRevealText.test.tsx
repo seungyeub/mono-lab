@@ -16,11 +16,11 @@ jest.mock('framer-motion', () => {
     animate,
     exit,
     ...rest
-  }: any) => rest;
+  }: Record<string, unknown>) => rest;
 
   return {
     motion: {
-      span: React.forwardRef(({ children, ...rest }: any, ref: any) => (
+      span: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
         <span ref={ref} {...removeProps(rest)}>
           {children}
         </span>

@@ -19,32 +19,32 @@ jest.mock('framer-motion', () => {
     layout,
     layoutId,
     ...rest
-  }: any) => rest;
+  }: Record<string, unknown>) => rest;
 
   return {
     motion: {
-      div: React.forwardRef(({ children, ...rest }: any, ref: any) => (
+      div: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
         <div ref={ref} {...removeProps(rest)}>
           {children}
         </div>
       )),
-      h2: React.forwardRef(({ children, ...rest }: any, ref: any) => (
+      h2: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
         <h2 ref={ref} {...removeProps(rest)}>
           {children}
         </h2>
       )),
-      p: React.forwardRef(({ children, ...rest }: any, ref: any) => (
+      p: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
         <p ref={ref} {...removeProps(rest)}>
           {children}
         </p>
       )),
-      li: React.forwardRef(({ children, ...rest }: any, ref: any) => (
+      li: React.forwardRef(({ children, ...rest }: { children?: React.ReactNode } & Record<string, unknown>, ref: React.ForwardedRef<any>) => (
         <li ref={ref} {...removeProps(rest)}>
           {children}
         </li>
       )),
     },
-    AnimatePresence: ({ children }: any) => <>{children}</>,
+    AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
     useScroll: () => ({ scrollY: { onChange: jest.fn(), get: jest.fn(), getPrevious: jest.fn() } }),
     useTransform: () => ({}),
     useMotionValueEvent: jest.fn(),
