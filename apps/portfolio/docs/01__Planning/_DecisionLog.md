@@ -140,7 +140,7 @@ Skills Section은 Grid + Chips 두 가지 레이아웃, Mono + Brand + Interacti
 
 ### Status
 
-- Accepted (Phase 4에서 최종 확정 예정)
+- Accepted — Phase 4에서 **Chips 레이아웃 + Brand 색상 모드**로 최종 확정 (2026-06-23). `SkillGrid` 컴포넌트 및 비교 토글 UI 제거 완료.
 
 ---
 
@@ -157,6 +157,66 @@ Skills Section 헤딩은 정적 `<h2>Skills.</h2>` 로 표시한다. WordRoller 
 ### Alternatives
 
 WordRoller 텍스트 롤링 애니메이션 적용 (HeroSection과 유사한 방식)
+
+### Status
+
+- Accepted
+
+---
+
+## 2026-07-20
+
+### Decision
+
+Footer 캐러셀을 기존 정적 프로젝트 이미지(`next/image`)에서 외부 GIF 기반 무한 스크롤 갤러리로 전환한다. `awesome-web-styling` 레포지토리의 81개 GIF를 CDN으로 로드한다.
+
+### Reason
+
+포트폴리오 하단의 에필로그 영역에 과거 웹 스타일링 아카이브의 GIF들을 활용하면 기술적 다양성을 시각적으로 증명할 수 있다. 외부 GIF 특성상 Next.js 이미지 최적화가 불필요하여 일반 `<img>` 태그로 전환했고, CLS 방지를 위해 명시적 `width`/`height`를 설정했다.
+
+### Alternatives
+
+정적 프로젝트 썸네일 이미지를 유지하는 방식
+
+### Status
+
+- Accepted
+
+---
+
+## 2026-07-20
+
+### Decision
+
+커스텀 커서 상태 체계를 `'default' | 'view' | 'grab' | 'pointer'`로 통일하고, 3D 카드 영역의 마이크로카피를 `Drag`에서 `Grab`으로 변경한다.
+
+### Reason
+
+물리 엔진(Rapier)이 적용된 3D 객체의 인터랙션 UX에서 `DRAG`보다 `GRAB`이 '만질 수 있는 사물'이라는 몰입감을 더 잘 전달한다. 또한 기존에 산발적이던 커서 상태 타입을 4개로 통일하고 `useMotionValue` 도입으로 마우스 좌표 렌더링을 최적화했다.
+
+### Alternatives
+
+`PULL` (당기다) — 물리적 장력을 강조하지만 직관성에서 `GRAB`보다 열세
+
+### Status
+
+- Accepted
+
+---
+
+## 2026-08-18
+
+### Decision
+
+ExperienceSection의 `stack` 속성명을 `type`으로 변경하고, 하드코딩된 그리드 스타일을 공용 테마 토큰(`lg:grid-cols-experience`)으로 대체한다.
+
+### Reason
+
+`stack`은 기술 스택을 연상시키지만 실제 데이터는 직무 형태(Co-Founder, Junior, Contractor 등)를 나타내므로 `type`이 의미적으로 정확하다. 또한 `lg:grid-cols-[2fr_2fr_2fr_1fr]`이 여러 곳에 반복되어 있어 유지보수성을 위해 Tailwind 테마 토큰으로 추출했다 (CodeRabbit 리뷰 반영).
+
+### Alternatives
+
+`role`이나 `position` 등 다른 속성명 — 기존 `role` (Frontend Engineer 등)과 의미 충돌
 
 ### Status
 

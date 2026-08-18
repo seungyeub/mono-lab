@@ -65,7 +65,24 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 
 - Antigravity 1.0의 대화 기록은 `~/.gemini/antigravity-backup/` 에만 보존됨 (현재 시스템에서 직접 참조 불가)
 - `@icons-pack/react-simple-icons` 에서 지원하지 않는 아이콘 7개는 커스텀 SVG로 `public/icons/` 에 별도 관리
-- Skills Section Phase 4(레이아웃/색상 최종 확정) 완료 전까지 임시 비교 토글 UI가 `SkillsSection.tsx` 에 존재함
+- ~~Skills Section Phase 4(레이아웃/색상 최종 확정) 완료 전까지 임시 비교 토글 UI가 `SkillsSection.tsx` 에 존재함~~ → Phase 4 완료, Chips + Brand 확정 및 토글 UI 제거됨 (2026-06-23)
+
+---
+
+## Current Status
+
+> 최종 업데이트: 2026-08-18
+
+- **현재 버전**: `v0.1.4`
+- **현재 브랜치**: `develop`
+- **병합된 PR**: #1 ~ #40 (총 40개)
+- **완료된 마일스톤**: Phase 1~4 (초기 세팅, 공통 레이아웃, 랜딩 섹션, Skills Section), CI/CD 파이프라인 구축, VRT 자동화
+- **최근 주요 작업** (2026-07-12 ~ 08-18):
+  - v0.1.4 UI 버그 픽스 (iOS 스크롤 충돌, 커서 숨김, 테스트 명세서 리팩토링)
+  - Footer GIF 캐러셀 전환 (81개 GIF 무한 스크롤)
+  - 커서 마이크로카피/타입 체계 통일 + StoryAnimation 신규 추가
+  - ExperienceSection 데이터 구조 리팩토링 (`stack`→`type`)
+- **다음 작업**: Phase 5 PRD(`docs/plan/2026-08-18_phase5_prd.md`) 작성 완료 — P0(메타데이터, Contact/Work Detail/Gallery 플레이스홀더 제거, Footer 구조 수정, Work 데이터 정합성) 항목부터 순차 착수 예정
 
 ---
 
