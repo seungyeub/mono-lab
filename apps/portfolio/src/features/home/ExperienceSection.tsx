@@ -92,7 +92,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-experience'
+              className='lg:grid-cols-experience grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8'
             >
               {/* col 1 — 회사명 (lg+) / 회사명+기간 (< lg) */}
               <div className='flex flex-col gap-1'>
@@ -134,7 +134,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-experience'
+              className='lg:grid-cols-experience grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8'
             >
               {/* col 1 — 자격증명 (lg+) / 자격증명+연도 (< lg) */}
               <div className='flex flex-col gap-1'>
