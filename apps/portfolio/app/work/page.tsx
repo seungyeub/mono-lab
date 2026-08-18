@@ -2,8 +2,8 @@ import { getAllProjects } from '@/src/lib/mdx';
 import WorkGrid from '@/src/features/work/WorkGrid';
 
 export const metadata = {
-  title: 'Work | Brand Designer Portfolio',
-  description: 'Selected brand identity, logo design, and visual system projects.',
+  title: 'Work | Seungyeub Baek',
+  description: 'Next.js, React, TypeScript 기반으로 작업한 프론트엔드 프로젝트 모음입니다.',
 };
 
 export default function WorkPage() {
