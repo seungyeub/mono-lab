@@ -15,9 +15,9 @@ const inter = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: 'Brand Designer Portfolio',
+  title: 'Seungyeub Baek | Frontend Engineer',
   description:
-    'Logo & Brand Designer based in Seoul, 한국. Crafting identities and systems that define and build lasting brands.',
+    'Next.js, React, TypeScript 기반으로 인터페이스와 시스템을 구축하는 프론트엔드 엔지니어 백승엽의 포트폴리오입니다.',
   manifest: '/site.webmanifest',
   icons: {
     apple: '/apple-touch-icon.png',
