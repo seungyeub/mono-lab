@@ -76,13 +76,13 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 - **현재 버전**: `v0.1.4`
 - **현재 브랜치**: `develop`
 - **병합된 PR**: #1 ~ #40 (총 40개)
-- **완료된 마일스톤**: Phase 1~4 (초기 세팅, 공통 레이아웃, 랜딩 섹션, Skills Section), CI/CD 파이프라인 구축, VRT 자동화
+- **완료된 마일스톤**: 초기 구현 Phase 1~6(`_Tasks.md` 기준 — 세팅, 공통 레이아웃, MDX/Work/Gallery, Contact, Header/Hero/Work 목록/FAQ 등), Skills Section 리뉴얼(별도 트랙인 "Skills Section Phase 4"), CI/CD 파이프라인 구축, VRT 자동화
 - **최근 주요 작업** (2026-07-12 ~ 08-18):
   - v0.1.4 UI 버그 픽스 (iOS 스크롤 충돌, 커서 숨김, 테스트 명세서 리팩토링)
   - Footer GIF 캐러셀 전환 (81개 GIF 무한 스크롤)
   - 커서 마이크로카피/타입 체계 통일 + StoryAnimation 신규 추가
   - ExperienceSection 데이터 구조 리팩토링 (`stack`→`type`)
-- **다음 작업**: Phase 5 PRD(`docs/plan/2026-08-18_phase5_prd.md`) 작성 완료 — P0(메타데이터, Contact/Work Detail/Gallery 플레이스홀더 제거, Footer 구조 수정, Work 데이터 정합성) 항목부터 순차 착수 예정
+- **다음 작업**: 콘텐츠 완성도·SEO/GEO/AEO 로드맵 "Phase 5"(`docs/plan/2026-08-18_phase5_prd.md`) 작성 완료 — 위 초기 구현 Phase 1~6과는 별개의 새 번호 체계이며, P0(메타데이터, Contact/Work Detail/Gallery 플레이스홀더 제거, Footer 구조 수정, Work 데이터 정합성) 항목부터 순차 착수 예정
 
 ---
 
