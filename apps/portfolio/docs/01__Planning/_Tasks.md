@@ -6,9 +6,35 @@
 
 ## Next
 
-가장 먼저 해야 하는 작업
+가장 먼저 해야 하는 작업 — Phase 5 PRD(`docs/plan/2026-08-18_phase5_prd.md`) 기준
 
-- [ ] 다음 개발 페이즈(Phase 5) 목표 설정
+### 🔴 P0 — Must Have (배포 전 필수)
+
+- [ ] P0-1. 사이트 메타데이터 "Frontend Engineer" 포지셔닝으로 전면 교체 (`layout.tsx`, `work/page.tsx`, `contact/page.tsx` + `work/[slug]` `generateMetadata` 신설)
+- [ ] P0-2. Contact 플레이스홀더 실제 값 교체 (이메일, Instagram/LinkedIn/Behance)
+- [ ] P0-3. Work Detail 플레이스홀더 제거 (Hero 이미지, 갤러리 4장, Live Website 링크)
+- [ ] P0-4. Gallery → Resume 전환 (Header/Footer `Gallery,` 라벨·경로 일괄 수정 포함)
+- [ ] P0-5. 서브 페이지 Footer 노출 구조 수정 (Root Layout에서 Footer 분리)
+- [ ] P0-6. Work 데이터 정합성 확보 (`WorksSection` PROJECTS 6개 ↔ MDX 4개 불일치, id 5·6 중복/죽은 링크 해소)
+
+### 🟡 P1 — Should Have (핵심 완성도)
+
+- [ ] P1-1. Works 영역 레퍼런스 리뉴얼 (`3d-portfolio-ruby-nine.vercel.app` 참고 — Tech Stack/Impact 섹션, Live+Source 이중 CTA, MDX 콘텐츠 재작성)
+- [ ] P1-2. 주석 처리된 `BrandSection`/`ServicesSection`/`EditorialDivider` 정리 (`app/page.tsx`)
+
+### 🟡 P2 — Nice to Have (품질 향상)
+
+- [ ] P2-1. Header 우측 "Based in Seoul" 콘텐츠 결정
+- [ ] P2-2. 커스텀 아이콘 SVG 15개 정식 교체 (`public/icons/`)
+- [ ] P2-3. StoryAnimation 컴포넌트 배치 위치 결정
+
+### 🟢 P3 — Backlog (선택적/폴리싱)
+
+- [ ] P3-1. 데스크톱 폰트 스케일업 최종 결정
+- [ ] P3-2. Skills Section 구분선(White Line) 제거 여부 결정
+- [ ] P3-3. `<html lang='en'>` 불일치 수정
+- [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
+- [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
 
 ---
 
@@ -16,7 +42,7 @@
 
 현재 진행 중
 
-- [/] `docs/01__Planning/` 4개 파일 기록 작성 (\_Project, \_Tasks, \_DecisionLog, \_Notes)
+- [ ] (진행 중인 항목 없음)
 
 ---
 
@@ -72,3 +98,9 @@
 - [x] 2026-06-23 — Skills Section Phase 4: 비교 토글 UI 제거 및 `SkillGrid` 컴포넌트 삭제
 - [x] 2026-07-11 — Skills Section Phase 4: 최종 반응형/애니메이션 최적화 (단일 컴포넌트 처리)
 - [x] 2026-07-11 — Skills Section Phase 4: Playwright VRT 기준점 갱신 및 PR 병합 완료
+- [x] 2026-07-12 — PR #37: v0.1.4 UI 버그 픽스 (iOS 스크롤 충돌, 커서 숨김, Framer `once` 버그), 테스트 명세서 전면 리팩토링 및 VRT 스냅샷 갱신
+- [x] 2026-07-20 — PR #38: Footer 캐러셀을 외부 GIF 기반 무한 스크롤로 전환 (81개 GIF, `carouselGifs.ts` 분리)
+- [x] 2026-07-20 — PR #39: 커서 마이크로카피 `Drag`→`Grab` 변경, 타입 안전성 강화 (`any` 제거), StoryAnimation 신규 추가
+- [x] 2026-08-18 — PR #40: ExperienceSection 데이터 리팩토링 (`stack`→`type` 속성명 변경, 오타 수정, 공용 테마 토큰 적용)
+- [x] 2026-08-18 — `docs/01__Planning/` 4개 파일 기록 최신화 완료
+- [x] 2026-08-18 — Phase 5 PRD 작성 (`docs/plan/2026-08-18_phase5_prd.md`) — 코드 감사 기반 P0~P3 16개 작업 항목 확정 + SEO/GEO/AEO 전략 수립

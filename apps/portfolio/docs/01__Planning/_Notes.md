@@ -103,10 +103,74 @@ PR #11, #12에서 전역 레이아웃과 CSS Sticky 포지션이 충돌하는 �
 
 ## 2026-06-29
 
-### Skills Section Phase 4 대기 중인 결정 사항
+### Skills Section Phase 4 결정 완료
 
-아직 미확정인 항목:
+확정된 항목:
 
-- **레이아웃**: Grid (카드 그리드) vs Chips (인라인 태그) 중 선택
-- **색상 모드**: Mono (흰색 단색) / Brand (브랜드 컬러) / Interactive (호버 시 컬러 활성화) 중 선택
-- 현재 임시 비교 토글 UI가 `SkillsSection.tsx` 하단에 존재 (Phase 4에서 제거 예정)
+- **레이아웃**: ~~Grid (카드 그리드)~~ → **Chips (인라인 태그)** 선택
+- **색상 모드**: ~~Mono (흰색 단색)~~ / ~~Interactive (호버 시 칼러 활성화)~~ → **Brand (브랜드 칼러)** 선택
+- 임시 비교 토글 UI 및 `SkillGrid` 컴포넌트 삭제 완료 (2026-06-23)
+
+---
+
+## 2026-07-12
+
+### v0.1.4 UI 버그 픽스 트러블슈팅
+
+- iOS에서 3D 캔버스 스크롤 충돌 방지: `touch-none` CSS 프로퍼티로 해결
+- 시스템 커서 숨김 처리 및 Framer Motion `once: true` 반복 애니메이션 버그 차단
+- 테스트 코드 전면 리팩토링: `Hello world` 등 더미 데이터 → 실제 기획 데이터 기반 명세서로 전환
+- ESLint `eslint-disable` 불필요한 주석 일괄 제거
+
+---
+
+## 2026-07-20 — Footer GIF 캐러셀
+
+### Footer GIF 캐러셀 구현 경험
+
+- 외부 GIF를 `next/image` 대신 일반 `<img>` 태그로 로드하는 것이 적합 (Next.js 이미지 최적화 불필요)
+- CLS 방지: `<img>`에 명시적 `width`/`height` 속성 필수
+- `will-change-transform` GPU 가속 및 700s 무한 marquee 애니메이션 적용
+- 81개 GIF 데이터를 `carouselGifs.ts`로 데이터 모듈 분리 — 컴포넌트 파일 크기 절감
+- inline `style={{ fontSize }}` → Tailwind v4 arbitrary value 클래스(`text-[min(14vw,12rem)]`)로 전환
+
+---
+
+## 2026-07-20 — 커서 상태 체계 통일
+
+### 커서 상태 체계 통일 및 타입 안전성 강화
+
+- 커서 상태를 `'default' | 'view' | 'grab' | 'pointer'` 4개로 통일
+- `useMotionValue` 도입으로 마우스 좌표 렌더링 최적화 (re-render 최소화)
+- `SkillIcon.tsx`, `SkillChips.tsx` 등 `any` 타입 전량 제거 → `React.ComponentType` 기반 명시적 타입 선언
+- `StoryAnimation.tsx` 신규 컴포넌트: SonarCloud 지적 사항(Math.random 사전 계산, 중첩 삼항 → 헬퍼 함수) 반영
+- `FAQSection`: `<button>` 에 `type='button'` 명시적 추가 (폼 내부 의도치 않은 submit 방지)
+
+---
+
+## 2026-08-18 — ExperienceSection 리팩토링
+
+### ExperienceSection 데이터 리팩토링 인사이트
+
+- 속성명은 데이터의 의미를 정확히 반영해야 한다 — `stack`(기술 스택 연상) → `type`(직무 형태)이 적합
+- 반복되는 Tailwind arbitrary value는 테마 토큰으로 추출해야 유지보수성이 높아진다 (CodeRabbit 리뷰에서 학습)
+- `Junier` → `Junior` 오타 수정 — 데이터 입력 시 맞춤법 검증 없이 방치된 사례, 향후 데이터 검증 레이어 고려
+
+---
+
+## 2026-08-18 — Phase 5 PRD 준비
+
+### Phase 5 PRD — Work Detail 레퍼런스(`3d-portfolio-ruby-nine.vercel.app`) 분석
+
+Vite + React SPA(SSR 없음, Three.js/R3F + GSAP `ScrollTrigger`/`ScrollSmoother` 기반)라 정적 HTML에 콘텐츠가 없어, 프로덕션 JS 번들(`assets/index-*.js`)에서 UI 문자열을 직접 추출해 구조를 역산했다.
+
+- 프로젝트 상세는 **Overview → Technology Stack → Impact & Results → 차별점** 4단 구조.
+- **Live Demo + View Source Code** 이중 CTA를 항상 함께 노출(GitHub URL이 프로젝트별로 존재).
+- 상세 페이지 하단에 **Next Project 순차 네비게이션** + Back to Portfolio.
+- 우리 `ProjectMetadata`(`src/lib/mdx.ts`)에는 `techStack`/`github` 필드가 아예 없다는 것을 이 비교 과정에서 확인 — Phase 5 P1-1에서 스키마 확장 필요.
+
+### Phase 5 PRD — 코드 감사 중 발견한 추가 사실
+
+- `src/contents/work/meltdown.mdx` 등 MDX 4개는 Helios 템플릿 원본의 **가상 브랜드 디자인 에이전시 카피**를 그대로 사용 중("tier-1 investors" 등). 메타데이터만 "Frontend Engineer"로 바꿔도 Work 본문은 여전히 브랜드 디자이너 서사로 남는 구조적 문제 — GEO 관점에서 본문 재작성이 메타데이터 수정만큼 중요함.
+- `public/icons/`의 `antigravity.svg`가 2.4MB, `zustand.svg`가 190KB로 확인됨 — 2026-06-21 노트에서 언급한 "7개 placeholder"보다 실제로는 `customIconPath` 사용처가 15개로 늘어나 있었고, 그중 일부는 용량 문제(비최적화 SVG)까지 겹쳐 있음.
+- `WorksSection.tsx`의 `PROJECTS`(6개, 하드코딩)와 `getAllProjects()`가 읽는 MDX(4개)가 서로 다른 데이터 소스라는 것을 코드 대조로 확인 — id 5·6은 제목이 `'Animal & Birds'`로 동일하고 `href='#'`인 죽은 카드.
