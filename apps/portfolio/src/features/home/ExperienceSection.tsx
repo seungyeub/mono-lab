@@ -21,7 +21,7 @@ const EXPERIENCES = [
     company: '(주) 딘코퍼레이션',
     period: '2019.02 - 2020.06',
     role: 'Frontend Engineer',
-    type: 'Junier',
+    type: 'Junior',
   },
   {
     company: '(주) 딘코퍼레이션',
@@ -39,7 +39,7 @@ const EXPERIENCES = [
     company: '(주) 코아리버',
     period: '2017.05 - 2018.06',
     role: 'Full Stack Engineer',
-    type: 'Junier',
+    type: 'Junior',
   },
 ];
 
@@ -92,7 +92,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-[2fr_2fr_2fr_1fr]'
+              className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-experience'
             >
               {/* col 1 — 회사명 (lg+) / 회사명+기간 (< lg) */}
               <div className='flex flex-col gap-1'>
@@ -134,7 +134,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-[2fr_2fr_2fr_1fr]'
+              className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-experience'
             >
               {/* col 1 — 자격증명 (lg+) / 자격증명+연도 (< lg) */}
               <div className='flex flex-col gap-1'>

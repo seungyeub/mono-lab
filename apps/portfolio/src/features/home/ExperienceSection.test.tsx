@@ -63,4 +63,25 @@ describe('ExperienceSection', () => {
     expect(container.textContent).toContain('정보처리기사');
     expect(container.textContent).toContain('한국산업인력공단');
   });
+
+  it('모든 경력의 type이 올바르게 표출되어야 합니다', () => {
+    const { container } = render(<ExperienceSection />);
+
+    // 각 회사의 type 검증 (회귀 방지: type → stack 변경, Junier 오타)
+    expect(container.textContent).toContain('Co-Founder');
+    expect(container.textContent).toContain('Junior');
+    expect(container.textContent).toContain('Contractor');
+    expect(container.textContent).toContain('Internship');
+
+    // Junier 오타가 없어야 함
+    expect(container.textContent).not.toContain('Junier');
+  });
+
+  it('딘코퍼레이션의 두 경력 기간이 모두 표출되어야 합니다', () => {
+    const { container } = render(<ExperienceSection />);
+
+    // 딘코퍼레이션의 두 근무 기간 검증
+    expect(container.textContent).toContain('2019.02 - 2020.06');
+    expect(container.textContent).toContain('2018.12 - 2019.01');
+  });
 });

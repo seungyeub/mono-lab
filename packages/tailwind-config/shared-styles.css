@@ -4,4 +4,5 @@
   --color-blue-1000: #2a8af6;
   --color-purple-1000: #a853ba;
   --color-red-1000: #e92a67;
+  --grid-cols-experience: 2fr 2fr 2fr 1fr;
 }
