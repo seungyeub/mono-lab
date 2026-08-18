@@ -1,8 +1,8 @@
 import ContactForm from '@/src/features/contact/ContactForm';
 
 export const metadata = {
-  title: 'Contact | Portfolio',
-  description: 'Get in touch for brand identity, logo design, and visual strategy projects.',
+  title: 'Contact | Seungyeub Baek',
+  description: '프론트엔드 개발 협업 및 채용 문의를 위해 백승엽에게 연락할 수 있는 페이지입니다.',
 };
 
 export default function ContactPage() {
