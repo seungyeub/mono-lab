@@ -24,6 +24,18 @@ export function getProjectBySlug(slug: string) {
   };
 }
 
+export function getProjectSeoMetadata(slug: string): { title: string; description: string } | null {
+  try {
+    const { meta } = getProjectBySlug(slug);
+    return {
+      title: `${meta.title} | Seungyeub Baek`,
+      description: `${meta.title} — ${meta.category} 프로젝트 상세입니다.`,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function getAllProjects() {
   const workDir = path.join(contentDir, 'work');
   if (!fs.existsSync(workDir)) return [];
