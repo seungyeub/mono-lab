@@ -19,8 +19,8 @@ export default function ContactPage() {
         <div className='flex flex-col justify-end gap-8 text-sm text-gray-400 md:max-w-xs md:text-base'>
           <div>
             <p className='mb-1 text-xs font-medium tracking-widest text-white uppercase'>Email</p>
-            <a href='mailto:hello@example.com' className='transition-colors hover:text-white'>
-              hello@example.com
+            <a href='mailto:superior051@icloud.com' className='transition-colors hover:text-white'>
+              superior051@icloud.com
             </a>
           </div>
           <div>
@@ -34,14 +34,37 @@ export default function ContactPage() {
               Networks
             </p>
             <div className='flex flex-col gap-1'>
-              <a href='#' className='transition-colors hover:text-white'>
+              <a
+                href='https://github.com/seungyeub'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='transition-colors hover:text-white'
+              >
+                Github
+              </a>
+              <a
+                href='https://pinterest.com/bseungyeub'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='transition-colors hover:text-white'
+              >
+                Pinterest
+              </a>
+              <a
+                href='https://www.instagram.com/b.seungyeub'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='transition-colors hover:text-white'
+              >
                 Instagram
               </a>
-              <a href='#' className='transition-colors hover:text-white'>
-                LinkedIn
-              </a>
-              <a href='#' className='transition-colors hover:text-white'>
-                Behance
+              <a
+                href='https://blog.naver.com/backsajang420'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='transition-colors hover:text-white'
+              >
+                Blog
               </a>
             </div>
           </div>
