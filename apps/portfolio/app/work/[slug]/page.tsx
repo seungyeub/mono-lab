@@ -1,14 +1,27 @@
-import { getAllProjects, getProjectBySlug } from '@/src/lib/mdx';
+import { getAllProjects, getProjectBySlug, getProjectSeoMetadata } from '@/src/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Marquee from '@/src/components/Marquee';
 import EditorialDivider from '@/src/components/EditorialDivider';
 import { ComponentPropsWithoutRef } from 'react';
+import type { Metadata } from 'next';
+
+type ProjectDetailParams = { slug: string };
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
   return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<ProjectDetailParams>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const seo = getProjectSeoMetadata(slug);
+  return seo ?? {};
 }
 
 const mdxComponents = {
@@ -30,10 +43,12 @@ const mdxComponents = {
   li: (props: ComponentPropsWithoutRef<'li'>) => <li {...props} />,
 };
 
-export default function ProjectDetail({ params }: { params: { slug: string } }) {
+export default async function ProjectDetail({ params }: { params: Promise<ProjectDetailParams> }) {
+  const { slug: paramSlug } = await params;
+
   let project;
   try {
-    project = getProjectBySlug(params.slug);
+    project = getProjectBySlug(paramSlug);
   } catch {
     return notFound();
   }
