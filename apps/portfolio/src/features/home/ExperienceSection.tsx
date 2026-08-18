@@ -14,26 +14,32 @@ const EXPERIENCES = [
   {
     company: '(주) 나비이',
     period: '2020.08 - 2025.08',
-    role: 'FrontEnd Engineer',
-    stack: 'Co-Founder',
+    role: 'Frontend Engineer',
+    type: 'Co-Founder',
   },
   {
     company: '(주) 딘코퍼레이션',
-    period: '2018.12 - 2020.06',
-    role: 'FrontEnd Engineer',
-    stack: 'Junier',
+    period: '2019.02 - 2020.06',
+    role: 'Frontend Engineer',
+    type: 'Junior',
+  },
+  {
+    company: '(주) 딘코퍼레이션',
+    period: '2018.12 - 2019.01',
+    role: 'Frontend Engineer',
+    type: 'Contractor',
   },
   {
     company: '(주) 티몬',
     period: '2018.07 - 2018.08',
-    role: 'FrontEnd Engineer',
-    stack: 'Internship',
+    role: 'Frontend Engineer',
+    type: 'Internship',
   },
   {
     company: '(주) 코아리버',
     period: '2017.05 - 2018.06',
     role: 'Full Stack Engineer',
-    stack: 'Junier',
+    type: 'Junior',
   },
 ];
 
@@ -86,7 +92,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-4'
+              className='lg:grid-cols-experience grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8'
             >
               {/* col 1 — 회사명 (lg+) / 회사명+기간 (< lg) */}
               <div className='flex flex-col gap-1'>
@@ -96,7 +102,7 @@ export default function ExperienceSection() {
               {/* col 2 (소형) — 역할+지역, 오른쪽 정렬. lg 이상에서는 숨김 */}
               <div className='flex flex-col gap-1 text-right lg:hidden'>
                 <span className='text-base font-medium text-gray-300 md:text-lg'>{exp.role}</span>
-                <span className='text-xs tracking-widest text-gray-500 uppercase'>{exp.stack}</span>
+                <span className='text-xs tracking-widest text-gray-500 uppercase'>{exp.type}</span>
               </div>
               {/* col 2 (lg+) — 기간 단독 */}
               <div className='hidden items-center lg:flex'>
@@ -108,7 +114,7 @@ export default function ExperienceSection() {
               </div>
               {/* col 4 (lg+) — 지역, 오른쪽 정렬 */}
               <div className='hidden items-center justify-end lg:flex'>
-                <span className='text-xs tracking-widest text-gray-500 uppercase'>{exp.stack}</span>
+                <span className='text-xs tracking-widest text-gray-500 uppercase'>{exp.type}</span>
               </div>
             </motion.div>
           ))}
@@ -128,7 +134,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className='grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8 lg:grid-cols-4'
+              className='lg:grid-cols-experience grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8'
             >
               {/* col 1 — 자격증명 (lg+) / 자격증명+연도 (< lg) */}
               <div className='flex flex-col gap-1'>
