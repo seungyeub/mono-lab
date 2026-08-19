@@ -85,17 +85,33 @@ jobs:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.VERSION }}
 
-      # 테스트가 쓰는 chromium·webkit만 설치한다. 캐시가 적중해도
-      # OS 라이브러리(apt)는 캐시 대상이 아니라 매번 설치해야 한다.
+      # 테스트가 쓰는 chromium·webkit만 설치한다. 캐시가 적중해도 OS 라이브러리(apt)는
+      # 캐시 대상이 아니라 매번 설치해야 하며, 이 구간이 간헐적으로 정체되므로
+      # playwright.yml과 동일하게 5분 타임아웃 × 3회 재시도로 감싼다.
       - name: Install Playwright Browsers
-        timeout-minutes: 10
+        timeout-minutes: 18
         run: |
           cd apps/portfolio
-          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" = "true" ]; then
-            pnpm exec playwright install-deps chromium webkit
+
+          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" = 'true' ]; then
+            INSTALL_CMD='pnpm exec playwright install-deps chromium webkit'
           else
-            pnpm exec playwright install --with-deps chromium webkit
+            INSTALL_CMD='pnpm exec playwright install --with-deps chromium webkit'
           fi
+
+          for attempt in 1 2 3; do
+            echo "::group::Playwright 설치 시도 ${attempt}/3"
+            if timeout 5m ${INSTALL_CMD}; then
+              echo '::endgroup::'
+              exit 0
+            fi
+            echo '::endgroup::'
+            echo "::warning::설치 시도 ${attempt}회차 실패(정체 또는 오류). 재시도합니다."
+            sleep 15
+          done
+
+          echo '::error::Playwright 설치가 3회 모두 실패했습니다.'
+          exit 1
 
       - name: Build Portfolio App
         run: pnpm run build --filter portfolio

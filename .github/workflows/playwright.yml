@@ -75,16 +75,34 @@ jobs:
 
       # playwright.config.ts의 projects가 Desktop Chrome(chromium)과
       # Mobile Safari 2종(webkit)뿐이므로 firefox는 설치하지 않는다.
-      # 캐시가 적중해도 OS 라이브러리(apt)는 캐시 대상이 아니라 매번 설치해야 한다.
+      #
+      # 캐시가 적중해도 OS 라이브러리(apt)는 캐시 대상이 아니라 매번 설치해야 하는데,
+      # 이 apt 다운로드(181개 패키지·114MB)가 Azure 미러 상태에 따라 간헐적으로 정체된다.
+      # 일시적 정체이므로 5분 타임아웃 × 3회 재시도로 흡수한다.
       - name: Install Playwright Browsers
-        timeout-minutes: 10
+        timeout-minutes: 18
         run: |
           cd apps/portfolio
-          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" = "true" ]; then
-            pnpm exec playwright install-deps chromium webkit
+
+          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" = 'true' ]; then
+            INSTALL_CMD='pnpm exec playwright install-deps chromium webkit'
           else
-            pnpm exec playwright install --with-deps chromium webkit
+            INSTALL_CMD='pnpm exec playwright install --with-deps chromium webkit'
           fi
+
+          for attempt in 1 2 3; do
+            echo "::group::Playwright 설치 시도 ${attempt}/3"
+            if timeout 5m ${INSTALL_CMD}; then
+              echo '::endgroup::'
+              exit 0
+            fi
+            echo '::endgroup::'
+            echo "::warning::설치 시도 ${attempt}회차 실패(정체 또는 오류). 재시도합니다."
+            sleep 15
+          done
+
+          echo '::error::Playwright 설치가 3회 모두 실패했습니다.'
+          exit 1
 
       - name: Build Portfolio App
         run: pnpm run build --filter portfolio
