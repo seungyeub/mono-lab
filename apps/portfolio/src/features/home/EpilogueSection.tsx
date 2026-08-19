@@ -29,7 +29,11 @@ export default function EpilogueSection() {
       <SectionLabel scene='05' leftLabel='© Final Section 에필로그' rightLabel='Epilogue' />
 
       {/* ── 2. 가로 스크롤 캐러셀 ── */}
-      <div className='box-content h-[250px] w-full overflow-hidden pt-12 pb-8 sm:h-[300px] lg:h-[360px]'>
+      {/* data-testid: 외부 CDN GIF는 로드 시점이 실행마다 달라 VRT에서 마스킹 대상이 된다 */}
+      <div
+        data-testid='epilogue-carousel'
+        className='box-content h-[250px] w-full overflow-hidden pt-12 pb-8 sm:h-[300px] lg:h-[360px]'
+      >
         {/* GPU 가속을 위한 will-change-transform 추가 및 무한 스크롤 애니메이션 */}
         <div className='flex w-max animate-[marquee-scroll_700s_linear_infinite] items-start will-change-transform'>
           {/* 배열을 3번 복사하여 무한 스크롤이 끊기지 않게 함 */}
