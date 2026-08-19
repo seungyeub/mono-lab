@@ -1,4 +1,9 @@
-import { getAllProjects, getProjectBySlug, getProjectSeoMetadata } from '@/src/lib/mdx';
+import {
+  filterExistingPublicImages,
+  getAllProjects,
+  getProjectBySlug,
+  getProjectSeoMetadata,
+} from '@/src/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -59,6 +64,12 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   // 현재 프로젝트 제외 추천 2개
   const moreProjects = allProjects.filter((p) => p.slug !== slug).slice(0, 2);
 
+  // 실존하는 이미지 에셋만 렌더링 대상으로 삼는다 (에셋 미확보 상태에서도 placeholder 없이 동작)
+  const [heroImage] = filterExistingPublicImages([meta.image]);
+  const galleryImages = filterExistingPublicImages(
+    ['01', '02', '03', '04'].map((n) => `/images/work/${slug}/${n}.jpg`),
+  );
+
   const META_ROWS = [
     { label: 'Category', value: meta.category },
     { label: 'Project', value: `(${String(meta.order).padStart(2, '0')})` },
@@ -67,18 +78,16 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
 
   return (
     <main className='min-h-screen w-full'>
-      {/* ── Full-width Hero Image ── */}
-      <section className='relative h-[55vh] w-full overflow-hidden bg-[#1a1a1a] md:h-[75vh]'>
-        <div
-          className='absolute inset-0 bg-cover bg-center'
-          style={{ backgroundImage: `url(${meta.image})` }}
-        />
-        {/* placeholder */}
-        <div className='absolute inset-0 flex items-center justify-center text-xs tracking-widest text-white uppercase opacity-10'>
-          {meta.image}
-        </div>
-        <div className='absolute inset-0 bg-gradient-to-t from-[var(--site-bg)]/60 to-transparent' />
-      </section>
+      {/* ── Full-width Hero Image (실존 에셋이 있을 때만 렌더링) ── */}
+      {heroImage && (
+        <section className='relative h-[55vh] w-full overflow-hidden bg-[#1a1a1a] md:h-[75vh]'>
+          <div
+            className='absolute inset-0 bg-cover bg-center'
+            style={{ backgroundImage: `url(${heroImage})` }}
+          />
+          <div className='absolute inset-0 bg-gradient-to-t from-[var(--site-bg)]/60 to-transparent' />
+        </section>
+      )}
 
       {/* ── Split layout: sticky left + scrollable right ── */}
       <section className='flex flex-col gap-0 px-6 pt-16 pb-32 md:flex-row md:px-12'>
@@ -104,13 +113,17 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
               ))}
             </div>
 
-            {/* Live Website placeholder */}
-            <a
-              href='#'
-              className='self-start rounded-full border border-white/30 px-6 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black'
-            >
-              Live Website ↗
-            </a>
+            {/* Live Website CTA — frontmatter에 liveUrl이 있을 때만 렌더링 */}
+            {meta.liveUrl && (
+              <a
+                href={meta.liveUrl}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='self-start rounded-full border border-white/30 px-6 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black'
+              >
+                Live Website ↗
+              </a>
+            )}
 
             {/* Back to work */}
             <Link
@@ -135,26 +148,19 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
             <MDXRemote source={content} components={mdxComponents} />
           </article>
 
-          {/* Extra image gallery slots (이미지 경로 기반) */}
-          <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-2'>
-            {[
-              `/images/work/${slug}/01.jpg`,
-              `/images/work/${slug}/02.jpg`,
-              `/images/work/${slug}/03.jpg`,
-              `/images/work/${slug}/04.jpg`,
-            ].map((imgPath) => (
-              <div key={imgPath} className='relative aspect-[4/3] overflow-hidden bg-[#1a1a1a]'>
-                <div
-                  className='absolute inset-0 bg-cover bg-center'
-                  style={{ backgroundImage: `url(${imgPath})` }}
-                />
-                {/* placeholder */}
-                <div className='absolute inset-0 flex items-center justify-center p-2 text-center text-[9px] tracking-widest break-all text-white uppercase opacity-10'>
-                  {imgPath}
+          {/* Extra image gallery — 실존 에셋이 있을 때만 렌더링 */}
+          {galleryImages.length > 0 && (
+            <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-2'>
+              {galleryImages.map((imgPath) => (
+                <div key={imgPath} className='relative aspect-[4/3] overflow-hidden bg-[#1a1a1a]'>
+                  <div
+                    className='absolute inset-0 bg-cover bg-center'
+                    style={{ backgroundImage: `url(${imgPath})` }}
+                  />
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -172,23 +178,31 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
           />
 
           <div className='grid grid-cols-1 gap-6 px-6 pb-24 md:grid-cols-2 md:gap-8 md:px-12'>
-            {moreProjects.map((p) => (
-              <Link key={p.slug} href={`/work/${p.slug}`} className='group flex flex-col gap-3'>
-                <div className='relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]'>
-                  <div
-                    className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105'
-                    style={{ backgroundImage: `url(${p.meta.image})` }}
-                  />
-                  <div className='absolute inset-0 flex items-center justify-center text-xs tracking-widest text-white uppercase opacity-10'>
-                    {p.meta.title}
+            {moreProjects.map((p) => {
+              const [cardImage] = filterExistingPublicImages([p.meta.image]);
+              return (
+                <Link key={p.slug} href={`/work/${p.slug}`} className='group flex flex-col gap-3'>
+                  <div className='relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]'>
+                    {cardImage ? (
+                      <div
+                        className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105'
+                        style={{ backgroundImage: `url(${cardImage})` }}
+                      />
+                    ) : (
+                      <div className='absolute inset-0 flex items-center justify-center'>
+                        <span className='px-4 text-center text-sm tracking-widest text-white/40 uppercase transition-colors duration-300 group-hover:text-white/70'>
+                          {p.meta.title}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                </div>
-                <div className='flex items-start justify-between'>
-                  <span className='text-base font-medium'>{p.meta.title}</span>
-                  <span className='text-xs text-white/40'>{p.meta.category}</span>
-                </div>
-              </Link>
-            ))}
+                  <div className='flex items-start justify-between'>
+                    <span className='text-base font-medium'>{p.meta.title}</span>
+                    <span className='text-xs text-white/40'>{p.meta.category}</span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </>
       )}

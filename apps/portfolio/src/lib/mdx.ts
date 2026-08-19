@@ -9,6 +9,7 @@ export interface ProjectMetadata {
   category: string;
   order: number;
   image: string;
+  liveUrl?: string;
 }
 
 export function getProjectBySlug(slug: string) {
@@ -22,6 +23,11 @@ export function getProjectBySlug(slug: string) {
     meta: data as ProjectMetadata,
     content,
   };
+}
+
+export function filterExistingPublicImages(imagePaths: string[]): string[] {
+  const publicDir = path.join(process.cwd(), 'public');
+  return imagePaths.filter((imagePath) => fs.existsSync(path.join(publicDir, imagePath)));
 }
 
 export function getProjectSeoMetadata(slug: string): { title: string; description: string } | null {
