@@ -98,6 +98,11 @@ jobs:
             fi
             echo '::endgroup::'
             echo "::warning::설치 시도 ${attempt}회차 실패(정체 또는 오류). 재시도합니다."
+            # --kill-after의 SIGKILL은 apt-get을 트랜잭션 도중 죽여 dpkg 잠금을 놓지 못하게 만들 수 있다.
+            # 다음 시도가 "Could not get lock"으로 즉시 실패하지 않도록 잠금과 잔여 프로세스를 정리한다.
+            sudo pkill -9 -f 'apt-get|dpkg' > /dev/null 2>&1 || true
+            sudo rm -f /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock
+            sudo dpkg --configure -a > /dev/null 2>&1 || true
             sleep 15
           done
 
