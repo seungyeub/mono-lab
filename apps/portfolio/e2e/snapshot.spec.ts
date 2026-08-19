@@ -22,6 +22,9 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
       'experience-baseline.png',
     );
     await expect(page.locator('data-testid=faq-section')).toHaveScreenshot('faq-baseline.png');
+    await expect(page.locator('data-testid=epilogue-section')).toHaveScreenshot(
+      'epilogue-baseline.png',
+    );
     await expect(page.locator('data-testid=footer')).toHaveScreenshot('footer-baseline.png');
   });
 });
