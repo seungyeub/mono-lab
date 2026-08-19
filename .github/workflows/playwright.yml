@@ -17,6 +17,13 @@ jobs:
     name: Run Visual Snapshot Tests
     runs-on: ubuntu-latest
 
+    # 브라우저와 OS 라이브러리가 모두 내장된 Playwright 공식 이미지에서 실행한다.
+    # 러너에서 직접 실행하면 --with-deps가 매번 apt로 181개 패키지(114MB)를 받는데,
+    # Azure 미러가 간헐적으로 초저속화되어 설치 단계가 수십 분간 정체됐다(PR #49 실측).
+    # 이미지 태그는 @playwright/test 실제 설치 버전과 반드시 일치시킨다.
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.0-noble
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -40,7 +47,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -51,17 +58,25 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Cache Turborepo
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-playwright-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-playwright-
 
-      - name: Install Playwright Browsers
+      # 브라우저 설치 단계 없음 — 컨테이너 이미지에 chromium·webkit과 필요한 OS
+      # 라이브러리가 모두 내장되어 있다(PLAYWRIGHT_BROWSERS_PATH=/ms-playwright).
+      #
+      # 이미지 태그가 @playwright/test 버전과 어긋나면 브라우저를 찾지 못해 테스트가
+      # "Executable doesn't exist" 로 실패한다. 그때 원인을 즉시 알 수 있도록
+      # 버전과 내장 브라우저 목록만 로그에 남긴다(설치·다운로드는 하지 않는다).
+      - name: Log Playwright version and bundled browsers
         run: |
           cd apps/portfolio
-          pnpm exec playwright install --with-deps
+          echo "@playwright/test 설치 버전: $(node -p "require('@playwright/test/package.json').version")"
+          echo "브라우저 경로: ${PLAYWRIGHT_BROWSERS_PATH:-/ms-playwright}"
+          ls -1 "${PLAYWRIGHT_BROWSERS_PATH:-/ms-playwright}"
 
       - name: Build Portfolio App
         run: pnpm run build --filter portfolio

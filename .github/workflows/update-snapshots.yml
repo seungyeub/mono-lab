@@ -22,6 +22,11 @@ jobs:
     name: Update Playwright Snapshots
     runs-on: ubuntu-latest
 
+    # playwright.yml과 반드시 동일한 이미지를 쓴다 — baseline을 촬영하는 환경과
+    # 검증하는 환경이 다르면 스냅샷이 영구히 어긋난다.
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.0-noble
+
     steps:
       - name: Get Target Branch
         id: branch
@@ -61,7 +66,7 @@ jobs:
         run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -71,10 +76,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright Browsers
+      # 브라우저 설치 단계 없음 — 컨테이너 이미지에 내장되어 있다(playwright.yml과 동일).
+      - name: Log Playwright version and bundled browsers
         run: |
           cd apps/portfolio
-          pnpm exec playwright install --with-deps
+          echo "@playwright/test 설치 버전: $(node -p "require('@playwright/test/package.json').version")"
+          echo "브라우저 경로: ${PLAYWRIGHT_BROWSERS_PATH:-/ms-playwright}"
+          ls -1 "${PLAYWRIGHT_BROWSERS_PATH:-/ms-playwright}"
 
       - name: Build Portfolio App
         run: pnpm run build --filter portfolio
