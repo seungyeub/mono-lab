@@ -25,19 +25,21 @@ export function getProjectBySlug(slug: string) {
   };
 }
 
-export function filterExistingPublicImages(imagePaths: string[]): string[] {
+export function publicAssetExists(publicPath: string): boolean {
   const publicDir = path.resolve(process.cwd(), 'public');
-  return imagePaths.filter((imagePath) => {
-    // public 디렉토리 밖으로 탈출하는 경로(../ 등)는 실존 여부와 무관하게 거부한다
-    const assetPath = path.resolve(publicDir, imagePath.replace(/^[/\\]+/, ''));
-    if (!assetPath.startsWith(`${publicDir}${path.sep}`)) return false;
-    try {
-      // 디렉토리 등 일반 파일이 아닌 경로는 이미지로 취급하지 않는다
-      return fs.statSync(assetPath).isFile();
-    } catch {
-      return false;
-    }
-  });
+  // public 디렉토리 밖으로 탈출하는 경로(../ 등)는 실존 여부와 무관하게 거부한다
+  const assetPath = path.resolve(publicDir, publicPath.replace(/^[/\\]+/, ''));
+  if (!assetPath.startsWith(`${publicDir}${path.sep}`)) return false;
+  try {
+    // 디렉토리 등 일반 파일이 아닌 경로는 에셋으로 취급하지 않는다
+    return fs.statSync(assetPath).isFile();
+  } catch {
+    return false;
+  }
+}
+
+export function filterExistingPublicImages(imagePaths: string[]): string[] {
+  return imagePaths.filter(publicAssetExists);
 }
 
 export function getProjectSeoMetadata(slug: string): { title: string; description: string } | null {

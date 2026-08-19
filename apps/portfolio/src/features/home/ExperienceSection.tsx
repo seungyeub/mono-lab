@@ -3,60 +3,13 @@
 import SectionLabel from '@/src/components/SectionLabel';
 import TagBar from '@/src/components/TagBar';
 import WordRoller from '@/src/components/WordRoller';
+import { ACHIEVEMENTS, EXPERIENCES } from '@/src/data/experienceData';
 import { motion } from 'framer-motion';
 
 /** 롤링 헤드라인에 들어갈 단어 목록 */
 const ROLLING_WORDS = ['Engineering.', 'Usability.', 'Accessibility.', 'Performance.'];
 
 const TAGS = ['Product Development', 'Internal Systems', 'Enterprise Projects', 'Independent Work'];
-
-const EXPERIENCES = [
-  {
-    company: '(주) 나비이',
-    period: '2020.08 - 2025.08',
-    role: 'Frontend Engineer',
-    type: 'Co-Founder',
-  },
-  {
-    company: '(주) 딘코퍼레이션',
-    period: '2019.02 - 2020.06',
-    role: 'Frontend Engineer',
-    type: 'Junior',
-  },
-  {
-    company: '(주) 딘코퍼레이션',
-    period: '2018.12 - 2019.01',
-    role: 'Frontend Engineer',
-    type: 'Contractor',
-  },
-  {
-    company: '(주) 티몬',
-    period: '2018.07 - 2018.08',
-    role: 'Frontend Engineer',
-    type: 'Internship',
-  },
-  {
-    company: '(주) 코아리버',
-    period: '2017.05 - 2018.06',
-    role: 'Full Stack Engineer',
-    type: 'Junior',
-  },
-];
-
-const ACHIEVEMENTS = [
-  {
-    certificate: '정보처리기사',
-    date: '2015.10',
-    organization: '한국산업인력공단',
-    result: '취득',
-  },
-  {
-    certificate: 'OCJP',
-    date: '2016.03',
-    organization: 'Oracle',
-    result: '취득',
-  },
-];
 
 export default function ExperienceSection() {
   return (

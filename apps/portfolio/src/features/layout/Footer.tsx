@@ -12,7 +12,7 @@ import { CAROUSEL_CARDS } from '@/src/data/carouselGifs';
 
 const QUICK_LINKS = [
   { label: 'Home,', href: '/' },
-  { label: 'Gallery,', href: '/gallery' },
+  { label: 'Resume,', href: '/resume' },
   { label: 'Work,', href: '/work' },
   { label: 'Contact', href: '/contact' },
 ];

@@ -1,4 +1,4 @@
-import { filterExistingPublicImages, getProjectSeoMetadata } from './mdx';
+import { filterExistingPublicImages, getProjectSeoMetadata, publicAssetExists } from './mdx';
 
 describe('getProjectSeoMetadata', () => {
   it('returns title/description built from the project meta for an existing slug', () => {
@@ -54,5 +54,23 @@ describe('filterExistingPublicImages', () => {
     const result = filterExistingPublicImages(['../package.json', '/../package.json']);
 
     expect(result).toEqual([]);
+  });
+});
+
+describe('publicAssetExists', () => {
+  it('returns true for a regular file that exists under public/', () => {
+    expect(publicAssetExists('/images/avatar.jpg')).toBe(true);
+  });
+
+  it('returns false for a file that does not exist', () => {
+    expect(publicAssetExists('/resume-not-uploaded-yet.pdf')).toBe(false);
+  });
+
+  it('returns false for an existing directory', () => {
+    expect(publicAssetExists('/images')).toBe(false);
+  });
+
+  it('returns false for paths that traverse outside of public/', () => {
+    expect(publicAssetExists('../package.json')).toBe(false);
   });
 });
