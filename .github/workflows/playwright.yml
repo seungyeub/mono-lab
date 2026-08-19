@@ -17,6 +17,13 @@ jobs:
     name: Run Visual Snapshot Tests
     runs-on: ubuntu-latest
 
+    # 브라우저와 OS 라이브러리가 모두 내장된 Playwright 공식 이미지에서 실행한다.
+    # 러너에서 직접 실행하면 --with-deps가 매번 apt로 181개 패키지(114MB)를 받는데,
+    # Azure 미러가 간헐적으로 초저속화되어 설치 단계가 수십 분간 정체됐다(PR #49 실측).
+    # 이미지 태그는 @playwright/test 실제 설치 버전과 반드시 일치시킨다.
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.0-noble
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -58,56 +65,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-playwright-
 
-      # 캐시 키를 Playwright 해석 버전에 고정한다.
-      # pnpm-lock.yaml 해시를 쓰면 무관한 의존성 변경마다 400MB를 다시 받게 된다.
-      - name: Get Playwright version
-        id: playwright-version
-        run: |
-          cd apps/portfolio
-          echo "VERSION=$(node -p "require('@playwright/test/package.json').version")" >> $GITHUB_OUTPUT
-
-      - name: Cache Playwright browsers
-        id: playwright-cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.VERSION }}
-
-      # playwright.config.ts의 projects가 Desktop Chrome(chromium)과
-      # Mobile Safari 2종(webkit)뿐이므로 firefox는 설치하지 않는다.
+      # 브라우저 설치 단계 없음 — 컨테이너 이미지에 chromium·webkit과 필요한 OS
+      # 라이브러리가 모두 내장되어 있다(PLAYWRIGHT_BROWSERS_PATH=/ms-playwright).
       #
-      # 캐시가 적중해도 OS 라이브러리(apt)는 캐시 대상이 아니라 매번 설치해야 하는데,
-      # 이 apt 다운로드(181개 패키지·114MB)가 Azure 미러 상태에 따라 간헐적으로 정체된다.
-      # 일시적 정체이므로 5분 타임아웃 × 3회 재시도로 흡수한다.
-      - name: Install Playwright Browsers
-        timeout-minutes: 18
+      # 이미지 태그가 @playwright/test 버전과 어긋나면 브라우저를 찾지 못해 테스트가
+      # "Executable doesn't exist" 로 실패한다. 그때 원인을 즉시 알 수 있도록
+      # 버전과 내장 브라우저 목록만 로그에 남긴다(설치·다운로드는 하지 않는다).
+      - name: Log Playwright version and bundled browsers
         run: |
           cd apps/portfolio
-
-          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" = 'true' ]; then
-            INSTALL_CMD='pnpm exec playwright install-deps chromium webkit'
-          else
-            INSTALL_CMD='pnpm exec playwright install --with-deps chromium webkit'
-          fi
-
-          for attempt in 1 2 3; do
-            echo "::group::Playwright 설치 시도 ${attempt}/3"
-            if timeout --kill-after=30s 5m ${INSTALL_CMD}; then
-              echo '::endgroup::'
-              exit 0
-            fi
-            echo '::endgroup::'
-            echo "::warning::설치 시도 ${attempt}회차 실패(정체 또는 오류). 재시도합니다."
-            # --kill-after의 SIGKILL은 apt-get을 트랜잭션 도중 죽여 dpkg 잠금을 놓지 못하게 만들 수 있다.
-            # 다음 시도가 "Could not get lock"으로 즉시 실패하지 않도록 잠금과 잔여 프로세스를 정리한다.
-            sudo pkill -9 -f 'apt-get|dpkg' > /dev/null 2>&1 || true
-            sudo rm -f /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock
-            sudo dpkg --configure -a > /dev/null 2>&1 || true
-            sleep 15
-          done
-
-          echo '::error::Playwright 설치가 3회 모두 실패했습니다.'
-          exit 1
+          echo "@playwright/test 설치 버전: $(node -p "require('@playwright/test/package.json').version")"
+          echo "브라우저 경로: ${PLAYWRIGHT_BROWSERS_PATH:-/ms-playwright}"
+          ls -1 "${PLAYWRIGHT_BROWSERS_PATH:-/ms-playwright}"
 
       - name: Build Portfolio App
         run: pnpm run build --filter portfolio

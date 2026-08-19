@@ -36,7 +36,7 @@
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` 6곳 + spacing `pt-[140px]` 4곳 토큰 신규 정의 후 일괄 교체 — CodeRabbit PR #46·#48 지적)
-- [ ] P3-7. Playwright CI 컨테이너 전환 검토 (baseline 영향 실측 선행 — `docs/plan/2026-08-19_playwright-ci-optimization.md` 6절)
+- [x] P3-7. Playwright CI 컨테이너 전환 — 재시도로 apt 정체를 흡수할 수 없음이 실측으로 확인되어 PR #49에서 함께 처리 (`docs/plan/2026-08-19_playwright-ci-optimization.md`)
 
 ---
 
