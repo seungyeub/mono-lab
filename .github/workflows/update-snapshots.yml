@@ -71,10 +71,31 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright Browsers
+      # 캐시 키를 Playwright 해석 버전에 고정한다(playwright.yml과 동일 키를 공유).
+      - name: Get Playwright version
+        id: playwright-version
         run: |
           cd apps/portfolio
-          pnpm exec playwright install --with-deps
+          echo "VERSION=$(node -p "require('@playwright/test/package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.VERSION }}
+
+      # 테스트가 쓰는 chromium·webkit만 설치한다. 캐시가 적중해도
+      # OS 라이브러리(apt)는 캐시 대상이 아니라 매번 설치해야 한다.
+      - name: Install Playwright Browsers
+        timeout-minutes: 10
+        run: |
+          cd apps/portfolio
+          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" = "true" ]; then
+            pnpm exec playwright install-deps chromium webkit
+          else
+            pnpm exec playwright install --with-deps chromium webkit
+          fi
 
       - name: Build Portfolio App
         run: pnpm run build --filter portfolio
