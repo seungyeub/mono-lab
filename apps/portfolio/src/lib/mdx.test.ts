@@ -41,4 +41,11 @@ describe('filterExistingPublicImages', () => {
   it('returns an empty array for an empty input', () => {
     expect(filterExistingPublicImages([])).toEqual([]);
   });
+
+  it('rejects paths that traverse outside of public/', () => {
+    // package.json은 실존하는 파일이지만 public 바깥이므로 반드시 거부되어야 한다
+    const result = filterExistingPublicImages(['../package.json', '/../package.json']);
+
+    expect(result).toEqual([]);
+  });
 });

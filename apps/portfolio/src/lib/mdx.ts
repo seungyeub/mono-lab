@@ -26,8 +26,12 @@ export function getProjectBySlug(slug: string) {
 }
 
 export function filterExistingPublicImages(imagePaths: string[]): string[] {
-  const publicDir = path.join(process.cwd(), 'public');
-  return imagePaths.filter((imagePath) => fs.existsSync(path.join(publicDir, imagePath)));
+  const publicDir = path.resolve(process.cwd(), 'public');
+  return imagePaths.filter((imagePath) => {
+    // public 디렉토리 밖으로 탈출하는 경로(../ 등)는 실존 여부와 무관하게 거부한다
+    const assetPath = path.resolve(publicDir, imagePath.replace(/^[/\\]+/, ''));
+    return assetPath.startsWith(`${publicDir}${path.sep}`) && fs.existsSync(assetPath);
+  });
 }
 
 export function getProjectSeoMetadata(slug: string): { title: string; description: string } | null {
