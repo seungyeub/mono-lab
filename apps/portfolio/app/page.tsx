@@ -1,4 +1,5 @@
 // import BrandSection from '@/src/features/home/BrandSection';
+import EpilogueSection from '@/src/features/home/EpilogueSection';
 import ExperienceSection from '@/src/features/home/ExperienceSection';
 import FAQSection from '@/src/features/home/FAQSection';
 import HeroSection from '@/src/features/home/HeroSection';
@@ -45,6 +46,7 @@ export default function Home() {
 
       <ExperienceSection />
       <FAQSection />
+      <EpilogueSection />
     </div>
   );
 }

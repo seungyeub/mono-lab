@@ -35,6 +35,7 @@
 - [ ] P3-3. `<html lang='en'>` 불일치 수정
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
+- [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` 6곳 + spacing `pt-[140px]` 4곳 토큰 신규 정의 후 일괄 교체 — CodeRabbit PR #46·#48 지적)
 
 ---
 

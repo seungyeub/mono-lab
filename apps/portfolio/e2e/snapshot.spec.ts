@@ -22,6 +22,12 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
       'experience-baseline.png',
     );
     await expect(page.locator('data-testid=faq-section')).toHaveScreenshot('faq-baseline.png');
+    // 캐러셀은 외부 CDN GIF 243장을 lazy-load하므로 로드 여부가 실행 환경/타이밍마다 달라진다.
+    // 해당 영역만 마스킹해 나머지(라벨·태그 바·철학 문구·버튼) 회귀는 계속 감지한다.
+    await expect(page.locator('data-testid=epilogue-section')).toHaveScreenshot(
+      'epilogue-baseline.png',
+      { mask: [page.locator('data-testid=epilogue-carousel')] },
+    );
     await expect(page.locator('data-testid=footer')).toHaveScreenshot('footer-baseline.png');
   });
 });
