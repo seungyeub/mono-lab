@@ -61,7 +61,7 @@ jobs:
         run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -80,7 +80,7 @@ jobs:
 
       - name: Cache Playwright browsers
         id: playwright-cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.VERSION }}
@@ -101,7 +101,7 @@ jobs:
 
           for attempt in 1 2 3; do
             echo "::group::Playwright 설치 시도 ${attempt}/3"
-            if timeout 5m ${INSTALL_CMD}; then
+            if timeout --kill-after=30s 5m ${INSTALL_CMD}; then
               echo '::endgroup::'
               exit 0
             fi
