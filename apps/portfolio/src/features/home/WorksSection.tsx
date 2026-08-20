@@ -2,63 +2,13 @@
 
 import RollingLink from '@/src/components/RollingText/RollingLink';
 import SectionLabel from '@/src/components/SectionLabel';
+import type { ProjectCard } from '@/src/lib/mdx';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-const PROJECTS = [
-  {
-    id: 1,
-    title: 'Meltdown Studios',
-    category: 'Visual Identity',
-    image: '/images/projects/01.jpg',
-    href: '/work/meltdown',
-    order: '01',
-  },
-  {
-    id: 2,
-    title: 'Rootwise Architects',
-    category: 'Brand Identity',
-    image: '/images/projects/02.jpg',
-    href: '/work/rootwise',
-    order: '02',
-  },
-  {
-    id: 3,
-    title: 'Meridiem',
-    category: 'Visual System',
-    image: '/images/projects/03.jpg',
-    href: '/work/meridiem',
-    order: '03',
-  },
-  {
-    id: 4,
-    title: 'Nutree Bakery',
-    category: 'Identity Design',
-    image: '/images/projects/04.jpg',
-    href: '/work/nutree',
-    order: '04',
-  },
-  {
-    id: 5,
-    title: 'Animal & Birds',
-    category: 'Logo Design',
-    image: '/images/projects/05.jpg',
-    href: '#', // TODO: 상세 페이지 추가 시 경로 업데이트
-    order: '05',
-  },
-  {
-    id: 6,
-    title: 'Animal & Birds',
-    category: 'Logo Design',
-    image: '/images/projects/06.jpg',
-    href: '#', // TODO: 상세 페이지 추가 시 경로 업데이트
-    order: '06',
-  },
-];
-
 interface CardProps {
-  project: (typeof PROJECTS)[0];
+  project: ProjectCard;
   delay?: number;
   aspectClass?: string;
 }
@@ -91,7 +41,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[3/4]' }: CardP
       <div className='flex items-start justify-between'>
         <span className='text-sm font-medium md:text-base'>{project.title}</span>
         <div className='flex flex-col items-end text-right text-xs text-white/40'>
-          <span>({project.order})</span>
+          <span>({String(project.order).padStart(2, '0')})</span>
           <span>{project.category}</span>
         </div>
       </div>
@@ -99,11 +49,11 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[3/4]' }: CardP
   );
 }
 
-export default function WorksSection() {
+export default function WorksSection({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((s) => s.setType);
 
-  const leftColProjects = PROJECTS.filter((_, i) => i % 2 === 0);
-  const rightColProjects = PROJECTS.filter((_, i) => i % 2 !== 0);
+  const leftColProjects = projects.filter((_, i) => i % 2 === 0);
+  const rightColProjects = projects.filter((_, i) => i % 2 !== 0);
 
   return (
     <section data-testid='works-section' className='relative flex w-full flex-col pt-16'>
@@ -155,14 +105,14 @@ export default function WorksSection() {
             {/* Col 1 */}
             <div className='flex flex-col gap-12'>
               {leftColProjects.map((p, i) => (
-                <ProjectCard key={p.id} project={p} delay={i * 0.1} aspectClass='aspect-[4/5]' />
+                <ProjectCard key={p.slug} project={p} delay={i * 0.1} aspectClass='aspect-[4/5]' />
               ))}
             </div>
             {/* Col 2 (Staggered) */}
             <div className='flex flex-col gap-12 pt-0 md:pt-16 lg:pt-0 xl:pt-16'>
               {rightColProjects.map((p, i) => (
                 <ProjectCard
-                  key={p.id}
+                  key={p.slug}
                   project={p}
                   delay={0.15 + i * 0.1}
                   aspectClass='aspect-[3/4]'

@@ -54,6 +54,31 @@ export function getProjectSeoMetadata(slug: string): { title: string; descriptio
   }
 }
 
+export interface ProjectCard {
+  slug: string;
+  title: string;
+  category: string;
+  order: number;
+  image: string;
+  href: string;
+}
+
+/**
+ * 홈 WorksSection 등 카드 목록에 필요한 최소 필드만 MDX에서 추려낸다.
+ * 카드 데이터를 별도로 하드코딩하면 MDX와 어긋나므로(P0-6) 항상 이 함수를 거친다.
+ * MDX 본문(content)은 카드 렌더링에 불필요하므로 제외해 클라이언트 전달량을 줄인다.
+ */
+export function getProjectCards(): ProjectCard[] {
+  return getAllProjects().map(({ slug, meta }) => ({
+    slug,
+    title: meta.title,
+    category: meta.category,
+    order: meta.order,
+    image: meta.image,
+    href: `/work/${slug}`,
+  }));
+}
+
 export function getAllProjects() {
   const workDir = path.join(contentDir, 'work');
   if (!fs.existsSync(workDir)) return [];

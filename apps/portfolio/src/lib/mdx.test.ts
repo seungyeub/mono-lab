@@ -1,4 +1,9 @@
-import { filterExistingPublicImages, getProjectSeoMetadata, publicAssetExists } from './mdx';
+import {
+  filterExistingPublicImages,
+  getProjectCards,
+  getProjectSeoMetadata,
+  publicAssetExists,
+} from './mdx';
 
 describe('getProjectSeoMetadata', () => {
   it('returns title/description built from the project meta for an existing slug', () => {
@@ -72,5 +77,40 @@ describe('publicAssetExists', () => {
 
   it('returns false for paths that traverse outside of public/', () => {
     expect(publicAssetExists('../package.json')).toBe(false);
+  });
+});
+
+describe('getProjectCards', () => {
+  it('derives cards from MDX so that every card links to a real detail page', () => {
+    const cards = getProjectCards();
+
+    // 하드코딩 배열에 있던 href='#' 같은 죽은 링크가 생길 수 없어야 한다
+    expect(cards.length).toBeGreaterThan(0);
+    cards.forEach((card) => {
+      expect(card.href).toBe(`/work/${card.slug}`);
+    });
+  });
+
+  it('orders cards by the MDX order field', () => {
+    const cards = getProjectCards();
+    const orders = cards.map((card) => card.order);
+
+    expect(orders).toEqual([...orders].sort((a, b) => a - b));
+  });
+
+  it('carries MDX metadata through without altering it', () => {
+    const cards = getProjectCards();
+    const rootwise = cards.find((card) => card.slug === 'rootwise');
+
+    // WorksSection 하드코딩본은 category를 'Brand Identity', image를 02.jpg로
+    // 잘못 갖고 있었다. MDX 원본 값이 그대로 실려야 한다.
+    expect(rootwise).toEqual({
+      slug: 'rootwise',
+      title: 'Rootwise Architects',
+      category: 'Visual Identity',
+      order: 1,
+      image: '/images/projects/01.jpg',
+      href: '/work/rootwise',
+    });
   });
 });
