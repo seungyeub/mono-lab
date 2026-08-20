@@ -30,4 +30,18 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
     );
     await expect(page.locator('data-testid=footer')).toHaveScreenshot('footer-baseline.png');
   });
+
+  // Work 상세는 P1-1에서 섹션이 대폭 늘어난 화면인데 VRT 사각지대였다.
+  // 대표 프로젝트 한 곳을 촬영해 구조 변경 시 회귀를 감지한다.
+  test('Capture Work Detail Page', async ({ page }) => {
+    await page.goto('/work/rootwise');
+
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('data-testid=work-detail')).toBeVisible();
+    await page.locator('data-testid=page-loader').waitFor({ state: 'detached' });
+
+    await expect(page.locator('data-testid=work-detail')).toHaveScreenshot(
+      'work-detail-baseline.png',
+    );
+  });
 });

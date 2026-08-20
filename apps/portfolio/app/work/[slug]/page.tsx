@@ -132,7 +132,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   ];
 
   return (
-    <main className='min-h-screen w-full'>
+    <main data-testid='work-detail' className='min-h-screen w-full'>
       {/* ── Full-width Hero Image (실존 에셋이 있을 때만 렌더링) ── */}
       {heroImage && (
         <section className='relative h-[55vh] w-full overflow-hidden bg-[#1a1a1a] md:h-[75vh]'>
