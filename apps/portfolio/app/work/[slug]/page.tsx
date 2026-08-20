@@ -48,6 +48,29 @@ const mdxComponents = {
   li: (props: ComponentPropsWithoutRef<'li'>) => <li {...props} />,
 };
 
+/**
+ * 상세 페이지 본문 섹션 공통 껍데기.
+ * frontmatter가 비면 섹션 자체를 렌더링하지 않아 빈 제목만 남는 일이 없다(P0-3 계약).
+ */
+function WorkSection({
+  title,
+  isEmpty,
+  children,
+}: {
+  title: string;
+  isEmpty: boolean;
+  children: React.ReactNode;
+}) {
+  if (isEmpty) return null;
+
+  return (
+    <section className='flex flex-col gap-6 border-t border-white/10 pt-10'>
+      <h2 className='text-xs font-medium tracking-widest text-white/40 uppercase'>{title}</h2>
+      {children}
+    </section>
+  );
+}
+
 export default async function ProjectDetail({ params }: { params: Promise<ProjectDetailParams> }) {
   const { slug: paramSlug } = await params;
 
@@ -143,10 +166,45 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
             <p className='text-sm tracking-widest text-white/40 uppercase'>{meta.category}</p>
           </div>
 
+          {/* 한 문단 요약 — Hero 바로 아래에서 프로젝트를 한 눈에 설명한다 */}
+          {meta.summary && (
+            <p className='max-w-3xl text-lg leading-relaxed text-gray-300 md:text-xl'>
+              {meta.summary}
+            </p>
+          )}
+
           {/* MDX article */}
           <article>
             <MDXRemote source={content} components={mdxComponents} />
           </article>
+
+          {/* ── Project Overview ── */}
+          <WorkSection title='Project Overview' isEmpty={meta.overview.length === 0}>
+            <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
+              {meta.overview.map((item) => (
+                <div key={item.title} className='flex flex-col gap-2'>
+                  <h3 className='text-base font-medium md:text-lg'>{item.title}</h3>
+                  <p className='text-sm leading-relaxed text-gray-400 md:text-base'>
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </WorkSection>
+
+          {/* ── Technology Stack ── */}
+          <WorkSection title='Technology Stack' isEmpty={meta.techStack.length === 0}>
+            <ul className='flex flex-wrap gap-2'>
+              {meta.techStack.map((tech) => (
+                <li
+                  key={tech}
+                  className='rounded-full border border-white/20 px-4 py-1.5 text-xs tracking-wide text-white/80 md:text-sm'
+                >
+                  {tech}
+                </li>
+              ))}
+            </ul>
+          </WorkSection>
 
           {/* Extra image gallery — 실존 에셋이 있을 때만 렌더링 */}
           {galleryImages.length > 0 && (
