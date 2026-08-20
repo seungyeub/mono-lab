@@ -4,12 +4,138 @@ import matter from 'gray-matter';
 
 const contentDir = path.join(process.cwd(), 'src/contents');
 
+/** 제목 + 설명 한 쌍으로 렌더링되는 항목 (Overview·Key Features 공용) */
+export interface ProjectTextItem {
+  title: string;
+  description: string;
+}
+
+export interface ProjectImplementation {
+  architecture?: string;
+  highlights: string[];
+}
+
+export interface ProjectDemonstration {
+  title: string;
+  images: string[];
+  description?: string;
+  outcome?: string;
+}
+
+export interface ProjectMetric {
+  label: string;
+  value: string;
+}
+
+export interface ProjectImpact {
+  metrics: ProjectMetric[];
+  outcomes: string[];
+}
+
 export interface ProjectMetadata {
   title: string;
   category: string;
   order: number;
   image: string;
+  /** Hero 아래 한 문단 요약 */
+  summary?: string;
+  /** 값이 있을 때만 CTA를 렌더링한다 (P0-3 계약) */
   liveUrl?: string;
+  github?: string;
+  techStack: string[];
+  overview: ProjectTextItem[];
+  features: ProjectTextItem[];
+  implementation: ProjectImplementation;
+  demonstrations: ProjectDemonstration[];
+  impact: ProjectImpact;
+}
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
+}
+
+/** 비어 있지 않은 문자열만 통과시킨다 — 빈 값이 UI에 렌더링되는 것을 막는다 */
+function asText(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim() !== '' ? value : undefined;
+}
+
+function asTextList(value: unknown): string[] {
+  return Array.isArray(value) ? value.map(asText).filter((v): v is string => v !== undefined) : [];
+}
+
+function asArray(value: unknown): unknown[] {
+  return Array.isArray(value) ? value : [];
+}
+
+/** title·description이 모두 있어야 카드로 렌더링할 수 있다 */
+function toTextItems(value: unknown): ProjectTextItem[] {
+  return asArray(value)
+    .map((entry) => {
+      const record = asRecord(entry);
+      const title = asText(record.title);
+      const description = asText(record.description);
+      return title && description ? { title, description } : undefined;
+    })
+    .filter((item): item is ProjectTextItem => item !== undefined);
+}
+
+/**
+ * frontmatter는 사람이 손으로 채우는 값이라 누락·오타가 생길 수 있다.
+ * 컬렉션은 항상 배열/객체로 보정해 상세 페이지가 방어 코드 없이 .map·.length를 쓸 수 있게 하고,
+ * UI가 렌더링할 수 없는 불완전한 항목은 제거한다.
+ */
+export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
+  const data = asRecord(raw);
+  const implementation = asRecord(data.implementation);
+  const impact = asRecord(data.impact);
+
+  return {
+    title: asText(data.title) ?? '',
+    category: asText(data.category) ?? '',
+    order: typeof data.order === 'number' ? data.order : 0,
+    image: asText(data.image) ?? '',
+    summary: asText(data.summary),
+    liveUrl: asText(data.liveUrl),
+    github: asText(data.github),
+    techStack: asTextList(data.techStack),
+    overview: toTextItems(data.overview),
+    features: toTextItems(data.features),
+    implementation: {
+      ...(asText(implementation.architecture)
+        ? { architecture: asText(implementation.architecture) }
+        : {}),
+      highlights: asTextList(implementation.highlights),
+    },
+    demonstrations: asArray(data.demonstrations)
+      .map((entry) => {
+        const record = asRecord(entry);
+        const title = asText(record.title);
+        if (!title) return undefined;
+
+        const images = asTextList(record.images);
+        const description = asText(record.description);
+        const outcome = asText(record.outcome);
+
+        return {
+          title,
+          images,
+          ...(description ? { description } : {}),
+          ...(outcome ? { outcome } : {}),
+        };
+      })
+      .filter((item): item is ProjectDemonstration => item !== undefined),
+    impact: {
+      metrics: asArray(impact.metrics)
+        .map((entry) => {
+          const record = asRecord(entry);
+          const label = asText(record.label);
+          const value = asText(record.value);
+          return label && value ? { label, value } : undefined;
+        })
+        .filter((item): item is ProjectMetric => item !== undefined),
+      outcomes: asTextList(impact.outcomes),
+    },
+  };
 }
 
 export function getProjectBySlug(slug: string) {
@@ -20,7 +146,7 @@ export function getProjectBySlug(slug: string) {
 
   return {
     slug: realSlug,
-    meta: data as ProjectMetadata,
+    meta: normalizeProjectMetadata(data),
     content,
   };
 }

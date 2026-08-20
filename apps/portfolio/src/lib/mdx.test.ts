@@ -2,6 +2,7 @@ import {
   filterExistingPublicImages,
   getProjectCards,
   getProjectSeoMetadata,
+  normalizeProjectMetadata,
   publicAssetExists,
 } from './mdx';
 
@@ -112,5 +113,94 @@ describe('getProjectCards', () => {
       image: '/images/projects/01.jpg',
       href: '/work/rootwise',
     });
+  });
+});
+
+describe('normalizeProjectMetadata', () => {
+  const BASE = {
+    title: 'Meltdown Studios',
+    category: 'Visual Identity',
+    order: 2,
+    image: '/images/projects/02.jpg',
+  };
+
+  it('keeps the existing required fields as-is', () => {
+    const meta = normalizeProjectMetadata({ ...BASE, liveUrl: 'https://example.com' });
+
+    expect(meta.title).toBe('Meltdown Studios');
+    expect(meta.category).toBe('Visual Identity');
+    expect(meta.order).toBe(2);
+    expect(meta.image).toBe('/images/projects/02.jpg');
+    expect(meta.liveUrl).toBe('https://example.com');
+  });
+
+  // 콘텐츠가 아직 비어 있어도 페이지가 .map/.length를 안전하게 쓸 수 있어야 한다
+  it('defaults every new collection to an empty array or object', () => {
+    const meta = normalizeProjectMetadata(BASE);
+
+    expect(meta.techStack).toEqual([]);
+    expect(meta.overview).toEqual([]);
+    expect(meta.features).toEqual([]);
+    expect(meta.demonstrations).toEqual([]);
+    expect(meta.implementation).toEqual({ highlights: [] });
+    expect(meta.impact).toEqual({ metrics: [], outcomes: [] });
+    expect(meta.summary).toBeUndefined();
+    expect(meta.github).toBeUndefined();
+  });
+
+  it('carries structured content through when frontmatter provides it', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      summary: '한 문단 설명',
+      github: 'https://github.com/seungyeub/example',
+      techStack: ['Next.js', 'TypeScript'],
+      overview: [{ title: '문제', description: '설명' }],
+      features: [{ title: '기능', description: '설명' }],
+      implementation: { architecture: 'Next.js App Router', highlights: ['h1', 'h2'] },
+      demonstrations: [{ title: '데모', images: ['/a.png'], description: '설명', outcome: '결과' }],
+      impact: { metrics: [{ label: 'LCP', value: '1.2s' }], outcomes: ['성과'] },
+    });
+
+    expect(meta.summary).toBe('한 문단 설명');
+    expect(meta.github).toBe('https://github.com/seungyeub/example');
+    expect(meta.techStack).toEqual(['Next.js', 'TypeScript']);
+    expect(meta.overview).toEqual([{ title: '문제', description: '설명' }]);
+    expect(meta.features).toEqual([{ title: '기능', description: '설명' }]);
+    expect(meta.implementation).toEqual({
+      architecture: 'Next.js App Router',
+      highlights: ['h1', 'h2'],
+    });
+    expect(meta.demonstrations).toEqual([
+      { title: '데모', images: ['/a.png'], description: '설명', outcome: '결과' },
+    ]);
+    expect(meta.impact).toEqual({ metrics: [{ label: 'LCP', value: '1.2s' }], outcomes: ['성과'] });
+  });
+
+  it('drops entries that are missing the fields the UI renders', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      techStack: ['Next.js', '', 42],
+      features: [{ title: '유효', description: '설명' }, { description: '제목 없음' }, null],
+      overview: [{ title: '유효', description: '설명' }, { title: '' }],
+      impact: {
+        metrics: [{ label: 'LCP', value: '1.2s' }, { label: 'no value' }],
+        outcomes: ['ok', ''],
+      },
+      demonstrations: [{ title: '유효', images: ['/a.png'] }, { images: ['/b.png'] }],
+    });
+
+    expect(meta.techStack).toEqual(['Next.js']);
+    expect(meta.features).toEqual([{ title: '유효', description: '설명' }]);
+    expect(meta.overview).toEqual([{ title: '유효', description: '설명' }]);
+    expect(meta.impact.metrics).toEqual([{ label: 'LCP', value: '1.2s' }]);
+    expect(meta.impact.outcomes).toEqual(['ok']);
+    expect(meta.demonstrations).toEqual([{ title: '유효', images: ['/a.png'] }]);
+  });
+
+  it('tolerates completely malformed frontmatter', () => {
+    const meta = normalizeProjectMetadata(undefined);
+
+    expect(meta.techStack).toEqual([]);
+    expect(meta.impact).toEqual({ metrics: [], outcomes: [] });
   });
 });
