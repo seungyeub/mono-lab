@@ -71,6 +71,33 @@ function WorkSection({
   );
 }
 
+/**
+ * Live Demo / Source Code CTA.
+ * 값이 없는 CTA는 렌더링하지 않는다(P0-3 계약 — 죽은 링크 재발 방지).
+ * 좌측 패널이 데스크톱 전용이라 모바일에서도 같은 CTA를 노출해야 한다.
+ */
+function ProjectCtaGroup({ liveUrl, github }: { liveUrl?: string; github?: string }) {
+  if (!liveUrl && !github) return null;
+
+  const ctaClass =
+    'rounded-full border border-white/30 px-6 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black';
+
+  return (
+    <div className='flex flex-wrap gap-3'>
+      {liveUrl && (
+        <a href={liveUrl} target='_blank' rel='noopener noreferrer' className={ctaClass}>
+          Live Demo ↗
+        </a>
+      )}
+      {github && (
+        <a href={github} target='_blank' rel='noopener noreferrer' className={ctaClass}>
+          Source Code ↗
+        </a>
+      )}
+    </div>
+  );
+}
+
 export default async function ProjectDetail({ params }: { params: Promise<ProjectDetailParams> }) {
   const { slug: paramSlug } = await params;
 
@@ -86,6 +113,11 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
 
   // 현재 프로젝트 제외 추천 2개
   const moreProjects = allProjects.filter((p) => p.slug !== slug).slice(0, 2);
+
+  // order 순서상 다음 프로젝트. 마지막이면 처음으로 돌아가 탐색이 끊기지 않게 한다.
+  const currentIndex = allProjects.findIndex((p) => p.slug === slug);
+  const nextProject =
+    allProjects.length > 1 ? allProjects[(currentIndex + 1) % allProjects.length] : undefined;
 
   // 실존하는 이미지 에셋만 렌더링 대상으로 삼는다 (에셋 미확보 상태에서도 placeholder 없이 동작)
   const [heroImage] = filterExistingPublicImages([meta.image]);
@@ -136,17 +168,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
               ))}
             </div>
 
-            {/* Live Website CTA — frontmatter에 liveUrl이 있을 때만 렌더링 */}
-            {meta.liveUrl && (
-              <a
-                href={meta.liveUrl}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='self-start rounded-full border border-white/30 px-6 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black'
-              >
-                Live Website ↗
-              </a>
-            )}
+            <ProjectCtaGroup liveUrl={meta.liveUrl} github={meta.github} />
 
             {/* Back to work */}
             <Link
@@ -160,10 +182,17 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
 
         {/* RIGHT — Scrollable content */}
         <div className='flex flex-1 flex-col gap-10 md:pl-16'>
-          {/* Mobile title */}
+          {/* Mobile title — 좌측 패널이 데스크톱 전용이라 CTA·복귀 링크를 여기서도 제공한다 */}
           <div className='mb-4 flex flex-col gap-4 md:hidden'>
+            <Link
+              href='/work'
+              className='text-xs tracking-widest text-white/30 uppercase transition-colors duration-200 hover:text-white'
+            >
+              ← All Works
+            </Link>
             <h1 className='text-3xl font-medium'>{meta.title}</h1>
             <p className='text-sm tracking-widest text-white/40 uppercase'>{meta.category}</p>
+            <ProjectCtaGroup liveUrl={meta.liveUrl} github={meta.github} />
           </div>
 
           {/* 한 문단 요약 — Hero 바로 아래에서 프로젝트를 한 눈에 설명한다 */}
@@ -342,6 +371,23 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
           )}
         </div>
       </section>
+
+      {/* ── Next Project — 순차 탐색 ── */}
+      {nextProject && (
+        <section className='border-t border-white/10 px-6 py-12 md:px-12 md:py-16'>
+          <Link href={`/work/${nextProject.slug}`} className='group flex flex-col gap-3'>
+            <span className='text-xs tracking-widest text-white/40 uppercase'>Next Project</span>
+            <div className='flex flex-wrap items-baseline justify-between gap-3'>
+              <h2 className='text-3xl font-medium tracking-tight transition-colors duration-300 group-hover:text-white/70 md:text-5xl'>
+                {nextProject.meta.title}
+              </h2>
+              <span className='text-xs tracking-widest text-white/40 uppercase md:text-sm'>
+                {nextProject.meta.category} →
+              </span>
+            </div>
+          </Link>
+        </section>
+      )}
 
       {/* ── More Works ── */}
       {moreProjects.length > 0 && (
