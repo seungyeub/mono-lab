@@ -206,6 +206,50 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
             </ul>
           </WorkSection>
 
+          {/* ── Key Features ── */}
+          <WorkSection title='Key Features' isEmpty={meta.features.length === 0}>
+            <div className='grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2'>
+              {meta.features.map((feature) => (
+                <div
+                  key={feature.title}
+                  className='flex flex-col gap-2 border-l border-white/10 pl-4'
+                >
+                  <h3 className='text-base font-medium md:text-lg'>{feature.title}</h3>
+                  <p className='text-sm leading-relaxed text-gray-400 md:text-base'>
+                    {feature.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </WorkSection>
+
+          {/* ── Technical Implementation ── */}
+          <WorkSection
+            title='Technical Implementation'
+            isEmpty={
+              !meta.implementation.architecture && meta.implementation.highlights.length === 0
+            }
+          >
+            {meta.implementation.architecture && (
+              <p className='text-base leading-relaxed text-gray-300 md:text-lg'>
+                {meta.implementation.architecture}
+              </p>
+            )}
+            {meta.implementation.highlights.length > 0 && (
+              <ul className='flex flex-col gap-2.5'>
+                {meta.implementation.highlights.map((highlight) => (
+                  <li
+                    key={highlight}
+                    className='flex gap-3 text-sm leading-relaxed text-gray-400 md:text-base'
+                  >
+                    <span aria-hidden className='mt-2 h-1 w-1 shrink-0 rounded-full bg-white/40' />
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </WorkSection>
+
           {/* Extra image gallery — 실존 에셋이 있을 때만 렌더링 */}
           {galleryImages.length > 0 && (
             <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-2'>
