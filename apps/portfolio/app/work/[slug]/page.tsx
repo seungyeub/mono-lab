@@ -250,6 +250,83 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
             )}
           </WorkSection>
 
+          {/* ── Demonstrations ── */}
+          <WorkSection title='Demonstrations' isEmpty={meta.demonstrations.length === 0}>
+            <div className='flex flex-col gap-12'>
+              {meta.demonstrations.map((demo) => {
+                // 스크린샷은 아직 확보되지 않을 수 있으므로 실존하는 것만 렌더링한다
+                const demoImages = filterExistingPublicImages(demo.images);
+
+                return (
+                  <div key={demo.title} className='flex flex-col gap-4'>
+                    <h3 className='text-base font-medium md:text-lg'>{demo.title}</h3>
+
+                    {demo.description && (
+                      <p className='text-sm leading-relaxed text-gray-400 md:text-base'>
+                        {demo.description}
+                      </p>
+                    )}
+
+                    {demoImages.length > 0 && (
+                      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+                        {demoImages.map((imgPath) => (
+                          <div
+                            key={imgPath}
+                            className='relative aspect-[4/3] overflow-hidden bg-[#1a1a1a]'
+                          >
+                            <div
+                              className='absolute inset-0 bg-cover bg-center'
+                              style={{ backgroundImage: `url(${imgPath})` }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {demo.outcome && (
+                      <p className='border-l-2 border-white/30 pl-4 text-sm text-white/80 md:text-base'>
+                        {demo.outcome}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </WorkSection>
+
+          {/* ── Impact & Results ── */}
+          <WorkSection
+            title='Impact & Results'
+            isEmpty={meta.impact.metrics.length === 0 && meta.impact.outcomes.length === 0}
+          >
+            {meta.impact.metrics.length > 0 && (
+              <dl className='grid grid-cols-1 gap-6 sm:grid-cols-3'>
+                {meta.impact.metrics.map((metric) => (
+                  <div key={metric.label} className='flex flex-col gap-1'>
+                    <dt className='text-[10px] tracking-widest text-white/40 uppercase'>
+                      {metric.label}
+                    </dt>
+                    <dd className='text-xl font-medium md:text-2xl'>{metric.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+
+            {meta.impact.outcomes.length > 0 && (
+              <ul className='flex flex-col gap-2.5'>
+                {meta.impact.outcomes.map((outcome) => (
+                  <li
+                    key={outcome}
+                    className='flex gap-3 text-sm leading-relaxed text-gray-400 md:text-base'
+                  >
+                    <span aria-hidden className='mt-2 h-1 w-1 shrink-0 rounded-full bg-white/40' />
+                    {outcome}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </WorkSection>
+
           {/* Extra image gallery — 실존 에셋이 있을 때만 렌더링 */}
           {galleryImages.length > 0 && (
             <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-2'>
