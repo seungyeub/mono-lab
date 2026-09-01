@@ -1,0 +1,49 @@
+---
+title: 'PPCWIZ'
+category: 'SaaS Frontend'
+order: 6
+image: '/images/projects/ppcwiz.jpg'
+summary: '아마존 셀러를 위한 스폰서드 광고(PPC) 자동 입찰·최적화 SaaS. Amazon Advertising API를 연동해 광고 성과를 규칙 기반으로 분석하고 입찰가를 자동 조정한다. package.json만 있는 빈 저장소에서 빌드 환경부터 직접 구축해, 30여 개 화면·667개 파일 규모의 2세대 SPA(wiz-view)를 단독으로 만들었다.'
+techStack:
+  [
+    'React',
+    'Redux (redux-actions)',
+    'Ant Design 3',
+    'react-stripe-elements',
+    'Sass/SCSS',
+    'webpack (직접 구성)',
+  ]
+overview:
+  - title: '역할'
+    description: '디자인 + 프론트엔드 개발 전담 (백엔드 미담당). UI/UX 디자인도 Sketch로 직접 수행했다. 씨에이치오컴퍼니(現 딘코퍼레이션) 재직, 2018.12~2020.06.'
+  - title: '규모'
+    description: '1세대 프론트를 이어받지 않고, webpack/babel 빌드 환경부터 직접 구축해 30여 개 화면·667개 파일 규모의 2세대 SPA를 단독 구축.'
+implementation:
+  architecture: 'webpack/babel 빌드 환경 직접 구축 — 30여 개 화면 규모의 React SPA'
+  highlights:
+    - '초기 로딩 5초 → 1.2초 개선 — webpack-bundle-analyzer로 병목을 특정하고, 코드 스플리팅 2방식(React.lazy·react-loadable)·moment 로케일/lodash 최적화·antd 아이콘 alias 치환을 적용한 뒤 Chrome DevTools 3G 스로틀링으로 직접 측정하는 사이클을 반복'
+    - '자체 디자인 시스템 + 아키텍처 패턴 — 범용 UI 컴포넌트 40여 개, HOC 8종, makeStoreHooks(훅 팩토리)·createPromiseThunk(제네릭 비동기 thunk) 직접 설계'
+    - 'react-archer 기반 SVG 연결선 + 네이티브 드래그앤드롭으로 캠페인 매핑 UI 구현'
+impact:
+  metrics:
+    - label: '초기 로딩'
+      value: '5초 → 1.2초'
+    - label: '화면 규모'
+      value: '30여 개'
+    - label: '팀 개발 문서'
+      value: '약 6,300줄'
+  outcomes:
+    - '초기 로딩 5초 → 1.2초 (Chrome DevTools 3G 스로틀링 직접 측정)'
+    - 'CSS/SCSS 가이드·React 스타일 가이드 등 팀 개발 문서 약 6,300줄 직접 작성'
+    - '서비스는 현재 운영 종료'
+---
+
+## 배경
+
+PPCWIZ는 아마존 셀러의 스폰서드 광고를 규칙 기반으로 분석하고 입찰가를 자동 조정하는 SaaS다. 합류 시점에 1세대 프론트가 있었지만 이어받지 않기로 했고, package.json만 있는 빈 저장소에서 webpack/babel 빌드 환경부터 직접 구축해 2세대 SPA(wiz-view)를 처음부터 만들었다. 디자인 시스템이 따로 없어 UI/UX 디자인도 Sketch로 직접 수행했다.
+
+## 측정으로 검증하는 성능 개선
+
+초기 로딩이 5초에 달하는 문제를 webpack-bundle-analyzer로 병목부터 특정했다. 코드 스플리팅 두 방식(React.lazy, react-loadable), moment 로케일과 lodash 최적화, antd 아이콘 alias 치환을 적용할 때마다 Chrome DevTools 3G 스로틀링으로 직접 측정하는 사이클을 반복해 **1.2초까지 단축**했다.
+
+혼자 만드는 규모가 커질수록 패턴이 필요했다. 범용 UI 컴포넌트 40여 개와 HOC 8종, `makeStoreHooks`(훅 팩토리)·`createPromiseThunk`(제네릭 비동기 thunk)를 직접 설계했고, 이 기준들을 CSS/SCSS 가이드·React 스타일 가이드 등 약 6,300줄의 팀 문서로 남겼다.

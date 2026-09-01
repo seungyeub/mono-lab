@@ -1,0 +1,39 @@
+---
+title: 'OBELAB NIRSIT 데이터 관리 시스템'
+category: 'Healthcare System'
+order: 8
+image: '/images/projects/obelab-nirsit.jpg'
+summary: 'fNIRS 기반 웨어러블 뇌영상 측정기기 "NIRSIT"의 환자·검사 데이터를 관리하는 의사용 웹 시스템과 모바일 앱용 백엔드(원본 분석 파일 업로드·다운로드). PL로서 전체 설계·DB 설계·API 설계와 문서화를 주도했다. 기여도 80%, 코아리버 외주(2018.01~04).'
+techStack:
+  [
+    'Java 8',
+    'Spring 4.3 (MVC/Security)',
+    'MyBatis',
+    'MySQL 5.7',
+    'AWS (EC2·RDS)',
+    'Swagger',
+    'WebSocket',
+  ]
+overview:
+  - title: '역할'
+    description: 'PL(프로젝트 리더) + 실무 개발 — 전체 설계, DB 설계, API 설계·문서화(Swagger), 웹 시스템·앱 연동 API 구현 주도. 기여도 80%는 인력-시간 기준.'
+  - title: '담당 경계'
+    description: '모바일 앱 클라이언트는 사내 다른 개발자 담당(약 4개월 중 1개월 남짓 투입). 그래프 화면은 정적 테스트 이미지 출력 수준으로, 시각화 엔진 구현은 담당 범위에 미포함.'
+implementation:
+  highlights:
+    - '역할별 API 분리 설계(/app/* 모바일 · /doctor/* 의사 웹) + Swagger 문서화, WebSocket 기반 실시간 Push 알림'
+    - '검사 종류별 boolean 컬럼으로 굳어 있던 스키마를 카테고리 코드 테이블 구조로 리팩터링해 확장성 확보'
+impact:
+  outcomes:
+    - '기여도 80%로 납품 완료 — 담당 범위는 코드 검증 기반으로 서술'
+---
+
+## 배경
+
+NIRSIT는 fNIRS 기반의 웨어러블 뇌영상 측정기기다. 이 기기가 만드는 환자·검사 데이터를 의사가 웹에서 관리하고, 모바일 앱이 원본 분석 파일을 업로드·다운로드할 수 있게 하는 시스템을 만들었다. PL로서 전체 설계·DB 설계·API 설계와 문서화를 주도했고, 앱 클라이언트와 그래프 시각화 엔진은 담당 범위 밖이었다.
+
+## 소비자가 둘인 API를 설계하다
+
+같은 데이터를 의사 웹과 모바일 앱이 서로 다른 목적으로 소비하는 구조라, API를 `/app/*`(모바일)과 `/doctor/*`(의사 웹)로 역할별 분리하고 Swagger로 문서화해 협업 접점을 명확히 했다. 실시간 알림은 WebSocket 기반 Push로 구현했다.
+
+데이터 모델에서는 검사 종류가 boolean 컬럼으로 하나씩 굳어 있던 스키마를 **카테고리 코드 테이블 구조로 리팩터링**했다 — 새 검사 종류가 생길 때마다 스키마를 바꾸는 대신, 행을 추가하면 되는 구조로 확장성을 확보했다.
