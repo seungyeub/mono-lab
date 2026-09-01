@@ -50,28 +50,28 @@ jest.mock('framer-motion', () => {
 // MDX(getProjectCards)에서 넘어오는 형태와 동일한 카드 데이터
 const PROJECT_CARDS = [
   {
-    slug: 'rootwise',
-    title: 'Rootwise Architects',
-    category: 'Visual Identity',
+    slug: 'app-review-tracker',
+    title: 'App Review Tracker',
+    category: 'Data Pipeline',
     order: 1,
-    image: '/images/projects/01.jpg',
-    href: '/work/rootwise',
+    image: '/images/projects/app-review-tracker.jpg',
+    href: '/work/app-review-tracker',
   },
   {
-    slug: 'meltdown',
-    title: 'Meltdown Studios',
-    category: 'Visual Identity',
+    slug: 'yoga-editor',
+    title: 'YogaEditor',
+    category: 'Rich Text Editor',
     order: 2,
-    image: '/images/projects/02.jpg',
-    href: '/work/meltdown',
+    image: '/images/projects/yoga-editor.jpg',
+    href: '/work/yoga-editor',
   },
   {
-    slug: 'meridiem',
-    title: 'Meridiem',
-    category: 'Brand Identity',
+    slug: 'kti',
+    title: 'KTI 홈페이지 리뉴얼',
+    category: 'Website Renewal',
     order: 3,
-    image: '/images/projects/03.jpg',
-    href: '/work/meridiem',
+    image: '/images/projects/kti.jpg',
+    href: '/work/kti',
   },
 ];
 
@@ -84,9 +84,9 @@ describe('WorksSection', () => {
     expect(screen.getByText(/Selected Works/i)).toBeInTheDocument();
 
     // 프로젝트 렌더링 검증
-    expect(screen.getAllByText('Meltdown Studios')[0]).toBeInTheDocument();
-    expect(screen.getAllByText('Rootwise Architects')[0]).toBeInTheDocument();
-    expect(screen.getAllByText('Meridiem')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('App Review Tracker')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('YogaEditor')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('KTI 홈페이지 리뉴얼')[0]).toBeInTheDocument();
   });
 
   it('카드 순번은 MDX order를 2자리로 표기해야 합니다', () => {
@@ -106,7 +106,8 @@ describe('WorksSection', () => {
       .map((link) => link.getAttribute('href'))
       .filter((href) => href !== '/work');
 
-    expect(cardLinks).toEqual(['/work/rootwise', '/work/meridiem', '/work/meltdown']);
+    // 좌/우 2열 배치(짝수 인덱스 좌, 홀수 인덱스 우) 순서 기준
+    expect(cardLinks).toEqual(['/work/app-review-tracker', '/work/kti', '/work/yoga-editor']);
     expect(cardLinks).not.toContain('#');
   });
 });

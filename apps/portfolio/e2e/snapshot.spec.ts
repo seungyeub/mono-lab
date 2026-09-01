@@ -34,7 +34,9 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
   // Work 상세는 P1-1에서 섹션이 대폭 늘어난 화면인데 VRT 사각지대였다.
   // 대표 프로젝트 한 곳을 촬영해 구조 변경 시 회귀를 감지한다.
   test('Capture Work Detail Page', async ({ page }) => {
-    await page.goto('/work/rootwise');
+    // order 1이자 구조화 섹션(Overview·Tech Stack·Features·Implementation·Impact)이
+    // 전부 채워진 대표 프로젝트를 촬영한다.
+    await page.goto('/work/app-review-tracker');
 
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('data-testid=work-detail')).toBeVisible();

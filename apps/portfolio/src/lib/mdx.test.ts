@@ -8,11 +8,11 @@ import {
 
 describe('getProjectSeoMetadata', () => {
   it('returns title/description built from the project meta for an existing slug', () => {
-    const result = getProjectSeoMetadata('meltdown');
+    const result = getProjectSeoMetadata('app-review-tracker');
 
     expect(result).toEqual({
-      title: 'Meltdown Studios | Seungyeub Baek',
-      description: 'Meltdown Studios — Visual Identity 프로젝트 상세입니다.',
+      title: 'App Review Tracker | Seungyeub Baek',
+      description: 'App Review Tracker — Data Pipeline 프로젝트 상세입니다.',
     });
   });
 
