@@ -48,7 +48,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.branch.outputs.target }}
-          persist-credentials: false
+          # 이 워크플로는 갱신된 스냅샷을 브랜치에 커밋·push하는 것이 목적이므로
+          # 크리덴셜을 유지해야 한다(persist-credentials 기본값 true).
+          # false로 두면 git-auto-commit-action이 "could not read Username"으로 실패한다.
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
