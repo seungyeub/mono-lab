@@ -1,13 +1,18 @@
+import type { SkillItem } from '@/src/features/home/skillsData';
 import { resolveTechSkills } from './techSkills';
+
+/** resolveTechSkills는 입력 길이를 보존하는 전함수라 구조분해가 안전하다 — 타입에만 알려준다 */
+const resolveTuple = <N extends string[]>(...names: N) =>
+  resolveTechSkills(names) as { [K in keyof N]: SkillItem };
 
 describe('resolveTechSkills', () => {
   it('버전·괄호가 붙은 표기를 skillsData의 정식 항목으로 매핑한다', () => {
-    const [nextjs, react, mysql, spring] = resolveTechSkills([
+    const [nextjs, react, mysql, spring] = resolveTuple(
       'Next.js 14 (Pages Router)',
       'React 19',
       'MySQL 5.7',
       'Spring 4.3 (MVC/Security)',
-    ]);
+    );
 
     // 표시 이름은 MDX 원문을 유지하고, 아이콘·브랜드 컬러만 정식 항목에서 가져온다
     expect(nextjs.name).toBe('Next.js 14 (Pages Router)');
@@ -19,12 +24,12 @@ describe('resolveTechSkills', () => {
   });
 
   it('별칭(TanStack Query→React Query, docker-compose→Docker 등)을 해석한다', () => {
-    const [tanstack, compose, drf, yarn] = resolveTechSkills([
+    const [tanstack, compose, drf, yarn] = resolveTuple(
       'TanStack Query',
       'docker-compose',
       'Django REST Framework',
       'Yarn 4 (PnP)',
-    ]);
+    );
 
     // React Query·yarn-berry는 skillsData에서 커스텀 SVG(customIconPath)를 쓰는 항목이다
     expect(tanstack.icon ?? tanstack.customIconPath).toBeTruthy();
@@ -34,7 +39,7 @@ describe('resolveTechSkills', () => {
   });
 
   it('skillsData에 없는 기술은 보강 아이콘 목록에서 해석한다', () => {
-    const [php, postgres, vite] = resolveTechSkills(['PHP', 'PostgreSQL', 'Vite']);
+    const [php, postgres, vite] = resolveTuple('PHP', 'PostgreSQL', 'Vite');
 
     expect(php.icon).not.toBeNull();
     expect(postgres.icon).not.toBeNull();
@@ -42,7 +47,7 @@ describe('resolveTechSkills', () => {
   });
 
   it('어디에도 없는 기술은 글자 폴백용 항목으로 돌려준다', () => {
-    const [kiwi] = resolveTechSkills(['kiwipiepy']);
+    const [kiwi] = resolveTuple('kiwipiepy');
 
     expect(kiwi.name).toBe('kiwipiepy');
     expect(kiwi.icon).toBeNull();
