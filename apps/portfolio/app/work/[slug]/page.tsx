@@ -9,6 +9,13 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Marquee from '@/src/components/Marquee';
 import EditorialDivider from '@/src/components/EditorialDivider';
+import DemonstrationsSection from '@/src/features/work/detail/DemonstrationsSection';
+import ExploreCta from '@/src/features/work/detail/ExploreCta';
+import FeaturesSection from '@/src/features/work/detail/FeaturesSection';
+import ImpactSection from '@/src/features/work/detail/ImpactSection';
+import ImplementationSection from '@/src/features/work/detail/ImplementationSection';
+import TechStackSection from '@/src/features/work/detail/TechStackSection';
+import WorkDetailHero from '@/src/features/work/detail/WorkDetailHero';
 import { ComponentPropsWithoutRef } from 'react';
 import type { Metadata } from 'next';
 
@@ -48,56 +55,6 @@ const mdxComponents = {
   li: (props: ComponentPropsWithoutRef<'li'>) => <li {...props} />,
 };
 
-/**
- * 상세 페이지 본문 섹션 공통 껍데기.
- * frontmatter가 비면 섹션 자체를 렌더링하지 않아 빈 제목만 남는 일이 없다(P0-3 계약).
- */
-function WorkSection({
-  title,
-  isEmpty,
-  children,
-}: {
-  title: string;
-  isEmpty: boolean;
-  children: React.ReactNode;
-}) {
-  if (isEmpty) return null;
-
-  return (
-    <section className='flex flex-col gap-6 border-t border-white/10 pt-10'>
-      <h2 className='text-xs font-medium tracking-widest text-white/40 uppercase'>{title}</h2>
-      {children}
-    </section>
-  );
-}
-
-/**
- * Live Demo / Source Code CTA.
- * 값이 없는 CTA는 렌더링하지 않는다(P0-3 계약 — 죽은 링크 재발 방지).
- * 좌측 패널이 데스크톱 전용이라 모바일에서도 같은 CTA를 노출해야 한다.
- */
-function ProjectCtaGroup({ liveUrl, github }: { liveUrl?: string; github?: string }) {
-  if (!liveUrl && !github) return null;
-
-  const ctaClass =
-    'rounded-full border border-white/30 px-6 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black';
-
-  return (
-    <div className='flex flex-wrap gap-3'>
-      {liveUrl && (
-        <a href={liveUrl} target='_blank' rel='noopener noreferrer' className={ctaClass}>
-          Live Demo ↗
-        </a>
-      )}
-      {github && (
-        <a href={github} target='_blank' rel='noopener noreferrer' className={ctaClass}>
-          Source Code ↗
-        </a>
-      )}
-    </div>
-  );
-}
-
 export default async function ProjectDetail({ params }: { params: Promise<ProjectDetailParams> }) {
   const { slug: paramSlug } = await params;
 
@@ -119,258 +76,31 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   const nextProject =
     allProjects.length > 1 ? allProjects[(currentIndex + 1) % allProjects.length] : undefined;
 
-  // 실존하는 이미지 에셋만 렌더링 대상으로 삼는다 (에셋 미확보 상태에서도 placeholder 없이 동작)
-  const [heroImage] = filterExistingPublicImages([meta.image]);
-  const galleryImages = filterExistingPublicImages(
-    ['01', '02', '03', '04'].map((n) => `/images/work/${slug}/${n}.jpg`),
-  );
-
-  const META_ROWS = [
-    { label: 'Category', value: meta.category },
-    { label: 'Project', value: `(${String(meta.order).padStart(2, '0')})` },
-    { label: 'Location', value: 'Seoul, 한국' },
-  ];
+  // 이미지는 실존하는 에셋만 렌더링한다 (에셋 미확보 상태에서도 placeholder 없이 동작)
+  const heroCandidates = meta.carouselImages.length > 0 ? meta.carouselImages : [meta.image];
+  const heroImages = filterExistingPublicImages(heroCandidates);
+  const demonstrations = meta.demonstrations.map((demo) => ({
+    ...demo,
+    existingImages: filterExistingPublicImages(demo.images),
+  }));
 
   return (
     <main data-testid='work-detail' className='min-h-screen w-full'>
-      {/* ── Full-width Hero Image (실존 에셋이 있을 때만 렌더링) ── */}
-      {heroImage && (
-        <section className='relative h-[55vh] w-full overflow-hidden bg-[#1a1a1a] md:h-[75vh]'>
-          <div
-            className='absolute inset-0 bg-cover bg-center'
-            style={{ backgroundImage: `url(${heroImage})` }}
-          />
-          <div className='absolute inset-0 bg-gradient-to-t from-[var(--site-bg)]/60 to-transparent' />
-        </section>
-      )}
+      <WorkDetailHero meta={meta} heroImages={heroImages} />
 
-      {/* ── Split layout: sticky left + scrollable right ── */}
-      <section className='flex flex-col gap-0 px-6 pt-16 pb-32 md:flex-row md:px-12'>
-        {/* LEFT — Sticky meta panel */}
-        <div className='hidden w-72 flex-shrink-0 md:block'>
-          <div className='sticky top-28 flex flex-col gap-10'>
-            <div className='flex flex-col gap-2'>
-              <h1 className='text-2xl font-medium tracking-tight md:text-3xl'>{meta.title}</h1>
-            </div>
+      <div className='site-container w-full px-6 pb-24 md:px-12'>
+        {/* MDX 서사 — 배경·과정을 산문으로 잇는 우리 사이트의 에디토리얼 축 */}
+        <article className='mx-auto mt-16 max-w-3xl md:mt-24'>
+          <MDXRemote source={content} components={mdxComponents} />
+        </article>
 
-            {/* Meta rows */}
-            <div className='flex flex-col gap-0 border-t border-white/10'>
-              {META_ROWS.map(({ label, value }) => (
-                <div
-                  key={label}
-                  className='flex justify-between border-b border-white/10 py-3 text-sm'
-                >
-                  <span className='text-[10px] tracking-widest text-white/40 uppercase'>
-                    {label}
-                  </span>
-                  <span className='text-white/80'>{value}</span>
-                </div>
-              ))}
-            </div>
-
-            <ProjectCtaGroup liveUrl={meta.liveUrl} github={meta.github} />
-
-            {/* Back to work */}
-            <Link
-              href='/work'
-              className='text-xs tracking-widest text-white/30 uppercase transition-colors duration-200 hover:text-white'
-            >
-              ← All Works
-            </Link>
-          </div>
-        </div>
-
-        {/* RIGHT — Scrollable content */}
-        <div className='flex flex-1 flex-col gap-10 md:pl-16'>
-          {/* Mobile title — 좌측 패널이 데스크톱 전용이라 CTA·복귀 링크를 여기서도 제공한다 */}
-          <div className='mb-4 flex flex-col gap-4 md:hidden'>
-            <Link
-              href='/work'
-              className='text-xs tracking-widest text-white/30 uppercase transition-colors duration-200 hover:text-white'
-            >
-              ← All Works
-            </Link>
-            <h1 className='text-3xl font-medium'>{meta.title}</h1>
-            <p className='text-sm tracking-widest text-white/40 uppercase'>{meta.category}</p>
-            <ProjectCtaGroup liveUrl={meta.liveUrl} github={meta.github} />
-          </div>
-
-          {/* 한 문단 요약 — Hero 바로 아래에서 프로젝트를 한 눈에 설명한다 */}
-          {meta.summary && (
-            <p className='max-w-3xl text-lg leading-relaxed text-gray-300 md:text-xl'>
-              {meta.summary}
-            </p>
-          )}
-
-          {/* MDX article */}
-          <article>
-            <MDXRemote source={content} components={mdxComponents} />
-          </article>
-
-          {/* ── Project Overview ── */}
-          <WorkSection title='Project Overview' isEmpty={meta.overview.length === 0}>
-            <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
-              {meta.overview.map((item) => (
-                <div key={item.title} className='flex flex-col gap-2'>
-                  <h3 className='text-base font-medium md:text-lg'>{item.title}</h3>
-                  <p className='text-sm leading-relaxed text-gray-400 md:text-base'>
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </WorkSection>
-
-          {/* ── Technology Stack ── */}
-          <WorkSection title='Technology Stack' isEmpty={meta.techStack.length === 0}>
-            <ul className='flex flex-wrap gap-2'>
-              {meta.techStack.map((tech) => (
-                <li
-                  key={tech}
-                  className='rounded-full border border-white/20 px-4 py-1.5 text-xs tracking-wide text-white/80 md:text-sm'
-                >
-                  {tech}
-                </li>
-              ))}
-            </ul>
-          </WorkSection>
-
-          {/* ── Key Features ── */}
-          <WorkSection title='Key Features' isEmpty={meta.features.length === 0}>
-            <div className='grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2'>
-              {meta.features.map((feature) => (
-                <div
-                  key={feature.title}
-                  className='flex flex-col gap-2 border-l border-white/10 pl-4'
-                >
-                  <h3 className='text-base font-medium md:text-lg'>{feature.title}</h3>
-                  <p className='text-sm leading-relaxed text-gray-400 md:text-base'>
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </WorkSection>
-
-          {/* ── Technical Implementation ── */}
-          <WorkSection
-            title='Technical Implementation'
-            isEmpty={
-              !meta.implementation.architecture && meta.implementation.highlights.length === 0
-            }
-          >
-            {meta.implementation.architecture && (
-              <p className='text-base leading-relaxed text-gray-300 md:text-lg'>
-                {meta.implementation.architecture}
-              </p>
-            )}
-            {meta.implementation.highlights.length > 0 && (
-              <ul className='flex flex-col gap-2.5'>
-                {meta.implementation.highlights.map((highlight) => (
-                  <li
-                    key={highlight}
-                    className='flex gap-3 text-sm leading-relaxed text-gray-400 md:text-base'
-                  >
-                    <span aria-hidden className='mt-2 h-1 w-1 shrink-0 rounded-full bg-white/40' />
-                    {highlight}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </WorkSection>
-
-          {/* ── Demonstrations ── */}
-          <WorkSection title='Demonstrations' isEmpty={meta.demonstrations.length === 0}>
-            <div className='flex flex-col gap-12'>
-              {meta.demonstrations.map((demo) => {
-                // 스크린샷은 아직 확보되지 않을 수 있으므로 실존하는 것만 렌더링한다
-                const demoImages = filterExistingPublicImages(demo.images);
-
-                return (
-                  <div key={demo.title} className='flex flex-col gap-4'>
-                    <h3 className='text-base font-medium md:text-lg'>{demo.title}</h3>
-
-                    {demo.description && (
-                      <p className='text-sm leading-relaxed text-gray-400 md:text-base'>
-                        {demo.description}
-                      </p>
-                    )}
-
-                    {demoImages.length > 0 && (
-                      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-                        {demoImages.map((imgPath) => (
-                          <div
-                            key={imgPath}
-                            className='relative aspect-[4/3] overflow-hidden bg-[#1a1a1a]'
-                          >
-                            <div
-                              className='absolute inset-0 bg-cover bg-center'
-                              style={{ backgroundImage: `url(${imgPath})` }}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {demo.outcome && (
-                      <p className='border-l-2 border-white/30 pl-4 text-sm text-white/80 md:text-base'>
-                        {demo.outcome}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </WorkSection>
-
-          {/* ── Impact & Results ── */}
-          <WorkSection
-            title='Impact & Results'
-            isEmpty={meta.impact.metrics.length === 0 && meta.impact.outcomes.length === 0}
-          >
-            {meta.impact.metrics.length > 0 && (
-              <dl className='grid grid-cols-1 gap-6 sm:grid-cols-3'>
-                {meta.impact.metrics.map((metric) => (
-                  <div key={metric.label} className='flex flex-col gap-1'>
-                    <dt className='text-[10px] tracking-widest text-white/40 uppercase'>
-                      {metric.label}
-                    </dt>
-                    <dd className='text-xl font-medium md:text-2xl'>{metric.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-
-            {meta.impact.outcomes.length > 0 && (
-              <ul className='flex flex-col gap-2.5'>
-                {meta.impact.outcomes.map((outcome) => (
-                  <li
-                    key={outcome}
-                    className='flex gap-3 text-sm leading-relaxed text-gray-400 md:text-base'
-                  >
-                    <span aria-hidden className='mt-2 h-1 w-1 shrink-0 rounded-full bg-white/40' />
-                    {outcome}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </WorkSection>
-
-          {/* Extra image gallery — 실존 에셋이 있을 때만 렌더링 */}
-          {galleryImages.length > 0 && (
-            <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-2'>
-              {galleryImages.map((imgPath) => (
-                <div key={imgPath} className='relative aspect-[4/3] overflow-hidden bg-[#1a1a1a]'>
-                  <div
-                    className='absolute inset-0 bg-cover bg-center'
-                    style={{ backgroundImage: `url(${imgPath})` }}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+        <TechStackSection techStack={meta.techStack} />
+        <FeaturesSection features={meta.features} />
+        <ImplementationSection implementation={meta.implementation} />
+        <DemonstrationsSection demonstrations={demonstrations} />
+        <ImpactSection impact={meta.impact} />
+        <ExploreCta liveUrl={meta.liveUrl} github={meta.github} />
+      </div>
 
       {/* ── Next Project — 순차 탐색 ── */}
       {nextProject && (
