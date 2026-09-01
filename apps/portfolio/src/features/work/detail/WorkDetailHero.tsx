@@ -38,9 +38,6 @@ export default function WorkDetailHero({
             {meta.summary}
           </p>
         )}
-        <p className='text-[11px] tracking-[0.2em] text-white/30 uppercase'>
-          {meta.category} · ({String(meta.order).padStart(2, '0')}) · Seoul, 한국
-        </p>
       </div>
 
       {/* 프레임 카드: 캐러셀 + Overview */}

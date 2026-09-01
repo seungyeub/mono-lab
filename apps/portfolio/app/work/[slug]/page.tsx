@@ -7,8 +7,6 @@ import {
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Marquee from '@/src/components/Marquee';
-import EditorialDivider from '@/src/components/EditorialDivider';
 import DemonstrationsSection from '@/src/features/work/detail/DemonstrationsSection';
 import ExploreCta from '@/src/features/work/detail/ExploreCta';
 import FeaturesSection from '@/src/features/work/detail/FeaturesSection';
@@ -68,9 +66,6 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   const { meta, content, slug } = project;
   const allProjects = getAllProjects();
 
-  // 현재 프로젝트 제외 추천 2개
-  const moreProjects = allProjects.filter((p) => p.slug !== slug).slice(0, 2);
-
   // order 순서상 다음 프로젝트. 마지막이면 처음으로 돌아가 탐색이 끊기지 않게 한다.
   const currentIndex = allProjects.findIndex((p) => p.slug === slug);
   const nextProject =
@@ -117,49 +112,6 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
             </div>
           </Link>
         </section>
-      )}
-
-      {/* ── More Works ── */}
-      {moreProjects.length > 0 && (
-        <>
-          <EditorialDivider left='More Works' center='Continue Exploring' right='→' />
-
-          {/* "More Works©" 마르퀴 */}
-          <Marquee
-            items={['More Works©', 'Next Projects', 'See Also']}
-            speed={40}
-            textClassName='text-white/[0.06] text-[clamp(2rem,8vw,7rem)] font-medium'
-            className='border-none py-2'
-          />
-
-          <div className='grid grid-cols-1 gap-6 px-6 pb-24 md:grid-cols-2 md:gap-8 md:px-12'>
-            {moreProjects.map((p) => {
-              const [cardImage] = filterExistingPublicImages([p.meta.image]);
-              return (
-                <Link key={p.slug} href={`/work/${p.slug}`} className='group flex flex-col gap-3'>
-                  <div className='relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]'>
-                    {cardImage ? (
-                      <div
-                        className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105'
-                        style={{ backgroundImage: `url(${cardImage})` }}
-                      />
-                    ) : (
-                      <div className='absolute inset-0 flex items-center justify-center'>
-                        <span className='px-4 text-center text-sm tracking-widest text-white/40 uppercase transition-colors duration-300 group-hover:text-white/70'>
-                          {p.meta.title}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <div className='flex items-start justify-between'>
-                    <span className='text-base font-medium'>{p.meta.title}</span>
-                    <span className='text-xs text-white/40'>{p.meta.category}</span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </>
       )}
     </main>
   );
