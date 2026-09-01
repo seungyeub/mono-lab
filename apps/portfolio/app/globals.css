@@ -1,4 +1,7 @@
+/* ═══ 한글 폰트 비교(#6)용 3종 로드 — 결정 후 채택안만 남기고 나머지 @import는 삭제 ═══ */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+@import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/static/complete/WantedSans.min.css');
+@import url('https://cdn.jsdelivr.net/gh/sunn-us/SUIT@v1.2.5/fonts/static/woff2/SUIT.css');
 @import "tailwindcss";
 @import "@repo/tailwind-config";
 
@@ -6,7 +9,14 @@
 :root {
   --site-max-width: 1480px;
   --site-bg: #0A0A0A;
-  --font-pretendard: 'Pretendard', sans-serif;
+
+  /* ═══ 한글 폰트 토글(#6) ═══════════════════════════════════════
+     아래 3줄 중 보고 싶은 폰트 한 줄만 남기고 나머지를 주석 처리하면
+     사이트 전체 한글이 해당 폰트로 바뀐다(라틴은 Inter Tight 유지).
+     결정 후: 채택안만 남기고 상단의 미사용 @import 2개도 함께 삭제. */
+  --font-korean: 'Pretendard', sans-serif;
+  /* --font-korean: 'Wanted Sans', sans-serif; */
+  /* --font-korean: 'SUIT', sans-serif; */
 }
 
 @layer components {
@@ -30,7 +40,7 @@
     font-size: 14px;
     line-height: 1.25;
     letter-spacing: 0.1px;
-    font-family: var(--font-inter), var(--font-pretendard);
+    font-family: var(--font-inter), var(--font-korean);
     font-optical-sizing: auto;
   }
 
