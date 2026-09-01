@@ -1,5 +1,7 @@
 import {
+  FEATURED_SLUGS,
   filterExistingPublicImages,
+  getFeaturedProjectCards,
   getProjectCards,
   getProjectSeoMetadata,
   normalizeProjectMetadata,
@@ -202,5 +204,54 @@ describe('normalizeProjectMetadata', () => {
 
     expect(meta.techStack).toEqual([]);
     expect(meta.impact).toEqual({ metrics: [], outcomes: [] });
+  });
+});
+
+describe('normalizeProjectMetadata — 리디자인 확장 필드', () => {
+  const BASE = {
+    title: 'T',
+    category: 'C',
+    order: 1,
+    image: '/images/projects/t.jpg',
+  };
+
+  it('defaults carouselImages to an empty array', () => {
+    expect(normalizeProjectMetadata(BASE).carouselImages).toEqual([]);
+  });
+
+  it('carries carouselImages and code snippet fields through', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      carouselImages: ['/a.png', '', 3, '/b.png'],
+      implementation: {
+        highlights: ['h'],
+        codeSnippet: 'const a = 1;\nconst b = 2;',
+        codeCaption: '핵심 로직 요약',
+      },
+    });
+
+    expect(meta.carouselImages).toEqual(['/a.png', '/b.png']);
+    expect(meta.implementation.codeSnippet).toBe('const a = 1;\nconst b = 2;');
+    expect(meta.implementation.codeCaption).toBe('핵심 로직 요약');
+  });
+});
+
+describe('getFeaturedProjectCards', () => {
+  it('returns only the slugs listed in FEATURED_SLUGS, in that exact order', () => {
+    const cards = getFeaturedProjectCards();
+
+    expect(cards.map((c) => c.slug)).toEqual([...FEATURED_SLUGS]);
+  });
+
+  it('every featured slug resolves to a real project (오타·삭제 감지)', () => {
+    const known = new Set(getProjectCards().map((c) => c.slug));
+
+    FEATURED_SLUGS.forEach((slug) => {
+      expect(known.has(slug)).toBe(true);
+    });
+  });
+
+  it('exposes exactly six featured projects for the home showcase', () => {
+    expect(FEATURED_SLUGS).toHaveLength(6);
   });
 });

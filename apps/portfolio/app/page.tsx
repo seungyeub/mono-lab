@@ -4,11 +4,11 @@ import FAQSection from '@/src/features/home/FAQSection';
 import HeroSection from '@/src/features/home/HeroSection';
 import SkillsSection from '@/src/features/home/SkillsSection';
 import WorksSection from '@/src/features/home/WorksSection';
-import { getProjectCards } from '@/src/lib/mdx';
+import { getFeaturedProjectCards } from '@/src/lib/mdx';
 
 export default function Home() {
-  // MDX를 단일 소스로 삼는다 — 카드 데이터를 따로 두면 상세 페이지와 어긋난다(P0-6)
-  const projects = getProjectCards();
+  // MDX를 단일 소스로 삼는다(P0-6). 홈에는 FEATURED_SLUGS에서 직접 고른 6개만 노출한다.
+  const projects = getFeaturedProjectCards();
 
   return (
     <div className='flex w-full flex-col'>

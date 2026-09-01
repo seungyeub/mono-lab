@@ -13,6 +13,10 @@ export interface ProjectTextItem {
 export interface ProjectImplementation {
   architecture?: string;
   highlights: string[];
+  /** Technical Implementation 우측 터미널 카드에 표시할 코드 조각 */
+  codeSnippet?: string;
+  /** 코드가 무엇을 보여주는지 한 줄 설명 */
+  codeCaption?: string;
 }
 
 export interface ProjectDemonstration {
@@ -42,6 +46,8 @@ export interface ProjectMetadata {
   /** 값이 있을 때만 CTA를 렌더링한다 (P0-3 계약) */
   liveUrl?: string;
   github?: string;
+  /** Hero 캐러셀 이미지 — 없으면 image 1장을, 그것도 없으면 타이포 플레이스홀더를 쓴다 */
+  carouselImages: string[];
   techStack: string[];
   overview: ProjectTextItem[];
   features: ProjectTextItem[];
@@ -97,6 +103,7 @@ export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
     summary: asText(data.summary),
     liveUrl: asText(data.liveUrl),
     github: asText(data.github),
+    carouselImages: asTextList(data.carouselImages),
     techStack: asTextList(data.techStack),
     overview: toTextItems(data.overview),
     features: toTextItems(data.features),
@@ -105,6 +112,12 @@ export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
         ? { architecture: asText(implementation.architecture) }
         : {}),
       highlights: asTextList(implementation.highlights),
+      ...(asText(implementation.codeSnippet)
+        ? { codeSnippet: asText(implementation.codeSnippet) }
+        : {}),
+      ...(asText(implementation.codeCaption)
+        ? { codeCaption: asText(implementation.codeCaption) }
+        : {}),
     },
     demonstrations: asArray(data.demonstrations)
       .map((entry) => {
@@ -203,6 +216,28 @@ export function getProjectCards(): ProjectCard[] {
     image: meta.image,
     href: `/work/${slug}`,
   }));
+}
+
+/**
+ * 홈 WorksSection에 노출할 프로젝트 선택 목록.
+ * 자동(최신순)이 아니라 **여기서 직접 슬러그를 골라** 큐레이션한다 — 배열 순서가 곧 노출 순서다.
+ * 항목을 바꾸려면 slug를 교체하면 되고, 오타·삭제된 슬러그는 테스트가 잡아낸다.
+ */
+export const FEATURED_SLUGS = [
+  'app-review-tracker',
+  'yoga-editor',
+  'kti',
+  'letsorder',
+  'pharmgenscience',
+  'ppcwiz',
+] as const;
+
+/** FEATURED_SLUGS 순서 그대로 홈 노출용 카드를 돌려준다 */
+export function getFeaturedProjectCards(): ProjectCard[] {
+  const bySlug = new Map(getProjectCards().map((card) => [card.slug, card]));
+  return FEATURED_SLUGS.map((slug) => bySlug.get(slug)).filter(
+    (card): card is ProjectCard => card !== undefined,
+  );
 }
 
 export function getAllProjects() {
