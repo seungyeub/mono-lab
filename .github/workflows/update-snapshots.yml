@@ -94,6 +94,11 @@ jobs:
           cd apps/portfolio
           pnpm run test:e2e:update
 
+      # 컨테이너 안에서는 checkout된 파일의 소유자(UID)와 git 실행 사용자가 달라
+      # "dubious ownership"으로 git-auto-commit이 실패한다. workspace를 신뢰 목록에 등록한다.
+      - name: Mark workspace as safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
