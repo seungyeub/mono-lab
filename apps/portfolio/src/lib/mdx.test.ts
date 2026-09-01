@@ -101,17 +101,17 @@ describe('getProjectCards', () => {
 
   it('carries MDX metadata through without altering it', () => {
     const cards = getProjectCards();
-    const rootwise = cards.find((card) => card.slug === 'rootwise');
+    const tracker = cards.find((card) => card.slug === 'app-review-tracker');
 
-    // WorksSection 하드코딩본은 category를 'Brand Identity', image를 02.jpg로
-    // 잘못 갖고 있었다. MDX 원본 값이 그대로 실려야 한다.
-    expect(rootwise).toEqual({
-      slug: 'rootwise',
-      title: 'Rootwise Architects',
-      category: 'Visual Identity',
+    // 카드에 별도 하드코딩본을 두면 MDX와 어긋나므로(P0-6),
+    // MDX frontmatter 원본 값이 변형 없이 그대로 실려야 한다.
+    expect(tracker).toEqual({
+      slug: 'app-review-tracker',
+      title: 'App Review Tracker',
+      category: 'Data Pipeline',
       order: 1,
-      image: '/images/projects/01.jpg',
-      href: '/work/rootwise',
+      image: '/images/projects/app-review-tracker.jpg',
+      href: '/work/app-review-tracker',
     });
   });
 });
