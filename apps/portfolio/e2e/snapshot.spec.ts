@@ -42,6 +42,18 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
     await expect(page.locator('data-testid=work-detail')).toBeVisible();
     await page.locator('data-testid=page-loader').waitFor({ state: 'detached' });
 
+    // whileInView 리빌(SkillChips 등)은 뷰포트 진입 시에만 발화하는데, fullPage 캡쳐는
+    // 실제 스크롤 없이 찍혀 opacity 0으로 남는다. 캡쳐 전에 끝까지 훑어 전부 발화시킨다.
+    await page.evaluate(async () => {
+      const step = window.innerHeight / 2;
+      for (let y = 0; y < document.body.scrollHeight; y += step) {
+        window.scrollTo(0, y);
+        await new Promise((resolve) => setTimeout(resolve, 60));
+      }
+      window.scrollTo(0, 0);
+      await new Promise((resolve) => setTimeout(resolve, 400));
+    });
+
     await expect(page.locator('data-testid=work-detail')).toHaveScreenshot(
       'work-detail-baseline.png',
     );
