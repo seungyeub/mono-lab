@@ -12,6 +12,7 @@ import ExploreCta from '@/src/features/work/detail/ExploreCta';
 import FeaturesSection from '@/src/features/work/detail/FeaturesSection';
 import ImpactSection from '@/src/features/work/detail/ImpactSection';
 import ImplementationSection from '@/src/features/work/detail/ImplementationSection';
+import SectionHeading from '@/src/features/work/detail/SectionHeading';
 import TechStackSection from '@/src/features/work/detail/TechStackSection';
 import WorkDetailHero from '@/src/features/work/detail/WorkDetailHero';
 import { ComponentPropsWithoutRef } from 'react';
@@ -38,8 +39,14 @@ const mdxComponents = {
   h1: (props: ComponentPropsWithoutRef<'h1'>) => (
     <h1 className='mt-10 mb-4 text-2xl font-medium md:text-3xl' {...props} />
   ),
+  // 산문 소제목을 다른 섹션의 번호 타일 문법과 맞춘다(CSS 카운터로 01·02 자동 부여).
+  // 이전 스타일로 되돌리려면 이 h2를 단순 텍스트 버전으로 교체하고
+  // article의 [counter-reset:story]와 SectionHeading(Project Story)을 제거하면 된다.
   h2: (props: ComponentPropsWithoutRef<'h2'>) => (
-    <h2 className='mt-8 mb-3 text-xl font-medium text-gray-200 md:text-2xl' {...props} />
+    <h2
+      className='mt-12 mb-4 flex items-center gap-3 text-xl font-medium text-gray-200 before:flex before:h-8 before:w-8 before:shrink-0 before:items-center before:justify-center before:rounded-md before:border before:border-white/15 before:font-mono before:text-[11px] before:font-normal before:text-white/60 before:content-[counter(story,decimal-leading-zero)] before:[counter-increment:story] md:text-2xl'
+      {...props}
+    />
   ),
   p: (props: ComponentPropsWithoutRef<'p'>) => (
     <p className='mb-5 text-base leading-relaxed text-gray-400 md:text-lg' {...props} />
@@ -85,9 +92,16 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
 
       <div className='site-container w-full px-6 pb-24 md:px-12'>
         {/* MDX 서사 — 배경·과정을 산문으로 잇는 우리 사이트의 에디토리얼 축 */}
-        <article className='mx-auto mt-16 max-w-3xl md:mt-24'>
-          <MDXRemote source={content} components={mdxComponents} />
-        </article>
+        <section className='mt-20 md:mt-28'>
+          <SectionHeading
+            eyebrow='Project Story'
+            title='프로젝트 이야기'
+            description='배경과 과정, 그리고 판단의 기록'
+          />
+          <article className='mx-auto max-w-3xl [counter-reset:story]'>
+            <MDXRemote source={content} components={mdxComponents} />
+          </article>
+        </section>
 
         <TechStackSection techStack={meta.techStack} />
         <FeaturesSection features={meta.features} />
