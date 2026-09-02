@@ -144,7 +144,7 @@ describe('normalizeProjectMetadata', () => {
     expect(meta.overview).toEqual([]);
     expect(meta.features).toEqual([]);
     expect(meta.demonstrations).toEqual([]);
-    expect(meta.implementation).toEqual({ highlights: [] });
+    expect(meta.implementation).toEqual({ highlights: [], codeSnippet: [] });
     expect(meta.impact).toEqual({ metrics: [], outcomes: [] });
     expect(meta.summary).toBeUndefined();
     expect(meta.github).toBeUndefined();
@@ -171,6 +171,7 @@ describe('normalizeProjectMetadata', () => {
     expect(meta.implementation).toEqual({
       architecture: 'Next.js App Router',
       highlights: ['h1', 'h2'],
+      codeSnippet: [],
     });
     expect(meta.demonstrations).toEqual([
       { title: '데모', images: ['/a.png'], description: '설명', outcome: '결과' },
@@ -231,8 +232,39 @@ describe('normalizeProjectMetadata — 리디자인 확장 필드', () => {
     });
 
     expect(meta.carouselImages).toEqual(['/a.png', '/b.png']);
-    expect(meta.implementation.codeSnippet).toBe('const a = 1;\nconst b = 2;');
+    expect(meta.implementation.codeSnippet).toEqual(['const a = 1;\nconst b = 2;']);
     expect(meta.implementation.codeCaption).toBe('핵심 로직 요약');
+  });
+
+  it('codeSnippet은 단일 문자열로 써도 배열 1개로 정규화된다', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      implementation: { codeSnippet: 'single block' },
+    });
+
+    expect(meta.implementation.codeSnippet).toEqual(['single block']);
+  });
+
+  it('codeSnippet 배열은 순서를 지키고 빈 항목만 걸러낸다', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      implementation: { codeSnippet: ['block A', '', 'block B', 7] },
+    });
+
+    expect(meta.implementation.codeSnippet).toEqual(['block A', 'block B']);
+  });
+
+  it('codeSnippet이 없으면 빈 배열이다', () => {
+    expect(normalizeProjectMetadata(BASE).implementation.codeSnippet).toEqual([]);
+  });
+
+  it('codeNote(코드 출처·기여 주석)를 통과시킨다', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      implementation: { codeSnippet: 'x', codeNote: '코드 작성 주체는 AI' },
+    });
+
+    expect(meta.implementation.codeNote).toBe('코드 작성 주체는 AI');
   });
 });
 

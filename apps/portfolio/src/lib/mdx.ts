@@ -13,10 +13,12 @@ export interface ProjectTextItem {
 export interface ProjectImplementation {
   architecture?: string;
   highlights: string[];
-  /** Technical Implementation 우측 터미널 카드에 표시할 코드 조각 */
-  codeSnippet?: string;
+  /** 터미널 카드에 세로로 쌓을 코드 조각들. frontmatter에는 문자열 하나만 써도 된다 */
+  codeSnippet: string[];
   /** 코드가 무엇을 보여주는지 한 줄 설명 */
   codeCaption?: string;
+  /** 코드의 출처·기여 경계를 코드 바로 위에 밝혀야 할 때 쓴다 (예: AI 페어 개발 표기) */
+  codeNote?: string;
 }
 
 export interface ProjectDemonstration {
@@ -112,12 +114,14 @@ export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
         ? { architecture: asText(implementation.architecture) }
         : {}),
       highlights: asTextList(implementation.highlights),
-      ...(asText(implementation.codeSnippet)
-        ? { codeSnippet: asText(implementation.codeSnippet) }
-        : {}),
+      // 블록 하나뿐이면 문자열로 쓰는 편이 frontmatter가 읽기 쉬워 둘 다 받는다
+      codeSnippet: Array.isArray(implementation.codeSnippet)
+        ? asTextList(implementation.codeSnippet)
+        : asTextList([implementation.codeSnippet]),
       ...(asText(implementation.codeCaption)
         ? { codeCaption: asText(implementation.codeCaption) }
         : {}),
+      ...(asText(implementation.codeNote) ? { codeNote: asText(implementation.codeNote) } : {}),
     },
     demonstrations: asArray(data.demonstrations)
       .map((entry) => {

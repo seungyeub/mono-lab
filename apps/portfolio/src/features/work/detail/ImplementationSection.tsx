@@ -12,7 +12,7 @@ export default function ImplementationSection({
 }) {
   const hasArchitecture =
     Boolean(implementation.architecture) || implementation.highlights.length > 0;
-  const hasCode = Boolean(implementation.codeSnippet);
+  const hasCode = implementation.codeSnippet.length > 0;
 
   if (!hasArchitecture && !hasCode) return null;
 
@@ -81,16 +81,30 @@ export default function ImplementationSection({
               </div>
             )}
 
+            {/* 코드의 출처·기여 경계를 코드 바로 위에서 밝힌다 (예: AI 페어 개발) */}
+            {implementation.codeNote && (
+              <p className='mb-3 border-l-2 border-white/25 pl-3 text-xs leading-relaxed text-white/50'>
+                {implementation.codeNote}
+              </p>
+            )}
+
             {/* 터미널 크롬 — 신호등은 톤에 맞춰 회색조로 */}
-            <div className='overflow-hidden rounded-lg border border-white/10 bg-black'>
-              <div className='flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-4 py-2.5'>
-                <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/40' />
-                <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/25' />
-                <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/10' />
-              </div>
-              <pre className='overflow-x-auto p-4 font-mono text-[11px] leading-relaxed text-gray-300 md:text-xs'>
-                <code>{implementation.codeSnippet}</code>
-              </pre>
+            <div className='flex flex-col gap-3'>
+              {implementation.codeSnippet.map((snippet) => (
+                <div
+                  key={snippet}
+                  className='overflow-hidden rounded-lg border border-white/10 bg-black'
+                >
+                  <div className='flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-4 py-2.5'>
+                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/40' />
+                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/25' />
+                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/10' />
+                  </div>
+                  <pre className='overflow-x-auto p-4 font-mono text-[11px] leading-relaxed text-gray-300 md:text-xs'>
+                    <code>{snippet}</code>
+                  </pre>
+                </div>
+              ))}
             </div>
           </div>
         )}
