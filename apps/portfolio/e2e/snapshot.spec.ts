@@ -3,20 +3,33 @@ import { test, expect, type Page } from '@playwright/test';
 /**
  * whileInView 리빌(카드 stagger·SkillChips 등)은 뷰포트 진입 시에만 발화하는데,
  * 스크린샷은 실제 스크롤 없이 찍혀 화면 아래 요소가 opacity 0으로 남는다.
- * 캡쳐 전에 페이지를 끝까지 훑어 once:true 리빌을 전부 발화시킨다.
+ *
+ * 스크롤로 훑어 발화시키고 기다리는 방식은 안정적이지 않았다. stagger·트랜지션에
+ * 맞춰 대기를 2.5s까지 늘려도 CI 컨테이너에서 8장 중 2~3장만 찍힌 baseline이
+ * 나왔다. 그래서 훑은 뒤 framer-motion이 남긴 인라인 스타일을 최종 상태로
+ * 직접 확정한다 — 타이밍에 기대지 않으므로 환경이 느려도 결과가 같다.
+ *
+ * 인라인 opacity/transform은 framer-motion이 쓰는 것이라 대상이 정확하고,
+ * 클래스로 지정한 의도적 투명도(캐러셀 비활성 이미지의 opacity-0,
+ * 플레이스홀더의 opacity-10 등)는 건드리지 않는다.
  */
 async function revealAll(page: Page) {
   await page.evaluate(async () => {
     const step = window.innerHeight / 2;
     for (let y = 0; y < document.body.scrollHeight; y += step) {
       window.scrollTo(0, y);
-      await new Promise((resolve) => setTimeout(resolve, 80));
+      await new Promise((resolve) => setTimeout(resolve, 60));
     }
     window.scrollTo(0, 0);
-    // 발화만으로는 부족하다 — 리빌이 끝나야 한다. Works 카드는 stagger가
-    // 카드당 0.1s씩 붙고(8장이면 최대 0.7s) 트랜지션이 0.9s라 1.6s가 필요하고,
-    // CI 컨테이너는 로컬보다 느리다. 여유를 둬 미완성 상태가 굳는 것을 막는다.
-    await new Promise((resolve) => setTimeout(resolve, 2500));
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    document.querySelectorAll<HTMLElement>('[style*="opacity"], [style*="transform"]').forEach(
+      (element) => {
+        const opacity = element.style.opacity;
+        if (opacity !== '' && Number.parseFloat(opacity) < 1) element.style.opacity = '1';
+        if (element.style.transform) element.style.transform = 'none';
+      },
+    );
   });
 }
 
