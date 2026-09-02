@@ -51,20 +51,20 @@ export default function ContactPage() {
                 Pinterest
               </a>
               <a
-                href='https://www.instagram.com/b.seungyeub'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='transition-colors hover:text-white'
-              >
-                Instagram
-              </a>
-              <a
                 href='https://blog.naver.com/backsajang420'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='transition-colors hover:text-white'
               >
                 Blog
+              </a>
+              <a
+                href='https://www.linkedin.com/in/seungyeub-baek-23aa9016a/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='transition-colors hover:text-white'
+              >
+                LinkedIn
               </a>
             </div>
           </div>
