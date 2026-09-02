@@ -27,11 +27,7 @@ export default function DemonstrationsSection({
             className='grid items-center gap-6 rounded-2xl border border-white/10 bg-white/5 p-4 transition-colors duration-500 hover:border-white/20 sm:p-6 md:p-8 lg:grid-cols-2 lg:gap-10'
           >
             <div className={index % 2 === 1 ? 'lg:order-2' : undefined}>
-              <ImageCarousel
-                images={demo.existingImages}
-                fallbackLabel={demo.title}
-                aspectClass='aspect-[4/3]'
-              />
+              <ImageCarousel images={demo.existingImages} fallbackLabel={demo.title} />
             </div>
             <div className={index % 2 === 1 ? 'lg:order-1' : undefined}>
               <h3 className='mb-3 text-xl font-semibold md:text-2xl'>{demo.title}</h3>

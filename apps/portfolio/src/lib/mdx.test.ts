@@ -232,14 +232,6 @@ describe('normalizeProjectMetadata — 리디자인 확장 필드', () => {
     expect(normalizeProjectMetadata(BASE).carouselImages).toEqual([]);
   });
 
-  // 모바일 앱 캡쳐는 세로라 웹과 같은 가로 프레임에 넣으면 이미지가 잘거나 잘린다
-  it("mediaLayout은 'app'일 때만 통과시키고 그 외에는 web으로 둔다", () => {
-    expect(normalizeProjectMetadata({ ...BASE, mediaLayout: 'app' }).mediaLayout).toBe('app');
-    expect(normalizeProjectMetadata({ ...BASE, mediaLayout: 'web' }).mediaLayout).toBe('web');
-    expect(normalizeProjectMetadata(BASE).mediaLayout).toBe('web');
-    expect(normalizeProjectMetadata({ ...BASE, mediaLayout: 'wat' }).mediaLayout).toBe('web');
-  });
-
   it('carries carouselImages and code snippet fields through', () => {
     const meta = normalizeProjectMetadata({
       ...BASE,

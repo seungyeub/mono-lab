@@ -52,8 +52,6 @@ export interface ProjectMetadata {
   github?: string;
   /** Hero 캐러셀 이미지 — 없으면 image 1장을, 그것도 없으면 타이포 플레이스홀더를 쓴다 */
   carouselImages: string[];
-  /** 캡쳐가 세로(모바일 앱)인지 가로(웹)인지 — 캐러셀 프레임 비율을 정한다 */
-  mediaLayout: 'web' | 'app';
   techStack: string[];
   overview: ProjectTextItem[];
   features: ProjectTextItem[];
@@ -110,7 +108,6 @@ export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
     liveUrl: asText(data.liveUrl),
     github: asText(data.github),
     carouselImages: asTextList(data.carouselImages),
-    mediaLayout: data.mediaLayout === 'app' ? 'app' : 'web',
     techStack: asTextList(data.techStack),
     overview: toTextItems(data.overview),
     features: toTextItems(data.features),
