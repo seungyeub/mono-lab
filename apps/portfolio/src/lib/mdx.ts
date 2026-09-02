@@ -19,6 +19,8 @@ export interface ProjectImplementation {
   codeCaption?: string;
   /** 코드의 출처·기여 경계를 코드 바로 위에 밝혀야 할 때 쓴다 (예: AI 페어 개발 표기) */
   codeNote?: string;
+  /** 문법 강조에 쓸 언어. 없으면 'text'(평문) */
+  codeLanguage: string;
 }
 
 export interface ProjectDemonstration {
@@ -50,6 +52,8 @@ export interface ProjectMetadata {
   github?: string;
   /** Hero 캐러셀 이미지 — 없으면 image 1장을, 그것도 없으면 타이포 플레이스홀더를 쓴다 */
   carouselImages: string[];
+  /** 캡쳐가 세로(모바일 앱)인지 가로(웹)인지 — 캐러셀 프레임 비율을 정한다 */
+  mediaLayout: 'web' | 'app';
   techStack: string[];
   overview: ProjectTextItem[];
   features: ProjectTextItem[];
@@ -106,6 +110,7 @@ export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
     liveUrl: asText(data.liveUrl),
     github: asText(data.github),
     carouselImages: asTextList(data.carouselImages),
+    mediaLayout: data.mediaLayout === 'app' ? 'app' : 'web',
     techStack: asTextList(data.techStack),
     overview: toTextItems(data.overview),
     features: toTextItems(data.features),
@@ -122,6 +127,7 @@ export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
         ? { codeCaption: asText(implementation.codeCaption) }
         : {}),
       ...(asText(implementation.codeNote) ? { codeNote: asText(implementation.codeNote) } : {}),
+      codeLanguage: asText(implementation.codeLanguage) ?? 'text',
     },
     demonstrations: asArray(data.demonstrations)
       .map((entry) => {
@@ -233,11 +239,13 @@ export function getProjectCards(): ProjectCard[] {
  */
 export const FEATURED_SLUGS = [
   'app-review-tracker',
-  'yoga-editor',
   'kti',
   'letsorder',
   'pharmgenscience',
   'ppcwiz',
+  'obelab-nirsit',
+  'vananamap',
+  'vanillapet',
 ] as const;
 
 /** FEATURED_SLUGS 순서 그대로 홈 노출용 카드를 돌려준다 */

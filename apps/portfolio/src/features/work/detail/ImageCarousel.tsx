@@ -11,10 +11,13 @@ export default function ImageCarousel({
   images,
   fallbackLabel,
   aspectClass = 'aspect-[16/10]',
+  fit = 'contain',
 }: {
   images: string[];
   fallbackLabel: string;
   aspectClass?: string;
+  /** 캡쳐 원본 비율을 지키려면 contain — 잘림 없이 프레임 안에 담는다 */
+  fit?: 'cover' | 'contain';
 }) {
   const [current, setCurrent] = useState(0);
   const hasCarousel = images.length > 1;
@@ -46,7 +49,11 @@ export default function ImageCarousel({
             }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={image} alt={fallbackLabel} className='h-full w-full object-cover' />
+            <img
+              src={image}
+              alt={fallbackLabel}
+              className={`h-full w-full ${fit === 'cover' ? 'object-cover' : 'object-contain'}`}
+            />
           </div>
         ))
       )}

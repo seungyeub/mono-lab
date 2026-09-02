@@ -9,6 +9,7 @@ import type { ProjectCard } from '@/src/lib/mdx';
 export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((state) => state.setType);
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const hovered = projects.find((p) => p.slug === hoveredSlug);
 
   return (
     <div className='flex w-full flex-col gap-0 md:flex-row md:gap-16'>
@@ -22,24 +23,34 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
             </span>
           </div>
 
-          <div className='flex flex-col gap-2 text-[10px] tracking-widest text-white/25 uppercase'>
-            <span>Brand Identity</span>
-            <span>Logo Design</span>
-            <span>Visual Systems</span>
+          {/* 고정 카테고리 라벨 대신, 가리키는 프로젝트의 정보를 보여준다 */}
+          <div className='flex min-h-[3.5rem] flex-col gap-1'>
+            {hovered ? (
+              <>
+                <span className='text-[10px] tracking-widest text-white/40 uppercase'>
+                  {hovered.category}
+                </span>
+                <span className='text-sm leading-snug font-medium'>{hovered.title}</span>
+              </>
+            ) : (
+              <span className='text-[10px] leading-relaxed tracking-widest text-white/25 uppercase'>
+                Hover a project
+                <br />
+                to preview
+              </span>
+            )}
           </div>
 
           {/* hover preview */}
           <motion.div
-            animate={{ opacity: hoveredSlug ? 1 : 0 }}
+            animate={{ opacity: hovered ? 1 : 0 }}
             transition={{ duration: 0.3 }}
             className='aspect-[16/10] w-full overflow-hidden bg-[#1a1a1a]'
           >
-            {hoveredSlug && (
+            {hovered?.imageExists && (
               <div
                 className='h-full w-full bg-contain bg-center bg-no-repeat'
-                style={{
-                  backgroundImage: `url(${projects.find((p) => p.slug === hoveredSlug)?.image})`,
-                }}
+                style={{ backgroundImage: `url(${hovered.image})` }}
               />
             )}
           </motion.div>

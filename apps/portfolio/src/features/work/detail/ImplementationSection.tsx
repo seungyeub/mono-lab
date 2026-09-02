@@ -1,3 +1,4 @@
+import { codeToHtml } from 'shiki';
 import type { ProjectImplementation } from '@/src/lib/mdx';
 import SectionHeading from './SectionHeading';
 
@@ -5,7 +6,7 @@ import SectionHeading from './SectionHeading';
  * Technical Implementation — 좌: Architecture(시스템 설계 한 줄 + Key Highlights 번호 목록),
  * 우: Code Snippet(터미널 크롬). 코드가 없으면 Architecture 카드만 1열로 렌더링한다.
  */
-export default function ImplementationSection({
+export default async function ImplementationSection({
   implementation,
 }: {
   implementation: ProjectImplementation;
@@ -15,6 +16,12 @@ export default function ImplementationSection({
   const hasCode = implementation.codeSnippet.length > 0;
 
   if (!hasArchitecture && !hasCode) return null;
+
+  const highlighted = await Promise.all(
+    implementation.codeSnippet.map((snippet) =>
+      codeToHtml(snippet, { lang: implementation.codeLanguage, theme: 'github-dark-default' }),
+    ),
+  );
 
   return (
     <section className='mt-20 md:mt-28'>
@@ -90,19 +97,22 @@ export default function ImplementationSection({
 
             {/* 터미널 크롬 — 신호등은 톤에 맞춰 회색조로 */}
             <div className='flex flex-col gap-3'>
-              {implementation.codeSnippet.map((snippet) => (
+              {highlighted.map((html, index) => (
                 <div
-                  key={snippet}
+                  key={implementation.codeSnippet[index]}
                   className='overflow-hidden rounded-lg border border-white/10 bg-black'
                 >
+                  {/* 브라우저 창 느낌을 내는 장식 — 신호등 색은 통념대로 둔다 */}
                   <div className='flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-4 py-2.5'>
-                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/40' />
-                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/25' />
-                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-white/10' />
+                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-[#EF4444]/70' />
+                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-[#F59E0B]/70' />
+                    <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-[#10B981]/70' />
                   </div>
-                  <pre className='overflow-x-auto p-4 font-mono text-[11px] leading-relaxed text-gray-300 md:text-xs'>
-                    <code>{snippet}</code>
-                  </pre>
+                  {/* shiki가 만든 pre의 배경을 지워 카드의 검정 위에 코드만 얹는다 */}
+                  <div
+                    className='overflow-x-auto text-[11px] leading-relaxed md:text-xs [&_pre]:!bg-transparent [&_pre]:p-4'
+                    dangerouslySetInnerHTML={{ __html: html }}
+                  />
                 </div>
               ))}
             </div>

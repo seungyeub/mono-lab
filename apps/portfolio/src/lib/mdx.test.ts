@@ -112,8 +112,8 @@ describe('getProjectCards', () => {
       title: 'App Review Tracker',
       category: 'Data Pipeline',
       order: 1,
-      image: '/images/projects/app-review-tracker.jpg',
-      imageExists: false,
+      image: '/images/projects/app-review-tracker.webp',
+      imageExists: true,
       href: '/work/app-review-tracker',
     });
   });
@@ -155,7 +155,7 @@ describe('normalizeProjectMetadata', () => {
     expect(meta.overview).toEqual([]);
     expect(meta.features).toEqual([]);
     expect(meta.demonstrations).toEqual([]);
-    expect(meta.implementation).toEqual({ highlights: [], codeSnippet: [] });
+    expect(meta.implementation).toEqual({ highlights: [], codeSnippet: [], codeLanguage: 'text' });
     expect(meta.impact).toEqual({ metrics: [], outcomes: [] });
     expect(meta.summary).toBeUndefined();
     expect(meta.github).toBeUndefined();
@@ -183,6 +183,7 @@ describe('normalizeProjectMetadata', () => {
       architecture: 'Next.js App Router',
       highlights: ['h1', 'h2'],
       codeSnippet: [],
+      codeLanguage: 'text',
     });
     expect(meta.demonstrations).toEqual([
       { title: '데모', images: ['/a.png'], description: '설명', outcome: '결과' },
@@ -231,6 +232,14 @@ describe('normalizeProjectMetadata — 리디자인 확장 필드', () => {
     expect(normalizeProjectMetadata(BASE).carouselImages).toEqual([]);
   });
 
+  // 모바일 앱 캡쳐는 세로라 웹과 같은 가로 프레임에 넣으면 이미지가 잘거나 잘린다
+  it("mediaLayout은 'app'일 때만 통과시키고 그 외에는 web으로 둔다", () => {
+    expect(normalizeProjectMetadata({ ...BASE, mediaLayout: 'app' }).mediaLayout).toBe('app');
+    expect(normalizeProjectMetadata({ ...BASE, mediaLayout: 'web' }).mediaLayout).toBe('web');
+    expect(normalizeProjectMetadata(BASE).mediaLayout).toBe('web');
+    expect(normalizeProjectMetadata({ ...BASE, mediaLayout: 'wat' }).mediaLayout).toBe('web');
+  });
+
   it('carries carouselImages and code snippet fields through', () => {
     const meta = normalizeProjectMetadata({
       ...BASE,
@@ -269,13 +278,21 @@ describe('normalizeProjectMetadata — 리디자인 확장 필드', () => {
     expect(normalizeProjectMetadata(BASE).implementation.codeSnippet).toEqual([]);
   });
 
-  it('codeNote(코드 출처·기여 주석)를 통과시킨다', () => {
+  it('codeNote(코드 출처·기여 주석)와 codeLanguage를 통과시킨다', () => {
     const meta = normalizeProjectMetadata({
       ...BASE,
-      implementation: { codeSnippet: 'x', codeNote: '코드 작성 주체는 AI' },
+      implementation: { codeSnippet: 'x', codeNote: '코드 작성 주체는 AI', codeLanguage: 'python' },
     });
 
     expect(meta.implementation.codeNote).toBe('코드 작성 주체는 AI');
+    expect(meta.implementation.codeLanguage).toBe('python');
+  });
+
+  // 문법 강조기에 넘길 값이라 없으면 평문으로 떨어뜨린다
+  it('codeLanguage가 없으면 text로 둔다', () => {
+    const meta = normalizeProjectMetadata({ ...BASE, implementation: { codeSnippet: 'x' } });
+
+    expect(meta.implementation.codeLanguage).toBe('text');
   });
 });
 
@@ -294,7 +311,9 @@ describe('getFeaturedProjectCards', () => {
     });
   });
 
-  it('exposes exactly six featured projects for the home showcase', () => {
-    expect(FEATURED_SLUGS).toHaveLength(6);
+  // 홈은 2열 격자라 짝수여야 마지막 줄이 비지 않는다
+  it('featured 목록은 짝수 개이고 중복이 없다', () => {
+    expect(FEATURED_SLUGS.length % 2).toBe(0);
+    expect(new Set(FEATURED_SLUGS).size).toBe(FEATURED_SLUGS.length);
   });
 });

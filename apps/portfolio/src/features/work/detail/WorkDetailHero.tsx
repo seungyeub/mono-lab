@@ -43,7 +43,12 @@ export default function WorkDetailHero({
       {/* 프레임 카드: 캐러셀 + Overview */}
       <div className='mx-auto mt-10 max-w-6xl rounded-2xl border border-white/10 bg-white/5 p-4 transition-colors duration-500 hover:border-white/20 sm:p-6 md:mt-14 md:p-10'>
         <div className={`grid items-center gap-6 md:gap-10 ${hasOverview ? 'lg:grid-cols-2' : ''}`}>
-          <ImageCarousel images={heroImages} fallbackLabel={meta.title} />
+          {/* 모바일 앱 캡쳐는 세로라 가로 프레임에 넣으면 이미지가 잘아진다 — 프레임을 세로로 */}
+          <ImageCarousel
+            images={heroImages}
+            fallbackLabel={meta.title}
+            aspectClass={meta.mediaLayout === 'app' ? 'aspect-[3/4]' : 'aspect-[16/10]'}
+          />
 
           {hasOverview && (
             <div>

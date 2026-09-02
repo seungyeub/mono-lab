@@ -17,8 +17,8 @@ export default function WorkPage() {
         <div className='flex flex-col justify-between gap-6 md:flex-row md:items-end'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Selected Works©</h1>
           <p className='max-w-sm text-sm text-gray-400 md:text-base'>
-            Brand identities, visual systems,
-            <br className='hidden md:block' /> and strategic design projects.
+            웹 서비스와 앱, 사내 시스템과 데이터 파이프라인까지
+            <br className='hidden md:block' /> 2017년부터 만들어 온 작업들입니다.
           </p>
         </div>
       </div>
