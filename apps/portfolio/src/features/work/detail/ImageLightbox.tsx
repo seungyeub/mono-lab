@@ -8,6 +8,9 @@ import { useCallback, useEffect } from 'react';
  * 카드 안에서는 프레임 비율(16:10)에 맞춰 작게 보일 수밖에 없어서, 원본을 제대로 볼
  * 자리를 따로 둔다. ESC·배경 클릭으로 닫고, 여러 장이면 좌우 화살표로 넘긴다.
  */
+/** 이 거리 이상 끌면 다음/이전으로 넘긴다 */
+const SWIPE_THRESHOLD = 80;
+
 export default function ImageLightbox({
   images,
   index,
@@ -86,11 +89,25 @@ export default function ImageLightbox({
           </button>
 
           <div className='relative z-10 flex max-h-full w-full max-w-6xl flex-col items-center gap-4'>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            {/* 좌우로 쓸어넘기기 — 터치와 마우스 드래그 모두 같은 제스처로 처리된다 */}
+            <motion.img
+              key={images[index]}
               src={images[index]}
               alt={label}
-              className='max-h-[80vh] w-auto max-w-full object-contain'
+              draggable={false}
+              drag={images.length > 1 ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              dragMomentum={false}
+              onDragEnd={(_, info) => {
+                // 화면 폭과 무관하게 일정한 손맛이 나도록 이동 거리 기준으로 판단한다
+                if (info.offset.x <= -SWIPE_THRESHOLD) goNext();
+                else if (info.offset.x >= SWIPE_THRESHOLD) goPrev();
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
+              className='max-h-[80vh] w-auto max-w-full touch-pan-y object-contain select-none'
             />
 
             {images.length > 1 && (

@@ -12,6 +12,7 @@ import ExploreCta from '@/src/features/work/detail/ExploreCta';
 import FeaturesSection from '@/src/features/work/detail/FeaturesSection';
 import ImpactSection from '@/src/features/work/detail/ImpactSection';
 import ImplementationSection from '@/src/features/work/detail/ImplementationSection';
+import ScrollToTop from '@/src/features/work/detail/ScrollToTop';
 import SectionHeading from '@/src/features/work/detail/SectionHeading';
 import TechStackSection from '@/src/features/work/detail/TechStackSection';
 import WorkDetailHero from '@/src/features/work/detail/WorkDetailHero';
@@ -88,6 +89,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
 
   return (
     <main data-testid='work-detail' className='min-h-screen w-full'>
+      <ScrollToTop trigger={slug} />
       <WorkDetailHero meta={meta} heroImages={heroImages} />
 
       <div className='site-container w-full px-6 pb-24 md:px-12'>
