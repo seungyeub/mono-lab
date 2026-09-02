@@ -10,10 +10,13 @@ async function revealAll(page: Page) {
     const step = window.innerHeight / 2;
     for (let y = 0; y < document.body.scrollHeight; y += step) {
       window.scrollTo(0, y);
-      await new Promise((resolve) => setTimeout(resolve, 60));
+      await new Promise((resolve) => setTimeout(resolve, 80));
     }
     window.scrollTo(0, 0);
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    // 발화만으로는 부족하다 — 리빌이 끝나야 한다. Works 카드는 stagger가
+    // 카드당 0.1s씩 붙고(8장이면 최대 0.7s) 트랜지션이 0.9s라 1.6s가 필요하고,
+    // CI 컨테이너는 로컬보다 느리다. 여유를 둬 미완성 상태가 굳는 것을 막는다.
+    await new Promise((resolve) => setTimeout(resolve, 2500));
   });
 }
 
