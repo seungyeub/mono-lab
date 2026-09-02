@@ -2,7 +2,10 @@
 title: 'PPCWIZ'
 category: 'SaaS Frontend'
 order: 6
-image: '/images/projects/ppcwiz.jpg'
+image: '/images/projects/ppcwiz.webp'
+carouselImages:
+  - '/images/projects/ppcwiz.webp'
+  - '/images/projects/ppcwiz-02.webp'
 summary: '아마존 셀러를 위한 스폰서드 광고(PPC) 자동 입찰·최적화 SaaS. Amazon Advertising API를 연동해 광고 성과를 규칙 기반으로 분석하고 입찰가를 자동 조정한다. package.json만 있는 빈 저장소에서 빌드 환경부터 직접 구축해, 30여 개 화면·667개 파일 규모의 2세대 SPA(wiz-view)를 단독으로 만들었다.'
 techStack:
   [
@@ -19,6 +22,38 @@ overview:
   - title: '규모'
     description: '1세대 프론트를 이어받지 않고, webpack/babel 빌드 환경부터 직접 구축해 30여 개 화면·667개 파일 규모의 2세대 SPA를 단독 구축.'
 implementation:
+  codeCaption: '공통 생명주기는 강제하고 모듈별 예외만 훅으로 열어둔 비동기 액션 규약 (디버그 로그 1줄 생략)'
+  codeSnippet: |
+    /** pending */
+    export const PENDING = type => pending({ type });
+    // ... SUCCESS / FAILURE / FINALLY
+
+    /** createPromiseThunk */
+    export const createPromiseThunk = (type, api, actions) => params => async dispatch => {
+      if (actions && actions.pending) {
+        dispatch(actions.pending());
+      }
+      dispatch(PENDING(type));
+      try {
+        const response = await api(params);
+        if (actions && actions.success) {
+          const customResponse = actions.success(response);
+          dispatch(SUCCESS(type, customResponse));
+        } else {
+          dispatch(SUCCESS(type, response));
+        }
+      } catch (e) {
+        if (actions && actions.failure) {
+          dispatch(actions.failure(e));
+        }
+        dispatch(FAILURE(type, e));
+      } finally {
+        if (actions && actions.finally) {
+          dispatch(actions.finally());
+        }
+        dispatch(FINALLY(type));
+      }
+    };
   architecture: 'webpack/babel 빌드 환경 직접 구축 — 30여 개 화면 규모의 React SPA'
   highlights:
     - '초기 로딩 5초 → 1.2초 개선 — webpack-bundle-analyzer로 병목을 특정하고, 코드 스플리팅 2방식(React.lazy·react-loadable)·moment 로케일/lodash 최적화·antd 아이콘 alias 치환을 적용한 뒤 Chrome DevTools 3G 스로틀링으로 직접 측정하는 사이클을 반복'

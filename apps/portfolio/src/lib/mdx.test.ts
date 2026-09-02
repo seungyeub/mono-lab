@@ -113,7 +113,18 @@ describe('getProjectCards', () => {
       category: 'Data Pipeline',
       order: 1,
       image: '/images/projects/app-review-tracker.jpg',
+      imageExists: false,
       href: '/work/app-review-tracker',
+    });
+  });
+
+  // 에셋이 없는 카드는 빈 상자가 아니라 제목을 읽히게 보여줘야 한다
+  it('image 경로는 원본 그대로 두고 실존 여부만 따로 알린다', () => {
+    const cards = getProjectCards();
+
+    cards.forEach((card) => {
+      expect(typeof card.imageExists).toBe('boolean');
+      if (card.imageExists) expect(publicAssetExists(card.image)).toBe(true);
     });
   });
 });

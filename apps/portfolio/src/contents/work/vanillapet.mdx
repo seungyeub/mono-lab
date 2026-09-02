@@ -2,7 +2,11 @@
 title: '바닐라펫'
 category: 'Hybrid App'
 order: 10
-image: '/images/projects/vanillapet.jpg'
+image: '/images/projects/vanillapet.webp'
+carouselImages:
+  - '/images/projects/vanillapet.webp'
+  - '/images/projects/vanillapet-02.webp'
+  - '/images/projects/vanillapet-03.webp'
 summary: '반려동물 분양정보를 위치 기반으로 등록·탐색하는 하이브리드 모바일 앱. 내 주변의 분양 글을 지도/거리 기준으로 찾아볼 수 있는 서비스로, 실서비스 베타를 운영했다. 코아리버 외주 — 첫 실서비스 프로젝트다.'
 techStack:
   [
@@ -21,6 +25,34 @@ overview:
   - title: '담당 경계'
     description: '기획·디자인·프로젝트 초기 설정(2017.01~05)은 타 담당자에게 인계받았고, 관리자 페이지는 담당 범위 외.'
 implementation:
+  codeCaption: '크롭된 이미지가 아니라 좌표를 원본과 함께 보내, 잘라내는 일을 서버에 남긴 경계'
+  codeSnippet: |
+    // 최종적으로 이미지 반영 <2017-08-24 Jerome>
+    function finalResult() {
+
+        var crop_points = vanilla.get().points;
+        var crop_rotate = document.getElementById("rotate").value;
+
+        if($("input[type=file][name=upload_crop_img]").val() === "") {
+            crop_error("<br>파일 선택 후 자르기가 가능합니다.<br><br>");
+        } else {
+            cropDataSet(crop_points, crop_rotate);
+
+            var form = $('#crop_form')[0];
+            var formData = new FormData(form);
+            // ...
+            $.ajax({
+                type: 'POST',
+                // ...
+                success: function(data) {
+                    // ...
+                },
+                error: function(request, status, error) {
+                    // ...
+                }
+            });
+        }
+    }
   highlights:
     - '이미지 크롭 파이프라인 — 1:1 고정 비율 크롭(Croppie)을 서버 업로드·저장·편집·삭제까지 잇는 이미지 처리 흐름을 첫 실서비스에서 완성'
     - '실제 이동 거리 기반 탐색 — 직선거리가 아닌 실제 이동 거리를 보여주기 위해 Google Distance Matrix API의 옵션(이동 수단 등)을 분석·조정해 적용'

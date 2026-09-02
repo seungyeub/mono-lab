@@ -1,4 +1,4 @@
-import { getAllProjects } from '@/src/lib/mdx';
+import { getProjectCards } from '@/src/lib/mdx';
 import WorkGrid from '@/src/features/work/WorkGrid';
 
 export const metadata = {
@@ -7,7 +7,8 @@ export const metadata = {
 };
 
 export default function WorkPage() {
-  const projects = getAllProjects();
+  // 카드 데이터는 항상 getProjectCards를 거친다(P0-6) — 이미지 실존 여부도 여기서 온다
+  const projects = getProjectCards();
 
   return (
     <main className='min-h-screen w-full'>

@@ -2,7 +2,14 @@
 title: '렛츠오더'
 category: 'Landing & API'
 order: 4
-image: '/images/projects/letsorder.jpg'
+image: '/images/projects/letsorder.webp'
+carouselImages:
+  - '/images/projects/letsorder.webp'
+  - '/images/projects/letsorder-02.webp'
+  - '/images/projects/letsorder-03.webp'
+  - '/images/projects/letsorder-04.webp'
+  - '/images/projects/letsorder-05.webp'
+  - '/images/projects/letsorder-06.webp'
 summary: 'QR코드 기반 테이블오더 + POS 연동 모바일 주문 솔루션 "렛츠오더"의 마케팅 랜딩페이지와 문의메일 백엔드. 익스트림포스(발주·POS)–LG전자(주문/관리자 앱·디자인)–나비이 3자 협업 구조의 B2B2C 서비스에서, 랜딩 프론트와 문의 API를 동시에 개발해 AWS에 실배포했다.'
 liveUrl: 'https://letsorder.kr/'
 techStack:
@@ -21,6 +28,43 @@ overview:
   - title: '담당 경계'
     description: '랜딩페이지 디자인은 LG전자 제공(개발만 담당). 서비스 핵심인 고객용 주문 웹·사장님용 관리자 앱은 LG전자 개발 영역으로 미담당. 문의폼 프론트 컴포넌트만 팀원 작성.'
 implementation:
+  codeCaption: '문의 저장용 모델을 만든 당일 되돌려, 즉시 발송만 남긴 결정'
+  codeSnippet: |
+    @csrf_exempt
+    @require_POST
+    def send_email(request):
+        if request.method == "POST":
+            with get_connection(
+                host=settings.EMAIL_HOST,
+                port=settings.EMAIL_PORT,
+                # ...
+                use_ssl=settings.EMAIL_USE_SSL
+            ) as connection:
+                name = request.POST.get('name')
+                # ...
+                email = request.POST.get('email')
+
+                img_file = request.FILES.get('file')
+
+                newline = '\n'
+                subject = f'[렛츠오더 신청 및 도입 문의] {store_name}'
+                message = f'이름 : {name} {newline}' \
+                          f'문의내용 : {inquiry} {newline} {newline}'
+                mailto = 'REDACTED_EMAIL'
+
+                try:
+                    mail = EmailMessage(subject, message, "REDACTED_EMAIL", [mailto], connection=connection)
+                    if img_file:
+                        mail.attach(img_file.name, img_file.read(), img_file.content_type)
+                    mail.send()
+                    response = HttpResponse("ok")
+                    response.status_code = 200
+                    return response
+
+                except:
+                    response = HttpResponse("fail")
+                    response.status_code = 400
+                    return response
   architecture: '랜딩(Next.js) + 문의 API(Django/DRF) 2-저장소 구성, AWS 통합 배포'
   highlights:
     - '프론트-백엔드 동시 개발·통합 배포 — 두 저장소의 커밋이 같은 주에 맞물리고 CORS 설정이 정확히 일치, 실제 AWS 운영까지 완결'

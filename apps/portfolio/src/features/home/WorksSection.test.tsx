@@ -55,6 +55,7 @@ const PROJECT_CARDS = [
     category: 'Data Pipeline',
     order: 1,
     image: '/images/projects/app-review-tracker.jpg',
+    imageExists: false,
     href: '/work/app-review-tracker',
   },
   {
@@ -63,6 +64,7 @@ const PROJECT_CARDS = [
     category: 'Rich Text Editor',
     order: 2,
     image: '/images/projects/yoga-editor.jpg',
+    imageExists: false,
     href: '/work/yoga-editor',
   },
   {
@@ -71,6 +73,7 @@ const PROJECT_CARDS = [
     category: 'Website Renewal',
     order: 3,
     image: '/images/projects/kti.jpg',
+    imageExists: false,
     href: '/work/kti',
   },
 ];

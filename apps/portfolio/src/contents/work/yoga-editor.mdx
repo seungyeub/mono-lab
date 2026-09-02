@@ -25,6 +25,32 @@ features:
   - title: '블록 단위 문서 편집'
     description: '문서를 블록 단위로 구성해 편집·저장·재편집한다.'
 implementation:
+  codeCaption: '저장 형태에는 태그 순서를 두지 않고, 렌더 시점에만 순서를 고정해 모호함을 없앤 구조'
+  codeSnippet: |
+    // 바깥 -> 안쪽 고정 순서: 링크(a) -> 색상(span style) -> 위/아래첨자 ->
+    // bold/italic/strikethrough/underline. 겹치는 스타일이 몇 개든 항상 이 순서로만
+    // 중첩되므로 "어느 태그를 바깥에 둘지"가 애매해지지 않는다.
+    //
+    // link가 색상보다 안쪽이면(=색상 span이 <a> 밖) 브라우저 기본 링크
+    // color를 이겨버려 사용자가 지정한 글자색이 무시된다. link를 가장 바깥에 둬야
+    // 안쪽 span의 인라인 color가 항상 이긴다(자식의 직접 지정값은 조상의 상속값을
+    // 항상 이기므로).
+    function renderRun(run, key) {
+      let node = run.text.length === 0 ? ' ' : run.text;
+
+      for (let i = BOOLEAN_STYLE_ORDER.length - 1; i >= 0; i -= 1) {
+        const styleKey = BOOLEAN_STYLE_ORDER[i];
+        if (run.styles[styleKey]) {
+          const Tag = STYLE_TAGS[styleKey];
+          node = <Tag>{node}</Tag>;
+        }
+      }
+
+      if (run.styles.superscript) node = <sup>{node}</sup>;
+      else if (run.styles.subscript) node = <sub>{node}</sub>;
+
+      // ...
+    }
   architecture: '모노레포(apps/web + apps/api) — Next.js 프론트엔드 + Django REST 백엔드'
   highlights:
     - '3년 전 중단 원인의 해결 — HTML 태그 중첩 대신 서식 속성을 가진 런(run) 단위 데이터 모델로 일반화. 최대 3중 중첩 서식이 왕복 저장에도 깨지지 않음을 브라우저 수동 검증으로 확인 (자동화 테스트는 두지 않음)'

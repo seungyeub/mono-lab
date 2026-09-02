@@ -203,6 +203,8 @@ export interface ProjectCard {
   category: string;
   order: number;
   image: string;
+  /** image 파일이 실제로 public/에 있는지 — 없으면 카드가 제목 폴백을 보여준다 */
+  imageExists: boolean;
   href: string;
 }
 
@@ -217,7 +219,9 @@ export function getProjectCards(): ProjectCard[] {
     title: meta.title,
     category: meta.category,
     order: meta.order,
+    // image 경로는 frontmatter 원본 그대로 싣고(P0-6), 실존 여부만 별도로 알린다
     image: meta.image,
+    imageExists: publicAssetExists(meta.image),
     href: `/work/${slug}`,
   }));
 }
