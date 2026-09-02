@@ -14,16 +14,21 @@ export default function FeaturesSection({ features }: { features: ProjectTextIte
             key={feature.title}
             className='rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'
           >
-            <span
-              aria-hidden
-              className='mb-4 flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 font-mono text-xs text-white/60'
-            >
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <h3 className='mb-2 text-lg font-semibold md:text-xl'>{feature.title}</h3>
-            <p className='text-sm leading-relaxed text-gray-400 md:text-base'>
-              {feature.description}
-            </p>
+            {/* 번호 옆에 제목 — Project Overview·Key Highlights와 같은 배치로 맞춘다 */}
+            <div className='flex items-start gap-3'>
+              <span
+                aria-hidden
+                className='flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 font-mono text-xs text-white/60'
+              >
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div className='min-w-0'>
+                <h3 className='text-lg font-semibold md:text-xl'>{feature.title}</h3>
+                <p className='mt-2 text-sm leading-relaxed text-gray-400 md:text-base'>
+                  {feature.description}
+                </p>
+              </div>
+            </div>
           </div>
         ))}
       </div>
