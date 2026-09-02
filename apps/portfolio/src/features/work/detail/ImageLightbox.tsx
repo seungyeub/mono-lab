@@ -37,6 +37,18 @@ export default function ImageLightbox({
     onIndexChange((index + 1) % images.length);
   }, [index, images.length, onIndexChange]);
 
+  // 모달 뒤 페이지가 같이 스크롤되지 않게 잠근다
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -46,16 +58,33 @@ export default function ImageLightbox({
       if (event.key === 'ArrowRight') goNext();
     };
 
-    // 모달 뒤 페이지가 같이 스크롤되지 않게 잠근다
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isOpen, onClose, goPrev, goNext]);
+
+  /**
+   * 모달을 히스토리 항목으로 만들어, 뒤로가기가 페이지를 떠나는 대신 모달을 닫게 한다.
+   * 이미지를 넘길 때마다 항목이 쌓이지 않도록 열림 여부에만 의존하는 별도 effect로 둔다.
+   */
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // URL은 그대로 두고 항목만 하나 얹는다
+    window.history.pushState({ lightbox: true }, '');
+
+    let closedByBack = false;
+    const handlePopState = () => {
+      closedByBack = true;
+      onClose();
+    };
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKey);
+      window.removeEventListener('popstate', handlePopState);
+      // ESC·닫기 버튼으로 닫은 경우엔 우리가 얹은 항목이 남아 있으므로 걷어낸다
+      if (!closedByBack) window.history.back();
     };
-  }, [isOpen, onClose, goPrev, goNext]);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>

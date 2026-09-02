@@ -8,20 +8,6 @@
 
 가장 먼저 해야 하는 작업 — Phase 5 PRD(`docs/plan/2026-08-18_phase5_prd.md`) 기준
 
-### 🔴 P0 — Must Have (배포 전 필수)
-
-- [ ] P0-1. 사이트 메타데이터 "Frontend Engineer" 포지셔닝으로 전면 교체 (`layout.tsx`, `work/page.tsx`, `contact/page.tsx` + `work/[slug]` `generateMetadata` 신설)
-- [ ] P0-2. Contact 플레이스홀더 실제 값 교체 (이메일, Instagram/LinkedIn/Behance)
-- [ ] P0-3. Work Detail 플레이스홀더 제거 (Hero 이미지, 갤러리 4장, Live Website 링크)
-- [ ] P0-4. Gallery → Resume 전환 (Header/Footer `Gallery,` 라벨·경로 일괄 수정 포함)
-- [ ] P0-5. 서브 페이지 Footer 노출 구조 수정 (Root Layout에서 Footer 분리)
-- [ ] P0-6. Work 데이터 정합성 확보 (`WorksSection` PROJECTS 6개 ↔ MDX 4개 불일치, id 5·6 중복/죽은 링크 해소)
-
-### 🟡 P1 — Should Have (핵심 완성도)
-
-- [ ] P1-1. Works 영역 레퍼런스 리뉴얼 (`3d-portfolio-ruby-nine.vercel.app` 참고 — Tech Stack/Impact 섹션, Live+Source 이중 CTA, MDX 콘텐츠 재작성)
-- [ ] P1-2. 주석 처리된 `BrandSection`/`ServicesSection`/`EditorialDivider` 정리 (`app/page.tsx`)
-
 ### 🟡 P2 — Nice to Have (품질 향상)
 
 - [ ] P2-1. Header 우측 "Based in Seoul" 콘텐츠 결정
@@ -36,7 +22,6 @@
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` 6곳 + spacing `pt-[140px]` 4곳 토큰 신규 정의 후 일괄 교체 — CodeRabbit PR #46·#48 지적)
-- [x] P3-7. Playwright CI 컨테이너 전환 — 재시도로 apt 정체를 흡수할 수 없음이 실측으로 확인되어 PR #49에서 함께 처리 (`docs/plan/2026-08-19_playwright-ci-optimization.md`)
 
 ---
 
@@ -44,7 +29,7 @@
 
 현재 진행 중
 
-- [ ] (진행 중인 항목 없음)
+- [ ] P1-1. Works 영역 레퍼런스 리뉴얼 (`feat/portfolio-works-renewal` 브랜치에서 진행 중 — A~F 단계까지 구현 완료, develop 병합 대기)
 
 ---
 
@@ -106,3 +91,16 @@
 - [x] 2026-08-18 — PR #40: ExperienceSection 데이터 리팩토링 (`stack`→`type` 속성명 변경, 오타 수정, 공용 테마 토큰 적용)
 - [x] 2026-08-18 — `docs/01__Planning/` 4개 파일 기록 최신화 완료
 - [x] 2026-08-18 — Phase 5 PRD 작성 (`docs/plan/2026-08-18_phase5_prd.md`) — 코드 감사 기반 P0~P3 16개 작업 항목 확정 + SEO/GEO/AEO 전략 수립
+- [x] 2026-08-18 — PR #41: Phase 5 PRD 작성 및 플래닝 문서 최신화
+- [x] 2026-08-18 — PR #42: 루트 레이아웃 메타데이터를 Frontend Engineer 포지셔닝으로 교체 (P0-1 일부)
+- [x] 2026-08-18 — PR #43: work/contact 페이지 메타데이터를 Frontend Engineer 포지셔닝으로 교체 (P0-1 일부)
+- [x] 2026-08-18 — PR #44: work/[slug] generateMetadata 추가 및 Next.js 16 params 비동기 처리 버그 수정 (P0-1 완료)
+- [x] 2026-08-18 — PR #45: Contact 페이지 이메일·SNS 플레이스홀더를 실제 값으로 교체 (P0-2 완료)
+- [x] 2026-08-18 — PR #46: Work Detail 플레이스홀더 제거 및 에셋 조건부 렌더링 구조 도입 (P0-3 완료)
+- [x] 2026-08-19 — PR #47: Gallery 플레이스홀더를 Resume 페이지로 전환 (P0-4 완료)
+- [x] 2026-08-19 — PR #48: 홈 전용 에필로그를 Footer에서 분리해 서브 페이지 노출 제거 (P0-5 완료)
+- [x] 2026-08-19 — PR #49: Playwright CI 브라우저 설치 병목 제거 — 공식 컨테이너 전환 (P3-7 완료)
+- [x] 2026-08-19 — PR #50: Turborepo 2.9.14 → 2.10.11 업그레이드
+- [x] 2026-08-19 — PR #51: 홈 Work 카드를 MDX 단일 소스로 통합 (P0-6 완료)
+- [x] 2026-08-19 — P1-2: 주석 처리된 브랜드 디자이너 섹션 (`BrandSection`/`ServicesSection`/`EditorialDivider`) 완전 제거
+- [x] 2026-09-02 — `docs/01__Planning/` 4개 파일 + README 2개 기록 최신화

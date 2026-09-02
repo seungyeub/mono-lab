@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import ImageLightbox from './ImageLightbox';
 
@@ -43,9 +43,11 @@ export default function ImageCarousel({
     setLightboxIndex(current);
   };
 
-  const closeLightbox = () => {
+  // 라이트박스가 뒤로가기 처리를 위해 열림 시점에 히스토리를 얹으므로,
+  // onClose가 매 렌더 새로 만들어지면 항목이 쌓인다 — 참조를 고정한다
+  const closeLightbox = useCallback(() => {
     setLightboxIndex(null);
-  };
+  }, []);
 
   return (
     <>
