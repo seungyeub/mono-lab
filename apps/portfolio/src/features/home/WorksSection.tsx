@@ -28,6 +28,8 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
         href={project.href}
         onMouseEnter={() => setCursorType('view')}
         onMouseLeave={() => setCursorType('default')}
+        // 링크 안이 이미지·장식뿐일 때 스크린리더가 목적을 읽을 수 있게 이름을 준다
+        aria-label={project.title}
         className={`group relative block overflow-hidden bg-[#1a1a1a] ${aspectClass}`}
       >
         {project.imageExists ? (

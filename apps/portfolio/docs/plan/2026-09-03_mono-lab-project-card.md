@@ -30,7 +30,7 @@
 | CI 워크플로 | 5종 — ci · deploy-portfolio · lighthouse · playwright · update-snapshots                             |
 | 테스트      | Jest 52건(13파일) + Playwright VRT baseline 24장                                                     |
 | 품질 게이트 | CodeRabbit · SonarCloud · Lighthouse CI                                                              |
-| AI 협업     | 커밋 트레일러 59건(Claude 4개 모델) + Antigravity · Codex                                            |
+| AI 협업     | 커밋 트레일러 59건(Claude 4개 모델). Antigravity·Codex 사용 범위는 **확인 필요**(트레일러에 없음)    |
 
 ---
 

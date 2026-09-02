@@ -182,7 +182,7 @@ Vite + React SPA(SSR 없음, Three.js/R3F + GSAP `ScrollTrigger`/`ScrollSmoother
 ### P0-1. 메타데이터 포지셔닝 교체 (PR #42, #43, #44)
 
 - `layout.tsx`(루트), `work/page.tsx`, `contact/page.tsx`의 정적 메타데이터 + `work/[slug]/page.tsx`의 `generateMetadata` 신설을 3개 PR에 나누어 처리
-- Next.js 16에서 `params`가 `Promise`로 변경된 것을 `generateMetadata`에서 `await` 처리하지 않아 빌드 오류 발생 → PR #44에서 함께 수정
+- `params`가 `Promise`로 바뀐 것(Next.js 15부터의 변경. 이 앱은 16.2.0 사용)을 `generateMetadata`에서 `await` 처리하지 않아 빌드 오류 발생 → PR #44에서 함께 수정
 - 페이지별 메타데이터를 분리 PR로 가져간 이유: 루트 → 서브 페이지 → 동적 라우트 순으로 영향 범위를 격리
 
 ### P0-2. Contact 플레이스홀더 교체 (PR #45)

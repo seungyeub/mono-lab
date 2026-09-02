@@ -212,6 +212,14 @@ describe('normalizeProjectMetadata', () => {
     expect(meta.demonstrations).toEqual([{ title: '유효', images: ['/a.png'] }]);
   });
 
+  // NaN·Infinity는 typeof 검사를 통과하지만 정렬을 불안정하게 만들고 카드에 그대로 찍힌다
+  it('order가 유한한 숫자가 아니면 0으로 떨어뜨린다', () => {
+    expect(normalizeProjectMetadata({ ...BASE, order: Number.NaN }).order).toBe(0);
+    expect(normalizeProjectMetadata({ ...BASE, order: Number.POSITIVE_INFINITY }).order).toBe(0);
+    expect(normalizeProjectMetadata({ ...BASE, order: Number.NEGATIVE_INFINITY }).order).toBe(0);
+    expect(normalizeProjectMetadata({ ...BASE, order: 7 }).order).toBe(7);
+  });
+
   it('tolerates completely malformed frontmatter', () => {
     const meta = normalizeProjectMetadata(undefined);
 

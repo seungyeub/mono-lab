@@ -24,18 +24,20 @@ export default function ImageCarousel({
 }) {
   const [current, setCurrent] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  /** 사용자가 보고 있거나 직접 넘긴 동안에는 자동 순환을 멈춘다 */
+  const [isPaused, setIsPaused] = useState(false);
   const setCursorType = useCursorStore((s) => s.setType);
   const hasCarousel = images.length > 1;
   const hasImages = images.length > 0;
 
   useEffect(() => {
-    // 라이트박스가 열려 있는 동안에는 뒤에서 이미지가 바뀌지 않게 멈춘다
-    if (!hasCarousel || lightboxIndex !== null) return;
+    // 라이트박스가 열려 있거나 사용자가 붙잡고 있는 동안에는 타이머를 만들지 않는다
+    if (!hasCarousel || lightboxIndex !== null || isPaused) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [hasCarousel, images.length, lightboxIndex]);
+  }, [hasCarousel, images.length, lightboxIndex, isPaused]);
 
   const openLightbox = () => {
     if (!hasImages) return;
@@ -51,7 +53,12 @@ export default function ImageCarousel({
 
   return (
     <>
+      {/* 움직임을 멈출 방법을 준다 — 가리키거나 키보드로 들어오면 순환을 세운다 */}
       <div
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onFocusCapture={() => setIsPaused(true)}
+        onBlurCapture={() => setIsPaused(false)}
         className={`relative w-full overflow-hidden rounded-lg border border-white/10 bg-[#1a1a1a] ${aspectClass}`}
       >
         {hasImages ? (
@@ -92,7 +99,10 @@ export default function ImageCarousel({
                 key={image}
                 type='button'
                 aria-label={`${index + 1}번째 이미지 보기`}
-                onClick={() => setCurrent(index)}
+                onClick={() => {
+                  setCurrent(index);
+                  setIsPaused(true);
+                }}
                 className={`h-1.5 w-1.5 cursor-none rounded-full transition-all duration-300 ${
                   index === current ? 'scale-125 bg-white' : 'bg-white/30 hover:bg-white/60'
                 }`}

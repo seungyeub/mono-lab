@@ -88,6 +88,8 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
                   setCursorType('default');
                   setHoveredSlug(null);
                 }}
+                // 이미지가 있으면 링크 안이 배경·장식뿐이라 스크린리더가 목적 없는 링크로 읽는다
+                aria-label={project.title}
                 className='group relative block aspect-[16/10] overflow-hidden bg-[#1a1a1a]'
               >
                 {project.imageExists ? (

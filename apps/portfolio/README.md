@@ -42,25 +42,26 @@ pnpm run dev
 
 ## 📂 프로젝트 구조
 
-```
+```text
 apps/portfolio/
+├── app/                      # Next.js App Router 페이지
+│   ├── page.tsx              # 홈 (Hero, Works, Skills, Experience, FAQ, Epilogue)
+│   ├── work/                 # Work 목록 + [slug] 상세
+│   ├── resume/               # 이력서 페이지
+│   └── contact/              # Contact 폼
 ├── src/
-│   ├── app/                  # Next.js App Router 페이지
-│   │   ├── page.tsx          # 홈 (Hero, Works, Skills, Experience, FAQ, Epilogue)
-│   │   ├── work/             # Work 목록 + [slug] 상세
-│   │   ├── resume/           # 이력서 페이지
-│   │   └── contact/          # Contact 폼
-│   ├── features/home/        # 홈 섹션 컴포넌트
-│   ├── components/           # 공통 컴포넌트 (Header, Footer, CustomCursor 등)
+│   ├── features/             # 도메인별 컴포넌트 (home, work, layout, contact)
+│   ├── components/           # 공통 컴포넌트 (RollingText, Marquee 등)
 │   ├── contents/work/        # MDX 프로젝트 파일 (10건)
-│   └── lib/                  # 유틸리티 (MDX 파서, 이미지 필터 등)
+│   ├── lib/                  # 유틸리티 (MDX 파서, 이미지 필터 등)
+│   └── store/                # 전역 상태 (커서 등)
 ├── public/
 │   ├── icons/                # 커스텀 SVG 아이콘
 │   └── images/               # 정적 이미지 에셋
 ├── docs/
 │   ├── 01__Planning/         # 프로젝트 기획 문서
 │   └── plan/                 # 기능별 상세 계획서
-└── tests/                    # Playwright VRT 테스트
+└── e2e/                      # Playwright VRT 테스트
 ```
 
 ## 📝 문서

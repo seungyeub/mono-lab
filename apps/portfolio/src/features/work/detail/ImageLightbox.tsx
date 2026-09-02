@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 /**
  * 캐러셀 이미지를 화면 가득 크게 보는 모달.
@@ -26,6 +26,10 @@ export default function ImageLightbox({
   onIndexChange: (index: number) => void;
 }) {
   const isOpen = index !== null;
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  /** 닫은 뒤 포커스를 돌려줄 자리 — 모달을 연 그 버튼 */
+  const triggerRef = useRef<Element | null>(null);
 
   const goPrev = useCallback(() => {
     if (index === null) return;
@@ -53,14 +57,49 @@ export default function ImageLightbox({
     if (!isOpen) return;
 
     const handleKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') {
+        onClose();
+        return;
+      }
       if (event.key === 'ArrowLeft') goPrev();
       if (event.key === 'ArrowRight') goNext();
+      if (event.key !== 'Tab') return;
+
+      // aria-modal만으로는 Tab이 뒤 페이지로 새어 나간다 — 순환을 대화상자 안에 가둔다
+      const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([tabindex="-1"]), [href], [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusables || focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [isOpen, onClose, goPrev, goNext]);
+
+  // 열 때 포커스를 대화상자로 옮기고, 닫을 때 열었던 자리로 되돌린다
+  useEffect(() => {
+    if (!isOpen) return;
+
+    triggerRef.current = document.activeElement;
+    closeButtonRef.current?.focus();
+
+    return () => {
+      const trigger = triggerRef.current;
+      if (trigger instanceof HTMLElement && document.contains(trigger)) trigger.focus();
+    };
+  }, [isOpen]);
 
   /**
    * 모달을 히스토리 항목으로 만들어, 뒤로가기가 페이지를 떠나는 대신 모달을 닫게 한다.
@@ -97,6 +136,7 @@ export default function ImageLightbox({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
+          ref={dialogRef}
           className='fixed inset-0 z-[9998] flex items-center justify-center bg-black/95 p-4 md:p-10'
         >
           {/* 배경 클릭으로 닫기. 콘텐츠보다 뒤에 깔아 이미지 클릭은 닫히지 않게 한다 */}
@@ -109,6 +149,7 @@ export default function ImageLightbox({
           />
 
           <button
+            ref={closeButtonRef}
             type='button'
             onClick={onClose}
             aria-label='닫기'

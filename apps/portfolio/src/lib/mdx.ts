@@ -102,7 +102,8 @@ export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
   return {
     title: asText(data.title) ?? '',
     category: asText(data.category) ?? '',
-    order: typeof data.order === 'number' ? data.order : 0,
+    // typeof만으로는 NaN·Infinity가 통과해 정렬이 불안정해지고 카드에 그대로 찍힌다
+    order: typeof data.order === 'number' && Number.isFinite(data.order) ? data.order : 0,
     image: asText(data.image) ?? '',
     summary: asText(data.summary),
     liveUrl: asText(data.liveUrl),

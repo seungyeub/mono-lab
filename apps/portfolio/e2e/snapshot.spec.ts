@@ -23,13 +23,13 @@ async function revealAll(page: Page) {
     window.scrollTo(0, 0);
     await new Promise((resolve) => setTimeout(resolve, 400));
 
-    document.querySelectorAll<HTMLElement>('[style*="opacity"], [style*="transform"]').forEach(
-      (element) => {
+    document
+      .querySelectorAll<HTMLElement>('[style*="opacity"], [style*="transform"]')
+      .forEach((element) => {
         const opacity = element.style.opacity;
         if (opacity !== '' && Number.parseFloat(opacity) < 1) element.style.opacity = '1';
         if (element.style.transform) element.style.transform = 'none';
-      },
-    );
+      });
   });
 }
 
