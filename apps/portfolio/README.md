@@ -17,18 +17,18 @@ Framer Helios 템플릿을 레퍼런스로 한 **Next.js 기반 개인 포트폴
 
 ## 🛠 기술 스택
 
-| 영역          | 기술                                                        |
-| ------------- | ----------------------------------------------------------- |
-| **Framework** | Next.js (App Router)                                        |
-| **Language**  | TypeScript                                                  |
-| **Styling**   | Tailwind CSS v4                                             |
-| **3D**        | Three.js, React Three Fiber, @react-three/rapier            |
-| **Animation** | Framer Motion, Lenis                                        |
-| **Form**      | React Hook Form, Zod v3, Resend                             |
-| **State**     | Zustand                                                     |
-| **Content**   | MDX (`src/contents/work/`)                                  |
-| **Test**      | Jest, Playwright (Visual Regression Testing)                |
-| **CI/CD**     | GitHub Actions, SonarCloud, CodeRabbit, Lighthouse          |
+| 영역          | 기술                                               |
+| ------------- | -------------------------------------------------- |
+| **Framework** | Next.js (App Router)                               |
+| **Language**  | TypeScript                                         |
+| **Styling**   | Tailwind CSS v4                                    |
+| **3D**        | Three.js, React Three Fiber, @react-three/rapier   |
+| **Animation** | Framer Motion, Lenis                               |
+| **Form**      | React Hook Form, Zod v3, Resend                    |
+| **State**     | Zustand                                            |
+| **Content**   | MDX (`src/contents/work/`)                         |
+| **Test**      | Jest, Playwright (Visual Regression Testing)       |
+| **CI/CD**     | GitHub Actions, SonarCloud, CodeRabbit, Lighthouse |
 
 ## 🚀 시작하기
 
@@ -65,10 +65,10 @@ apps/portfolio/
 
 ## 📝 문서
 
-- [_Project.md](docs/01__Planning/_Project.md) — 프로젝트 목적 및 운영 원칙
-- [_Tasks.md](docs/01__Planning/_Tasks.md) — 작업 진행 현황
-- [_DecisionLog.md](docs/01__Planning/_DecisionLog.md) — 의사결정 기록
-- [_Notes.md](docs/01__Planning/_Notes.md) — 자유 기록
+- [\_Project.md](docs/01__Planning/_Project.md) — 프로젝트 목적 및 운영 원칙
+- [\_Tasks.md](docs/01__Planning/_Tasks.md) — 작업 진행 현황
+- [\_DecisionLog.md](docs/01__Planning/_DecisionLog.md) — 의사결정 기록
+- [\_Notes.md](docs/01__Planning/_Notes.md) — 자유 기록
 
 ## 📄 라이선스
 

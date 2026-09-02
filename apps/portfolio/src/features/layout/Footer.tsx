@@ -13,8 +13,11 @@ const QUICK_LINKS = [
 const NETWORKS = [
   { label: 'Github,', href: 'https://github.com/seungyeub' },
   { label: 'Pinterest,', href: 'https://pinterest.com/bseungyeub' },
-  { label: 'Instagram,', href: 'https://www.instagram.com/b.seungyeub' },
-  { label: 'Blog', href: 'https://blog.naver.com/backsajang420' },
+  { label: 'Blog,', href: 'https://blog.naver.com/backsajang420' },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/seungyeub-baek-23aa9016a/',
+  },
 ];
 
 /**
