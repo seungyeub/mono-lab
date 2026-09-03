@@ -4,20 +4,12 @@ import { motion } from 'framer-motion';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import Link from 'next/link';
 import { useState } from 'react';
+import type { ProjectCard } from '@/src/lib/mdx';
 
-interface Project {
-  slug: string;
-  meta: {
-    title: string;
-    category: string;
-    order: number;
-    image: string;
-  };
-}
-
-export default function WorkGrid({ projects }: { projects: Project[] }) {
+export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((state) => state.setType);
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const hovered = projects.find((p) => p.slug === hoveredSlug);
 
   return (
     <div className='flex w-full flex-col gap-0 md:flex-row md:gap-16'>
@@ -31,24 +23,34 @@ export default function WorkGrid({ projects }: { projects: Project[] }) {
             </span>
           </div>
 
-          <div className='flex flex-col gap-2 text-[10px] tracking-widest text-white/25 uppercase'>
-            <span>Brand Identity</span>
-            <span>Logo Design</span>
-            <span>Visual Systems</span>
+          {/* 고정 카테고리 라벨 대신, 가리키는 프로젝트의 정보를 보여준다 */}
+          <div className='flex min-h-[3.5rem] flex-col gap-1'>
+            {hovered ? (
+              <>
+                <span className='text-[10px] tracking-widest text-white/40 uppercase'>
+                  {hovered.category}
+                </span>
+                <span className='text-sm leading-snug font-medium'>{hovered.title}</span>
+              </>
+            ) : (
+              <span className='text-[10px] leading-relaxed tracking-widest text-white/25 uppercase'>
+                Hover a project
+                <br />
+                to preview
+              </span>
+            )}
           </div>
 
           {/* hover preview */}
           <motion.div
-            animate={{ opacity: hoveredSlug ? 1 : 0 }}
+            animate={{ opacity: hovered ? 1 : 0 }}
             transition={{ duration: 0.3 }}
-            className='aspect-[3/4] w-full overflow-hidden bg-[#1a1a1a]'
+            className='aspect-[16/10] w-full overflow-hidden bg-[#1a1a1a]'
           >
-            {hoveredSlug && (
+            {hovered?.imageExists && (
               <div
-                className='h-full w-full bg-cover bg-center'
-                style={{
-                  backgroundImage: `url(${projects.find((p) => p.slug === hoveredSlug)?.meta.image})`,
-                }}
+                className='h-full w-full bg-contain bg-center bg-no-repeat'
+                style={{ backgroundImage: `url(${hovered.image})` }}
               />
             )}
           </motion.div>
@@ -86,25 +88,35 @@ export default function WorkGrid({ projects }: { projects: Project[] }) {
                   setCursorType('default');
                   setHoveredSlug(null);
                 }}
-                className='group relative block aspect-[3/4] overflow-hidden bg-[#1a1a1a]'
+                // 이미지가 있으면 링크 안이 배경·장식뿐이라 스크린리더가 목적 없는 링크로 읽는다
+                aria-label={project.title}
+                className='group relative block aspect-[16/10] overflow-hidden bg-[#1a1a1a]'
               >
-                <div
-                  className='absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105'
-                  style={{ backgroundImage: `url(${project.meta.image})` }}
-                />
-                {/* overlay on hover */}
-                <div className='absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10' />
-                {/* placeholder */}
-                <div className='absolute inset-0 flex items-center justify-center text-xs tracking-widest text-white uppercase opacity-10'>
-                  {project.meta.title}
-                </div>
+                {project.imageExists ? (
+                  <>
+                    {/* 캡쳐 비율이 제각각이라 contain으로 잘림 없이 담는다 */}
+                    <div
+                      className='absolute inset-0 bg-contain bg-center bg-no-repeat transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105'
+                      style={{ backgroundImage: `url(${project.image})` }}
+                    />
+                    {/* overlay on hover */}
+                    <div className='absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10' />
+                  </>
+                ) : (
+                  // 에셋 미확보 프로젝트 — 빈 상자 대신 제목을 읽히게 둔다
+                  <div className='absolute inset-0 flex items-center justify-center px-6'>
+                    <span className='text-center text-sm tracking-widest text-white/40 uppercase transition-colors duration-300 group-hover:text-white/70'>
+                      {project.title}
+                    </span>
+                  </div>
+                )}
               </Link>
 
               <div className='flex items-start justify-between'>
-                <h3 className='text-base font-medium md:text-lg'>{project.meta.title}</h3>
+                <h3 className='text-base font-medium md:text-lg'>{project.title}</h3>
                 <div className='flex flex-col items-end gap-0.5 text-right text-xs text-white/40'>
-                  <span>({String(project.meta.order).padStart(2, '0')})</span>
-                  <span>{project.meta.category}</span>
+                  <span>({String(project.order).padStart(2, '0')})</span>
+                  <span>{project.category}</span>
                 </div>
               </div>
             </motion.div>

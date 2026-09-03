@@ -174,3 +174,49 @@ Vite + React SPA(SSR 없음, Three.js/R3F + GSAP `ScrollTrigger`/`ScrollSmoother
 - `src/contents/work/meltdown.mdx` 등 MDX 4개는 Helios 템플릿 원본의 **가상 브랜드 디자인 에이전시 카피**를 그대로 사용 중("tier-1 investors" 등). 메타데이터만 "Frontend Engineer"로 바꿔도 Work 본문은 여전히 브랜드 디자이너 서사로 남는 구조적 문제 — GEO 관점에서 본문 재작성이 메타데이터 수정만큼 중요함.
 - `public/icons/`의 `antigravity.svg`가 2.4MB, `zustand.svg`가 190KB로 확인됨 — 2026-06-21 노트에서 언급한 "7개 placeholder"보다 실제로는 `customIconPath` 사용처가 15개로 늘어나 있었고, 그중 일부는 용량 문제(비최적화 SVG)까지 겹쳐 있음.
 - `WorksSection.tsx`의 `PROJECTS`(6개, 하드코딩)와 `getAllProjects()`가 읽는 MDX(4개)가 서로 다른 데이터 소스라는 것을 코드 대조로 확인 — id 5·6은 제목이 `'Animal & Birds'`로 동일하고 `href='#'`인 죽은 카드.
+
+---
+
+## 2026-08-18 ~ 09-02 — Phase 5 P0 전항목 완료 인사이트
+
+### P0-1. 메타데이터 포지셔닝 교체 (PR #42, #43, #44)
+
+- `layout.tsx`(루트), `work/page.tsx`, `contact/page.tsx`의 정적 메타데이터 + `work/[slug]/page.tsx`의 `generateMetadata` 신설을 3개 PR에 나누어 처리
+- `params`가 `Promise`로 바뀐 것(Next.js 15부터의 변경. 이 앱은 16.2.0 사용)을 `generateMetadata`에서 `await` 처리하지 않아 빌드 오류 발생 → PR #44에서 함께 수정
+- 페이지별 메타데이터를 분리 PR로 가져간 이유: 루트 → 서브 페이지 → 동적 라우트 순으로 영향 범위를 격리
+
+### P0-2. Contact 플레이스홀더 교체 (PR #45)
+
+- `mailto:hello@example.com` → 실제 이메일
+- Instagram/LinkedIn/Behance `href='#'` → 실제 SNS 프로필 URL
+
+### P0-3. Work Detail 플레이스홀더 제거 (PR #46)
+
+- `filterExistingPublicImages` 유틸리티 신설 — 빌드 타임에 `public/` 디렉토리를 스캔하여 실제 존재하는 이미지만 렌더링
+- 보안: `public` 디렉토리 경계 검증 로직 추가, 일반 파일만 허용 (심볼릭 링크/디렉토리 제외)
+- 프로젝트별 자료가 준비되는 대로 해당 영역이 자동 활성화되는 점진적 콘텐츠 채움 패턴 확립
+
+### P0-4. Gallery → Resume 전환 (PR #47)
+
+- `ExperienceSection`과 데이터를 공유하기 위해 경력/자격증 데이터를 `experienceData` 모듈로 추출
+- VRT에서 PageLoader 오버레이가 스냅샷에 잡히는 문제 → 오버레이 제거를 기다리는 로직 추가
+
+### P0-5. Footer 에필로그 분리 (PR #48)
+
+- `EpilogueSection` 컴포넌트로 독립 → 홈 `page.tsx`에서만 렌더링
+- VRT에서 외부 CDN GIF 캐러셀이 네트워크 상태에 따라 달라지는 문제 → 마스킹 처리
+
+### P0-6. Work 데이터 단일화 (PR #51)
+
+- `WorksSection`의 `PROJECTS` 하드코딩 배열 제거, MDX `getAllProjects()`를 단일 소스로 통합
+- 기존 Helios 가상 프로젝트(meltdown, rootwise, meridiem, nutree)와 죽은 카드(id 5·6) 모두 제거됨
+
+### 인프라 개선
+
+- **Playwright CI 컨테이너 전환 (PR #49)**: apt 정체 근본 해결 — 공식 Docker 컨테이너로 전환하여 브라우저 설치 단계 자체를 제거
+- **Turborepo 업그레이드 (PR #50)**: 2.9.14 → 2.10.11, `turbo.json` `$schema`를 버전 비고정 URL로 변경
+- **CI 안정화**: `actions/cache` SHA 고정, dubious ownership 수정, VRT 스냅샷 자동 커밋 인증 문제 수정
+
+### P1-2. 브랜드 디자이너 섹션 제거
+
+- `BrandSection`, `ServicesSection`, `EditorialDivider`의 주석 처리된 import/렌더 코드와 컴포넌트 파일을 완전 삭제

@@ -48,7 +48,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.branch.outputs.target }}
-          persist-credentials: false
+          # 이 워크플로는 갱신된 스냅샷을 브랜치에 커밋·push하는 것이 목적이므로
+          # 크리덴셜을 유지해야 한다(persist-credentials 기본값 true).
+          # false로 두면 git-auto-commit-action이 "could not read Username"으로 실패한다.
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -91,6 +93,11 @@ jobs:
         run: |
           cd apps/portfolio
           pnpm run test:e2e:update
+
+      # 컨테이너 안에서는 checkout된 파일의 소유자(UID)와 git 실행 사용자가 달라
+      # "dubious ownership"으로 git-auto-commit이 실패한다. workspace를 신뢰 목록에 등록한다.
+      - name: Mark workspace as safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5

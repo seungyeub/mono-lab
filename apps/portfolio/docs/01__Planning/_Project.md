@@ -30,8 +30,9 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 
 이 프로젝트에서 수행하는 범위
 
-- Home 랜딩 페이지 (Hero, Works, Skills, Experience, FAQ 섹션)
-- Work Case Study 서브 페이지 (MDX 기반 동적 라우팅)
+- Home 랜딩 페이지 (Hero, Works, Skills, Experience, FAQ, Epilogue 섹션)
+- Work Case Study 서브 페이지 (MDX 기반 동적 라우팅, 10개 실제 프로젝트)
+- Resume 페이지 (경력/자격증 데이터 — ExperienceSection과 데이터 공유)
 - Contact 폼 (React Hook Form + Zod + Resend Server Action)
 - 공통 레이아웃 (Header, Footer, CustomCursor, SmoothScroll/Lenis)
 - CI/CD 파이프라인 (GitHub Actions, Playwright VRT, Lighthouse, SonarCloud, CodeRabbit)
@@ -45,6 +46,7 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 - 다국어(i18n) 지원
 - CMS 연동 (콘텐츠는 MDX 파일과 상수로 관리)
 - About 별도 페이지 (현재 Home 내 섹션으로 통합)
+- ~~Gallery 페이지~~ (Resume 페이지로 전환됨, 2026-08)
 
 ---
 
@@ -64,25 +66,39 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 알고 있는 제약사항
 
 - Antigravity 1.0의 대화 기록은 `~/.gemini/antigravity-backup/` 에만 보존됨 (현재 시스템에서 직접 참조 불가)
-- `@icons-pack/react-simple-icons` 에서 지원하지 않는 아이콘 7개는 커스텀 SVG로 `public/icons/` 에 별도 관리
+- `@icons-pack/react-simple-icons` 에서 지원하지 않는 아이콘은 커스텀 SVG로 `public/icons/` 에 별도 관리 (현재 `customIconPath` 사용처 15개 — 일부 비최적화 SVG 존재, P2-2에서 정식 교체 예정)
 - ~~Skills Section Phase 4(레이아웃/색상 최종 확정) 완료 전까지 임시 비교 토글 UI가 `SkillsSection.tsx` 에 존재함~~ → Phase 4 완료, Chips + Brand 확정 및 토글 UI 제거됨 (2026-06-23)
+- Work Detail 상세 페이지의 이미지/코드 스니펫은 `filterExistingPublicImages` 기반 조건부 렌더링 — 자료가 준비된 프로젝트만 해당 영역이 활성화됨
 
 ---
 
 ## Current Status
 
-> 최종 업데이트: 2026-08-18
+> 최종 업데이트: 2026-09-02
 
-- **현재 버전**: `v0.1.4`
-- **현재 브랜치**: `develop`
-- **병합된 PR**: #1 ~ #40 (총 40개)
-- **완료된 마일스톤**: 초기 구현 Phase 1~6(`_Tasks.md` 기준 — 세팅, 공통 레이아웃, MDX/Work/Gallery, Contact, Header/Hero/Work 목록/FAQ 등), Skills Section 리뉴얼(별도 트랙인 "Skills Section Phase 4"), CI/CD 파이프라인 구축, VRT 자동화
-- **최근 주요 작업** (2026-07-12 ~ 08-18):
-  - v0.1.4 UI 버그 픽스 (iOS 스크롤 충돌, 커서 숨김, 테스트 명세서 리팩토링)
-  - Footer GIF 캐러셀 전환 (81개 GIF 무한 스크롤)
-  - 커서 마이크로카피/타입 체계 통일 + StoryAnimation 신규 추가
-  - ExperienceSection 데이터 구조 리팩토링 (`stack`→`type`)
-- **다음 작업**: 콘텐츠 완성도·SEO/GEO/AEO 로드맵 "Phase 5"(`docs/plan/2026-08-18_phase5_prd.md`) 작성 완료 — 위 초기 구현 Phase 1~6과는 별개의 새 번호 체계이며, P0(메타데이터, Contact/Work Detail/Gallery 플레이스홀더 제거, Footer 구조 수정, Work 데이터 정합성) 항목부터 순차 착수 예정
+- **현재 버전**: `v0.1.4` (tag: `portfolio@0.1.4`)
+- **현재 브랜치**: `develop` (안정), `feat/portfolio-works-renewal` (P1-1 작업 진행 중)
+- **병합된 PR**: #1 ~ #51 (develop 기준, 총 51개)
+- **완료된 마일스톤**:
+  - 초기 구현 Phase 1~6 (세팅, 공통 레이아웃, MDX/Work/Gallery, Contact, Header/Hero/Work 목록/FAQ 등)
+  - Skills Section 리뉴얼 (Chips + Brand 확정)
+  - CI/CD 파이프라인 구축 + VRT 자동화 + Playwright 공식 컨테이너 전환
+  - **Phase 5 P0 전항목 완료** (PR #42~#51):
+    - P0-1: 사이트 메타데이터 Frontend Engineer 포지셔닝 교체
+    - P0-2: Contact 플레이스홀더 실제 값 교체
+    - P0-3: Work Detail 플레이스홀더 제거 + 에셋 조건부 렌더링
+    - P0-4: Gallery → Resume 전환
+    - P0-5: 서브 페이지 Footer 에필로그 분리
+    - P0-6: Work 데이터 소스 MDX 단일화
+  - P1-2: 주석 처리된 브랜드 디자이너 섹션 (`BrandSection`/`ServicesSection`/`EditorialDivider`) 완전 제거
+  - Turborepo 2.9.14 → 2.10.11 업그레이드
+- **현재 진행 중**: P1-1 Works 영역 레퍼런스 리뉴얼 (`feat/portfolio-works-renewal` 브랜치)
+  - A 단계 (상세 페이지 구조): 스키마 확장 → 섹션 추가 → CTA/네비게이션 완료
+  - B 단계 (MDX 콘텐츠): 실제 프로젝트 10건 작성 + Helios 가상 프로젝트 4건 삭제
+  - D 단계 (리디자인): 레퍼런스 기반 전면 리디자인 + 피드백 반영
+  - E 단계 (자료 반영): 코드 스니펫 다중 블록 지원 + 실자료 일부 반영
+  - F 단계 (디자인 피드백): 자료 추가분 반영 및 피드백 8건 처리
+- **다음 작업**: P1-1 완료 후 develop 병합, 이후 P2~P3 백로그 순차 착수
 
 ---
 

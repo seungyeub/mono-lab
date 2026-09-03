@@ -221,3 +221,143 @@ ExperienceSection의 `stack` 속성명을 `type`으로 변경하고, 하드코�
 ### Status
 
 - Accepted
+
+---
+
+## 2026-08-18 — 사이트 메타데이터 Frontend Engineer 포지셔닝 전면 교체
+
+### Decision
+
+모든 페이지의 메타데이터를 "Brand Designer Portfolio"에서 "Frontend Engineer" 포지셔닝으로 전면 교체한다. `layout.tsx`(루트), `work/page.tsx`, `contact/page.tsx`의 정적 메타데이터를 수정하고, `work/[slug]/page.tsx`에 `generateMetadata`를 신설하여 프로젝트별 동적 메타데이터를 생성한다.
+
+### Reason
+
+Helios 템플릿 클론 과정에서 남아 있던 "Brand Designer" 잔재를 완전히 제거해야 채용 담당자에게 올바른 포지셔닝이 전달된다. 또한 `work/[slug]` 경로에 `generateMetadata`가 없어 모든 상세 페이지가 루트의 정적 메타데이터를 상속받는 SEO 문제가 있었다. Next.js 16의 params 비동기 처리 변경도 함께 대응했다.
+
+### Alternatives
+
+메타데이터만 부분 수정 (상세 페이지 `generateMetadata` 미신설) — SEO 품질 미달
+
+### Status
+
+- Accepted (PR #42, #43, #44)
+
+---
+
+## 2026-08-18 — Work Detail 에셋 조건부 렌더링 도입
+
+### Decision
+
+Work Detail 상세 페이지의 Hero 이미지, 갤러리 4장, Live Website 링크 등 플레이스홀더를 제거하고, 에셋 존재 여부에 따라 조건부로 렌더링하는 구조를 도입한다.
+
+### Reason
+
+MDX frontmatter에 이미지 경로가 지정되어 있더라도 실제 파일이 `public/` 디렉토리에 존재하지 않으면 깨진 이미지가 노출된다. `filterExistingPublicImages` 유틸리티를 만들어 빌드 타임에 실존 파일만 렌더링하도록 하면, 프로젝트별로 자료가 준비되는 대로 자연스럽게 활성화된다.
+
+### Alternatives
+
+모든 프로젝트의 이미지를 한번에 준비한 뒤 일괄 배포 — 유연성 부족
+
+### Status
+
+- Accepted (PR #46)
+
+---
+
+## 2026-08-18 — Gallery 플레이스홀더를 Resume 페이지로 전환
+
+### Decision
+
+`/gallery` 경로의 플레이스홀더 페이지를 `/resume` 경로의 이력서 페이지로 전환한다. Header/Footer의 네비게이션 라벨도 `Gallery` → `Resume`로 일괄 수정한다.
+
+### Reason
+
+Gallery 페이지는 `IMAGE 1~6` 텍스트만 채운 완전 플레이스홀더 상태였다. 포트폴리오 사이트에 이력서 페이지가 있는 것이 채용 담당자에게 더 유용하다고 판단했다. 경력/자격증 데이터는 `experienceData` 모듈로 추출하여 `ExperienceSection`과 공유한다.
+
+### Alternatives
+
+Gallery 기능을 실제 구현하여 프로젝트 스크린샷 갤러리로 활용
+
+### Status
+
+- Accepted (PR #47)
+
+---
+
+## 2026-08-18 — Footer 에필로그 분리
+
+### Decision
+
+홈 전용 에필로그(GIF 무한 스크롤 캐러셀 + "SEUNGYEUB" 대형 타이포)를 `Footer`에서 분리하여 `EpilogueSection` 컴포넌트로 독립시킨다.
+
+### Reason
+
+Root Layout에서 Footer를 통째로 렌더링하고 있어, 홈에서만 보여야 할 에필로그가 `/work`, `/contact`, `/resume` 등 모든 서브 라우트에 노출되는 레이아웃 결함이 있었다. 에필로그를 홈 페이지 전용 섹션으로 분리하면 서브 페이지에는 미니멀한 Footer만 남는다.
+
+### Alternatives
+
+Route Group `(home)` 레이아웃 분리 — 구조 복잡도 증가
+
+### Status
+
+- Accepted (PR #48)
+
+---
+
+## 2026-08-18 — Work 데이터 소스 단일화
+
+### Decision
+
+홈 `WorksSection`의 하드코딩된 `PROJECTS` 배열을 제거하고, MDX 파일(`src/contents/work/*.mdx`)을 유일한 데이터 소스로 통합한다.
+
+### Reason
+
+기존에 `WorksSection`의 `PROJECTS`(6개, 하드코딩)와 `getAllProjects()`가 읽는 MDX(4개)가 서로 다른 데이터 소스였고, id 5·6은 제목이 `'Animal & Birds'`로 동일하며 `href='#'`인 죽은 카드였다. MDX를 단일 소스로 삼으면 홈 카드, `/work` 목록, 상세 페이지가 모두 같은 데이터를 참조하게 되어 정합성이 보장된다.
+
+### Alternatives
+
+`PROJECTS` 배열을 유지하면서 MDX와 수동 동기화 — 동기화 누락 위험
+
+### Status
+
+- Accepted (PR #51)
+
+---
+
+## 2026-08-19 — Playwright CI 컨테이너 전환
+
+### Decision
+
+Playwright CI 워크플로를 Ubuntu runner + apt 설치 방식에서 공식 Playwright Docker 컨테이너로 전환한다.
+
+### Reason
+
+apt 저장소 정체로 인한 Playwright 브라우저 설치 실패가 재시도로도 해소되지 않음이 실측으로 확인되었다. 공식 컨테이너는 브라우저가 사전 설치되어 있어 설치 단계 자체가 제거된다. `actions/cache` SHA 고정, dubious ownership 수정 등 CI 안정화 작업도 함께 처리했다.
+
+### Alternatives
+
+재시도 횟수 증가 + dpkg 잠금 정리 — 근본 해결이 아닌 우회
+
+### Status
+
+- Accepted (PR #49)
+
+---
+
+## 2026-08-19 — 주석 처리된 브랜드 디자이너 섹션 제거
+
+### Decision
+
+`app/page.tsx`에서 `BrandSection`, `ServicesSection`, `EditorialDivider`의 주석 처리된 import/렌더 코드를 완전히 제거한다.
+
+### Reason
+
+Helios 템플릿의 브랜드 디자인 에이전시 서사에 해당하는 컴포넌트들로, Frontend Engineer 포트폴리오에는 불필요하다. 주석 상태로 코드에 잔류하면 향후 유지보수 시 혼란을 초래한다.
+
+### Alternatives
+
+`BrandSection`을 다른 용도로 재활용 — 현 시점에서 구체적인 활용 계획 없음
+
+### Status
+
+- Accepted (P1-2)

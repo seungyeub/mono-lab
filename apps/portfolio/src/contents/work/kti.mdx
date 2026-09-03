@@ -1,0 +1,47 @@
+---
+title: 'KTI 홈페이지 리뉴얼'
+category: 'Website Renewal'
+order: 3
+image: '/images/projects/kti.webp'
+carouselImages:
+  - '/images/projects/kti.webp'
+  - '/images/projects/kti-02.webp'
+  - '/images/projects/kti-03.webp'
+  - '/images/projects/kti-04.webp'
+summary: '피뢰·서지·접지 전문기업(30여 년 경력) 한국기술산업의 Classic ASP 레거시 사이트를 현대적 스택으로 전면 리뉴얼. 2020년의 SPA 전환 설계(v1)를 거쳐, 2024년 Next.js 14 정적 사이트로 처음부터 재구축(v2)해 약 1개월 만에 완성·배포했다.'
+liveUrl: 'https://kti.re.kr'
+techStack:
+  [
+    'Next.js 14 (Pages Router)',
+    'React 18',
+    'Recoil',
+    'styled-components 6',
+    'Yarn 4 (PnP)',
+  ]
+overview:
+  - title: '역할'
+    description: '나비이 공동창업자/CTO — 프론트엔드 100% 단독 개발. 나비이가 외주 수행한 프로젝트다.'
+  - title: '두 단계'
+    description: 'v1(2020.02~05): CRA + React 16 + TypeScript SPA 전환 설계. v2(2024.10~11, 약 1개월): Next.js 14 정적 사이트로 처음부터 재구축해 실제 완성·배포.'
+implementation:
+  architecture: "Next.js 14 정적 사이트(output: 'export') — 레거시 ASP 백엔드를 그대로 소비하는 순수 클라이언트"
+  highlights:
+    - '레거시 ASP 백엔드를 그대로 재사용하면서 프론트는 axios로 호출하는 순수 클라이언트 사이드 소비자로 설계 — 서버 교체 없이 렌더링 패러다임만 전환'
+    - 'route-paths.js 단일 소스 라우팅으로 헤더·네비게이션·브레드크럼을 일원화 — v1의 설계 철학을 v2가 계승'
+impact:
+  metrics:
+    - label: 'v2 재구축 기간'
+      value: '약 1개월'
+  outcomes:
+    - '2020년 콘텐츠 기획(6개 섹션)이 실제 6개 상위 라우트에 1:1로 채워져 "1.0" 정식 출시 — 기획과 결과물이 일치'
+---
+
+## 배경
+
+한국기술산업(KTI)은 30여 년 경력의 피뢰·서지·접지 전문기업으로, 홈페이지는 Classic ASP 시절에 만들어진 레거시였다. 2020년 법인 설립 준비 기간에 CRA 기반 SPA 전환을 설계(v1)했고, 2024년에 Next.js 14 정적 사이트로 처음부터 재구축(v2)해 약 1개월 만에 완성·배포했다.
+
+## 서버는 그대로, 렌더링만 바꾸다
+
+핵심 결정은 **레거시 ASP 백엔드를 교체하지 않는 것**이었다. 프론트는 기존 백엔드를 axios로 호출하는 순수 클라이언트 사이드 소비자로 설계해, 서버를 건드리지 않고 렌더링 패러다임만 전환했다. 클라이언트 입장에서는 운영 중인 시스템의 위험 없이 사용자가 보는 면만 현대화된다.
+
+라우팅은 `route-paths.js` 단일 소스로 관리해 헤더·네비게이션·브레드크럼이 한 곳에서 일원화되도록 했다. 이 설계 철학은 v1에서 세운 것을 v2가 그대로 계승한 것으로, 4년의 간격을 두고도 기획(6개 섹션)이 실제 6개 상위 라우트에 1:1로 채워져 출시됐다.
