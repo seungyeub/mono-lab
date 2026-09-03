@@ -153,7 +153,8 @@ export default function ImageLightbox({
             type='button'
             onClick={onClose}
             aria-label='닫기'
-            className='absolute top-4 right-4 z-20 rounded-full border border-white/20 px-4 py-2 text-xs tracking-widest text-white/60 uppercase transition-colors duration-200 hover:border-white/50 hover:text-white md:top-8 md:right-8'
+            // 이미지가 화면을 꽉 채우면 버튼이 밝은 화면 위에 얹혀 묻힌다 — 자체 배경을 준다
+            className='absolute top-4 right-4 z-20 rounded-full border border-white/30 bg-black/70 px-4 py-2 text-xs tracking-widest text-white/80 uppercase backdrop-blur-sm transition-colors duration-200 hover:border-white/60 hover:bg-black/90 hover:text-white md:top-8 md:right-8'
           >
             Close (ESC)
           </button>

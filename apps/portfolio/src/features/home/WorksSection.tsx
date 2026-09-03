@@ -66,9 +66,6 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
 export default function WorksSection({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((s) => s.setType);
 
-  const leftColProjects = projects.filter((_, i) => i % 2 === 0);
-  const rightColProjects = projects.filter((_, i) => i % 2 !== 0);
-
   return (
     <section data-testid='works-section' className='relative flex w-full flex-col pt-16'>
       <SectionLabel
@@ -115,43 +112,17 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
           </div>
 
           {/* Right Column: 자연 스크롤. 시작 시 좌측 텍스트와 균형을 맞추기 위해 상단 여백 추가 */}
-          <div className='grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:w-7/12 lg:grid-cols-1 lg:gap-8 lg:pt-24 xl:grid-cols-2'>
-            {/* Col 1 */}
-            <div className='flex flex-col gap-12'>
-              {leftColProjects.map((p, i) => (
-                <ProjectCard
-                  key={p.slug}
-                  project={p}
-                  delay={i * 0.1}
-                  aspectClass='aspect-[16/10]'
-                />
-              ))}
-            </div>
-            {/* Col 2 (Staggered) */}
-            <div className='flex flex-col gap-12 pt-0 md:pt-16 lg:pt-0 xl:pt-16'>
-              {rightColProjects.map((p, i) => (
-                <ProjectCard
-                  key={p.slug}
-                  project={p}
-                  delay={0.15 + i * 0.1}
-                  aspectClass='aspect-[16/10]'
-                />
-              ))}
-            </div>
-
-            {/* 'See All Works' Button (모바일/태블릿 전용 하단 고정) */}
-            <div className='pointer-events-none sticky bottom-4 z-10 col-span-1 flex justify-center pt-16 pb-8 md:col-span-2 lg:hidden'>
-              <div className='pointer-events-auto'>
-                <RollingLink
-                  href='/work'
-                  onMouseEnter={() => setCursorType('pointer')}
-                  onMouseLeave={() => setCursorType('default')}
-                  text='See All Works'
-                  textClassName='font-bold tracking-tight'
-                  className='inline-block rounded-full border-2 border-white bg-neutral-950/85 px-5 py-2 text-[16px] tracking-widest uppercase backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black md:text-[23px]'
-                />
+          {/*
+            좌/우 컬럼으로 배열을 나눠 렌더링하면 1열이 되는 모바일에서 두 컬럼이 세로로
+            이어붙어 순서가 01 → 04 → 06 → 09 → 03 …으로 뒤섞인다. 순서대로 한 번만 깔고,
+            2열이 되는 구간에서만 짝수 번째 카드를 내려 계단식 배치를 만든다.
+          */}
+          <div className='grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-8 lg:w-7/12 lg:grid-cols-1 lg:gap-12 lg:pt-24 xl:grid-cols-2 xl:gap-8'>
+            {projects.map((p, i) => (
+              <div key={p.slug} className={i % 2 === 1 ? 'md:pt-16 lg:pt-0 xl:pt-16' : undefined}>
+                <ProjectCard project={p} delay={i * 0.1} aspectClass='aspect-[16/10]' />
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
