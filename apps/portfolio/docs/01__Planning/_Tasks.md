@@ -13,8 +13,8 @@
 - [ ] P2-1. Header 우측 "Based in Seoul" 콘텐츠 결정
 - [ ] P2-2. 커스텀 아이콘 SVG 15개 정식 교체 (`public/icons/`)
 - [ ] P2-3. StoryAnimation 컴포넌트 배치 위치 결정
-- [ ] P2-5. 검색 가시성 인프라 구축 — sitemap·robots·OG·JSON-LD·`h1` 계층 정리 (P3-3 `lang='ko'` 포함). 0.2.0 점검에서 모두 404·미구현 확인
 - [ ] P2-4. 포트폴리오 저장소(mono-lab) 자체를 프로젝트로 등재 (계획 수립 완료 — `docs/plan/2026-09-03_mono-lab-project-card.md`)
+- [ ] P2-5. 검색 가시성 인프라 구축 — sitemap·robots·OG·JSON-LD·`h1` 계층 정리 (P3-3 `lang='ko'` 포함). 0.2.0 점검에서 모두 404·미구현 확인
 
 ### 🟢 P3 — Backlog (선택적/폴리싱)
 
