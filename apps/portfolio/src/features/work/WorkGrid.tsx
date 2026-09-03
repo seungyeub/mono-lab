@@ -3,12 +3,26 @@
 import { motion } from 'framer-motion';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ProjectCard } from '@/src/lib/mdx';
 
 export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((state) => state.setType);
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  /**
+   * 2열이 되는 구간에서만 열 위치로 지연을 준다. 모바일은 카드마다 별도 행이라
+   * 지연이 붙으면 짝수·홀수가 서로 다른 속도로 뜨는 것처럼 보인다.
+   * 초기값 false는 SSR(모바일 우선)과 일치시켜 hydration 불일치를 피한다.
+   */
+  const [isTwoColumn, setIsTwoColumn] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 768px)');
+    const sync = () => setIsTwoColumn(query.matches);
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  }, []);
   const hovered = projects.find((p) => p.slug === hoveredSlug);
 
   return (
@@ -66,10 +80,13 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
             <motion.div
               key={project.slug}
               initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
+              // 마운트 시 한꺼번에 돌면 화면 밖 카드는 이미 끝난 채로 스크롤된다 —
+              // 뷰포트 진입 시점에 리빌하고, 2열일 때만 같은 행의 두 장을 좌→우로 어긋나게 한다
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
               transition={{
                 duration: 0.7,
-                delay: index * 0.08,
+                delay: isTwoColumn ? (index % 2) * 0.08 : 0,
                 ease: [0.16, 1, 0.3, 1],
               }}
               style={{

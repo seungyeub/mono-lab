@@ -109,8 +109,9 @@ describe('WorksSection', () => {
       .map((link) => link.getAttribute('href'))
       .filter((href) => href !== '/work');
 
-    // 좌/우 2열 배치(짝수 인덱스 좌, 홀수 인덱스 우) 순서 기준
-    expect(cardLinks).toEqual(['/work/app-review-tracker', '/work/kti', '/work/yoga-editor']);
+    // DOM 순서는 전달받은 배열 순서와 같아야 한다. 2열 배치는 CSS로만 처리하므로
+    // 1열이 되는 모바일에서도 순서가 뒤섞이지 않는다.
+    expect(cardLinks).toEqual(['/work/app-review-tracker', '/work/yoga-editor', '/work/kti']);
     expect(cardLinks).not.toContain('#');
   });
 });

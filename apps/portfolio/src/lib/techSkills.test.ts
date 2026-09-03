@@ -46,6 +46,23 @@ describe('resolveTechSkills', () => {
     expect(vite.icon).not.toBeNull();
   });
 
+  // frontmatter 표기를 다듬을 때 아이콘이 조용히 사라지지 않도록 고정한다
+  it('풀어 쓴 표기도 정식 항목으로 해석한다', () => {
+    const [compose, stripe, yarn, antd, maps, matrix, bootstrap] = resolveTuple(
+      'Docker Compose',
+      'Stripe API',
+      'Yarn Berry',
+      'Ant Design Plots',
+      'Google Maps API',
+      'Google Maps Distance Matrix API',
+      'Reactstrap (Bootstrap)',
+    );
+
+    [compose, stripe, yarn, antd, maps, matrix, bootstrap].forEach((s) => {
+      expect(s.icon ?? s.customIconPath).toBeTruthy();
+    });
+  });
+
   it('어디에도 없는 기술은 글자 폴백용 항목으로 돌려준다', () => {
     const [kiwi] = resolveTuple('kiwipiepy');
 
