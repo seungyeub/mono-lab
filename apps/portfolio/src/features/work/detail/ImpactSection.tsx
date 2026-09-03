@@ -20,7 +20,7 @@ export default function ImpactSection({ impact }: { impact: ProjectImpact }) {
       />
       <div className={`grid gap-4 md:gap-6 ${hasMetrics && hasOutcomes ? 'lg:grid-cols-2' : ''}`}>
         {hasMetrics && (
-          <div className='rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
+          <div className='min-w-0 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
             <h3 className='mb-5 text-lg font-semibold md:text-xl'>Key Metrics</h3>
             <dl className='flex flex-col gap-3'>
               {impact.metrics.map((metric) => (
@@ -39,7 +39,7 @@ export default function ImpactSection({ impact }: { impact: ProjectImpact }) {
         )}
 
         {hasOutcomes && (
-          <div className='rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
+          <div className='min-w-0 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
             <h3 className='mb-5 text-lg font-semibold md:text-xl'>Achievements</h3>
             <ul className='flex flex-col gap-2.5'>
               {impact.outcomes.map((outcome, index) => (

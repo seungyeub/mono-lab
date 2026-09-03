@@ -4,5 +4,7 @@
   --color-blue-1000: #2a8af6;
   --color-purple-1000: #a853ba;
   --color-red-1000: #e92a67;
-  --grid-cols-experience: 2fr 2fr 2fr 1fr;
+  /* Tailwind v4는 --grid-template-columns-* 네임스페이스만 grid-cols-* 유틸리티로 만든다.
+     --grid-cols-*로 두면 CSS 변수만 생기고 클래스는 생성되지 않는다. */
+  --grid-template-columns-experience: 2fr 2fr 2fr 1fr;
 }

@@ -20,7 +20,12 @@ export default function TechStackSection({ techStack }: { techStack: string[] })
       <SectionHeading title='Technology Stack' description='이 프로젝트를 구성한 기술들' />
       <div className='flex justify-center'>
         <div className='max-w-4xl'>
-          <SkillChips skills={resolveTechSkills(techStack)} categoryName='Tech Stack' />
+          {/* 상세는 읽는 화면이라 리빌을 끈다 — 다른 섹션과 동작을 맞춘다 */}
+          <SkillChips
+            skills={resolveTechSkills(techStack)}
+            categoryName='Tech Stack'
+            animate={false}
+          />
         </div>
       </div>
     </section>
