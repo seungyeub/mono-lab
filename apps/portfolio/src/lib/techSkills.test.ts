@@ -5,6 +5,10 @@ import { resolveTechSkills } from './techSkills';
 const resolveTuple = <N extends string[]>(...names: N) =>
   resolveTechSkills(names) as { [K in keyof N]: SkillItem };
 
+/** 정식 항목 이름으로 해석했을 때의 brandColor — 별칭이 그 항목에 닿았는지 확인하는 기준 */
+const canonicalBrandColor = (canonicalName: string) =>
+  resolveTechSkills([canonicalName])[0]!.brandColor;
+
 describe('resolveTechSkills', () => {
   it('버전·괄호가 붙은 표기를 skillsData의 정식 항목으로 매핑한다', () => {
     const [nextjs, react, mysql, spring] = resolveTuple(
@@ -48,7 +52,7 @@ describe('resolveTechSkills', () => {
 
   // frontmatter 표기를 다듬을 때 아이콘이 조용히 사라지지 않도록 고정한다
   it('풀어 쓴 표기도 정식 항목으로 해석한다', () => {
-    const [compose, stripe, yarn, antd, maps, matrix, bootstrap] = resolveTuple(
+    const inputs = [
       'Docker Compose',
       'Stripe API',
       'Yarn Berry',
@@ -56,9 +60,26 @@ describe('resolveTechSkills', () => {
       'Google Maps API',
       'Google Maps Distance Matrix API',
       'Reactstrap (Bootstrap)',
-    );
+    ] as const;
+    const expectedCanonical = [
+      'Docker',
+      'Stripe',
+      'yarn-berry',
+      'Ant Design',
+      'Google Maps',
+      'Google Maps',
+      'Bootstrap',
+    ];
 
-    [compose, stripe, yarn, antd, maps, matrix, bootstrap].forEach((s) => {
+    const resolved = resolveTechSkills([...inputs]);
+
+    // 표시 이름은 원문을 유지하되, 아이콘은 의도한 정식 항목에서 와야 한다.
+    // 아이콘 유무만 보면 엉뚱한 항목에 붙어도 통과해버린다.
+    expect(resolved.map((s) => s.name)).toEqual([...inputs]);
+    expect(resolved.map((s) => s.brandColor)).toEqual(
+      expectedCanonical.map((name) => canonicalBrandColor(name)),
+    );
+    resolved.forEach((s) => {
       expect(s.icon ?? s.customIconPath).toBeTruthy();
     });
   });
