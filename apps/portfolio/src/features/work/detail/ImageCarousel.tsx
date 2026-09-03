@@ -24,20 +24,26 @@ export default function ImageCarousel({
 }) {
   const [current, setCurrent] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  /** 사용자가 보고 있거나 직접 넘긴 동안에는 자동 순환을 멈춘다 */
-  const [isPaused, setIsPaused] = useState(false);
+  /**
+   * 정지 상태는 둘로 나뉜다.
+   * - isPlaying: 사용자가 토글로 끈 명시적 정지. 끄면 다시 켤 때까지 유지된다
+   * - isHovered: 가리키는 동안만의 임시 정지. 벗어나면 원래 상태로 돌아간다
+   * 하나로 합치면 도트로 멈춰도 포인터가 벗어나는 순간 다시 돌기 시작한다.
+   */
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
   const setCursorType = useCursorStore((s) => s.setType);
   const hasCarousel = images.length > 1;
   const hasImages = images.length > 0;
 
   useEffect(() => {
-    // 라이트박스가 열려 있거나 사용자가 붙잡고 있는 동안에는 타이머를 만들지 않는다
-    if (!hasCarousel || lightboxIndex !== null || isPaused) return;
+    // 라이트박스가 열려 있거나 정지 상태면 타이머를 아예 만들지 않는다
+    if (!hasCarousel || lightboxIndex !== null || !isPlaying || isHovered) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [hasCarousel, images.length, lightboxIndex, isPaused]);
+  }, [hasCarousel, images.length, lightboxIndex, isPlaying, isHovered]);
 
   const openLightbox = () => {
     if (!hasImages) return;
@@ -55,10 +61,10 @@ export default function ImageCarousel({
     <>
       {/* 움직임을 멈출 방법을 준다 — 가리키거나 키보드로 들어오면 순환을 세운다 */}
       <div
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onFocusCapture={() => setIsPaused(true)}
-        onBlurCapture={() => setIsPaused(false)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onFocusCapture={() => setIsHovered(true)}
+        onBlurCapture={() => setIsHovered(false)}
         className={`relative w-full overflow-hidden rounded-lg border border-white/10 bg-[#1a1a1a] ${aspectClass}`}
       >
         {hasImages ? (
@@ -93,16 +99,22 @@ export default function ImageCarousel({
         )}
 
         {hasCarousel && (
-          <div className='absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-2'>
+          <div className='absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2'>
+            {/* 움직임을 끄고 켤 수 있는 명시적 제어 — 끄면 벗어나도 유지된다 */}
+            <button
+              type='button'
+              onClick={() => setIsPlaying((prev) => !prev)}
+              aria-label={isPlaying ? '자동 넘김 정지' : '자동 넘김 재생'}
+              className='mr-1 cursor-none text-[9px] leading-none text-white/50 transition-colors duration-200 hover:text-white'
+            >
+              {isPlaying ? '❚❚' : '▶'}
+            </button>
             {images.map((image, index) => (
               <button
                 key={image}
                 type='button'
                 aria-label={`${index + 1}번째 이미지 보기`}
-                onClick={() => {
-                  setCurrent(index);
-                  setIsPaused(true);
-                }}
+                onClick={() => setCurrent(index)}
                 className={`h-1.5 w-1.5 cursor-none rounded-full transition-all duration-300 ${
                   index === current ? 'scale-125 bg-white' : 'bg-white/30 hover:bg-white/60'
                 }`}
