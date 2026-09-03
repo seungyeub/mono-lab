@@ -114,6 +114,8 @@ export default function ImageCarousel({
                 key={image}
                 type='button'
                 aria-label={`${index + 1}번째 이미지 보기`}
+                // 선택 상태를 색·크기로만 알리면 스크린리더가 현재 위치를 알 수 없다
+                aria-current={index === current ? 'true' : undefined}
                 onClick={() => setCurrent(index)}
                 className={`h-1.5 w-1.5 cursor-none rounded-full transition-all duration-300 ${
                   index === current ? 'scale-125 bg-white' : 'bg-white/30 hover:bg-white/60'
