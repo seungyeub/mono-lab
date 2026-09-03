@@ -31,14 +31,14 @@ export default function InteractiveCardCanvas() {
           <Lightformer
             intensity={3}
             color='white'
-            position={[0, -1, 5]}
+            position={[0, -1, 4]}
             rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
+            scale={[100, 0.2, 11]}
           />
           <Lightformer
             intensity={5}
             color='white'
-            position={[-10, 0, 14]}
+            position={[-10, 0, 8]}
             rotation={[0, Math.PI / 2, Math.PI / 3]}
             scale={[100, 10, 1]}
           />
