@@ -28,6 +28,16 @@ import {
   SiLighthouse,
   SiGoogleanalytics,
   SiCursor,
+  SiReactquery,
+  SiFramer,
+  SiFastapi,
+  SiTurborepo,
+  SiPnpm,
+  SiYarn,
+  SiEslint,
+  SiPrettier,
+  SiFigma,
+  SiClaude,
 } from '@icons-pack/react-simple-icons';
 import type { ComponentType } from 'react';
 
@@ -38,11 +48,12 @@ import type { ComponentType } from 'react';
 export interface SkillItem {
   /** 표시 이름 */
   name: string;
-  /** @icons-pack/react-simple-icons 컴포넌트 (없으면 null → 커스텀 SVG 사용) */
+  /** @icons-pack/react-simple-icons 컴포넌트 (없으면 null → customIconPath 사용) */
   icon: ComponentType<{ color?: string; size?: number }> | null;
   /** 브랜드 컬러 (hex). 다크 테마에서 안 보이는 경우 밝은 대체 컬러 사용 */
   brandColor: string;
-  /** 커스텀 SVG 파일 경로 (icon이 null일 때 사용) */
+  /** Simple Icons에 없는 브랜드용 이미지 경로. icon이 null일 때만 쓴다.
+   * background-image로 그려지므로 색상 모드(mono·interactive)가 적용되지 않는다. */
   customIconPath?: string;
 }
 
@@ -70,25 +81,16 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         name: 'Zustand',
         icon: null,
         brandColor: '#453F39',
-        customIconPath: '/icons/zustand.svg',
+        customIconPath: '/icons/zustand.webp',
       },
-      {
-        name: 'React Query',
-        icon: null,
-        brandColor: '#FF4154',
-        customIconPath: '/icons/react-query.svg',
-      },
+      { name: 'React Query', icon: SiReactquery, brandColor: '#FF4154' },
       { name: 'Redux', icon: SiRedux, brandColor: '#764ABC' },
       { name: 'Recoil', icon: SiRecoil, brandColor: '#3578E5' },
       { name: 'Tailwind CSS', icon: SiTailwindcss, brandColor: '#06B6D4' },
       { name: 'SCSS / Sass', icon: SiSass, brandColor: '#CC6699' },
       { name: 'styled-components', icon: SiStyledcomponents, brandColor: '#DB7093' },
-      {
-        name: 'Framer Motion',
-        icon: null,
-        brandColor: '#0055FF',
-        customIconPath: '/icons/framer-motion.svg',
-      },
+      // Simple Icons에 Framer Motion 전용 아이콘이 없어 제작사인 Framer 아이콘을 쓴다
+      { name: 'Framer Motion', icon: SiFramer, brandColor: '#0055FF' },
       { name: 'Three.js', icon: SiThreedotjs, brandColor: '#FFFFFF' },
       { name: 'Storybook', icon: SiStorybook, brandColor: '#FF4785' },
       { name: 'React Hook Form', icon: SiReacthookform, brandColor: '#EC5990' },
@@ -104,12 +106,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'Node.js', icon: SiNodedotjs, brandColor: '#5FA04E' },
       { name: 'Python', icon: SiPython, brandColor: '#3776AB' },
       { name: 'Django', icon: SiDjango, brandColor: '#FFFFFF' },
-      {
-        name: 'FastAPI',
-        icon: null,
-        brandColor: '#009688',
-        customIconPath: '/icons/fastapi.svg',
-      },
+      { name: 'FastAPI', icon: SiFastapi, brandColor: '#009688' },
       { name: 'MySQL', icon: SiMysql, brandColor: '#4479A1' },
       {
         name: 'MSSQL',
@@ -142,24 +139,9 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     title: 'Tooling & Config',
     skills: [
       { name: 'Git', icon: SiGit, brandColor: '#F05032' },
-      {
-        name: 'Turborepo',
-        icon: null,
-        brandColor: '#EF4444',
-        customIconPath: '/icons/turborepo.svg',
-      },
-      {
-        name: 'pnpm',
-        icon: null,
-        brandColor: '#F69220',
-        customIconPath: '/icons/pnpm.svg',
-      },
-      {
-        name: 'yarn-berry',
-        icon: null,
-        brandColor: '#2C8EBB',
-        customIconPath: '/icons/yarn.svg',
-      },
+      { name: 'Turborepo', icon: SiTurborepo, brandColor: '#EF4444' },
+      { name: 'pnpm', icon: SiPnpm, brandColor: '#F69220' },
+      { name: 'yarn-berry', icon: SiYarn, brandColor: '#2C8EBB' },
       { name: 'Jest', icon: SiJest, brandColor: '#C21325' },
       {
         name: 'Playwright',
@@ -167,28 +149,13 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         brandColor: '#2EAD33',
         customIconPath: '/icons/playwright.svg',
       },
-      {
-        name: 'ESLint',
-        icon: null,
-        brandColor: '#4B32C3',
-        customIconPath: '/icons/eslint.svg',
-      },
-      {
-        name: 'Prettier',
-        icon: null,
-        brandColor: '#F7B93E',
-        customIconPath: '/icons/prettier.svg',
-      },
+      { name: 'ESLint', icon: SiEslint, brandColor: '#4B32C3' },
+      { name: 'Prettier', icon: SiPrettier, brandColor: '#F7B93E' },
       { name: 'SonarCloud', icon: SiSonar, brandColor: '#FD3456' },
       { name: 'CodeRabbit', icon: SiCoderabbit, brandColor: '#FF6C37' },
       { name: 'Lighthouse', icon: SiLighthouse, brandColor: '#F44B21' },
       { name: 'Google Analytics', icon: SiGoogleanalytics, brandColor: '#E37400' },
-      {
-        name: 'Figma',
-        icon: null,
-        brandColor: '#F24E1E',
-        customIconPath: '/icons/figma.svg',
-      },
+      { name: 'Figma', icon: SiFigma, brandColor: '#F24E1E' },
     ],
   },
 
@@ -197,12 +164,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     title: 'AI Tools',
     skills: [
       { name: 'Cursor', icon: SiCursor, brandColor: '#FFFFFF' },
-      {
-        name: 'Claude Code',
-        icon: null,
-        brandColor: '#FFFFFF',
-        customIconPath: '/icons/claude.svg',
-      },
+      { name: 'Claude Code', icon: SiClaude, brandColor: '#FFFFFF' },
       {
         name: 'Codex',
         icon: null,
@@ -213,7 +175,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         name: 'Antigravity',
         icon: null,
         brandColor: '#FFFFFF',
-        customIconPath: '/icons/antigravity.svg',
+        customIconPath: '/icons/antigravity.webp',
       },
     ],
   },
