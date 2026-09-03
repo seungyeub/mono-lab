@@ -13,6 +13,7 @@
 - [ ] P2-1. Header 우측 "Based in Seoul" 콘텐츠 결정
 - [ ] P2-2. 커스텀 아이콘 SVG 15개 정식 교체 (`public/icons/`)
 - [ ] P2-3. StoryAnimation 컴포넌트 배치 위치 결정
+- [ ] P2-4. 포트폴리오 저장소(mono-lab) 자체를 프로젝트로 등재 (계획 수립 완료 — `docs/plan/2026-09-03_mono-lab-project-card.md`)
 
 ### 🟢 P3 — Backlog (선택적/폴리싱)
 
@@ -21,7 +22,7 @@
 - [ ] P3-3. `<html lang='en'>` 불일치 수정
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
-- [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` 6곳 + spacing `pt-[140px]` 4곳 토큰 신규 정의 후 일괄 교체 — CodeRabbit PR #46·#48 지적)
+- [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
 
 ---
 
@@ -29,7 +30,7 @@
 
 현재 진행 중
 
-- [ ] P1-1. Works 영역 레퍼런스 리뉴얼 (`feat/portfolio-works-renewal` 브랜치에서 진행 중 — A~F 단계까지 구현 완료, develop 병합 대기)
+- [ ] (진행 중인 항목 없음)
 
 ---
 
@@ -104,3 +105,5 @@
 - [x] 2026-08-19 — PR #51: 홈 Work 카드를 MDX 단일 소스로 통합 (P0-6 완료)
 - [x] 2026-08-19 — P1-2: 주석 처리된 브랜드 디자이너 섹션 (`BrandSection`/`ServicesSection`/`EditorialDivider`) 완전 제거
 - [x] 2026-09-02 — `docs/01__Planning/` 4개 파일 + README 2개 기록 최신화
+- [x] 2026-09-03 — PR #52: Works 영역 전면 리뉴얼 (P1-1·P1-2 완료) — 실제 경력 프로젝트 10건 등재, 상세 페이지 재설계, 카드 16:10 통일, 이미지 라이트박스, VRT 인프라 결함 수정 (55 커밋)
+- [x] 2026-09-03 — 이슈 #53 생성: P3-6 디자인 토큰 정비 실행 목록 (PR #52 리뷰에서 파생)
