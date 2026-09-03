@@ -33,7 +33,7 @@ interface SkillChipProps {
   animate: boolean;
 }
 
-function SkillChip({ skill, categoryName, animationDelay, animate }: SkillChipProps) {
+function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<SkillChipProps>) {
   const [isHovered, setIsHovered] = useState(false);
 
   // 끄면 motion 속성을 아예 넘기지 않아 정적으로 렌더링된다
@@ -125,7 +125,7 @@ export default function SkillChips({
   categoryName,
   indexOffset = 0,
   animate = true,
-}: SkillChipsProps) {
+}: Readonly<SkillChipsProps>) {
   return (
     <div className='flex flex-wrap gap-2 sm:gap-2.5'>
       {skills.map((skill, index) => (
