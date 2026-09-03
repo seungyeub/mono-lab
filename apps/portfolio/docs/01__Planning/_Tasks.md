@@ -14,14 +14,16 @@
 - [ ] P2-2. 커스텀 아이콘 SVG 15개 정식 교체 (`public/icons/`)
 - [ ] P2-3. StoryAnimation 컴포넌트 배치 위치 결정
 - [ ] P2-4. 포트폴리오 저장소(mono-lab) 자체를 프로젝트로 등재 (계획 수립 완료 — `docs/plan/2026-09-03_mono-lab-project-card.md`)
+- [ ] P2-5. 검색 가시성 인프라 구축 — sitemap·robots·OG·JSON-LD·`h1` 계층 정리 (P3-3 `lang='ko'` 포함). 0.2.0 점검에서 모두 404·미구현 확인
 
 ### 🟢 P3 — Backlog (선택적/폴리싱)
 
 - [ ] P3-1. 데스크톱 폰트 스케일업 최종 결정
 - [ ] P3-2. Skills Section 구분선(White Line) 제거 여부 결정
-- [ ] P3-3. `<html lang='en'>` 불일치 수정
+- [ ] P3-3. `<html lang='en'>` 불일치 수정 → P2-5에서 함께 처리
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
+- [ ] P3-8. 릴리스 자동화 도입 검토 (Changesets vs release-please) — `docs/plan/2026-09-03_release-automation.md`
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
 
 ---
@@ -107,3 +109,6 @@
 - [x] 2026-09-02 — `docs/01__Planning/` 4개 파일 + README 2개 기록 최신화
 - [x] 2026-09-03 — PR #52: Works 영역 전면 리뉴얼 (P1-1·P1-2 완료) — 실제 경력 프로젝트 10건 등재, 상세 페이지 재설계, 카드 16:10 통일, 이미지 라이트박스, VRT 인프라 결함 수정 (55 커밋)
 - [x] 2026-09-03 — 이슈 #53 생성: P3-6 디자인 토큰 정비 실행 목록 (PR #52 리뷰에서 파생)
+- [x] 2026-09-03 — portfolio@0.2.0 릴리스 (PR #54·#57·#55) — P0·P1 완료분을 master 반영 후 프로덕션 배포, GitHub Release 발행
+- [x] 2026-09-03 — PR #58: Experience 그리드·모바일 가로 넘침 회귀 수정 및 모바일 QA 반영 (0.2.0 배포 후 발견)
+- [x] 2026-09-03 — PR #56·#59: P3-8(릴리스 자동화 검토)·P2-5(검색 가시성 인프라) 백로그 등재
