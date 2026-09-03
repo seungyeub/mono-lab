@@ -15,6 +15,11 @@ interface SkillChipsProps {
   categoryName?: string;
   /** stagger 애니메이션 시작 인덱스 오프셋 */
   indexOffset?: number;
+  /**
+   * 리빌 애니메이션 사용 여부. 홈처럼 훑어보는 화면에서는 켜고,
+   * 상세처럼 읽는 화면에서는 꺼서 스크롤 중 요소가 떠오르지 않게 한다.
+   */
+  animate?: boolean;
 }
 
 // ─────────────────────────────────────────────
@@ -25,17 +30,25 @@ interface SkillChipProps {
   skill: SkillItem;
   categoryName?: string;
   animationDelay: number;
+  animate: boolean;
 }
 
-function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
+function SkillChip({ skill, categoryName, animationDelay, animate }: SkillChipProps) {
   const [isHovered, setIsHovered] = useState(false);
+
+  // 끄면 motion 속성을 아예 넘기지 않아 정적으로 렌더링된다
+  const revealProps = animate
+    ? {
+        initial: { opacity: 0, y: 12 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: '-40px' },
+        transition: { duration: 0.5, delay: animationDelay, ease: 'easeOut' as const },
+      }
+    : {};
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, delay: animationDelay, ease: 'easeOut' }}
+      {...revealProps}
       onMouseEnter={() => {
         setIsHovered(true);
       }}
@@ -107,7 +120,12 @@ function SkillChip({ skill, categoryName, animationDelay }: SkillChipProps) {
 // Main Component: SkillChips
 // ─────────────────────────────────────────────
 
-export default function SkillChips({ skills, categoryName, indexOffset = 0 }: SkillChipsProps) {
+export default function SkillChips({
+  skills,
+  categoryName,
+  indexOffset = 0,
+  animate = true,
+}: SkillChipsProps) {
   return (
     <div className='flex flex-wrap gap-2 sm:gap-2.5'>
       {skills.map((skill, index) => (
@@ -116,6 +134,7 @@ export default function SkillChips({ skills, categoryName, indexOffset = 0 }: Sk
           skill={skill}
           categoryName={categoryName}
           animationDelay={(indexOffset + index) * 0.04}
+          animate={animate}
         />
       ))}
     </div>

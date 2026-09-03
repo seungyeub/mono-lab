@@ -66,10 +66,13 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
             <motion.div
               key={project.slug}
               initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
+              // 마운트 시 한꺼번에 돌면 화면 밖 카드는 이미 끝난 채로 스크롤된다 —
+              // 뷰포트 진입 시점에 리빌하고, 같은 행의 두 장만 좌→우로 어긋나게 한다
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
               transition={{
                 duration: 0.7,
-                delay: index * 0.08,
+                delay: (index % 2) * 0.08,
                 ease: [0.16, 1, 0.3, 1],
               }}
               style={{
