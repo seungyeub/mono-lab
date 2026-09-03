@@ -19,18 +19,19 @@ const STATIC_ROUTES = [
  * 즉 생성되는 라우트와 sitemap이 같은 소스에서 나온다.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-
+  // lastModified는 일부러 내보내지 않는다.
+  // sitemap 프로토콜은 이 값을 "해당 페이지가 실제로 바뀐 날"로 요구하는데,
+  // 생성 시각을 넣으면 재배포할 때마다 바뀌지 않은 페이지까지 수정된 것으로
+  // 알리게 되어 크롤러가 이 신호를 신뢰하지 않게 된다.
+  // MDX에 실제 수정일을 담게 되면 그때 다시 넣는다.
   const staticEntries = STATIC_ROUTES.map(({ path, priority, changeFrequency }) => ({
     url: `${SITE_URL}${path}`,
-    lastModified,
     changeFrequency,
     priority,
   }));
 
   const projectEntries = getAllProjects().map(({ slug }) => ({
     url: `${SITE_URL}/work/${slug}`,
-    lastModified,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));

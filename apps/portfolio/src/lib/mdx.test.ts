@@ -13,7 +13,8 @@ describe('getProjectSeoMetadata', () => {
     const result = getProjectSeoMetadata('app-review-tracker');
 
     expect(result).toEqual({
-      title: 'App Review Tracker | Seungyeub Baek',
+      // 사이트명은 루트 layout의 title.template가 붙인다 — 여기 넣으면 두 번 붙는다
+      title: 'App Review Tracker',
       description: 'App Review Tracker — Data Pipeline 프로젝트 상세입니다.',
     });
   });

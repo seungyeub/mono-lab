@@ -40,6 +40,12 @@ describe('sitemap', () => {
     expect(new Set(urls).size).toBe(urls.length);
   });
 
+  it('lastModified를 내보내지 않는다', () => {
+    // 생성 시각을 넣으면 재배포마다 모든 페이지가 수정된 것으로 알려져
+    // 크롤러가 이 신호를 신뢰하지 않게 된다 (sitemaps.org 프로토콜)
+    entries.forEach((entry) => expect(entry.lastModified).toBeUndefined());
+  });
+
   it('priority가 0과 1 사이이고 홈이 가장 높다', () => {
     entries.forEach((entry) => {
       expect(entry.priority).toBeGreaterThanOrEqual(0);

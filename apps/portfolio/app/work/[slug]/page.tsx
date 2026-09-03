@@ -21,7 +21,7 @@ import { ComponentPropsWithoutRef } from 'react';
 import type { Metadata } from 'next';
 
 import JsonLd from '@/src/components/JsonLd';
-import { absoluteUrl } from '@/src/lib/siteConfig';
+import { SITE_NAME, absoluteUrl, buildPageOpenGraph } from '@/src/lib/siteConfig';
 import { buildBreadcrumbSchema, buildCreativeWorkSchema } from '@/src/lib/structuredData';
 
 type ProjectDetailParams = { slug: string };
@@ -40,29 +40,21 @@ export async function generateMetadata({
   const seo = getProjectSeoMetadata(slug);
   if (!seo) return {};
 
-  // 카드 이미지가 실제로 있을 때만 OG 이미지를 덮어쓴다.
-  // 없는 경로를 내보내면 미리보기가 깨진 채로 공유된다 — 루트의 기본 이미지가 낫다.
+  // 카드 이미지가 실제로 있을 때만 쓴다. 없는 경로를 내보내면 미리보기가 깨진 채로
+  // 공유되므로, 그럴 때는 헬퍼가 사이트 기본 이미지로 대신 채운다.
   const { meta } = getProjectBySlug(slug);
-  const ogImage =
-    meta.image && publicAssetExists(meta.image) ? [absoluteUrl(meta.image)] : undefined;
-  const canonical = `/work/${slug}`;
+  const image = meta.image && publicAssetExists(meta.image) ? absoluteUrl(meta.image) : undefined;
 
   return {
     ...seo,
-    alternates: { canonical },
-    openGraph: {
+    alternates: { canonical: `/work/${slug}` },
+    ...buildPageOpenGraph({
+      title: `${seo.title} | ${SITE_NAME}`,
+      description: seo.description,
+      path: `/work/${slug}`,
       type: 'article',
-      url: absoluteUrl(canonical),
-      title: seo.title,
-      description: seo.description,
-      ...(ogImage ? { images: ogImage } : {}),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: seo.title,
-      description: seo.description,
-      ...(ogImage ? { images: ogImage } : {}),
-    },
+      ...(image ? { image } : {}),
+    }),
   };
 }
 

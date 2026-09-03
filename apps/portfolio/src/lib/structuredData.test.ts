@@ -42,6 +42,31 @@ describe('structuredData', () => {
       });
     });
 
+    it('월이 01~12를 벗어나거나 순서가 뒤집힌 기간은 날짜 필드를 만들지 않는다', () => {
+      // parsePeriod는 내부 함수라 EXPERIENCES를 갈아끼워 간접 검증한다
+      jest.isolateModules(() => {
+        jest.doMock('@/src/data/experienceData', () => ({
+          EXPERIENCES: [
+            { company: 'A', period: '2024.00 - 2024.06', role: 'Dev', type: 'Junior' },
+            { company: 'B', period: '2024.13 - 2024.06', role: 'Dev', type: 'Junior' },
+            { company: 'C', period: '2025.08 - 2020.08', role: 'Dev', type: 'Junior' },
+            { company: 'D', period: '2020.08 - 2025.08', role: 'Dev', type: 'Junior' },
+          ],
+        }));
+
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const { buildPersonSchema: build } = require('@/src/lib/structuredData');
+        const roles = build().hasOccupation as Record<string, unknown>[];
+
+        // 00월·13월·역순은 버리고, 정상 기간만 날짜를 갖는다
+        expect(roles[0]).not.toHaveProperty('startDate');
+        expect(roles[1]).not.toHaveProperty('startDate');
+        expect(roles[2]).not.toHaveProperty('startDate');
+        expect(roles[3]?.startDate).toBe('2020-08');
+        expect(roles[3]?.endDate).toBe('2025-08');
+      });
+    });
+
     it('sameAs가 모두 절대 URL이다', () => {
       const person = buildPersonSchema();
       (person.sameAs as string[]).forEach((url) => expect(url).toMatch(/^https:\/\//));

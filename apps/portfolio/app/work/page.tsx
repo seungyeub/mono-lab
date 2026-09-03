@@ -1,18 +1,22 @@
 import type { Metadata } from 'next';
+
+import { SITE_NAME, buildPageOpenGraph } from '@/src/lib/siteConfig';
 import { getProjectCards } from '@/src/lib/mdx';
 import WorkGrid from '@/src/features/work/WorkGrid';
 
+const DESCRIPTION = 'Next.js, React, TypeScript 기반으로 작업한 프론트엔드 프로젝트 모음입니다.';
+
+// 제목에 사이트명을 넣지 않는다 — 루트 layout의 title.template가 한 번만 덧붙인다
 export const metadata: Metadata = {
-  title: 'Work | Seungyeub Baek',
-  description: 'Next.js, React, TypeScript 기반으로 작업한 프론트엔드 프로젝트 모음입니다.',
+  title: 'Work',
+  description: DESCRIPTION,
   // canonical이 없으면 쿼리스트링이 붙은 주소가 별도 페이지로 색인될 수 있다
   alternates: { canonical: '/work' },
-  openGraph: {
-    type: 'website',
-    url: '/work',
-    title: 'Work | Seungyeub Baek',
-    description: 'Next.js, React, TypeScript 기반으로 작업한 프론트엔드 프로젝트 모음입니다.',
-  },
+  ...buildPageOpenGraph({
+    title: `Work | ${SITE_NAME}`,
+    description: DESCRIPTION,
+    path: '/work',
+  }),
 };
 
 export default function WorkPage() {

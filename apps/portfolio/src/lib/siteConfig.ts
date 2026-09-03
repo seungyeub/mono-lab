@@ -36,3 +36,58 @@ export function absoluteUrl(pathname: string): string {
   if (/^https?:\/\//.test(pathname)) return pathname;
   return `${SITE_URL}${pathname.startsWith('/') ? pathname : `/${pathname}`}`;
 }
+
+interface PageOpenGraphInput {
+  title: string;
+  description: string;
+  /** 사이트 루트 기준 경로 */
+  path: string;
+  type?: 'website' | 'article';
+  /** 없으면 사이트 기본 이미지를 쓴다 */
+  image?: string;
+}
+
+/**
+ * 페이지용 Open Graph·Twitter 메타데이터를 만든다.
+ *
+ * **Next.js의 metadata 병합은 얕다.** 하위 페이지가 `openGraph`를 정의하면
+ * 루트의 `openGraph`를 통째로 대체하므로 `images`·`siteName`·`locale`이
+ * 사라진다. 페이지마다 손으로 채우면 반드시 빠뜨리는 것이 생기고,
+ * 그 결과는 링크를 공유해 봐야만 드러난다.
+ *
+ * 그래서 공유 필드를 여기서 항상 채운다 — 페이지는 고유한 값만 넘기면 된다.
+ */
+export function buildPageOpenGraph({
+  title,
+  description,
+  path,
+  type = 'website',
+  image,
+}: PageOpenGraphInput) {
+  const images = [
+    {
+      url: image ?? OG_IMAGE,
+      width: OG_IMAGE_WIDTH,
+      height: OG_IMAGE_HEIGHT,
+      alt: `${title} — ${SITE_NAME}`,
+    },
+  ];
+
+  return {
+    openGraph: {
+      type,
+      locale: SITE_LOCALE,
+      siteName: SITE_TITLE,
+      url: absoluteUrl(path),
+      title,
+      description,
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title,
+      description,
+      images: [image ?? OG_IMAGE],
+    },
+  };
+}
