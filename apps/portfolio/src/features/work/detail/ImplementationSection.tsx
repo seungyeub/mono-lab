@@ -31,7 +31,7 @@ export default async function ImplementationSection({
       />
       <div className={`grid gap-4 md:gap-6 ${hasArchitecture && hasCode ? 'lg:grid-cols-2' : ''}`}>
         {hasArchitecture && (
-          <div className='rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
+          <div className='min-w-0 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
             <h3 className='mb-5 text-lg font-semibold md:text-xl'>Architecture</h3>
 
             {implementation.architecture && (
@@ -74,7 +74,7 @@ export default async function ImplementationSection({
         )}
 
         {hasCode && (
-          <div className='rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
+          <div className='min-w-0 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
             <h3 className='mb-5 text-lg font-semibold md:text-xl'>Code Snippet</h3>
 
             {implementation.codeCaption && (
@@ -110,7 +110,7 @@ export default async function ImplementationSection({
                   </div>
                   {/* shiki가 만든 pre의 배경을 지워 카드의 검정 위에 코드만 얹는다 */}
                   <div
-                    className='overflow-x-auto text-[11px] leading-relaxed md:text-xs [&_pre]:!bg-transparent [&_pre]:p-4'
+                    className='max-w-full overflow-x-auto text-[11px] leading-relaxed md:text-xs [&_pre]:!bg-transparent [&_pre]:p-4'
                     dangerouslySetInnerHTML={{ __html: html }}
                   />
                 </div>

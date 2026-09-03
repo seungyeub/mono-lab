@@ -1,6 +1,7 @@
 import {
   SiAntdesign,
   SiApachecordova,
+  SiBootstrap,
   SiAxios,
   SiCodeigniter,
   SiFirebase,
@@ -38,6 +39,7 @@ const EXTRA_SKILLS: SkillItem[] = [
   { name: 'Cordova', icon: SiApachecordova, brandColor: '#E8E8E8' },
   { name: 'Swagger', icon: SiSwagger, brandColor: '#85EA2D' },
   { name: 'Ant Design', icon: SiAntdesign, brandColor: '#0170FE' },
+  { name: 'Bootstrap', icon: SiBootstrap, brandColor: '#7952B3' },
   { name: 'webpack', icon: SiWebpack, brandColor: '#8DD6F9' },
   { name: 'axios', icon: SiAxios, brandColor: '#5A29E4' },
   { name: 'Google Maps', icon: SiGooglemaps, brandColor: '#4285F4' },
@@ -60,6 +62,14 @@ const ALIASES: Record<string, string> = {
   'react-stripe-elements': 'Stripe',
   'next-i18next': 'i18next',
   fcm: 'Firebase',
+  // 표기를 풀어 쓴 형태도 같은 항목으로 본다 (frontmatter를 다듬어도 아이콘이 유지되도록)
+  'docker compose': 'Docker',
+  'stripe api': 'Stripe',
+  'yarn berry': 'yarn-berry',
+  'ant design plots': 'Ant Design',
+  'google maps api': 'Google Maps',
+  'google maps distance matrix api': 'Google Maps',
+  reactstrap: 'Bootstrap',
 };
 
 /** 버전 숫자·괄호 부가 설명을 걷어내 표기 변형을 흡수한다 */
