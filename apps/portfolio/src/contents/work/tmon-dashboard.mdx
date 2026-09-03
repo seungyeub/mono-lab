@@ -1,0 +1,41 @@
+---
+title: 'TMON Dashboard'
+category: 'Internal Dashboard'
+order: 7
+image: '/images/projects/tmon-dashboard.jpg'
+summary: '방문/구매/문의 이력 API 데이터를 등록하면 파이·바·라인 차트로 시각화하고 자유롭게 배치할 수 있는 사내 위젯형 데이터 대시보드. 인턴 6명(FE 3·BE 3)으로만 구성된 팀 프로젝트(팀명 Wetty)로, 2개월 인턴 기간 내에 완성했다. 기여도 35%.'
+techStack:
+  [
+    'React 16.7 (CRA)',
+    'Context API + HOC',
+    'react-chartist',
+    'react-grid-layout',
+    'reactstrap',
+    'axios',
+  ]
+overview:
+  - title: '본인 담당'
+    description: '차트 전체(pie/bar/line, animation·세부 옵션) · 갱신주기 설정 + localStorage 영속화 · 대시보드별 레이아웃 저장 · 예외 처리 로직 · 라우팅 버그 대응 · API 연동·통합 테스트 + 전체 제안·기획·프로젝트 통합·일정관리.'
+  - title: 'FE 3인 공동'
+    description: 'Context API + withContext HOC 아키텍처, Admin/Service 컴포넌트 구조 — 스터디와 페어로 함께 도입.'
+  - title: '타 팀원·백엔드 담당'
+    description: '대시보드 CRUD 모달, Admin API 연결·Proxy, 에러 페이지 UI, Drag&Drop은 타 팀원. 백엔드 API(JSP/Spring)는 BE 파트 — 차트 타입 체계 협의로만 참여.'
+implementation:
+  highlights:
+    - '그래프 단위 갱신주기의 localStorage 영속화 — 위젯마다 다른 갱신주기를 새로고침 후에도 유지하도록 설계 (본인 단독)'
+    - '대시보드 단위 레이아웃 저장 키 분리 — 대시보드별 배치 상태를 독립 저장해 서로 덮어쓰지 않도록 키 체계 분리 (본인 단독)'
+    - '차트 타입 3축 체계(BaseType × DataType × GraphType) 설계에 백엔드 파트와 협의 참여, 코드리뷰 기반 협업'
+impact:
+  outcomes:
+    - '2개월 인턴 기간 내 완성 (기여도 35%)'
+---
+
+## 배경
+
+티몬 인턴십에서 정직원 없이 인턴 6명(FE 3·BE 3)만으로 구성된 팀 Wetty가 만든 사내 도구다. API 데이터를 등록하면 파이·바·라인 차트 위젯으로 시각화하고, 대시보드 위에 자유롭게 배치할 수 있다.
+
+## 상태를 어디에, 어떤 단위로 남길 것인가
+
+위젯형 대시보드의 핵심은 사용자가 만든 배치와 설정이 사라지지 않는 것이다. 위젯마다 다른 **갱신주기를 localStorage에 영속화**해 새로고침 후에도 유지되게 했고, 레이아웃은 **대시보드 단위로 저장 키를 분리**해 여러 대시보드의 배치가 서로 덮어쓰지 않도록 설계했다 — 둘 다 단독 담당 영역이다.
+
+팀 차원에서는 Context API + `withContext` HOC 아키텍처를 FE 3인이 스터디와 페어로 함께 도입했고, 차트 타입을 BaseType × DataType × GraphType 3축으로 정의하는 체계는 백엔드 파트와의 협의로 만들었다. 기여도 35% — 담당 경계는 위 구분 그대로다.

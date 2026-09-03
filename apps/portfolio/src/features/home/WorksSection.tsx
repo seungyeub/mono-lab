@@ -13,7 +13,7 @@ interface CardProps {
   aspectClass?: string;
 }
 
-function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[3/4]' }: CardProps) {
+function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: CardProps) {
   const setCursorType = useCursorStore((s) => s.setType);
 
   return (
@@ -28,15 +28,29 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[3/4]' }: CardP
         href={project.href}
         onMouseEnter={() => setCursorType('view')}
         onMouseLeave={() => setCursorType('default')}
+        // 링크 안이 이미지·장식뿐일 때 스크린리더가 목적을 읽을 수 있게 이름을 준다
+        aria-label={project.title}
         className={`group relative block overflow-hidden bg-[#1a1a1a] ${aspectClass}`}
       >
-        <div
-          className='absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105'
-          style={{ backgroundImage: `url(${project.image})` }}
-        />
-        <div className='absolute inset-0 flex items-center justify-center text-xs tracking-widest text-white uppercase opacity-10'>
-          {project.title}
-        </div>
+        {project.imageExists ? (
+          <>
+            {/* 캡쳐 비율이 프로젝트마다 달라(모바일 앱~와이드 웹) contain으로 잘림 없이 담는다 */}
+            <div
+              className='absolute inset-0 bg-contain bg-center bg-no-repeat transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105'
+              style={{ backgroundImage: `url(${project.image})` }}
+            />
+            <div className='absolute inset-0 flex items-center justify-center text-xs tracking-widest text-white uppercase opacity-10'>
+              {project.title}
+            </div>
+          </>
+        ) : (
+          // 에셋 미확보 프로젝트 — 빈 상자 대신 제목을 읽히게 둔다
+          <div className='absolute inset-0 flex items-center justify-center px-6'>
+            <span className='text-center text-sm tracking-widest text-white/40 uppercase transition-colors duration-300 group-hover:text-white/70'>
+              {project.title}
+            </span>
+          </div>
+        )}
       </Link>
       <div className='flex items-start justify-between'>
         <span className='text-sm font-medium md:text-base'>{project.title}</span>
@@ -105,7 +119,12 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
             {/* Col 1 */}
             <div className='flex flex-col gap-12'>
               {leftColProjects.map((p, i) => (
-                <ProjectCard key={p.slug} project={p} delay={i * 0.1} aspectClass='aspect-[4/5]' />
+                <ProjectCard
+                  key={p.slug}
+                  project={p}
+                  delay={i * 0.1}
+                  aspectClass='aspect-[16/10]'
+                />
               ))}
             </div>
             {/* Col 2 (Staggered) */}
@@ -115,7 +134,7 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
                   key={p.slug}
                   project={p}
                   delay={0.15 + i * 0.1}
-                  aspectClass='aspect-[3/4]'
+                  aspectClass='aspect-[16/10]'
                 />
               ))}
             </div>

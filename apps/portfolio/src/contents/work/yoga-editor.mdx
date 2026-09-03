@@ -1,0 +1,78 @@
+---
+title: 'YogaEditor'
+category: 'Rich Text Editor'
+order: 2
+image: '/images/projects/yoga-editor.jpg'
+summary: '외부 에디터 라이브러리에 의존하지 않는 자체 리치텍스트 에디터. 굵게·밑줄·기울임과 그 조합을 블록 단위 문서에서 편집·저장·재편집할 수 있다. 3년 전 중첩 서식 난제로 중단됐던 사내 기획을 퇴사 후 개인 프로젝트로 재개해, 약 6일의 집중 작업으로 Phase 0~7을 완주했다.'
+techStack:
+  [
+    'Next.js (App Router)',
+    'React',
+    'Django 4.2',
+    'Django REST Framework',
+    'PostgreSQL',
+    'Supabase',
+    'MinIO',
+  ]
+overview:
+  - title: '1단계 — 기획·설계 (2023.12~2024.04, 재직 중)'
+    description: '사내 기술 자산 확보 목적의 기획·설계. 개발계획서 12차 개정, Figma 시나리오·GUI 설계까지 완료했으나 중첩 서식의 HTML 마크업 구조화 난제로 중단 — "글자를 1개씩 나눠야 태그 오류가 없다"는 진단까지 도달한 상태였다.'
+  - title: '2단계 — 구현 완주 (2026.07, 개인)'
+    description: 'AI 협업 기반으로 재개. 남겨진 기획서·Figma·코드를 역분석해 중단 지점을 확정한 뒤 순차 진행, 약 6일 집중 작업으로 Phase 0~7을 완주했다. 2026년 구현물이 2024년 Figma 설계와 문구 단위로 일치한다.'
+features:
+  - title: '조합 가능한 서식'
+    description: '굵게·밑줄·기울임과 그 조합(최대 3중 중첩)을 지원하며, 작성→저장→재조회→재편집→재저장 왕복에도 서식이 깨지지 않는다.'
+  - title: '블록 단위 문서 편집'
+    description: '문서를 블록 단위로 구성해 편집·저장·재편집한다.'
+implementation:
+  codeLanguage: 'jsx'
+  codeCaption: '저장 형태에는 태그 순서를 두지 않고, 렌더 시점에만 순서를 고정해 모호함을 없앤 구조'
+  codeSnippet: |
+    // 바깥 -> 안쪽 고정 순서: 링크(a) -> 색상(span style) -> 위/아래첨자 ->
+    // bold/italic/strikethrough/underline. 겹치는 스타일이 몇 개든 항상 이 순서로만
+    // 중첩되므로 "어느 태그를 바깥에 둘지"가 애매해지지 않는다.
+    //
+    // link가 색상보다 안쪽이면(=색상 span이 <a> 밖) 브라우저 기본 링크
+    // color를 이겨버려 사용자가 지정한 글자색이 무시된다. link를 가장 바깥에 둬야
+    // 안쪽 span의 인라인 color가 항상 이긴다(자식의 직접 지정값은 조상의 상속값을
+    // 항상 이기므로).
+    function renderRun(run, key) {
+      let node = run.text.length === 0 ? ' ' : run.text;
+
+      for (let i = BOOLEAN_STYLE_ORDER.length - 1; i >= 0; i -= 1) {
+        const styleKey = BOOLEAN_STYLE_ORDER[i];
+        if (run.styles[styleKey]) {
+          const Tag = STYLE_TAGS[styleKey];
+          node = <Tag>{node}</Tag>;
+        }
+      }
+
+      if (run.styles.superscript) node = <sup>{node}</sup>;
+      else if (run.styles.subscript) node = <sub>{node}</sub>;
+
+      // ...
+    }
+  architecture: '모노레포(apps/web + apps/api) — Next.js 프론트엔드 + Django REST 백엔드'
+  highlights:
+    - '3년 전 중단 원인의 해결 — HTML 태그 중첩 대신 서식 속성을 가진 런(run) 단위 데이터 모델로 일반화. 최대 3중 중첩 서식이 왕복 저장에도 깨지지 않음을 브라우저 수동 검증으로 확인 (자동화 테스트는 두지 않음)'
+    - 'DB 전환 의사결정 — 배포 타겟(Supabase)이 PostgreSQL이라 로컬·배포 DB를 일치시키기 위해 MySQL에서 전환하고, 근거를 settings 주석과 배포 문서에 기록'
+    - '계획 대비 스코프 축소(글꼴 35→5종 등)를 전부 이유와 함께 문서화 — 무엇을 안 했는지도 기록에 남김'
+impact:
+  outcomes:
+    - 'Phase 0~7 완주 — 약 6일 집중 작업 (2026.07)'
+    - '"글자를 1개씩 나눠야 한다"까지 도달했던 3년 전 난제를 런 단위 모델로 일반화해 해결'
+---
+
+## 배경
+
+리치텍스트 에디터를 라이브러리 없이 직접 만드는 것은, 회사에서 사내 기술 자산으로 기획했던 프로젝트였다. 개발계획서를 12차까지 개정하고 Figma로 시나리오와 GUI를 설계했지만, 굵게·밑줄·기울임이 겹치는 **중첩 서식을 HTML 태그로 구조화하는 난제**에 막혀 중단됐다. 당시 도달한 마지막 진단은 "글자를 1개씩 나눠야 태그 오류가 없다"였다.
+
+## 3년 만의 재개
+
+퇴사 후 개인 프로젝트로 재개하면서, 먼저 남겨진 기획서·Figma·코드를 역분석해 정확한 중단 지점을 확정했다. 그리고 그 진단을 일반화했다 — 글자를 1개씩 나누는 대신, **서식 속성을 가진 런(run) 단위 데이터 모델**로 문서를 표현하면 태그 중첩 문제 자체가 사라진다.
+
+최대 3중 중첩 서식이 작성→저장→재조회→재편집→재저장 왕복에도 깨지지 않음을 브라우저 수동 검증으로 확인했다. 자동화 테스트는 두지 않았고, 이는 검증 방식의 한계로 함께 기록해 두었다.
+
+## 결정의 기록
+
+구현 과정의 의사결정은 근거와 함께 문서로 남겼다. 배포 타겟이 Supabase(PostgreSQL)라 로컬 DB를 MySQL에서 PostgreSQL로 전환한 근거는 settings 주석과 배포 문서에, 글꼴 35종을 5종으로 줄인 것 같은 스코프 축소는 전부 이유와 함께 기록했다. 2026년의 구현물이 2024년의 Figma 설계와 문구 단위로 일치하는 것은, 이 기록들이 3년의 공백을 이어준 결과다.

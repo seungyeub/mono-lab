@@ -1,0 +1,86 @@
+---
+title: '렛츠오더'
+category: 'Landing & API'
+order: 4
+image: '/images/projects/letsorder.webp'
+carouselImages:
+  - '/images/projects/letsorder.webp'
+  - '/images/projects/letsorder-02.webp'
+  - '/images/projects/letsorder-03.webp'
+  - '/images/projects/letsorder-04.webp'
+  - '/images/projects/letsorder-05.webp'
+  - '/images/projects/letsorder-06.webp'
+summary: 'QR코드 기반 테이블오더 + POS 연동 모바일 주문 솔루션 "렛츠오더"의 마케팅 랜딩페이지와 문의메일 백엔드. 익스트림포스(발주·POS)–LG전자(주문/관리자 앱·디자인)–나비이 3자 협업 구조의 B2B2C 서비스에서, 랜딩 프론트와 문의 API를 동시에 개발해 AWS에 실배포했다.'
+liveUrl: 'https://letsorder.kr/'
+techStack:
+  [
+    'Next.js 13',
+    'React 18',
+    'Recoil',
+    'styled-components',
+    'Django 4.2',
+    'Django REST Framework',
+    'AWS',
+  ]
+overview:
+  - title: '역할'
+    description: '나비이 대표/CTO — 계약·수주 총괄 + letsorder-home(랜딩)·letsorder-api(문의 백엔드) 프론트·백 동시 직접 개발, AWS 실배포.'
+  - title: '담당 경계'
+    description: '랜딩페이지 디자인은 LG전자 제공(개발만 담당). 서비스 핵심인 고객용 주문 웹·사장님용 관리자 앱은 LG전자 개발 영역으로 미담당. 문의폼 프론트 컴포넌트만 팀원 작성.'
+implementation:
+  codeLanguage: 'python'
+  codeCaption: '문의 저장용 모델을 만든 당일 되돌려, 즉시 발송만 남긴 결정'
+  codeSnippet: |
+    @csrf_exempt
+    @require_POST
+    def send_email(request):
+        if request.method == "POST":
+            with get_connection(
+                host=settings.EMAIL_HOST,
+                port=settings.EMAIL_PORT,
+                # ...
+                use_ssl=settings.EMAIL_USE_SSL
+            ) as connection:
+                name = request.POST.get('name')
+                # ...
+                email = request.POST.get('email')
+
+                img_file = request.FILES.get('file')
+
+                newline = '\n'
+                subject = f'[렛츠오더 신청 및 도입 문의] {store_name}'
+                message = f'이름 : {name} {newline}' \
+                          f'문의내용 : {inquiry} {newline} {newline}'
+                mailto = 'REDACTED_EMAIL'
+
+                try:
+                    mail = EmailMessage(subject, message, "REDACTED_EMAIL", [mailto], connection=connection)
+                    if img_file:
+                        mail.attach(img_file.name, img_file.read(), img_file.content_type)
+                    mail.send()
+                    response = HttpResponse("ok")
+                    response.status_code = 200
+                    return response
+
+                except:
+                    response = HttpResponse("fail")
+                    response.status_code = 400
+                    return response
+  architecture: '랜딩(Next.js) + 문의 API(Django/DRF) 2-저장소 구성, AWS 통합 배포'
+  highlights:
+    - '프론트-백엔드 동시 개발·통합 배포 — 두 저장소의 커밋이 같은 주에 맞물리고 CORS 설정이 정확히 일치, 실제 AWS 운영까지 완결'
+    - '아키텍처 단순화 결정 — 문의 데이터를 DB에 저장하는 초기 설계(Mail 모델)에서, 저장 없이 즉시 이메일만 발송하는 구조로 단순화 (마이그레이션 이력에 근거 잔존)'
+impact:
+  outcomes:
+    - '랜딩페이지·문의 백엔드를 AWS에 실배포해 운영 (letsorder.kr)'
+---
+
+## 배경
+
+렛츠오더는 QR코드로 주문하고 POS로 연동되는 테이블오더 솔루션이다. 발주·POS를 맡은 익스트림포스, 주문/관리자 앱과 디자인을 맡은 LG전자, 그리고 나비이가 참여하는 3자 협업 구조였고, 나비이의 몫은 **마케팅 랜딩페이지와 문의메일 백엔드**였다.
+
+## 프론트와 백엔드를 한 손에
+
+`letsorder-home`(Next.js 랜딩)과 `letsorder-api`(Django 문의 백엔드)를 동시에 개발했다. 두 저장소의 커밋이 같은 주에 맞물려 진행됐고, CORS 설정이 정확히 일치해야 실제로 동작하는 구조 — 개발에서 AWS 운영 배포까지 한 사람이 완결했다.
+
+설계 과정에서는 단순화를 택했다. 문의 데이터를 DB에 저장하는 초기 설계(Mail 모델)가 있었지만, 이 서비스에서 문의는 저장이 아니라 전달이 목적이었다. 저장 없이 즉시 이메일만 발송하는 구조로 바꿨고, 그 결정의 흔적은 마이그레이션 이력에 남아 있다.

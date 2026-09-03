@@ -1,17 +1,20 @@
 import {
+  FEATURED_SLUGS,
   filterExistingPublicImages,
+  getFeaturedProjectCards,
   getProjectCards,
   getProjectSeoMetadata,
+  normalizeProjectMetadata,
   publicAssetExists,
 } from './mdx';
 
 describe('getProjectSeoMetadata', () => {
   it('returns title/description built from the project meta for an existing slug', () => {
-    const result = getProjectSeoMetadata('meltdown');
+    const result = getProjectSeoMetadata('app-review-tracker');
 
     expect(result).toEqual({
-      title: 'Meltdown Studios | Seungyeub Baek',
-      description: 'Meltdown Studios — Visual Identity 프로젝트 상세입니다.',
+      title: 'App Review Tracker | Seungyeub Baek',
+      description: 'App Review Tracker — Data Pipeline 프로젝트 상세입니다.',
     });
   });
 
@@ -100,17 +103,217 @@ describe('getProjectCards', () => {
 
   it('carries MDX metadata through without altering it', () => {
     const cards = getProjectCards();
-    const rootwise = cards.find((card) => card.slug === 'rootwise');
+    const tracker = cards.find((card) => card.slug === 'app-review-tracker');
 
-    // WorksSection 하드코딩본은 category를 'Brand Identity', image를 02.jpg로
-    // 잘못 갖고 있었다. MDX 원본 값이 그대로 실려야 한다.
-    expect(rootwise).toEqual({
-      slug: 'rootwise',
-      title: 'Rootwise Architects',
-      category: 'Visual Identity',
+    // 카드에 별도 하드코딩본을 두면 MDX와 어긋나므로(P0-6),
+    // MDX frontmatter 원본 값이 변형 없이 그대로 실려야 한다.
+    expect(tracker).toEqual({
+      slug: 'app-review-tracker',
+      title: 'App Review Tracker',
+      category: 'Data Pipeline',
       order: 1,
-      image: '/images/projects/01.jpg',
-      href: '/work/rootwise',
+      image: '/images/projects/app-review-tracker.webp',
+      imageExists: true,
+      href: '/work/app-review-tracker',
     });
+  });
+
+  // 에셋이 없는 카드는 빈 상자가 아니라 제목을 읽히게 보여줘야 한다
+  it('image 경로는 원본 그대로 두고 실존 여부만 따로 알린다', () => {
+    const cards = getProjectCards();
+
+    cards.forEach((card) => {
+      expect(typeof card.imageExists).toBe('boolean');
+      if (card.imageExists) expect(publicAssetExists(card.image)).toBe(true);
+    });
+  });
+});
+
+describe('normalizeProjectMetadata', () => {
+  const BASE = {
+    title: 'Meltdown Studios',
+    category: 'Visual Identity',
+    order: 2,
+    image: '/images/projects/02.jpg',
+  };
+
+  it('keeps the existing required fields as-is', () => {
+    const meta = normalizeProjectMetadata({ ...BASE, liveUrl: 'https://example.com' });
+
+    expect(meta.title).toBe('Meltdown Studios');
+    expect(meta.category).toBe('Visual Identity');
+    expect(meta.order).toBe(2);
+    expect(meta.image).toBe('/images/projects/02.jpg');
+    expect(meta.liveUrl).toBe('https://example.com');
+  });
+
+  // 콘텐츠가 아직 비어 있어도 페이지가 .map/.length를 안전하게 쓸 수 있어야 한다
+  it('defaults every new collection to an empty array or object', () => {
+    const meta = normalizeProjectMetadata(BASE);
+
+    expect(meta.techStack).toEqual([]);
+    expect(meta.overview).toEqual([]);
+    expect(meta.features).toEqual([]);
+    expect(meta.demonstrations).toEqual([]);
+    expect(meta.implementation).toEqual({ highlights: [], codeSnippet: [], codeLanguage: 'text' });
+    expect(meta.impact).toEqual({ metrics: [], outcomes: [] });
+    expect(meta.summary).toBeUndefined();
+    expect(meta.github).toBeUndefined();
+  });
+
+  it('carries structured content through when frontmatter provides it', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      summary: '한 문단 설명',
+      github: 'https://github.com/seungyeub/example',
+      techStack: ['Next.js', 'TypeScript'],
+      overview: [{ title: '문제', description: '설명' }],
+      features: [{ title: '기능', description: '설명' }],
+      implementation: { architecture: 'Next.js App Router', highlights: ['h1', 'h2'] },
+      demonstrations: [{ title: '데모', images: ['/a.png'], description: '설명', outcome: '결과' }],
+      impact: { metrics: [{ label: 'LCP', value: '1.2s' }], outcomes: ['성과'] },
+    });
+
+    expect(meta.summary).toBe('한 문단 설명');
+    expect(meta.github).toBe('https://github.com/seungyeub/example');
+    expect(meta.techStack).toEqual(['Next.js', 'TypeScript']);
+    expect(meta.overview).toEqual([{ title: '문제', description: '설명' }]);
+    expect(meta.features).toEqual([{ title: '기능', description: '설명' }]);
+    expect(meta.implementation).toEqual({
+      architecture: 'Next.js App Router',
+      highlights: ['h1', 'h2'],
+      codeSnippet: [],
+      codeLanguage: 'text',
+    });
+    expect(meta.demonstrations).toEqual([
+      { title: '데모', images: ['/a.png'], description: '설명', outcome: '결과' },
+    ]);
+    expect(meta.impact).toEqual({ metrics: [{ label: 'LCP', value: '1.2s' }], outcomes: ['성과'] });
+  });
+
+  it('drops entries that are missing the fields the UI renders', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      techStack: ['Next.js', '', 42],
+      features: [{ title: '유효', description: '설명' }, { description: '제목 없음' }, null],
+      overview: [{ title: '유효', description: '설명' }, { title: '' }],
+      impact: {
+        metrics: [{ label: 'LCP', value: '1.2s' }, { label: 'no value' }],
+        outcomes: ['ok', ''],
+      },
+      demonstrations: [{ title: '유효', images: ['/a.png'] }, { images: ['/b.png'] }],
+    });
+
+    expect(meta.techStack).toEqual(['Next.js']);
+    expect(meta.features).toEqual([{ title: '유효', description: '설명' }]);
+    expect(meta.overview).toEqual([{ title: '유효', description: '설명' }]);
+    expect(meta.impact.metrics).toEqual([{ label: 'LCP', value: '1.2s' }]);
+    expect(meta.impact.outcomes).toEqual(['ok']);
+    expect(meta.demonstrations).toEqual([{ title: '유효', images: ['/a.png'] }]);
+  });
+
+  // NaN·Infinity는 typeof 검사를 통과하지만 정렬을 불안정하게 만들고 카드에 그대로 찍힌다
+  it('order가 유한한 숫자가 아니면 0으로 떨어뜨린다', () => {
+    expect(normalizeProjectMetadata({ ...BASE, order: Number.NaN }).order).toBe(0);
+    expect(normalizeProjectMetadata({ ...BASE, order: Number.POSITIVE_INFINITY }).order).toBe(0);
+    expect(normalizeProjectMetadata({ ...BASE, order: Number.NEGATIVE_INFINITY }).order).toBe(0);
+    expect(normalizeProjectMetadata({ ...BASE, order: 7 }).order).toBe(7);
+  });
+
+  it('tolerates completely malformed frontmatter', () => {
+    const meta = normalizeProjectMetadata(undefined);
+
+    expect(meta.techStack).toEqual([]);
+    expect(meta.impact).toEqual({ metrics: [], outcomes: [] });
+  });
+});
+
+describe('normalizeProjectMetadata — 리디자인 확장 필드', () => {
+  const BASE = {
+    title: 'T',
+    category: 'C',
+    order: 1,
+    image: '/images/projects/t.jpg',
+  };
+
+  it('defaults carouselImages to an empty array', () => {
+    expect(normalizeProjectMetadata(BASE).carouselImages).toEqual([]);
+  });
+
+  it('carries carouselImages and code snippet fields through', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      carouselImages: ['/a.png', '', 3, '/b.png'],
+      implementation: {
+        highlights: ['h'],
+        codeSnippet: 'const a = 1;\nconst b = 2;',
+        codeCaption: '핵심 로직 요약',
+      },
+    });
+
+    expect(meta.carouselImages).toEqual(['/a.png', '/b.png']);
+    expect(meta.implementation.codeSnippet).toEqual(['const a = 1;\nconst b = 2;']);
+    expect(meta.implementation.codeCaption).toBe('핵심 로직 요약');
+  });
+
+  it('codeSnippet은 단일 문자열로 써도 배열 1개로 정규화된다', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      implementation: { codeSnippet: 'single block' },
+    });
+
+    expect(meta.implementation.codeSnippet).toEqual(['single block']);
+  });
+
+  it('codeSnippet 배열은 순서를 지키고 빈 항목만 걸러낸다', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      implementation: { codeSnippet: ['block A', '', 'block B', 7] },
+    });
+
+    expect(meta.implementation.codeSnippet).toEqual(['block A', 'block B']);
+  });
+
+  it('codeSnippet이 없으면 빈 배열이다', () => {
+    expect(normalizeProjectMetadata(BASE).implementation.codeSnippet).toEqual([]);
+  });
+
+  it('codeNote(코드 출처·기여 주석)와 codeLanguage를 통과시킨다', () => {
+    const meta = normalizeProjectMetadata({
+      ...BASE,
+      implementation: { codeSnippet: 'x', codeNote: '코드 작성 주체는 AI', codeLanguage: 'python' },
+    });
+
+    expect(meta.implementation.codeNote).toBe('코드 작성 주체는 AI');
+    expect(meta.implementation.codeLanguage).toBe('python');
+  });
+
+  // 문법 강조기에 넘길 값이라 없으면 평문으로 떨어뜨린다
+  it('codeLanguage가 없으면 text로 둔다', () => {
+    const meta = normalizeProjectMetadata({ ...BASE, implementation: { codeSnippet: 'x' } });
+
+    expect(meta.implementation.codeLanguage).toBe('text');
+  });
+});
+
+describe('getFeaturedProjectCards', () => {
+  it('returns only the slugs listed in FEATURED_SLUGS, in that exact order', () => {
+    const cards = getFeaturedProjectCards();
+
+    expect(cards.map((c) => c.slug)).toEqual([...FEATURED_SLUGS]);
+  });
+
+  it('every featured slug resolves to a real project (오타·삭제 감지)', () => {
+    const known = new Set(getProjectCards().map((c) => c.slug));
+
+    FEATURED_SLUGS.forEach((slug) => {
+      expect(known.has(slug)).toBe(true);
+    });
+  });
+
+  // 홈은 2열 격자라 짝수여야 마지막 줄이 비지 않는다
+  it('featured 목록은 짝수 개이고 중복이 없다', () => {
+    expect(FEATURED_SLUGS.length % 2).toBe(0);
+    expect(new Set(FEATURED_SLUGS).size).toBe(FEATURED_SLUGS.length);
   });
 });

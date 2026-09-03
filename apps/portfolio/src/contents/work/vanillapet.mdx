@@ -1,0 +1,75 @@
+---
+title: '바닐라펫'
+category: 'Hybrid App'
+order: 10
+image: '/images/projects/vanillapet.webp'
+carouselImages:
+  - '/images/projects/vanillapet.webp'
+  - '/images/projects/vanillapet-02.webp'
+  - '/images/projects/vanillapet-03.webp'
+summary: '반려동물 분양정보를 위치 기반으로 등록·탐색하는 하이브리드 모바일 앱. 내 주변의 분양 글을 지도/거리 기준으로 찾아볼 수 있는 서비스로, 실서비스 베타를 운영했다. 코아리버 외주 — 첫 실서비스 프로젝트다.'
+techStack:
+  [
+    'PHP',
+    'CodeIgniter 2.x',
+    'Cordova',
+    'jQuery',
+    'MySQL',
+    'Google Maps (Distance Matrix)',
+    'Croppie',
+    'Google Analytics',
+  ]
+overview:
+  - title: '역할'
+    description: '개발(프론트엔드+백엔드) 단독 100% — 개발 착수부터 실서비스 배포까지 전 과정 수행. 개발 담당 기간 2017.05~07 (약 2개월).'
+  - title: '담당 경계'
+    description: '기획·디자인·프로젝트 초기 설정(2017.01~05)은 타 담당자에게 인계받았고, 관리자 페이지는 담당 범위 외.'
+implementation:
+  codeLanguage: 'javascript'
+  codeCaption: '크롭된 이미지가 아니라 좌표를 원본과 함께 보내, 잘라내는 일을 서버에 남긴 경계'
+  codeSnippet: |
+    // 최종적으로 이미지 반영 <2017-08-24 Jerome>
+    function finalResult() {
+
+        var crop_points = vanilla.get().points;
+        var crop_rotate = document.getElementById("rotate").value;
+
+        if($("input[type=file][name=upload_crop_img]").val() === "") {
+            crop_error("<br>파일 선택 후 자르기가 가능합니다.<br><br>");
+        } else {
+            cropDataSet(crop_points, crop_rotate);
+
+            var form = $('#crop_form')[0];
+            var formData = new FormData(form);
+            // ...
+            $.ajax({
+                type: 'POST',
+                // ...
+                success: function(data) {
+                    // ...
+                },
+                error: function(request, status, error) {
+                    // ...
+                }
+            });
+        }
+    }
+  highlights:
+    - '이미지 크롭 파이프라인 — 1:1 고정 비율 크롭(Croppie)을 서버 업로드·저장·편집·삭제까지 잇는 이미지 처리 흐름을 첫 실서비스에서 완성'
+    - '실제 이동 거리 기반 탐색 — 직선거리가 아닌 실제 이동 거리를 보여주기 위해 Google Distance Matrix API의 옵션(이동 수단 등)을 분석·조정해 적용'
+    - '운영 계측 첫 도입 — 클라이언트 요청으로 Google Analytics를 붙여 페이지 이탈률·전환률 등 운영 데이터를 계측'
+    - '운영 중 로그인 정책 변경(비로그인 연락처 확인 허용)에 따라 인가 로직을 재구성'
+impact:
+  outcomes:
+    - '실서비스 배포 — 베타 운영 후 종료 (전체 프로젝트 2017.01~10)'
+---
+
+## 배경
+
+첫 실서비스 프로젝트다. 반려동물 분양 글을 위치 기반으로 등록하고, 내 주변의 글을 지도와 거리 기준으로 찾아보는 하이브리드 앱 — 기획·디자인은 인계받았고, 개발은 착수부터 실서비스 배포까지 단독으로 수행했다.
+
+## 첫 실서비스에서 배운 것들
+
+분양 글의 얼굴은 사진이다. 1:1 고정 비율 크롭(Croppie)을 붙이는 것 자체보다, 크롭 결과물을 서버 업로드·저장으로 잇고 편집·삭제까지 다루는 **이미지 처리 흐름 전체를 완성하는 것**이 난점이었다.
+
+"내 주변"이라는 약속을 지키기 위해 직선거리 대신 **실제 이동 거리**를 보여주기로 하고, Google Distance Matrix API의 이동 수단 옵션을 분석·조정해 적용했다. 운영 중에는 클라이언트 요청으로 Google Analytics를 도입해 이탈률·전환률을 계측했는데, 데이터로 서비스를 보는 경험의 시작점이 됐다. 로그인 정책이 운영 중에 바뀌어(비로그인 연락처 확인 허용) 인가 로직을 재구성한 것도 — 운영되는 서비스는 계속 변한다는 첫 학습이었다.

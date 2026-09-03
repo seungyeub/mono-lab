@@ -7,8 +7,15 @@ import {
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Marquee from '@/src/components/Marquee';
-import EditorialDivider from '@/src/components/EditorialDivider';
+import DemonstrationsSection from '@/src/features/work/detail/DemonstrationsSection';
+import ExploreCta from '@/src/features/work/detail/ExploreCta';
+import FeaturesSection from '@/src/features/work/detail/FeaturesSection';
+import ImpactSection from '@/src/features/work/detail/ImpactSection';
+import ImplementationSection from '@/src/features/work/detail/ImplementationSection';
+import ScrollToTop from '@/src/features/work/detail/ScrollToTop';
+import SectionHeading from '@/src/features/work/detail/SectionHeading';
+import TechStackSection from '@/src/features/work/detail/TechStackSection';
+import WorkDetailHero from '@/src/features/work/detail/WorkDetailHero';
 import { ComponentPropsWithoutRef } from 'react';
 import type { Metadata } from 'next';
 
@@ -33,8 +40,14 @@ const mdxComponents = {
   h1: (props: ComponentPropsWithoutRef<'h1'>) => (
     <h1 className='mt-10 mb-4 text-2xl font-medium md:text-3xl' {...props} />
   ),
+  // 산문 소제목을 다른 섹션의 번호 타일 문법과 맞춘다(CSS 카운터로 01·02 자동 부여).
+  // 이전 스타일로 되돌리려면 이 h2를 단순 텍스트 버전으로 교체하고
+  // article의 [counter-reset:story]와 SectionHeading(Project Story)을 제거하면 된다.
   h2: (props: ComponentPropsWithoutRef<'h2'>) => (
-    <h2 className='mt-8 mb-3 text-xl font-medium text-gray-200 md:text-2xl' {...props} />
+    <h2
+      className='mt-12 mb-4 flex items-center gap-3 text-xl font-medium text-gray-200 before:flex before:h-8 before:w-8 before:shrink-0 before:items-center before:justify-center before:rounded-md before:border before:border-white/15 before:font-mono before:text-[11px] before:font-normal before:text-white/60 before:content-[counter(story,decimal-leading-zero)] before:[counter-increment:story] md:text-2xl'
+      {...props}
+    />
   ),
   p: (props: ComponentPropsWithoutRef<'p'>) => (
     <p className='mb-5 text-base leading-relaxed text-gray-400 md:text-lg' {...props} />
@@ -61,150 +74,60 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   const { meta, content, slug } = project;
   const allProjects = getAllProjects();
 
-  // 현재 프로젝트 제외 추천 2개
-  const moreProjects = allProjects.filter((p) => p.slug !== slug).slice(0, 2);
+  // order 순서상 다음 프로젝트. 마지막이면 처음으로 돌아가 탐색이 끊기지 않게 한다.
+  const currentIndex = allProjects.findIndex((p) => p.slug === slug);
+  const nextProject =
+    allProjects.length > 1 ? allProjects[(currentIndex + 1) % allProjects.length] : undefined;
 
-  // 실존하는 이미지 에셋만 렌더링 대상으로 삼는다 (에셋 미확보 상태에서도 placeholder 없이 동작)
-  const [heroImage] = filterExistingPublicImages([meta.image]);
-  const galleryImages = filterExistingPublicImages(
-    ['01', '02', '03', '04'].map((n) => `/images/work/${slug}/${n}.jpg`),
-  );
-
-  const META_ROWS = [
-    { label: 'Category', value: meta.category },
-    { label: 'Project', value: `(${String(meta.order).padStart(2, '0')})` },
-    { label: 'Location', value: 'Seoul, 한국' },
-  ];
+  // 이미지는 실존하는 에셋만 렌더링한다 (에셋 미확보 상태에서도 placeholder 없이 동작)
+  const heroCandidates = meta.carouselImages.length > 0 ? meta.carouselImages : [meta.image];
+  const heroImages = filterExistingPublicImages(heroCandidates);
+  const demonstrations = meta.demonstrations.map((demo) => ({
+    ...demo,
+    existingImages: filterExistingPublicImages(demo.images),
+  }));
 
   return (
-    <main className='min-h-screen w-full'>
-      {/* ── Full-width Hero Image (실존 에셋이 있을 때만 렌더링) ── */}
-      {heroImage && (
-        <section className='relative h-[55vh] w-full overflow-hidden bg-[#1a1a1a] md:h-[75vh]'>
-          <div
-            className='absolute inset-0 bg-cover bg-center'
-            style={{ backgroundImage: `url(${heroImage})` }}
+    <main data-testid='work-detail' className='min-h-screen w-full'>
+      <ScrollToTop trigger={slug} />
+      <WorkDetailHero meta={meta} heroImages={heroImages} />
+
+      <div className='site-container w-full px-6 pb-24 md:px-12'>
+        {/* MDX 서사 — 배경·과정을 산문으로 잇는 우리 사이트의 에디토리얼 축 */}
+        <section className='mt-20 md:mt-28'>
+          <SectionHeading
+            eyebrow='Project Story'
+            title='프로젝트 이야기'
+            description='배경과 과정, 그리고 판단의 기록'
           />
-          <div className='absolute inset-0 bg-gradient-to-t from-[var(--site-bg)]/60 to-transparent' />
-        </section>
-      )}
-
-      {/* ── Split layout: sticky left + scrollable right ── */}
-      <section className='flex flex-col gap-0 px-6 pt-16 pb-32 md:flex-row md:px-12'>
-        {/* LEFT — Sticky meta panel */}
-        <div className='hidden w-72 flex-shrink-0 md:block'>
-          <div className='sticky top-28 flex flex-col gap-10'>
-            <div className='flex flex-col gap-2'>
-              <h1 className='text-2xl font-medium tracking-tight md:text-3xl'>{meta.title}</h1>
-            </div>
-
-            {/* Meta rows */}
-            <div className='flex flex-col gap-0 border-t border-white/10'>
-              {META_ROWS.map(({ label, value }) => (
-                <div
-                  key={label}
-                  className='flex justify-between border-b border-white/10 py-3 text-sm'
-                >
-                  <span className='text-[10px] tracking-widest text-white/40 uppercase'>
-                    {label}
-                  </span>
-                  <span className='text-white/80'>{value}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Live Website CTA — frontmatter에 liveUrl이 있을 때만 렌더링 */}
-            {meta.liveUrl && (
-              <a
-                href={meta.liveUrl}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='self-start rounded-full border border-white/30 px-6 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black'
-              >
-                Live Website ↗
-              </a>
-            )}
-
-            {/* Back to work */}
-            <Link
-              href='/work'
-              className='text-xs tracking-widest text-white/30 uppercase transition-colors duration-200 hover:text-white'
-            >
-              ← All Works
-            </Link>
-          </div>
-        </div>
-
-        {/* RIGHT — Scrollable content */}
-        <div className='flex flex-1 flex-col gap-10 md:pl-16'>
-          {/* Mobile title */}
-          <div className='mb-4 flex flex-col gap-4 md:hidden'>
-            <h1 className='text-3xl font-medium'>{meta.title}</h1>
-            <p className='text-sm tracking-widest text-white/40 uppercase'>{meta.category}</p>
-          </div>
-
-          {/* MDX article */}
-          <article>
+          <article className='mx-auto max-w-3xl [counter-reset:story]'>
             <MDXRemote source={content} components={mdxComponents} />
           </article>
+        </section>
 
-          {/* Extra image gallery — 실존 에셋이 있을 때만 렌더링 */}
-          {galleryImages.length > 0 && (
-            <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-2'>
-              {galleryImages.map((imgPath) => (
-                <div key={imgPath} className='relative aspect-[4/3] overflow-hidden bg-[#1a1a1a]'>
-                  <div
-                    className='absolute inset-0 bg-cover bg-center'
-                    style={{ backgroundImage: `url(${imgPath})` }}
-                  />
-                </div>
-              ))}
+        <TechStackSection techStack={meta.techStack} />
+        <FeaturesSection features={meta.features} />
+        <ImplementationSection implementation={meta.implementation} />
+        <DemonstrationsSection demonstrations={demonstrations} />
+        <ImpactSection impact={meta.impact} />
+        <ExploreCta liveUrl={meta.liveUrl} github={meta.github} />
+      </div>
+
+      {/* ── Next Project — 순차 탐색 ── */}
+      {nextProject && (
+        <section className='border-t border-white/10 px-6 py-12 md:px-12 md:py-16'>
+          <Link href={`/work/${nextProject.slug}`} className='group flex flex-col gap-3'>
+            <span className='text-xs tracking-widest text-white/40 uppercase'>Next Project</span>
+            <div className='flex flex-wrap items-baseline justify-between gap-3'>
+              <h2 className='text-3xl font-medium tracking-tight transition-colors duration-300 group-hover:text-white/70 md:text-5xl'>
+                {nextProject.meta.title}
+              </h2>
+              <span className='text-xs tracking-widest text-white/40 uppercase md:text-sm'>
+                {nextProject.meta.category} →
+              </span>
             </div>
-          )}
-        </div>
-      </section>
-
-      {/* ── More Works ── */}
-      {moreProjects.length > 0 && (
-        <>
-          <EditorialDivider left='More Works' center='Continue Exploring' right='→' />
-
-          {/* "More Works©" 마르퀴 */}
-          <Marquee
-            items={['More Works©', 'Next Projects', 'See Also']}
-            speed={40}
-            textClassName='text-white/[0.06] text-[clamp(2rem,8vw,7rem)] font-medium'
-            className='border-none py-2'
-          />
-
-          <div className='grid grid-cols-1 gap-6 px-6 pb-24 md:grid-cols-2 md:gap-8 md:px-12'>
-            {moreProjects.map((p) => {
-              const [cardImage] = filterExistingPublicImages([p.meta.image]);
-              return (
-                <Link key={p.slug} href={`/work/${p.slug}`} className='group flex flex-col gap-3'>
-                  <div className='relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]'>
-                    {cardImage ? (
-                      <div
-                        className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105'
-                        style={{ backgroundImage: `url(${cardImage})` }}
-                      />
-                    ) : (
-                      <div className='absolute inset-0 flex items-center justify-center'>
-                        <span className='px-4 text-center text-sm tracking-widest text-white/40 uppercase transition-colors duration-300 group-hover:text-white/70'>
-                          {p.meta.title}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <div className='flex items-start justify-between'>
-                    <span className='text-base font-medium'>{p.meta.title}</span>
-                    <span className='text-xs text-white/40'>{p.meta.category}</span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </>
+          </Link>
+        </section>
       )}
     </main>
   );

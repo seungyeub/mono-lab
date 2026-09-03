@@ -1,28 +1,76 @@
-## Getting Started
+# Portfolio
 
-First, run the development server:
+Framer Helios 템플릿을 레퍼런스로 한 **Next.js 기반 개인 포트폴리오 웹사이트**.
+
+## ✨ 주요 기능
+
+- **Hero Section** — Three.js / React Three Fiber 기반 3D 인터랙티브 카드 + 물리 엔진(Rapier)
+- **Works Section** — MDX 기반 10개 실제 프로젝트 (Overview → Tech Stack → Key Features → Demonstrations → Impact & Results 구조)
+- **Skills Section** — 브랜드 칼러 칩 레이아웃 (5 카테고리, 50개 기술 스택)
+- **Experience Section** — 경력/자격증 타임라인
+- **FAQ Section** — 아코디언 UI
+- **Epilogue** — 81개 GIF 무한 스크롤 캐러셀 (홈 전용)
+- **Resume 페이지** — 경력/자격증 상세 (ExperienceSection과 데이터 공유)
+- **Contact 폼** — React Hook Form + Zod + Resend Server Action
+- **커스텀 커서** — 4가지 상태 (`default` | `view` | `grab` | `pointer`)
+- **스무스 스크롤** — Lenis
+
+## 🛠 기술 스택
+
+| 영역          | 기술                                               |
+| ------------- | -------------------------------------------------- |
+| **Framework** | Next.js (App Router)                               |
+| **Language**  | TypeScript                                         |
+| **Styling**   | Tailwind CSS v4                                    |
+| **3D**        | Three.js, React Three Fiber, @react-three/rapier   |
+| **Animation** | Framer Motion, Lenis                               |
+| **Form**      | React Hook Form, Zod v3, Resend                    |
+| **State**     | Zustand                                            |
+| **Content**   | MDX (`src/contents/work/`)                         |
+| **Test**      | Jest, Playwright (Visual Regression Testing)       |
+| **CI/CD**     | GitHub Actions, SonarCloud, CodeRabbit, Lighthouse |
+
+## 🚀 시작하기
 
 ```bash
-yarn dev
+# 루트에서 (mono-lab)
+pnpm install
+pnpm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
+[http://localhost:3001](http://localhost:3001) 에서 확인할 수 있습니다.
 
-You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 프로젝트 구조
 
-To create [API routes](https://nextjs.org/docs/app/building-your-application/routing/router-handlers) add an `api/` directory to the `app/` directory with a `route.ts` file. For individual endpoints, create a subfolder in the `api` directory, like `api/hello/route.ts` would map to [http://localhost:3001/api/hello](http://localhost:3001/api/hello).
+```text
+apps/portfolio/
+├── app/                      # Next.js App Router 페이지
+│   ├── page.tsx              # 홈 (Hero, Works, Skills, Experience, FAQ, Epilogue)
+│   ├── work/                 # Work 목록 + [slug] 상세
+│   ├── resume/               # 이력서 페이지
+│   └── contact/              # Contact 폼
+├── src/
+│   ├── features/             # 도메인별 컴포넌트 (home, work, layout, contact)
+│   ├── components/           # 공통 컴포넌트 (RollingText, Marquee 등)
+│   ├── contents/work/        # MDX 프로젝트 파일 (10건)
+│   ├── lib/                  # 유틸리티 (MDX 파서, 이미지 필터 등)
+│   └── store/                # 전역 상태 (커서 등)
+├── public/
+│   ├── icons/                # 커스텀 SVG 아이콘
+│   └── images/               # 정적 이미지 에셋
+├── docs/
+│   ├── 01__Planning/         # 프로젝트 기획 문서
+│   └── plan/                 # 기능별 상세 계획서
+└── e2e/                      # Playwright VRT 테스트
+```
 
-## Learn More
+## 📝 문서
 
-To learn more about Next.js, take a look at the following resources:
+- [\_Project.md](docs/01__Planning/_Project.md) — 프로젝트 목적 및 운영 원칙
+- [\_Tasks.md](docs/01__Planning/_Tasks.md) — 작업 진행 현황
+- [\_DecisionLog.md](docs/01__Planning/_DecisionLog.md) — 의사결정 기록
+- [\_Notes.md](docs/01__Planning/_Notes.md) — 자유 기록
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn/foundations/about-nextjs) - an interactive Next.js tutorial.
+## 📄 라이선스
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+MIT License

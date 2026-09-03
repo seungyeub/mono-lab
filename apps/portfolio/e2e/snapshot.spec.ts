@@ -1,4 +1,37 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+
+/**
+ * whileInView 리빌(카드 stagger·SkillChips 등)은 뷰포트 진입 시에만 발화하는데,
+ * 스크린샷은 실제 스크롤 없이 찍혀 화면 아래 요소가 opacity 0으로 남는다.
+ *
+ * 스크롤로 훑어 발화시키고 기다리는 방식은 안정적이지 않았다. stagger·트랜지션에
+ * 맞춰 대기를 2.5s까지 늘려도 CI 컨테이너에서 8장 중 2~3장만 찍힌 baseline이
+ * 나왔다. 그래서 훑은 뒤 framer-motion이 남긴 인라인 스타일을 최종 상태로
+ * 직접 확정한다 — 타이밍에 기대지 않으므로 환경이 느려도 결과가 같다.
+ *
+ * 인라인 opacity/transform은 framer-motion이 쓰는 것이라 대상이 정확하고,
+ * 클래스로 지정한 의도적 투명도(캐러셀 비활성 이미지의 opacity-0,
+ * 플레이스홀더의 opacity-10 등)는 건드리지 않는다.
+ */
+async function revealAll(page: Page) {
+  await page.evaluate(async () => {
+    const step = window.innerHeight / 2;
+    for (let y = 0; y < document.body.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => setTimeout(resolve, 60));
+    }
+    window.scrollTo(0, 0);
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    document
+      .querySelectorAll<HTMLElement>('[style*="opacity"], [style*="transform"]')
+      .forEach((element) => {
+        const opacity = element.style.opacity;
+        if (opacity !== '' && Number.parseFloat(opacity) < 1) element.style.opacity = '1';
+        if (element.style.transform) element.style.transform = 'none';
+      });
+  });
+}
 
 test.describe('Visual Snapshot Tests (Component-level)', () => {
   test('Capture Core Sections', async ({ page }) => {
@@ -13,7 +46,10 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
     // 이 대기가 없으면 스냅샷에 로더 오버레이와 스피너가 찍혀 baseline이 오염된다.
     await page.locator('data-testid=page-loader').waitFor({ state: 'detached' });
 
-    // 4. 각 구역(Component)별 스냅샷 촬영
+    // 4. 화면 아래 섹션의 리빌까지 발화시킨 뒤 촬영 (미발화 시 카드가 빈 채로 굳는다)
+    await revealAll(page);
+
+    // 5. 각 구역(Component)별 스냅샷 촬영
     // fullPage: true를 제거하여 전체 페이지 촬영 시 발생하는 폰트 누적 오차(나비효과)를 방지합니다.
     await expect(page.locator('data-testid=header')).toHaveScreenshot('header-baseline.png');
     await expect(page.locator('data-testid=hero-section')).toHaveScreenshot('hero-baseline.png');
@@ -29,5 +65,23 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
       { mask: [page.locator('data-testid=epilogue-carousel')] },
     );
     await expect(page.locator('data-testid=footer')).toHaveScreenshot('footer-baseline.png');
+  });
+
+  // Work 상세는 P1-1에서 섹션이 대폭 늘어난 화면인데 VRT 사각지대였다.
+  // 대표 프로젝트 한 곳을 촬영해 구조 변경 시 회귀를 감지한다.
+  test('Capture Work Detail Page', async ({ page }) => {
+    // order 1이자 구조화 섹션(Overview·Tech Stack·Features·Implementation·Impact)이
+    // 전부 채워진 대표 프로젝트를 촬영한다.
+    await page.goto('/work/app-review-tracker');
+
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('data-testid=work-detail')).toBeVisible();
+    await page.locator('data-testid=page-loader').waitFor({ state: 'detached' });
+
+    await revealAll(page);
+
+    await expect(page.locator('data-testid=work-detail')).toHaveScreenshot(
+      'work-detail-baseline.png',
+    );
   });
 });

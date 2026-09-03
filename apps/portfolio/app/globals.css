@@ -1,3 +1,4 @@
+/* 한글 웹폰트 — 라틴은 Inter Tight, 한글은 Pretendard가 받는다 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 @import "tailwindcss";
 @import "@repo/tailwind-config";
@@ -6,7 +7,9 @@
 :root {
   --site-max-width: 1480px;
   --site-bg: #0A0A0A;
-  --font-pretendard: 'Pretendard', sans-serif;
+
+  /* 한글 본문 서체. Inter 계열 뼈대라 라틴(Inter Tight)과 한 가족처럼 붙는다 */
+  --font-korean: 'Pretendard', sans-serif;
 }
 
 @layer components {
@@ -30,7 +33,7 @@
     font-size: 14px;
     line-height: 1.25;
     letter-spacing: 0.1px;
-    font-family: var(--font-inter), var(--font-pretendard);
+    font-family: var(--font-inter), var(--font-korean);
     font-optical-sizing: auto;
   }
 

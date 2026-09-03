@@ -44,6 +44,13 @@ pnpm run test:e2e:update
 
 ⚠️ **주의사항:** 스냅샷 업데이트 후 새로 생성되거나 변경된 `-baseline.png` 이미지 파일들도 반드시 `git add`에 포함하여 함께 커밋해야 합니다.
 
+### 2-1. Baseline의 기준 환경은 CI 컨테이너입니다
+
+CI의 VRT는 Playwright 공식 컨테이너(`mcr.microsoft.com/playwright`) 안에서 실행되므로, **PR을 통과시키는 기준은 컨테이너 렌더링**입니다. 대부분의 스냅샷은 macOS 로컬 촬영본이 5% 허용치 안에 들어 그대로 커밋해도 되지만, 텍스트 밀도가 높은 페이지(예: `work-detail`의 Desktop Chrome)는 폰트 렌더링 차이가 허용치를 넘을 수 있습니다.
+
+- **로컬에서 특정 스냅샷만 반복해서 실패**하고 화면상 실제 변경이 없다면, 환경 차이일 가능성이 큽니다. 이때는 로컬에서 덮어쓰지 말고 **`Update Visual Snapshots` 워크플로(Actions → workflow_dispatch, 브랜치 지정)** 를 실행하세요 — 컨테이너에서 재촬영한 baseline이 해당 브랜치에 자동 커밋됩니다. 실행 후 `git pull`로 받아옵니다.
+- 반대로 컨테이너 기준 baseline은 macOS 로컬 `playwright test`에서 해당 스냅샷 1~2개가 실패할 수 있습니다. **CI가 통과하면 정상**이며, 로컬 실패를 없애려고 baseline을 로컬 촬영본으로 되돌리면 CI가 깨집니다.
+
 ---
 
 ## 3. 🔵 핵심 비즈니스 로직(함수 등)을 수정했을 때 (Jest)
