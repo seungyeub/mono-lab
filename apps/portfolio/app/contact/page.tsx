@@ -1,8 +1,17 @@
+import type { Metadata } from 'next';
 import ContactForm from '@/src/features/contact/ContactForm';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Contact | Seungyeub Baek',
   description: '프론트엔드 개발 협업 및 채용 문의를 위해 백승엽에게 연락할 수 있는 페이지입니다.',
+  // canonical이 없으면 쿼리스트링이 붙은 주소가 별도 페이지로 색인될 수 있다
+  alternates: { canonical: '/contact' },
+  openGraph: {
+    type: 'website',
+    url: '/contact',
+    title: 'Contact | Seungyeub Baek',
+    description: '프론트엔드 개발 협업 및 채용 문의를 위해 백승엽에게 연락할 수 있는 페이지입니다.',
+  },
 };
 
 export default function ContactPage() {

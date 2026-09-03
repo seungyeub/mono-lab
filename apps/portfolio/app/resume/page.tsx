@@ -1,10 +1,20 @@
+import type { Metadata } from 'next';
 import { ACHIEVEMENTS, EXPERIENCES } from '@/src/data/experienceData';
 import { SKILL_CATEGORIES } from '@/src/features/home/skillsData';
 import { publicAssetExists } from '@/src/lib/mdx';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Resume | Seungyeub Baek',
   description: '프론트엔드 엔지니어 백승엽의 경력, 자격증, 기술 스택을 정리한 이력서 페이지입니다.',
+  // canonical이 없으면 쿼리스트링이 붙은 주소가 별도 페이지로 색인될 수 있다
+  alternates: { canonical: '/resume' },
+  openGraph: {
+    type: 'website',
+    url: '/resume',
+    title: 'Resume | Seungyeub Baek',
+    description:
+      '프론트엔드 엔지니어 백승엽의 경력, 자격증, 기술 스택을 정리한 이력서 페이지입니다.',
+  },
 };
 
 // PDF 파일을 public 루트에 이 이름으로 추가하면 다운로드 버튼이 자동으로 노출된다
