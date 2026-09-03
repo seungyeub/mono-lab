@@ -13,13 +13,14 @@
 - [ ] P2-1. Header 우측 "Based in Seoul" 콘텐츠 결정
 - [ ] P2-2. 커스텀 아이콘 SVG 15개 정식 교체 (`public/icons/`)
 - [ ] P2-3. StoryAnimation 컴포넌트 배치 위치 결정
+- [ ] P2-5. 검색 가시성 인프라 구축 — sitemap·robots·OG·JSON-LD·`h1` 계층 정리 (P3-3 `lang='ko'` 포함). 0.2.0 점검에서 모두 404·미구현 확인
 - [ ] P2-4. 포트폴리오 저장소(mono-lab) 자체를 프로젝트로 등재 (계획 수립 완료 — `docs/plan/2026-09-03_mono-lab-project-card.md`)
 
 ### 🟢 P3 — Backlog (선택적/폴리싱)
 
 - [ ] P3-1. 데스크톱 폰트 스케일업 최종 결정
 - [ ] P3-2. Skills Section 구분선(White Line) 제거 여부 결정
-- [ ] P3-3. `<html lang='en'>` 불일치 수정
+- [ ] P3-3. `<html lang='en'>` 불일치 수정 → P2-5에서 함께 처리
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
