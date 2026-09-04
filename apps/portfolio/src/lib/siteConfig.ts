@@ -20,6 +20,20 @@ export const OG_IMAGE = '/images/og-default.png';
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
 
+/**
+ * Google Search Console 소유 확인 토큰.
+ *
+ * 비밀값이 아니라 공개 검증용 문자열이다 — 페이지 소스에 그대로 렌더링된다.
+ * HTML 파일 업로드 대신 메타 태그 방식을 쓴 이유: public/에 정체불명 파일이
+ * 놓이면 나중에 정리하다 지워져 검증이 조용히 풀린다. 여기 두면 이유를
+ * 주석으로 남길 수 있고 지우려면 의도적으로 코드를 건드려야 한다.
+ *
+ * 커스텀 도메인을 붙이면 DNS TXT 방식(도메인 속성)으로 바꾸는 편이 낫다 —
+ * 서브도메인과 프로토콜을 한 번에 덮는다. vercel.app은 DNS를 만질 수 없어
+ * 지금은 쓸 수 없다.
+ */
+export const GOOGLE_SITE_VERIFICATION = 'OUGw4KzESPowGtc3BNjMCvhMFgfzDQQs4thsEePxdDQ';
+
 /** 문서 언어. 카피 대부분이 한국어이므로 ko가 맞다 (P3-3) */
 export const SITE_LOCALE = 'ko_KR';
 
