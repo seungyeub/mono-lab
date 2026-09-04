@@ -4,14 +4,14 @@ import { render, screen } from '@testing-library/react';
 import SkillIcon from './SkillIcon';
 
 describe('SkillIcon', () => {
-  it('커스텀 아이콘 경로가 제공된 경우 (예: Framer Motion) 정상적으로 렌더링되어야 합니다', () => {
+  it('커스텀 아이콘 경로가 제공된 경우 (예: Playwright) 정상적으로 렌더링되어야 합니다', () => {
     const { container } = render(
       <SkillIcon
         skill={{
-          name: 'Framer Motion',
+          name: 'Playwright',
           icon: null,
-          brandColor: '#0055FF',
-          customIconPath: '/icons/framer-motion.svg',
+          brandColor: '#2EAD33',
+          customIconPath: '/icons/playwright.svg',
         }}
         colorMode='brand'
       />,
@@ -19,7 +19,7 @@ describe('SkillIcon', () => {
     const innerSpan = container.querySelector('span > span[aria-hidden="true"]');
     expect(innerSpan).toBeInTheDocument();
     expect(innerSpan).toHaveStyle({
-      backgroundImage: 'url(/icons/framer-motion.svg)',
+      backgroundImage: 'url(/icons/playwright.svg)',
     });
   });
 

@@ -81,12 +81,16 @@ export default function Header() {
               ))}
             </div>
           </div>
+          {/* 굵은 자리에는 포지셔닝(직군)을, 아래 회색에는 보조 정보(위치)를 둔다.
+              왼쪽 Quick Links 열이 "레이블 → 내용" 순서이므로 여기도 중요한 것이 위로 온다.
+              초기 스캐폴드는 위치를 굵게 강조했는데, 한국어 독자에게 정보량이 낮고
+              Contact 페이지의 "Based in / Seoul, 한국"과 중복이라 강조를 뒤집었다. */}
           <div className='relative hidden h-min w-min max-w-[300px] flex-none flex-col content-start items-start gap-[3px] overflow-visible p-0 opacity-100 lg:flex'>
             <div className='relative flex transform-none flex-col justify-center whitespace-pre'>
-              <p className='font-semibold text-white'>Based in Seoul, 한국</p>
+              <p className='font-semibold text-white'>Front-End Developer</p>
             </div>
             <div className='relative flex transform-none flex-col justify-center whitespace-pre text-[#999]'>
-              <p>Front-End Developer</p>
+              <p>Seoul, 한국</p>
             </div>
           </div>
         </div>

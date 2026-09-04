@@ -10,21 +10,24 @@
 
 ### 🟡 P2 — Nice to Have (품질 향상)
 
-- [ ] P2-1. Header 우측 "Based in Seoul" 콘텐츠 결정
-- [ ] P2-2. 커스텀 아이콘 SVG 15개 정식 교체 (`public/icons/`)
-- [ ] P2-3. StoryAnimation 컴포넌트 배치 위치 결정
-- [ ] P2-4. 포트폴리오 저장소(mono-lab) 자체를 프로젝트로 등재 (계획 수립 완료 — `docs/plan/2026-09-03_mono-lab-project-card.md`)
-- [ ] P2-5. 검색 가시성 인프라 구축 — sitemap·robots·OG·JSON-LD·`h1` 계층 정리 (P3-3 `lang='ko'` 포함). 0.2.0 점검에서 모두 404·미구현 확인
+- [x] P2-1. Header 우측 "Based in Seoul" 콘텐츠 결정 — 강조 뒤집기(직군 굵게 / 위치 회색)로 확정
+- [x] P2-2. 커스텀 아이콘 17개 정리 — 10개는 이미 설치된 `@icons-pack/react-simple-icons`로 교체, 래스터 2개는 144px WebP로 재생성. 2.6MB → 52KB. `aws`·`mssql` 브랜드 정확성은 미해결
+- [x] P2-3. StoryAnimation 컴포넌트 — 배치하지 않고 제거로 확정
+- [x] P2-4. 포트폴리오 저장소(mono-lab) 자체를 프로젝트로 등재 — order 2로 등재, 캡쳐 7장 반영. 홈 미노출(짝수 계약), Archive에만 노출
+- [x] P2-5. 검색 가시성 인프라 구축 — sitemap·robots·OG·JSON-LD·`h1` 계층 정리 완료 (P3-3 `lang='ko'` 포함). 도메인 `https://seungyeub.vercel.app` 확정, `siteConfig.ts` 단일 소스 신설
 
 ### 🟢 P3 — Backlog (선택적/폴리싱)
 
 - [ ] P3-1. 데스크톱 폰트 스케일업 최종 결정
 - [ ] P3-2. Skills Section 구분선(White Line) 제거 여부 결정
-- [ ] P3-3. `<html lang='en'>` 불일치 수정 → P2-5에서 함께 처리
+- [x] P3-3. `<html lang='en'>` → `ko` 수정 — P2-5에서 함께 처리
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
 - [ ] P3-8. 릴리스 자동화 도입 검토 (Changesets vs release-please) — `docs/plan/2026-09-03_release-automation.md`
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
+- [ ] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
+- [ ] P3-10. 데드 컴포넌트 `EditorialDivider` 배치 또는 제거
+- [ ] P3-11. Lighthouse 성능 개선 — 현재 0.25(warn만 걸려 CI 통과). CSS 배경 이미지 → `next/image` 전환이 핵심
 
 ---
 
@@ -105,10 +108,16 @@
 - [x] 2026-08-19 — PR #49: Playwright CI 브라우저 설치 병목 제거 — 공식 컨테이너 전환 (P3-7 완료)
 - [x] 2026-08-19 — PR #50: Turborepo 2.9.14 → 2.10.11 업그레이드
 - [x] 2026-08-19 — PR #51: 홈 Work 카드를 MDX 단일 소스로 통합 (P0-6 완료)
-- [x] 2026-08-19 — P1-2: 주석 처리된 브랜드 디자이너 섹션 (`BrandSection`/`ServicesSection`/`EditorialDivider`) 완전 제거
+- [x] 2026-08-19 — P1-2: 주석 처리된 브랜드 디자이너 섹션의 **import·렌더 제거** (`BrandSection`/`ServicesSection`/`EditorialDivider`). **`EditorialDivider.tsx` 파일 자체는 남아 있다** — 데드 코드 상태이며 처분은 P3-10에서 결정한다
 - [x] 2026-09-02 — `docs/01__Planning/` 4개 파일 + README 2개 기록 최신화
 - [x] 2026-09-03 — PR #52: Works 영역 전면 리뉴얼 (P1-1·P1-2 완료) — 실제 경력 프로젝트 10건 등재, 상세 페이지 재설계, 카드 16:10 통일, 이미지 라이트박스, VRT 인프라 결함 수정 (55 커밋)
 - [x] 2026-09-03 — 이슈 #53 생성: P3-6 디자인 토큰 정비 실행 목록 (PR #52 리뷰에서 파생)
+- [x] 2026-09-04 — 09-03 커밋 이력 압축(19→3) — GitHub 기여 그래프 편중 완화 목적. 백업: `origin/backup/master-before-squash-0903`
+- [x] 2026-09-04 — PR #63: 커스텀 아이콘 17→6개, 2.6MB→52KB (P2-1·P2-2·P2-3 완료)
+- [x] 2026-09-04 — PR #64: mono-lab 저장소를 order 2 프로젝트로 등재 (P2-4 완료)
+- [x] 2026-09-04 — PR #65: 검색 가시성 인프라 — sitemap·robots·OG·JSON-LD·h1 계층 (P2-5·P3-3 완료)
+- [x] 2026-09-04 — PR #66: 개인 자료 `.gitignore` 추가, P3-9·P3-10·P3-11 등재
+- [x] 2026-09-04 — **P2 전 항목 완료.** develop 전 범위 점검(경로 19개·링크 61개·45개 조합) 문제 없음
 - [x] 2026-09-03 — portfolio@0.2.0 릴리스 (PR #54·#57·#55) — P0·P1 완료분을 master 반영 후 프로덕션 배포, GitHub Release 발행
 - [x] 2026-09-03 — PR #58: Experience 그리드·모바일 가로 넘침 회귀 수정 및 모바일 QA 반영 (0.2.0 배포 후 발견)
 - [x] 2026-09-03 — PR #56·#59: P3-8(릴리스 자동화 검토)·P2-5(검색 가시성 인프라) 백로그 등재

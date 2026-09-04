@@ -43,11 +43,41 @@ describe('resolveTechSkills', () => {
   });
 
   it('skillsData에 없는 기술은 보강 아이콘 목록에서 해석한다', () => {
-    const [php, postgres, vite] = resolveTuple('PHP', 'PostgreSQL', 'Vite');
+    const [php, postgres, vite, mdx] = resolveTuple('PHP', 'PostgreSQL', 'Vite', 'MDX');
 
     expect(php.icon).not.toBeNull();
     expect(postgres.icon).not.toBeNull();
     expect(vite.icon).not.toBeNull();
+    // mono-lab의 techStack 14개 중 유일하게 EXTRA_SKILLS에 의존하는 항목이다.
+    // 이름 오타나 SiMdx 임포트 누락이 생기면 상세 페이지에서 아이콘만 조용히 사라진다.
+    expect(mdx.icon).not.toBeNull();
+    expect(mdx.brandColor).toBe(canonicalBrandColor('MDX'));
+  });
+
+  // mono-lab 카드가 쓰는 표기 전체가 아이콘까지 해석되는지 고정한다(P2-4)
+  it('mono-lab의 techStack 표기를 모두 해석한다', () => {
+    const names = [
+      'Next.js 16',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS 4',
+      'MDX',
+      'Framer Motion',
+      'Three.js',
+      'Zustand',
+      'Turborepo',
+      'pnpm',
+      'Jest',
+      'Playwright',
+      'GitHub Actions',
+      'Vercel',
+    ];
+
+    resolveTechSkills(names).forEach((skill, index) => {
+      // 표시 이름은 MDX 원문 그대로 두고, 아이콘만 정식 항목에서 가져온다
+      expect(skill.name).toBe(names[index]);
+      expect(skill.icon ?? skill.customIconPath).toBeTruthy();
+    });
   });
 
   // frontmatter 표기를 다듬을 때 아이콘이 조용히 사라지지 않도록 고정한다

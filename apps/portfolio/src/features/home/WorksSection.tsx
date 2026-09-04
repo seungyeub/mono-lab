@@ -88,7 +88,9 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 className='w-full font-semibold'
               >
-                <h1 className='text-7xl tracking-tight md:text-8xl lg:text-9xl'>Works.</h1>
+                {/* 페이지의 h1은 Hero의 자기소개 한 문장이다. 섹션 제목은 h2로 둔다 —
+                    시각 크기는 클래스로 유지하므로 화면은 그대로다 (P2-5) */}
+                <h2 className='text-7xl tracking-tight md:text-8xl lg:text-9xl'>Works.</h2>
               </motion.div>
               <p className='text-base text-gray-400 md:text-lg'>
                 모든 프로젝트는 추상적인 비전을 직관적이고 매끄러운 사용자 경험으로 구현해 내는
