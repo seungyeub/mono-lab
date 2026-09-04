@@ -234,6 +234,10 @@ export function getProjectCards(): ProjectCard[] {
  * 홈 WorksSection에 노출할 프로젝트 선택 목록.
  * 자동(최신순)이 아니라 **여기서 직접 슬러그를 골라** 큐레이션한다 — 배열 순서가 곧 노출 순서다.
  * 항목을 바꾸려면 slug를 교체하면 되고, 오타·삭제된 슬러그는 테스트가 잡아낸다.
+ *
+ * 홈은 2열 격자라 **짝수를 유지해야 마지막 줄이 비지 않는다**(테스트로 강제).
+ * `mono-lab`은 이 목록에 넣지 않는다 — 넣으면 9개가 되어 기존 8건 중 하나를 빼야 하는데,
+ * 남은 8건이 이미 선별된 결과라 Archive(`/work`) 노출만으로 충분하다고 판단했다.
  */
 export const FEATURED_SLUGS = [
   'app-review-tracker',

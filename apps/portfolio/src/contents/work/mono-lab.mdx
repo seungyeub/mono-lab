@@ -1,0 +1,128 @@
+---
+title: 'mono-lab'
+category: 'Monorepo & AI Workflow'
+order: 2
+image: '/images/projects/mono-lab.webp'
+carouselImages:
+  - '/images/projects/mono-lab.webp'
+  - '/images/projects/mono-lab-02.webp'
+  - '/images/projects/mono-lab-03.webp'
+  - '/images/projects/mono-lab-04.webp'
+  - '/images/projects/mono-lab-05.webp'
+  - '/images/projects/mono-lab-06.webp'
+  - '/images/projects/mono-lab-07.webp'
+liveUrl: 'https://seungyeub.vercel.app'
+github: 'https://github.com/seungyeub/mono-lab'
+summary: '지금 보고 있는 이 사이트를 만든 Turborepo 모노레포. 설계는 Codex로 시작해 Antigravity로 기본 틀을 쌓았고, Gemini의 성능 한계를 확인한 뒤 Claude Code로 옮겨 이어왔다. 코드 작성 주체는 AI이며 본인 기여는 검증 기준을 세우고 AI의 진단을 반증하는 일이다. 저장소·커밋·PR 토론이 모두 공개되어 있어 이 서술 자체를 검증할 수 있다.'
+techStack:
+  [
+    'Next.js 16',
+    'React 19',
+    'TypeScript',
+    'Tailwind CSS 4',
+    'MDX',
+    'Framer Motion',
+    'Three.js',
+    'Zustand',
+    'Turborepo',
+    'pnpm',
+    'Jest',
+    'Playwright',
+    'GitHub Actions',
+    'Vercel',
+  ]
+overview:
+  - title: '역할'
+    description: '검증 기준 설계, AI 산출물과 진단에 대한 반증, 품질 게이트 도입 판단, 조사 중단 시점 결정. 코드 작성 주체는 AI이며 이는 저장소 커밋·PR 이력에 그대로 남아 있다.'
+  - title: '기간·상태'
+    description: '2026.05~ 진행 중 — 개인 프로젝트. 저장소와 라이브 사이트가 모두 공개 상태이며, 아래 서술은 커밋과 PR 토론으로 대조할 수 있다.'
+features:
+  - title: '모노레포 구조'
+    description: 'Turborepo로 앱 1개와 공유 패키지 4개(eslint-config · tailwind-config · typescript-config · ui)를 묶어 설정과 규칙을 한 곳에서 관리한다.'
+  - title: '시각 회귀 파이프라인'
+    description: 'Playwright로 baseline 24장을 CI 컨테이너에서 촬영해 비교한다. 로컬과 컨테이너의 렌더링 차이를 기준 환경 문제로 규명하고 개발 가이드에 명문화했다.'
+  - title: '다중 AI 협업'
+    description: 'Codex로 설계를 시작해 Antigravity로 기본 틀을 만들고, 성능 한계를 확인한 뒤 Claude Code로 전환했다. 도구를 바꾼 이유와 시점이 이력에 남아 있다.'
+  - title: '자동 품질 게이트'
+    description: 'CI 워크플로 5종에 CodeRabbit · SonarCloud · Lighthouse를 걸어, 사람이 놓친 것을 병합 전에 잡도록 했다.'
+implementation:
+  codeLanguage: 'typescript'
+  codeCaption: '허용치가 회귀를 숨기는 것을 막기 위해, 촬영 전에 스크롤 리빌을 강제로 완료시키는 자리'
+  codeNote: '코드 작성 주체는 AI입니다. 본인 기여는 baseline이 요소가 빠진 채로 굳는 현상을 발견하고 그 baseline을 폐기하도록 결정한 것입니다.'
+  codeSnippet:
+    - |
+      // 시각 회귀 비교는 maxDiffPixelRatio 0.05를 허용한다. 그런데 스크롤 리빌이
+      // 아직 발화하지 않은 채로 찍히면, 요소가 통째로 빠진 baseline이 그 허용치
+      // 안에 들어가 "통과"해 버린다. 한번 그렇게 굳으면 이후의 진짜 회귀도
+      // 같은 baseline과 비교되어 계속 통과한다.
+      //
+      // 실제로 두 번 겪었다. 카드 8장 중 3장만 찍힌 works baseline과, 2행으로
+      // 깨진 experience baseline이 각각 정답으로 굳었다. 대기 시간을 늘리는
+      // 방향으로 먼저 시도했으나 오히려 3장이 2장으로 줄어, 시간 문제가
+      // 아니라는 것이 드러났다. 그래서 기다리는 대신 끝까지 스크롤해
+      // 관찰자를 모두 발화시키고, 남은 인라인 스타일을 최종 상태로 덮어쓴다.
+      async function revealAll(page: Page) {
+        await page.evaluate(async () => {
+          const step = window.innerHeight / 2;
+          for (let y = 0; y < document.body.scrollHeight; y += step) {
+            window.scrollTo(0, y);
+            await new Promise((resolve) => setTimeout(resolve, 60));
+          }
+          window.scrollTo(0, 0);
+          await new Promise((resolve) => setTimeout(resolve, 400));
+
+          document
+            .querySelectorAll<HTMLElement>('[style*="opacity"], [style*="transform"]')
+            .forEach((element) => {
+              const opacity = element.style.opacity;
+              if (opacity !== '' && Number.parseFloat(opacity) < 1) element.style.opacity = '1';
+              if (element.style.transform) element.style.transform = 'none';
+            });
+        });
+      }
+  architecture: 'Turborepo 모노레포 — 앱 1 + 공유 패키지 4 · CI 워크플로 5종 · 태그 push 배포'
+  highlights:
+    - 'CI 정체(37·21·10분)의 원인을 규명하고 방향을 바꾼 것 — 재시도와 락 정리로 해결을 시도했으나 미러 대역폭이 실제 원인임을 실측으로 확인하고, "일시적"이라던 판단을 철회한 뒤 공식 컨테이너 전환으로 방향을 바꿨다'
+    - '허용치가 회귀를 숨기는 문제를 발견한 것 — maxDiffPixelRatio 0.05 때문에 리빌이 발화하지 않은 baseline이 갱신되지 않고 굳는 것을 확인하고, 해당 baseline을 폐기해 재생성하도록 했다'
+    - 'baseline의 기준 환경을 규명하고 문서화한 것 — 같은 코드가 macOS와 CI 컨테이너에서 다르게 렌더링되어(래스터라이저 차이로 한글 문단 줄바꿈이 누적 변동) 로컬 실패가 정상임을 밝히고 개발 가이드에 명문화했다'
+    - '자기 진단을 철회한 것 — 스냅샷이 깨진 원인을 mix-blend-mode로 진단했다가 틀렸음을 확인하고, 페이지 로더 오버레이가 함께 찍힌 것임을 규명해 대기 조건을 추가했다'
+    - '자동 리뷰를 취사선택한 것 — CodeRabbit의 지적을 무조건 수용하지 않고 반영과 미반영을 판단해, 미반영은 근거를 PR 코멘트로 남겼다'
+impact:
+  metrics:
+    - label: '머지된 PR'
+      value: '57건'
+    - label: 'CI 워크플로'
+      value: '5종'
+    - label: '자동 테스트'
+      value: '83건'
+  outcomes:
+    - '머지된 PR 57건이 모두 자동 검사를 거쳤다 — 단위 테스트 59건과 시각 회귀 baseline 24장이 병합 전에 실행된다 (2026-09-04 기준)'
+    - '도구가 알려주지 않는 것을 사람이 판단한 기록이 남아 있다 — CI 정체의 실제 원인, 허용치가 숨긴 회귀, 렌더링 기준 환경 세 건 모두 자동 검사를 통과한 상태에서 발견했다'
+    - '틀린 진단을 철회한 기록도 남겼다 — 원인을 단정했다가 반증된 사례를 지우지 않고 PR 토론에 남겨, 판단 과정 자체가 검증 대상이 되도록 했다'
+---
+
+## 왜 이 저장소를 프로젝트로 넣는가
+
+다른 프로젝트 10건은 전부 비공개이거나 발주처 자산이다. 읽는 사람 입장에서는 결국 서술을 믿는 수밖에 없다. 이 저장소만 라이브 사이트와 공개 저장소, 전체 커밋 이력과 PR 토론이 모두 열려 있다. 여기 적은 문장 하나하나를 직접 대조할 수 있다는 것이 이 카드의 유일한 목적이다.
+
+사이트는 산출물이고, 본체는 개발 방식이다. 그래서 "지금 보고 있는 이 페이지가 그 산출물"이라는 자기참조가 이 카드에서는 어색함이 아니라 근거가 된다.
+
+## 도구를 세 번 바꾼 이유
+
+설계는 Codex로 시작했다. 구조를 잡고 나서는 Antigravity로 옮겨 기본 틀을 쌓아 올리며 개발을 이어갔다. 그러다 Antigravity가 쓰는 Gemini의 성능이 이 작업에 충분하지 않다고 판단해 Claude Code로 옮겼고, 지금까지 그 위에서 진행하고 있다.
+
+도구를 바꾼 것 자체는 성과가 아니다. 다만 무엇이 부족해서 옮겼는지를 판단하고 그 시점을 기록으로 남긴 것은 남는다.
+
+## AI가 쓴 코드를 어떻게 믿을 것인가
+
+이 프로젝트의 코드 작성 주체는 AI다. 그러면 사람의 일은 코드를 치는 것이 아니라, 산출물과 진단을 검증하는 것이 된다. 여기서 배운 것은 **자동 검사를 통과했다는 사실이 옳다는 뜻은 아니라는 것**이다.
+
+시각 회귀 테스트가 그 예다. 비교 허용치가 5%라, 스크롤 리빌이 발화하지 않아 요소가 통째로 빠진 화면도 허용치 안에 들어가 통과했다. 그렇게 한번 기준 이미지로 굳으면 이후의 진짜 회귀까지 같은 이미지와 비교되어 계속 통과한다. 카드 8장 중 3장만 찍힌 이미지와, 2행으로 깨진 배치가 각각 정답으로 굳어 있었다.
+
+처음에는 대기 시간을 늘리는 쪽으로 접근했다. 결과는 3장이 2장으로 줄어드는 것이었고, 시간 문제가 아니라는 사실이 그때 드러났다. 기다리는 대신 촬영 전에 페이지 끝까지 스크롤해 관찰자를 모두 발화시키는 쪽으로 바꿨고, 오염된 기준 이미지는 폐기했다.
+
+## 틀린 진단을 지우지 않기
+
+같은 이유로 틀렸던 판단도 남겨 두었다. 스냅샷이 깨진 원인을 처음에는 `mix-blend-mode`로 진단했지만 사실이 아니었다. 실제로는 페이지 로더 오버레이가 함께 찍힌 것이었다. CI가 반복해서 멈춘 것도 처음에는 일시적인 문제로 봤지만, 실측해 보니 미러 대역폭이 원인이었고 그 판단은 철회해야 했다.
+
+두 경우 모두 원래 진단을 지우고 결론만 남길 수 있었다. 그렇게 하지 않은 이유는, 무엇을 얼마나 확인하고 판단했는지가 결론보다 더 많은 것을 말해 준다고 봤기 때문이다.

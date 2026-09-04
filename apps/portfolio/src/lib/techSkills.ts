@@ -8,6 +8,7 @@ import {
   SiGooglemaps,
   SiI18next,
   SiJquery,
+  SiMdx,
   SiMinio,
   SiPhp,
   SiPostgresql,
@@ -47,6 +48,7 @@ const EXTRA_SKILLS: SkillItem[] = [
   { name: 'MinIO', icon: SiMinio, brandColor: '#C72E49' },
   { name: 'i18next', icon: SiI18next, brandColor: '#26A69A' },
   { name: 'Stripe', icon: SiStripe, brandColor: '#635BFF' },
+  { name: 'MDX', icon: SiMdx, brandColor: '#FCB32C' },
 ];
 
 /** 정규화된 표기 → 정식 항목 이름. 정규화(버전·괄호 제거)로 못 잡는 표기만 등재한다. */

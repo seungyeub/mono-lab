@@ -13,7 +13,7 @@
 - [x] P2-1. Header 우측 "Based in Seoul" 콘텐츠 결정 — 강조 뒤집기(직군 굵게 / 위치 회색)로 확정
 - [x] P2-2. 커스텀 아이콘 17개 정리 — 10개는 이미 설치된 `@icons-pack/react-simple-icons`로 교체, 래스터 2개는 144px WebP로 재생성. 2.6MB → 52KB. `aws`·`mssql` 브랜드 정확성은 미해결
 - [x] P2-3. StoryAnimation 컴포넌트 — 배치하지 않고 제거로 확정
-- [ ] P2-4. 포트폴리오 저장소(mono-lab) 자체를 프로젝트로 등재 (계획 수립 완료 — `docs/plan/2026-09-03_mono-lab-project-card.md`)
+- [x] P2-4. 포트폴리오 저장소(mono-lab) 자체를 프로젝트로 등재 — order 2로 등재, 캡쳐 7장 반영. 홈 미노출(짝수 계약), Archive에만 노출
 - [ ] P2-5. 검색 가시성 인프라 구축 — sitemap·robots·OG·JSON-LD·`h1` 계층 정리 (P3-3 `lang='ko'` 포함). 0.2.0 점검에서 모두 404·미구현 확인
 
 ### 🟢 P3 — Backlog (선택적/폴리싱)
