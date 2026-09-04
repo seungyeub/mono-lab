@@ -3,6 +3,7 @@ import {
   getAllProjects,
   getProjectBySlug,
   getProjectSeoMetadata,
+  publicAssetExists,
 } from '@/src/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
@@ -19,6 +20,10 @@ import WorkDetailHero from '@/src/features/work/detail/WorkDetailHero';
 import { ComponentPropsWithoutRef } from 'react';
 import type { Metadata } from 'next';
 
+import JsonLd from '@/src/components/JsonLd';
+import { SITE_NAME, absoluteUrl, buildPageOpenGraph } from '@/src/lib/siteConfig';
+import { buildBreadcrumbSchema, buildCreativeWorkSchema } from '@/src/lib/structuredData';
+
 type ProjectDetailParams = { slug: string };
 
 export async function generateStaticParams() {
@@ -33,7 +38,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const seo = getProjectSeoMetadata(slug);
-  return seo ?? {};
+  if (!seo) return {};
+
+  // 카드 이미지가 실제로 있을 때만 쓴다. 없는 경로를 내보내면 미리보기가 깨진 채로
+  // 공유되므로, 그럴 때는 헬퍼가 사이트 기본 이미지로 대신 채운다.
+  const { meta } = getProjectBySlug(slug);
+  const image = meta.image && publicAssetExists(meta.image) ? absoluteUrl(meta.image) : undefined;
+
+  return {
+    ...seo,
+    alternates: { canonical: `/work/${slug}` },
+    ...buildPageOpenGraph({
+      title: `${seo.title} | ${SITE_NAME}`,
+      description: seo.description,
+      path: `/work/${slug}`,
+      type: 'article',
+      ...(image ? { image } : {}),
+    }),
+  };
 }
 
 const mdxComponents = {
@@ -89,6 +111,24 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
 
   return (
     <main data-testid='work-detail' className='min-h-screen w-full'>
+      {/* 경로 계층과 작업물 정보. 저자는 루트에서 낸 Person을 @id로 참조한다 */}
+      <JsonLd
+        data={[
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Archive', path: '/work' },
+            { name: meta.title, path: `/work/${slug}` },
+          ]),
+          buildCreativeWorkSchema({
+            slug,
+            title: meta.title,
+            category: meta.category,
+            ...(meta.summary ? { summary: meta.summary } : {}),
+            ...(meta.image && publicAssetExists(meta.image) ? { image: meta.image } : {}),
+            techStack: meta.techStack,
+          }),
+        ]}
+      />
       <ScrollToTop trigger={slug} />
       <WorkDetailHero meta={meta} heroImages={heroImages} />
 

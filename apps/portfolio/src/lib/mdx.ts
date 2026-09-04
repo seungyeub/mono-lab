@@ -193,7 +193,8 @@ export function getProjectSeoMetadata(slug: string): { title: string; descriptio
   try {
     const { meta } = getProjectBySlug(slug);
     return {
-      title: `${meta.title} | Seungyeub Baek`,
+      // 사이트명은 루트 layout의 title.template가 붙인다 — 여기서 넣으면 두 번 붙는다
+      title: meta.title,
       description: `${meta.title} — ${meta.category} 프로젝트 상세입니다.`,
     };
   } catch {
