@@ -46,3 +46,11 @@ playwright/.cache/
 .vercel
 .env*
 tmp/
+
+# 개인 자료 — 절대 커밋하지 않는다.
+# docs/career: 이력·경력 초안. docs/resources: 발주처 화면 캡쳐와 코드 스니펫 원본.
+# 저장소가 공개라 한 번 커밋되면 즉시 공개된다.
+# 루트 docs/ 전체를 무시하면 안 된다 — docs/guides·docs/plan·docs/dev-logs의
+# 추적 중인 문서 11개가 있고, 새 문서를 추가해도 git이 조용히 무시하게 된다.
+docs/career/
+docs/resources/
