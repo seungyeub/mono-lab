@@ -9,6 +9,7 @@ import type { Metadata } from 'next';
 import JsonLd from '@/src/components/JsonLd';
 import { buildPersonSchema, buildWebSiteSchema } from '@/src/lib/structuredData';
 import {
+  GOOGLE_SITE_VERIFICATION,
   OG_IMAGE,
   OG_IMAGE_HEIGHT,
   OG_IMAGE_WIDTH,
@@ -66,6 +67,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  // Search Console 소유 확인. 하위 페이지가 verification을 정의하지 않으므로
+  // 루트에서 전 페이지로 상속된다.
+  verification: {
+    google: GOOGLE_SITE_VERIFICATION,
   },
   manifest: '/site.webmanifest',
   icons: {
