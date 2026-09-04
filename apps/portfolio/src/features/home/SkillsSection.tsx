@@ -47,7 +47,10 @@ export default function SkillsSection() {
       </div>
 
       {/* ── TagBar ── */}
-      <TagBar tags={SKILL_TAGS} hideFromIndex={3} />
+      {/* Skills만 md(768px) 미만에서 숨긴다. 태그가 5개라 좁은 화면에서 빽빽해지는데,
+          Experience·Epilogue는 태그 수가 적어 그대로 둔다(2026-09-04 확정, P3-9).
+          바 전체가 숨겨지므로 hideFromIndex는 더 이상 관여하지 않아 제거했다. */}
+      <TagBar tags={SKILL_TAGS} className='hidden md:block' />
 
       {/* ── 카테고리별 스킬 목록 ── */}
       <div className='site-container w-full px-6 md:px-12'>

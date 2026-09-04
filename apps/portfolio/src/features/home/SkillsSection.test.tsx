@@ -5,6 +5,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import SkillsSection from './SkillsSection';
+import { SKILL_TAGS } from './skillsData';
 
 // framer-motion mock
 jest.mock('framer-motion', () => {
@@ -93,5 +94,25 @@ describe('SkillsSection', () => {
     expect(screen.getAllByText('React.js')[0]).toBeInTheDocument();
     expect(screen.getAllByText('Next.js')[0]).toBeInTheDocument();
     expect(screen.getAllByText('TypeScript')[0]).toBeInTheDocument();
+  });
+
+  it('TagBar를 md(768px) 미만에서 통째로 숨긴다 (P3-9)', () => {
+    const { container } = render(<SkillsSection />);
+    const bar = container.querySelector('ul')?.closest('div.hidden');
+
+    // 좁은 화면에서 태그 5개가 빽빽해지는 문제라 바 전체를 숨긴다.
+    // Experience·Epilogue는 이 클래스를 받지 않아 그대로 노출된다.
+    expect(bar).not.toBeNull();
+    expect(bar).toHaveClass('hidden', 'md:block');
+  });
+
+  it('태그 5개를 모두 렌더링한다', () => {
+    render(<SkillsSection />);
+
+    // 바가 보이는 구간(768px 이상)은 sm도 넘으므로 li의 sm:block이 적용돼
+    // 개별 태그가 숨겨지는 일은 없다 — 5개가 항상 함께 보인다
+    SKILL_TAGS.forEach((tag) => {
+      expect(screen.getAllByText(tag).length).toBeGreaterThan(0);
+    });
   });
 });
