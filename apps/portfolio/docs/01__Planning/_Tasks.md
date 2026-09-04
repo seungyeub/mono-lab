@@ -25,6 +25,9 @@
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
 - [ ] P3-8. 릴리스 자동화 도입 검토 (Changesets vs release-please) — `docs/plan/2026-09-03_release-automation.md`
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
+- [ ] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
+- [ ] P3-10. 데드 컴포넌트 `EditorialDivider` 배치 또는 제거
+- [ ] P3-11. Lighthouse 성능 개선 — 현재 0.25(warn만 걸려 CI 통과). CSS 배경 이미지 → `next/image` 전환이 핵심
 
 ---
 
