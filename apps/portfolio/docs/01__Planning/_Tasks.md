@@ -19,14 +19,14 @@
 ### 🟢 P3 — Backlog (선택적/폴리싱)
 
 - [ ] P3-1. 데스크톱 폰트 스케일업 최종 결정
-- [ ] P3-2. Skills Section 구분선(White Line) 제거 여부 결정
+- [x] P3-2. Skills Section 구분선(White Line) 제거 — 그 구분선이 `EditorialDivider`였고 P3-10에서 함께 제거
 - [x] P3-3. `<html lang='en'>` → `ko` 수정 — P2-5에서 함께 처리
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
 - [ ] P3-8. 릴리스 자동화 도입 검토 (Changesets vs release-please) — `docs/plan/2026-09-03_release-automation.md`
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
 - [ ] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
-- [ ] P3-10. 데드 컴포넌트 `EditorialDivider` 배치 또는 제거
+- [x] P3-10. `EditorialDivider` 제거 — 커밋된 코드 기준 데드 코드였다. 조사 중 작업 트리의 확인용 임시 호출을 커밋된 사용처로 오인한 적이 있으나, 저장소 이력에는 존재한 적 없다
 - [ ] P3-11. Lighthouse 성능 개선 — 현재 0.25(warn만 걸려 CI 통과). CSS 배경 이미지 → `next/image` 전환이 핵심
 
 ---
@@ -108,7 +108,7 @@
 - [x] 2026-08-19 — PR #49: Playwright CI 브라우저 설치 병목 제거 — 공식 컨테이너 전환 (P3-7 완료)
 - [x] 2026-08-19 — PR #50: Turborepo 2.9.14 → 2.10.11 업그레이드
 - [x] 2026-08-19 — PR #51: 홈 Work 카드를 MDX 단일 소스로 통합 (P0-6 완료)
-- [x] 2026-08-19 — P1-2: 주석 처리된 브랜드 디자이너 섹션의 **import·렌더 제거** (`BrandSection`/`ServicesSection`/`EditorialDivider`). **`EditorialDivider.tsx` 파일 자체는 남아 있다** — 데드 코드 상태이며 처분은 P3-10에서 결정한다
+- [x] 2026-08-19 — P1-2: 주석 처리된 브랜드 디자이너 섹션의 **import·렌더 제거** (`BrandSection`/`ServicesSection`/`EditorialDivider`). **`EditorialDivider.tsx` 파일은 남아 있었다** — 2026-09-04 P3-10에서 제거했다
 - [x] 2026-09-02 — `docs/01__Planning/` 4개 파일 + README 2개 기록 최신화
 - [x] 2026-09-03 — PR #52: Works 영역 전면 리뉴얼 (P1-1·P1-2 완료) — 실제 경력 프로젝트 10건 등재, 상세 페이지 재설계, 카드 16:10 통일, 이미지 라이트박스, VRT 인프라 결함 수정 (55 커밋)
 - [x] 2026-09-03 — 이슈 #53 생성: P3-6 디자인 토큰 정비 실행 목록 (PR #52 리뷰에서 파생)
