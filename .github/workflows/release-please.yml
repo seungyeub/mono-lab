@@ -1,0 +1,31 @@
+name: Release Please
+
+# master에 커밋이 쌓이면 Conventional Commits를 읽어 릴리스 PR을 열고,
+# 그 PR이 머지되면 태그·GitHub Release를 만든다. 태그 push가 deploy-portfolio.yml을 발화시킨다.
+#
+# 기본 GITHUB_TOKEN으로 만든 PR과 태그는 다른 워크플로를 발화시키지 않는다(재귀 방지).
+# 그러면 릴리스 PR에 CI가 안 돌고 태그가 생겨도 배포가 시작되지 않으므로,
+# contents:write + pull-requests:write 권한의 PAT(RELEASE_PLEASE_TOKEN)를 쓴다.
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          target-branch: master
