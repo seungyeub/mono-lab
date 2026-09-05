@@ -114,7 +114,7 @@
 
 ```
 1. develop에서 작업, feat:/fix: 커밋 (기존과 같음)
-2. develop → master PR 머지
+2. develop → master PR을 **Merge commit**으로 머지   ← squash 금지 (아래 설명)
 3. [자동] release-please가 "release(portfolio): 0.4.0" PR을 연다 — 버전은 커밋 타입으로 결정
 4. 릴리스 PR 머지
 5. [자동] 태그 portfolio@0.4.0 + GitHub Release 발행 → deploy-portfolio.yml 실행
@@ -123,16 +123,29 @@
 
 수동 단계가 4개(버전 범프 PR·develop→master·태그·Release)에서 2개(develop→master·릴리스 PR 머지)로 줄고, 버전 범프·체인지로그·태그·Release가 자동화된다.
 
+### develop → master는 반드시 Merge commit (2026-09-05 결정)
+
+release-please는 PR을 보지 않고 **master의 git log**를 읽는다. 지난 태그 이후 master에 실제로 존재하는 커밋의 제목 타입으로 버전을 정하고, 제목으로 체인지로그를 쓴다.
+
+- **squash로 합치면** master에 커밋 하나만 남는다. 제목이 기존 관례인 `release(portfolio): ...`면 `release`는 인식 타입이 아니라 **릴리스 PR이 열리지 않는다.** `feat(portfolio):`로 바꾸면 열리지만 체인지로그는 그 한 줄이 전부다 — develop에 쌓인 개별 변경이 사라진다.
+- **merge commit으로 합치면** develop의 커밋이 그대로 master에 들어와 release-please가 원본을 읽는다. 항목별 체인지로그가 자동으로 나온다.
+- develop의 커밋은 이미 기능 PR 단위로 squash된 의미 단위(`feat(portfolio): ... (#64)`)라 master 이력이 지저분해지지 않는다.
+- squash 본문을 `feat(...):` 문단 형식으로 손으로 옮겨 적으면 `splitMessages`가 파싱하긴 한다. 그러나 매번 베껴 적어야 하고 형식이 어긋나면 조용히 빠져, 자동화하면서 수동 규율을 하나 더 만드는 셈이라 택하지 않았다.
+
+**develop → master PR 제목은 Conventional Commits 형식으로 쓰지 않는다.** 저장소 설정(`merge_commit_message: PR_TITLE`)상 PR 제목이 merge commit 본문으로 들어가는데, 제목이 `feat(...):`면 `splitMessages`가 이를 커밋 하나로 더 세어 이중 집계된다. `Release: P3 반영` 처럼 타입 없이 쓴다. 기능 PR → develop은 지금처럼 squash를 유지한다.
+
 ### hotfix
 
 ```
 1. master에서 hotfix/xxx 브랜치 생성   ← develop을 거치지 않는다
 2. fix(portfolio): ... 커밋
-3. hotfix → master PR 머지
+3. hotfix → master PR을 squash로 머지, 제목은 fix(portfolio): ...   ← 여기는 squash가 맞다
 4. [자동] "release(portfolio): 0.4.1" PR — fix:라서 patch
 5. 릴리스 PR 머지 → [자동] 태그·Release·배포
 6. master → develop 백머지                ← 빠뜨리면 다음 릴리스에서 버그가 되살아난다
 ```
+
+hotfix 브랜치는 작업 중 커밋이 여러 개일 수 있어 squash가 맞다. 결과가 `fix(portfolio): ...` 커밋 하나로 남으면 release-please가 patch를 제안한다. develop → master와 규칙이 다른 이유는, develop은 이미 정리된 커밋의 모음이고 hotfix 브랜치는 아직 정리 전이기 때문이다.
 
 ### 주의: 릴리스 PR을 열어두지 말 것
 
