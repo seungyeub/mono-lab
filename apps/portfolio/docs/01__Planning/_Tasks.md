@@ -22,7 +22,8 @@
 - [x] P3-2. Skills Section 구분선(White Line) 제거 — 그 구분선이 `EditorialDivider`였고 P3-10에서 함께 제거
 - [x] P3-3. `<html lang='en'>` → `ko` 수정 — P2-5에서 함께 처리
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
-- [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
+- [x] P3-5. HeroSection 하단 Marquee — 구분자를 텍스트 사이 가운데로 이동(좌우 40px 동일). 띠 자체는 유지, 겹친 선 4줄은 P3-6으로 인계
+- [ ] P3-12. 섹션 구분 강화 (긴 모니터 대응) — 다섯 섹션이 화면 높이를 넘어(최대 1.8화면) 풀페이지 스냅은 콘텐츠 손실을 부른다. 헤더 고정·배경 교대 등 대안 검토. 착수 전 계획 필요
 - [ ] P3-8. 릴리스 자동화 도입 검토 (Changesets vs release-please) — `docs/plan/2026-09-03_release-automation.md`
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
 - [ ] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요

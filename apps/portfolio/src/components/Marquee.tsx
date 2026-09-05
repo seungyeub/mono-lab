@@ -47,7 +47,7 @@ export default function Marquee({
     <div className={`w-full overflow-hidden border-y border-white/10 py-2 ${className}`}>
       <div
         ref={trackRef}
-        className='flex gap-0 whitespace-nowrap will-change-transform'
+        className='flex gap-6 whitespace-nowrap will-change-transform md:gap-10'
         style={{
           animation: `marquee-scroll ${duration}s linear infinite`,
         }}
@@ -57,7 +57,9 @@ export default function Marquee({
             <span className='text-xs font-medium tracking-[0.2em] uppercase md:text-sm'>
               {item}
             </span>
-            <span className='mr-1 text-xs text-gray-600'>{separator}</span>
+            <span className='text-xs text-gray-600' aria-hidden='true'>
+              {separator}
+            </span>
           </span>
         ))}
       </div>
