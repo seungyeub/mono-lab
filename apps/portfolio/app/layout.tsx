@@ -88,6 +88,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={SITE_LANG}>
+      <head>
+        {/* Pretendard는 globals.css의 @import가 아니라 여기서 싣는다 — @import는 발견이 늦고
+            렌더를 차단한다. dynamic-subset 가변 폰트는 굵기 9종·woff2 27개를 선언하던 static
+            빌드 대신 실제로 쓰이는 유니코드 범위의 파일만 받는다. preconnect로 연결을 먼저 연다. */}
+        <link rel='preconnect' href='https://cdn.jsdelivr.net' crossOrigin='anonymous' />
+        <link
+          rel='stylesheet'
+          href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css'
+        />
+      </head>
       <body
         className={`${inter.variable} min-h-screen text-white antialiased selection:bg-white selection:text-black`}
       >

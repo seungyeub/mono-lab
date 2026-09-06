@@ -28,7 +28,7 @@
 - [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
 - [ ] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
 - [x] P3-10. `EditorialDivider` 제거 — 커밋된 코드 기준 데드 코드였다. 조사 중 작업 트리의 확인용 임시 호출을 커밋된 사용처로 오인한 적이 있으나, 저장소 이력에는 존재한 적 없다
-- [ ] P3-11. Lighthouse 성능 개선 — 현재 0.25(warn만 걸려 CI 통과). CSS 배경 이미지 → `next/image` 전환이 핵심
+- [x] P3-11. Lighthouse 성능 개선 — 0.42→0.75(로컬). 원인은 CSS 배경 이미지가 아니라 3D 번들의 메인 스레드 점유·Pretendard `@import` 렌더 차단·`template.tsx` 진입 페이드였다. 관측 LCP 195ms(FCP와 동일), 보고값 4.3s는 시뮬레이션 특성. 임계값 상향은 CI 실측 후 결정
 
 ---
 

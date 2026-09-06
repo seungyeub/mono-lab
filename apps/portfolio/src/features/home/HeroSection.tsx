@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useCursorStore } from '@/src/store/useCursorStore';
 import { ErrorBoundary } from '@/src/components/ErrorBoundary';
 import RollingLink from '@/src/components/RollingText/RollingLink';
@@ -11,6 +11,20 @@ import dynamic from 'next/dynamic';
 const InteractiveCardCanvas = dynamic(() => import('./components/InteractiveCardCanvas'), {
   ssr: false,
 });
+
+/**
+ * 3D 캔버스가 뜨기 전에 자리를 지키는 정적 플레이스홀더.
+ * three.js + rapier 번들(전송 약 1.1MB, 실행 약 5초)이 하이드레이션 직후 메인 스레드를
+ * 잡으면 첫 화면 텍스트가 그려지지 못해 LCP가 13초까지 밀렸다(P3-11 Lighthouse 실측).
+ * 캔버스 마운트를 브라우저가 한가해진 뒤로 미루고, 그동안은 이 블록을 보여준다.
+ */
+function CardPlaceholder() {
+  return (
+    <div className='flex h-full w-full items-center justify-center rounded-xl border border-white/10 bg-black/20'>
+      <div className="h-16 w-16 rounded-full bg-[url('/images/avatar.jpg')] bg-cover bg-center opacity-50 grayscale" />
+    </div>
+  );
+}
 
 const MARQUEE_ITEMS = [
   'Precision',
@@ -25,6 +39,19 @@ const MARQUEE_ITEMS = [
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const setCursorType = useCursorStore((s) => s.setType);
+
+  // 캔버스는 LCP가 끝나고 메인 스레드가 비었을 때 올린다.
+  // requestIdleCallback은 Safari에 없어 setTimeout으로 대체하고, 바쁜 페이지에서
+  // 무한정 기다리지 않도록 timeout을 둔다.
+  const [canvasReady, setCanvasReady] = useState(false);
+  useEffect(() => {
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(() => setCanvasReady(true), { timeout: 2000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = window.setTimeout(() => setCanvasReady(true), 200);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -69,10 +96,13 @@ export default function HeroSection() {
               </motion.span>
             </div>
 
-            {/* 메인 헤드라인 */}
+            {/* 메인 헤드라인 — 이 h1이 LCP 요소다.
+                opacity를 0에서 시작하면 JS가 하이드레이션돼 페이드를 끝낼 때까지 "그려지지 않은"
+                것으로 잡혀 LCP가 13~15초까지 밀렸다(P3-11 실측). 텍스트는 첫 페인트부터 보이게 두고
+                위로 올라오는 움직임만 남긴다 — transform은 LCP 판정에 영향이 없다. */}
             <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ y: 40 }}
+              animate={{ y: 0 }}
               transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
               className='mt-4 text-[clamp(1.1rem,3.5vw,3rem)] leading-[1.2] font-semibold md:mt-12 md:font-bold lg:mt-16'
             >
@@ -126,7 +156,7 @@ export default function HeroSection() {
                   </div>
                 }
               >
-                <InteractiveCardCanvas />
+                {canvasReady ? <InteractiveCardCanvas /> : <CardPlaceholder />}
               </ErrorBoundary>
             </div>
           </motion.div>
