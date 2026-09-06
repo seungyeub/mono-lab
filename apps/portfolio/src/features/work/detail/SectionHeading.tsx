@@ -14,7 +14,7 @@ export default function SectionHeading({
   return (
     <div className='mb-10 flex flex-col items-center gap-3 text-center md:mb-14'>
       {eyebrow && (
-        <span className='inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-1.5 text-[10px] font-medium tracking-[0.2em] text-white/50 uppercase'>
+        <span className='text-label tracking-label border-line-strong inline-flex items-center gap-2 rounded-full border px-4 py-1.5 font-medium text-white/50 uppercase'>
           <span aria-hidden className='h-1 w-1 rounded-full bg-white/60' />
           {eyebrow}
         </span>

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className='min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
-      <div className='flex flex-col justify-between gap-16 border-b border-white/10 pb-16 md:flex-row'>
+      <div className='border-line flex flex-col justify-between gap-16 border-b pb-16 md:flex-row'>
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>
             Let&apos;s Work

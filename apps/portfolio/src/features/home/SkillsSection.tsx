@@ -15,7 +15,7 @@ export default function SkillsSection() {
   return (
     <section
       data-testid='skills-section'
-      className='flex w-full flex-col items-start gap-10 pt-[140px] sm:gap-[60px] md:gap-[80px] md:pt-[120px] xl:pt-[180px]'
+      className='pt-section xl:pt-section-lg flex w-full flex-col items-start gap-10 sm:gap-[60px] md:gap-[80px]'
     >
       {/* ── SectionLabel ── */}
       <SectionLabel scene='03' leftLabel='© Technical Skills 기술 역량' rightLabel='Stack' />
@@ -63,7 +63,7 @@ export default function SkillsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: catIndex * 0.05 }}
-                className='mb-5 border-b border-white/20 pb-4 text-lg font-bold uppercase md:mb-6 md:pb-6 md:text-xl'
+                className='border-line-strong mb-5 border-b pb-4 text-lg font-bold uppercase md:mb-6 md:pb-6 md:text-xl'
               >
                 <h3>{category.title}</h3>
               </motion.div>

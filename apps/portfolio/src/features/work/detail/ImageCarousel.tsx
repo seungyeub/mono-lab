@@ -65,7 +65,7 @@ export default function ImageCarousel({
         onMouseLeave={() => setIsHovered(false)}
         onFocusCapture={() => setIsHovered(true)}
         onBlurCapture={() => setIsHovered(false)}
-        className={`relative w-full overflow-hidden rounded-lg border border-white/10 bg-[#1a1a1a] ${aspectClass}`}
+        className={`bg-surface-raised border-line relative w-full overflow-hidden rounded-lg border ${aspectClass}`}
       >
         {hasImages ? (
           <>

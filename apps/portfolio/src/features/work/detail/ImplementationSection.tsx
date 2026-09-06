@@ -31,12 +31,12 @@ export default async function ImplementationSection({
       />
       <div className={`grid gap-4 md:gap-6 ${hasArchitecture && hasCode ? 'lg:grid-cols-2' : ''}`}>
         {hasArchitecture && (
-          <div className='min-w-0 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
+          <div className='border-line min-w-0 rounded-xl border bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
             <h3 className='mb-5 text-lg font-semibold md:text-xl'>Architecture</h3>
 
             {implementation.architecture && (
-              <div className='mb-6 rounded-lg border border-white/10 bg-black/40 p-4'>
-                <p className='mb-1.5 text-[10px] font-medium tracking-[0.2em] text-white/40 uppercase'>
+              <div className='border-line mb-6 rounded-lg border bg-black/40 p-4'>
+                <p className='text-label tracking-label mb-1.5 font-medium text-white/40 uppercase'>
                   System Design
                 </p>
                 <p className='text-sm leading-relaxed font-medium md:text-base'>
@@ -47,18 +47,18 @@ export default async function ImplementationSection({
 
             {implementation.highlights.length > 0 && (
               <div>
-                <p className='mb-3 text-[10px] font-medium tracking-[0.2em] text-white/40 uppercase'>
+                <p className='text-label tracking-label mb-3 font-medium text-white/40 uppercase'>
                   Key Highlights
                 </p>
                 <ul className='flex flex-col gap-2.5'>
                   {implementation.highlights.map((highlight, index) => (
                     <li
                       key={highlight}
-                      className='flex items-start gap-3 rounded-lg border border-white/10 bg-white/5 p-3 transition-colors duration-300 hover:border-white/25'
+                      className='border-line flex items-start gap-3 rounded-lg border bg-white/5 p-3 transition-colors duration-300 hover:border-white/25'
                     >
                       <span
                         aria-hidden
-                        className='mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/15 font-mono text-[10px] text-white/60'
+                        className='text-label border-line-strong mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border font-mono text-white/60'
                       >
                         {index + 1}
                       </span>
@@ -74,12 +74,12 @@ export default async function ImplementationSection({
         )}
 
         {hasCode && (
-          <div className='min-w-0 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
+          <div className='border-line min-w-0 rounded-xl border bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
             <h3 className='mb-5 text-lg font-semibold md:text-xl'>Code Snippet</h3>
 
             {implementation.codeCaption && (
-              <div className='mb-6 rounded-lg border border-white/10 bg-black/40 p-4'>
-                <p className='mb-1.5 text-[10px] font-medium tracking-[0.2em] text-white/40 uppercase'>
+              <div className='border-line mb-6 rounded-lg border bg-black/40 p-4'>
+                <p className='text-label tracking-label mb-1.5 font-medium text-white/40 uppercase'>
                   Implementation
                 </p>
                 <p className='text-sm leading-relaxed font-medium md:text-base'>
@@ -100,10 +100,10 @@ export default async function ImplementationSection({
               {highlighted.map((html, index) => (
                 <div
                   key={implementation.codeSnippet[index]}
-                  className='overflow-hidden rounded-lg border border-white/10 bg-black'
+                  className='border-line overflow-hidden rounded-lg border bg-black'
                 >
                   {/* 브라우저 창 느낌을 내는 장식 — 신호등 색은 통념대로 둔다 */}
-                  <div className='flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-4 py-2.5'>
+                  <div className='border-line flex items-center gap-1.5 border-b bg-white/5 px-4 py-2.5'>
                     <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-[#EF4444]/70' />
                     <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-[#F59E0B]/70' />
                     <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-[#10B981]/70' />

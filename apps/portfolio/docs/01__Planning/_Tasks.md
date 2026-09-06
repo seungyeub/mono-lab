@@ -25,8 +25,8 @@
 - [x] P3-5. HeroSection 하단 Marquee — 구분자를 텍스트 사이 가운데로 이동(좌우 40px 동일). 띠 자체는 유지, 겹친 선 4줄은 P3-6으로 인계
 - [ ] P3-12. 섹션 구분 강화 (긴 모니터 대응) — 다섯 섹션이 화면 높이를 넘어(최대 1.8화면) 풀페이지 스냅은 콘텐츠 손실을 부른다. 헤더 고정·배경 교대 등 대안 검토. 착수 전 계획 필요
 - [x] P3-8. 릴리스 자동화 — release-please manifest 모드 도입. 태그 `portfolio@X.Y.Z`·develop→master 유지. **첫 실행 전 `RELEASE_PLEASE_TOKEN` 시크릿 등록 필요**
-- [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
-- [ ] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
+- [x] P3-6. 디자인 토큰 체계 정비 — `globals.css` `@theme`에 surface·line·label·section 토큰 8개 정의, 27개 파일 임의값 일괄 교체. Hero 하단 선 2줄 제거(P3-5 인계), Footer 문구 통일. 실행 목록 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53). VRT 재촬영 필요
+- [x] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — `hidden md:block`으로 감쌈. Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
 - [x] P3-10. `EditorialDivider` 제거 — 커밋된 코드 기준 데드 코드였다. 조사 중 작업 트리의 확인용 임시 호출을 커밋된 사용처로 오인한 적이 있으나, 저장소 이력에는 존재한 적 없다
 - [x] P3-11. Lighthouse 성능 개선 — 0.42→0.75(로컬). 원인은 CSS 배경 이미지가 아니라 3D 번들의 메인 스레드 점유·Pretendard `@import` 렌더 차단·`template.tsx` 진입 페이드였다. 관측 LCP 195ms(FCP와 동일), 보고값 4.3s는 시뮬레이션 특성. 임계값 상향은 CI 실측 후 결정
 

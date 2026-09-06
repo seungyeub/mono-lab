@@ -4,10 +4,30 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config";
 
+/* 디자인 토큰 (P3-6) — 임의값(text-[10px]·bg-[#1a1a1a]·pt-[140px]) 대신 이 토큰을 쓴다.
+   @repo/tailwind-config가 아니라 여기 두는 이유: 소비 앱이 포트폴리오뿐이고
+   아래 값은 이 사이트의 외관(어두운 단색 바탕)에 묶여 있어 공유 패키지 성격이 아니다. */
+@theme {
+  /* 배경 계층 */
+  --color-surface: #0a0a0a;
+  --color-surface-raised: #1a1a1a;
+
+  /* 선. 구조 구분선은 line, 입력창·아코디언·칩처럼 눈에 띄어야 하는 테두리는 line-strong */
+  --color-line: rgb(255 255 255 / 0.1);
+  --color-line-strong: rgb(255 255 255 / 0.2);
+
+  /* 대문자 레이블. 자간을 크기와 분리한 이유: 숫자 배지는 10px만 쓰고 자간을 주면 글자가 원 안에서 밀린다 */
+  --text-label: 11px;
+  --tracking-label: 0.18em;
+
+  /* 홈 섹션 상단 간격 */
+  --spacing-section: 140px;
+  --spacing-section-lg: 180px;
+}
+
 /* 사이트 토큰 — 여기만 수정 */
 :root {
   --site-max-width: 1480px;
-  --site-bg: #0A0A0A;
 
   /* 한글 본문 서체. Inter 계열 뼈대라 라틴(Inter Tight)과 한 가족처럼 붙는다 */
   /* dynamic-subset 가변 빌드는 패밀리명이 'Pretendard Variable'이다 — 'Pretendard'로 두면 매칭되지 않아 시스템 폰트로 떨어진다 */
@@ -26,7 +46,7 @@
 
   html,
   body {
-    background-color: var(--site-bg);
+    background-color: var(--color-surface);
   }
 
   body {

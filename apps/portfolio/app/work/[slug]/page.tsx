@@ -67,7 +67,7 @@ const mdxComponents = {
   // article의 [counter-reset:story]와 SectionHeading(Project Story)을 제거하면 된다.
   h2: (props: ComponentPropsWithoutRef<'h2'>) => (
     <h2
-      className='mt-12 mb-4 flex items-center gap-3 text-xl font-medium text-gray-200 before:flex before:h-8 before:w-8 before:shrink-0 before:items-center before:justify-center before:rounded-md before:border before:border-white/15 before:font-mono before:text-[11px] before:font-normal before:text-white/60 before:content-[counter(story,decimal-leading-zero)] before:[counter-increment:story] md:text-2xl'
+      className='before:border-line-strong mt-12 mb-4 flex items-center gap-3 text-xl font-medium text-gray-200 before:flex before:h-8 before:w-8 before:shrink-0 before:items-center before:justify-center before:rounded-md before:border before:font-mono before:text-xs before:font-normal before:text-white/60 before:content-[counter(story,decimal-leading-zero)] before:[counter-increment:story] md:text-2xl'
       {...props}
     />
   ),
@@ -155,7 +155,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
 
       {/* ── Next Project — 순차 탐색 ── */}
       {nextProject && (
-        <section className='border-t border-white/10 px-6 py-12 md:px-12 md:py-16'>
+        <section className='border-line border-t px-6 py-12 md:px-12 md:py-16'>
           <Link href={`/work/${nextProject.slug}`} className='group flex flex-col gap-3'>
             <span className='text-xs tracking-widest text-white/40 uppercase'>Next Project</span>
             <div className='flex flex-wrap items-baseline justify-between gap-3'>

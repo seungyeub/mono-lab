@@ -30,7 +30,7 @@ export default function ResumePage() {
   return (
     <main className='min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
       {/* ── 페이지 헤더 ── */}
-      <div className='flex flex-col justify-between gap-8 border-b border-white/10 pb-12 md:flex-row md:items-end'>
+      <div className='border-line flex flex-col justify-between gap-8 border-b pb-12 md:flex-row md:items-end'>
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Resume©</h1>
           <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
@@ -52,11 +52,11 @@ export default function ResumePage() {
       {/* ── Experience ── */}
       <section className='mt-16 flex flex-col gap-6'>
         <h2 className='text-xs font-medium tracking-widest text-white/40 uppercase'>Experience</h2>
-        <div className='flex flex-col border-t border-white/10'>
+        <div className='border-line flex flex-col border-t'>
           {EXPERIENCES.map((exp) => (
             <div
               key={`${exp.company}-${exp.period}`}
-              className='md:grid-cols-experience grid grid-cols-1 gap-1 border-b border-white/10 py-5 md:items-center md:gap-4'
+              className='md:grid-cols-experience border-line grid grid-cols-1 gap-1 border-b py-5 md:items-center md:gap-4'
             >
               <span className='text-base font-medium md:text-lg'>{exp.company}</span>
               <span className='text-sm text-gray-400 md:text-base'>{exp.role}</span>
@@ -72,11 +72,11 @@ export default function ResumePage() {
         <h2 className='text-xs font-medium tracking-widest text-white/40 uppercase'>
           Certifications
         </h2>
-        <div className='flex flex-col border-t border-white/10'>
+        <div className='border-line flex flex-col border-t'>
           {ACHIEVEMENTS.map((achievement) => (
             <div
               key={achievement.certificate}
-              className='md:grid-cols-experience grid grid-cols-1 gap-1 border-b border-white/10 py-5 md:items-center md:gap-4'
+              className='md:grid-cols-experience border-line grid grid-cols-1 gap-1 border-b py-5 md:items-center md:gap-4'
             >
               <span className='text-base font-medium md:text-lg'>{achievement.certificate}</span>
               <span className='text-sm text-gray-400 md:text-base'>{achievement.organization}</span>
@@ -90,11 +90,11 @@ export default function ResumePage() {
       {/* ── Skills ── */}
       <section className='mt-16 flex flex-col gap-6'>
         <h2 className='text-xs font-medium tracking-widest text-white/40 uppercase'>Skills</h2>
-        <div className='flex flex-col border-t border-white/10'>
+        <div className='border-line flex flex-col border-t'>
           {SKILL_CATEGORIES.map((category) => (
             <div
               key={category.title}
-              className='grid grid-cols-1 gap-1 border-b border-white/10 py-5 md:grid-cols-[1fr_3fr] md:gap-4'
+              className='border-line grid grid-cols-1 gap-1 border-b py-5 md:grid-cols-[1fr_3fr] md:gap-4'
             >
               <span className='text-base font-medium md:text-lg'>{category.title}</span>
               <p className='text-sm leading-relaxed text-gray-400 md:text-base'>

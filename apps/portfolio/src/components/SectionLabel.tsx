@@ -48,7 +48,7 @@ export default function SectionLabel({
               {rightLabel}
             </h6>
           </div>
-          <div className='h-px w-full bg-white/15' />
+          <div className='bg-line h-px w-full' />
         </div>
       </div>
     </motion.div>

@@ -15,7 +15,7 @@ export default function ExperienceSection() {
   return (
     <section
       data-testid='experience-section'
-      className='flex w-full flex-col items-start gap-10 pt-[140px] sm:gap-[60px] md:gap-[80px] md:pt-[120px] xl:pt-[180px]'
+      className='pt-section xl:pt-section-lg flex w-full flex-col items-start gap-10 sm:gap-[60px] md:gap-[80px]'
     >
       <SectionLabel scene='04' leftLabel='© Experience 경력 / 자격증' rightLabel='Practice' />
 
@@ -35,7 +35,7 @@ export default function ExperienceSection() {
       {/* ── 경력 리스트 ── */}
       <div className='site-container w-full px-6 md:px-12'>
         <div className='flex flex-col'>
-          <div className='border-b border-white/20 pb-4 text-lg font-bold uppercase md:pb-6 md:text-xl'>
+          <div className='border-line-strong border-b pb-4 text-lg font-bold uppercase md:pb-6 md:text-xl'>
             <h3>경력</h3>
           </div>
           {EXPERIENCES.map((exp, index) => (
@@ -45,7 +45,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className='lg:grid-cols-experience grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8'
+              className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-6 md:py-8'
             >
               {/* col 1 — 회사명 (lg+) / 회사명+기간 (< lg) */}
               <div className='flex flex-col gap-1'>
@@ -77,7 +77,7 @@ export default function ExperienceSection() {
       {/* ── 자격증 리스트 ── */}
       <div className='site-container w-full px-6 md:px-12'>
         <div className='flex flex-col'>
-          <div className='border-b border-white/20 pb-4 text-lg font-bold uppercase md:pb-6 md:text-xl'>
+          <div className='border-line-strong border-b pb-4 text-lg font-bold uppercase md:pb-6 md:text-xl'>
             <h3>자격증</h3>
           </div>
           {ACHIEVEMENTS.map((achievement, index) => (
@@ -87,7 +87,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className='lg:grid-cols-experience grid grid-cols-2 gap-4 border-b border-white/20 py-6 md:py-8'
+              className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-6 md:py-8'
             >
               {/* col 1 — 자격증명 (lg+) / 자격증명+연도 (< lg) */}
               <div className='flex flex-col gap-1'>

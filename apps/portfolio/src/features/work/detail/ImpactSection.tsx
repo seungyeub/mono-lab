@@ -20,13 +20,13 @@ export default function ImpactSection({ impact }: { impact: ProjectImpact }) {
       />
       <div className={`grid gap-4 md:gap-6 ${hasMetrics && hasOutcomes ? 'lg:grid-cols-2' : ''}`}>
         {hasMetrics && (
-          <div className='min-w-0 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
+          <div className='border-line min-w-0 rounded-xl border bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
             <h3 className='mb-5 text-lg font-semibold md:text-xl'>Key Metrics</h3>
             <dl className='flex flex-col gap-3'>
               {impact.metrics.map((metric) => (
                 <div
                   key={metric.label}
-                  className='flex items-baseline justify-between gap-4 rounded-lg border border-white/10 bg-black/40 px-4 py-3.5 transition-colors duration-300 hover:border-white/25'
+                  className='border-line flex items-baseline justify-between gap-4 rounded-lg border bg-black/40 px-4 py-3.5 transition-colors duration-300 hover:border-white/25'
                 >
                   <dt className='text-xs tracking-widest text-white/40 uppercase'>
                     {metric.label}
@@ -39,17 +39,17 @@ export default function ImpactSection({ impact }: { impact: ProjectImpact }) {
         )}
 
         {hasOutcomes && (
-          <div className='min-w-0 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
+          <div className='border-line min-w-0 rounded-xl border bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'>
             <h3 className='mb-5 text-lg font-semibold md:text-xl'>Achievements</h3>
             <ul className='flex flex-col gap-2.5'>
               {impact.outcomes.map((outcome, index) => (
                 <li
                   key={outcome}
-                  className='flex items-start gap-3 rounded-lg border border-white/10 bg-white/5 p-3 transition-colors duration-300 hover:border-white/25'
+                  className='border-line flex items-start gap-3 rounded-lg border bg-white/5 p-3 transition-colors duration-300 hover:border-white/25'
                 >
                   <span
                     aria-hidden
-                    className='mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/15 font-mono text-[10px] text-white/60'
+                    className='text-label border-line-strong mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border font-mono text-white/60'
                   >
                     {index + 1}
                   </span>

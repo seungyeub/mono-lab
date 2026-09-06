@@ -45,7 +45,7 @@ export default function Header() {
         <Link
           href='/'
           aria-label='홈으로 이동'
-          className='relative block h-11.5 w-11.5 shrink-0 overflow-hidden rounded-full border border-white/20'
+          className='border-line-strong relative block h-11.5 w-11.5 shrink-0 overflow-hidden rounded-full border'
         >
           {!avatarLoadFailed ? (
             <Image

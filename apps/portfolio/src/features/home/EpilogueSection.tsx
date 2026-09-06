@@ -23,7 +23,7 @@ export default function EpilogueSection() {
   return (
     <section
       data-testid='epilogue-section'
-      className='relative flex w-full flex-col items-center gap-[50px] pt-[140px] xl:pt-[200px]'
+      className='pt-section xl:pt-section-lg relative flex w-full flex-col items-center gap-[50px]'
     >
       {/* ── 1. Section Label ── */}
       <SectionLabel scene='05' leftLabel='© Final Section 에필로그' rightLabel='Epilogue' />
