@@ -26,7 +26,7 @@ export default function EpilogueSection() {
       className='pt-section xl:pt-section-lg relative flex w-full flex-col items-center gap-[50px]'
     >
       {/* ── 1. Section Label ── */}
-      <SectionLabel scene='05' leftLabel='© Final Section 에필로그' rightLabel='Epilogue' />
+      <SectionLabel scene='06' leftLabel='© Final Section 에필로그' rightLabel='Epilogue' />
 
       {/* ── 2. 가로 스크롤 캐러셀 ── */}
       {/* data-testid: 외부 CDN GIF는 로드 시점이 실행마다 달라 VRT에서 마스킹 대상이 된다 */}
@@ -87,7 +87,7 @@ export default function EpilogueSection() {
             onMouseLeave={() => setCursorType('default')}
             text='Back to Top'
             textClassName='font-bold tracking-tight'
-            className='rounded-full border-2 border-white bg-neutral-950 px-5 py-2 text-[16px] tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black md:text-[23px]'
+            className='bg-surface rounded-full border-2 border-white px-5 py-2 text-[16px] tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black md:text-[23px]'
           />
         </div>
       </div>

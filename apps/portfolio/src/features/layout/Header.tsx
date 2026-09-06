@@ -37,7 +37,7 @@ export default function Header() {
       }}
       animate={hidden ? 'hidden' : 'visible'}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
-      className='fixed top-0 left-0 z-100 w-full bg-neutral-950'
+      className='bg-surface fixed top-0 left-0 z-100 w-full'
     >
       {/* <nav className='flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5 md:pr-35 md:pl-12'> */}
       <nav className='site-container flex h-min w-full flex-row content-center items-center justify-between px-6 py-6.5 md:px-12 md:py-6.5'>

@@ -23,7 +23,7 @@
 - [x] P3-3. `<html lang='en'>` → `ko` 수정 — P2-5에서 함께 처리
 - [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
 - [x] P3-5. HeroSection 하단 Marquee — 구분자를 텍스트 사이 가운데로 이동(좌우 40px 동일). 띠 자체는 유지, 겹친 선 4줄은 P3-6으로 인계
-- [ ] P3-12. 섹션 구분 강화 (긴 모니터 대응) — 다섯 섹션이 화면 높이를 넘어(최대 1.8화면) 풀페이지 스냅은 콘텐츠 손실을 부른다. 헤더 고정·배경 교대 등 대안 검토. 착수 전 계획 필요
+- [x] P3-12. 섹션 구분 강화 (긴 모니터 대응) — **현 상태 유지로 결론**. 배경 교대(ⓑ)·상단 선+제목 통일(ⓒ)을 로컬 비교했으나 ⓑ는 톤 훼손, ⓒ는 대형 제목이 이미 있어 선만 남아 효과 미미. 고정 라벨·대형 제목·통일 여백으로 충분. Epilogue scene 05→06, 잔여 `bg-neutral-950`→`bg-surface`만 정리
 - [x] P3-8. 릴리스 자동화 — release-please manifest 모드 도입. 태그 `portfolio@X.Y.Z`·develop→master 유지. **첫 실행 전 `RELEASE_PLEASE_TOKEN` 시크릿 등록 필요**
 - [x] P3-6. 디자인 토큰 체계 정비 — `globals.css` `@theme`에 surface·line·label·section 토큰 8개 정의, 27개 파일 임의값 일괄 교체. Hero 하단 선 2줄 제거(P3-5 인계), Footer 문구 통일. 실행 목록 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53). VRT 재촬영 필요
 - [x] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — `hidden md:block`으로 감쌈. Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
