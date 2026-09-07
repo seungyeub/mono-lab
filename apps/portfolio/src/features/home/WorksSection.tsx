@@ -1,9 +1,9 @@
 'use client';
 
-import RollingLink from '@/src/components/RollingText/RollingLink';
-import SectionLabel from '@/src/components/SectionLabel';
-import type { ProjectCard } from '@/src/lib/mdx';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import RollingLink from '@/components/RollingText/RollingLink';
+import SectionLabel from '@/components/SectionLabel';
+import type { ProjectCard } from '@/lib/mdx';
+import { useCursorStore } from '@/store/useCursorStore';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 

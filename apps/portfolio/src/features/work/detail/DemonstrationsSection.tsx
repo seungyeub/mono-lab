@@ -1,4 +1,4 @@
-import type { ProjectDemonstration } from '@/src/lib/mdx';
+import type { ProjectDemonstration } from '@/lib/mdx';
 import ImageCarousel from './ImageCarousel';
 import SectionHeading from './SectionHeading';
 

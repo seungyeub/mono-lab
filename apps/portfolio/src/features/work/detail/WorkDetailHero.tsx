@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { ProjectMetadata } from '@/src/lib/mdx';
+import type { ProjectMetadata } from '@/lib/mdx';
 import ImageCarousel from './ImageCarousel';
 
 /**

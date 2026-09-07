@@ -1,6 +1,6 @@
 'use client';
 
-import RollingLink from '@/src/components/RollingText/RollingLink';
+import RollingLink from '@/components/RollingText/RollingLink';
 import { motion } from 'framer-motion';
 
 const QUICK_LINKS = [

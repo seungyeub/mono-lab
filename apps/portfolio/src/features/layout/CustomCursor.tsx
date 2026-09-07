@@ -1,6 +1,6 @@
 'use client';
 
-import { useCursorStore } from '@/src/store/useCursorStore';
+import { useCursorStore } from '@/store/useCursorStore';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';

@@ -1,11 +1,11 @@
 'use client';
 
-import RollingButton from '@/src/components/RollingText/RollingButton';
-import ScrollRevealText from '@/src/components/ScrollRevealText';
-import SectionLabel from '@/src/components/SectionLabel';
-import TagBar from '@/src/components/TagBar';
-import { CAROUSEL_CARDS } from '@/src/data/carouselGifs';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import RollingButton from '@/components/RollingText/RollingButton';
+import ScrollRevealText from '@/components/ScrollRevealText';
+import SectionLabel from '@/components/SectionLabel';
+import TagBar from '@/components/TagBar';
+import { CAROUSEL_CARDS } from '@/data/carouselGifs';
+import { useCursorStore } from '@/store/useCursorStore';
 
 const TAGS = ['UI Precision', 'Motion Focused', 'Responsive Design', 'Detail-Driven'];
 

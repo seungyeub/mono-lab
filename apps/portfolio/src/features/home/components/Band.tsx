@@ -13,7 +13,7 @@ import {
   RapierRigidBody,
 } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import { useCursorStore } from '@/store/useCursorStore';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 

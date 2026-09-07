@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
-import { SITE_NAME, buildPageOpenGraph } from '@/src/lib/siteConfig';
-import { getProjectCards } from '@/src/lib/mdx';
-import WorkGrid from '@/src/features/work/WorkGrid';
+import { SITE_NAME, buildPageOpenGraph } from '@/lib/siteConfig';
+import { getProjectCards } from '@/lib/mdx';
+import WorkGrid from '@/features/work/WorkGrid';
 
 const DESCRIPTION = 'Next.js, React, TypeScript 기반으로 작업한 프론트엔드 프로젝트 모음입니다.';
 

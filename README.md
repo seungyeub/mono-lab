@@ -27,6 +27,15 @@
 - `packages/typescript-config` — 공통 `tsconfig.json` 설정
 - `packages/tailwind-config` — 공통 Tailwind CSS 설정
 
+### 새 앱을 추가할 때
+
+`apps/<이름>/`이 프로젝트 하나다(pnpm 워크스페이스 `apps/*`). 그 안은 `apps/portfolio`와 같은 모양으로 맞춘다.
+
+- 코드는 전부 `src/` 안에, 설정 파일은 앱 루트에. Next.js 라우터도 `src/app/`에 둔다.
+- `src/` 아래는 `app`(라우트) · `features`(화면 단위) · `components`(둘 이상의 화면이 쓰는 UI) · `lib` · `data`로 나눈다.
+- 별칭은 `tsconfig.json`의 `"@/*": ["./src/*"]`와 `jest.config.ts`의 `'^@/(.*)$': '<rootDir>/src/$1'` 두 줄을 그대로 복사한다.
+- 테스트는 대상 파일 옆에 둔다. 둘 이상의 앱이 쓰는 코드는 앱이 아니라 `packages/`로 올린다.
+
 ## 🛠 사용 방법
 
 ### 패키지 설치

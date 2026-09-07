@@ -5,7 +5,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import SkillsSection from './SkillsSection';
-import { SKILL_TAGS } from './skillsData';
+import { SKILL_TAGS } from '@/data/skillsData';
 
 // framer-motion mock
 jest.mock('framer-motion', () => {

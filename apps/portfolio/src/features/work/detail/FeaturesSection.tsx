@@ -1,4 +1,4 @@
-import type { ProjectTextItem } from '@/src/lib/mdx';
+import type { ProjectTextItem } from '@/lib/mdx';
 import SectionHeading from './SectionHeading';
 
 /** Key Features — 번호 타일 + 제목 + 설명 카드 2열. 아이콘 대신 번호로 위계를 표현한다. */

@@ -20,7 +20,7 @@ import {
   SiWebpack,
 } from '@icons-pack/react-simple-icons';
 
-import { SKILL_CATEGORIES, type SkillItem } from '@/src/features/home/skillsData';
+import { SKILL_CATEGORIES, type SkillItem } from '@/data/skillsData';
 
 /**
  * 상세 페이지 Technology Stack에서 홈 Skills와 동일한 칩(SkillChips)을 쓰기 위한 리졸버.

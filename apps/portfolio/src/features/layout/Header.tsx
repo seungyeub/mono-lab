@@ -1,6 +1,6 @@
 'use client';
 
-import RollingLink from '@/src/components/RollingText/RollingLink';
+import RollingLink from '@/components/RollingText/RollingLink';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';

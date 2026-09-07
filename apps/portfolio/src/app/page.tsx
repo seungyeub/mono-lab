@@ -1,12 +1,12 @@
-import EpilogueSection from '@/src/features/home/EpilogueSection';
-import ExperienceSection from '@/src/features/home/ExperienceSection';
-import FAQSection from '@/src/features/home/FAQSection';
-import HeroSection from '@/src/features/home/HeroSection';
-import SkillsSection from '@/src/features/home/SkillsSection';
-import WorksSection from '@/src/features/home/WorksSection';
-import JsonLd from '@/src/components/JsonLd';
-import { getFeaturedProjectCards } from '@/src/lib/mdx';
-import { buildFaqSchema } from '@/src/lib/structuredData';
+import EpilogueSection from '@/features/home/EpilogueSection';
+import ExperienceSection from '@/features/home/ExperienceSection';
+import FAQSection from '@/features/home/FAQSection';
+import HeroSection from '@/features/home/HeroSection';
+import SkillsSection from '@/features/home/SkillsSection';
+import WorksSection from '@/features/home/WorksSection';
+import JsonLd from '@/components/JsonLd';
+import { getFeaturedProjectCards } from '@/lib/mdx';
+import { buildFaqSchema } from '@/lib/structuredData';
 
 export default function Home() {
   // MDX를 단일 소스로 삼는다(P0-6). 홈에는 FEATURED_SLUGS에서 직접 고른 6개만 노출한다.

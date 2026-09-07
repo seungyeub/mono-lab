@@ -2,10 +2,10 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { useCursorStore } from '@/src/store/useCursorStore';
-import { ErrorBoundary } from '@/src/components/ErrorBoundary';
-import RollingLink from '@/src/components/RollingText/RollingLink';
-import Marquee from '@/src/components/Marquee';
+import { useCursorStore } from '@/store/useCursorStore';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import RollingLink from '@/components/RollingText/RollingLink';
+import Marquee from '@/components/Marquee';
 import dynamic from 'next/dynamic';
 
 const InteractiveCardCanvas = dynamic(() => import('./components/InteractiveCardCanvas'), {

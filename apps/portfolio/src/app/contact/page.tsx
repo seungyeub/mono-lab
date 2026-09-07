@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import { SITE_NAME, buildPageOpenGraph } from '@/src/lib/siteConfig';
-import ContactForm from '@/src/features/contact/ContactForm';
+import { SITE_NAME, buildPageOpenGraph } from '@/lib/siteConfig';
+import ContactForm from '@/features/contact/ContactForm';
 
 const DESCRIPTION =
   '프론트엔드 개발 협업 및 채용 문의를 위해 백승엽에게 연락할 수 있는 페이지입니다.';

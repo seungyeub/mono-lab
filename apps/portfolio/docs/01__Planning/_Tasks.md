@@ -21,7 +21,7 @@
 - [x] P3-1. 데스크톱 폰트 스케일업 — **조치 불필요로 결정**. `max-w` 래퍼가 이미 적용돼 1440→1920px에서 본문 폭이 변하지 않는다(실측). 스케일 조정은 P3-6에서 토큰으로 다룬다
 - [x] P3-2. Skills Section 구분선(White Line) 제거 — 그 구분선이 `EditorialDivider`였고 P3-10에서 함께 제거
 - [x] P3-3. `<html lang='en'>` → `ko` 수정 — P2-5에서 함께 처리
-- [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
+- [x] P3-4. 폴더 구조 정리 — `app/`→`src/app/`, 별칭 `@/*`→`./src/*`(import 96건 정리). `SkillChips`·`SkillIcon`→`components/`, `skillsData`→`data/`로 feature 간 의존 해소. `dev.log` 추적 해제. `actions.ts`는 메일 발송 계획으로 유지. 루트 README에 새 앱 추가 규칙 기록
 - [x] P3-5. HeroSection 하단 Marquee — 구분자를 텍스트 사이 가운데로 이동(좌우 40px 동일). 띠 자체는 유지, 겹친 선 4줄은 P3-6으로 인계
 - [x] P3-12. 섹션 구분 강화 (긴 모니터 대응) — **현 상태 유지로 결론**. 배경 교대(ⓑ)·상단 선+제목 통일(ⓒ)을 로컬 비교했으나 ⓑ는 톤 훼손, ⓒ는 대형 제목이 이미 있어 선만 남아 효과 미미. 고정 라벨·대형 제목·통일 여백으로 충분. Epilogue scene 05→06, 잔여 `bg-neutral-950`→`bg-surface`만 정리
 - [x] P3-8. 릴리스 자동화 — release-please manifest 모드 도입. 태그 `portfolio@X.Y.Z`·develop→master 유지. **첫 실행 전 `RELEASE_PLEASE_TOKEN` 시크릿 등록 필요**

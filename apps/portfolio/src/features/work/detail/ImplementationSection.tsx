@@ -1,5 +1,5 @@
 import { codeToHtml } from 'shiki';
-import type { ProjectImplementation } from '@/src/lib/mdx';
+import type { ProjectImplementation } from '@/lib/mdx';
 import SectionHeading from './SectionHeading';
 
 /**

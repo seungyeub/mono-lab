@@ -4,25 +4,25 @@ import {
   getProjectBySlug,
   getProjectSeoMetadata,
   publicAssetExists,
-} from '@/src/lib/mdx';
+} from '@/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import DemonstrationsSection from '@/src/features/work/detail/DemonstrationsSection';
-import ExploreCta from '@/src/features/work/detail/ExploreCta';
-import FeaturesSection from '@/src/features/work/detail/FeaturesSection';
-import ImpactSection from '@/src/features/work/detail/ImpactSection';
-import ImplementationSection from '@/src/features/work/detail/ImplementationSection';
-import ScrollToTop from '@/src/features/work/detail/ScrollToTop';
-import SectionHeading from '@/src/features/work/detail/SectionHeading';
-import TechStackSection from '@/src/features/work/detail/TechStackSection';
-import WorkDetailHero from '@/src/features/work/detail/WorkDetailHero';
+import DemonstrationsSection from '@/features/work/detail/DemonstrationsSection';
+import ExploreCta from '@/features/work/detail/ExploreCta';
+import FeaturesSection from '@/features/work/detail/FeaturesSection';
+import ImpactSection from '@/features/work/detail/ImpactSection';
+import ImplementationSection from '@/features/work/detail/ImplementationSection';
+import ScrollToTop from '@/features/work/detail/ScrollToTop';
+import SectionHeading from '@/features/work/detail/SectionHeading';
+import TechStackSection from '@/features/work/detail/TechStackSection';
+import WorkDetailHero from '@/features/work/detail/WorkDetailHero';
 import { ComponentPropsWithoutRef } from 'react';
 import type { Metadata } from 'next';
 
-import JsonLd from '@/src/components/JsonLd';
-import { SITE_NAME, absoluteUrl, buildPageOpenGraph } from '@/src/lib/siteConfig';
-import { buildBreadcrumbSchema, buildCreativeWorkSchema } from '@/src/lib/structuredData';
+import JsonLd from '@/components/JsonLd';
+import { SITE_NAME, absoluteUrl, buildPageOpenGraph } from '@/lib/siteConfig';
+import { buildBreadcrumbSchema, buildCreativeWorkSchema } from '@/lib/structuredData';
 
 type ProjectDetailParams = { slug: string };
 

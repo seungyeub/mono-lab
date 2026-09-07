@@ -1,11 +1,11 @@
 'use client';
 
-import SectionLabel from '@/src/components/SectionLabel';
+import SectionLabel from '@/components/SectionLabel';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
-import { FAQS } from '@/src/data/faqData';
-import type { FaqItem } from '@/src/data/faqData';
+import { FAQS } from '@/data/faqData';
+import type { FaqItem } from '@/data/faqData';
 
 function FAQItem({ faq, index }: { faq: FaqItem; index: number }) {
   const [open, setOpen] = useState(false);

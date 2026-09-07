@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import { useCursorStore } from '@/store/useCursorStore';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { ProjectCard } from '@/src/lib/mdx';
+import type { ProjectCard } from '@/lib/mdx';
 
 export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((state) => state.setType);

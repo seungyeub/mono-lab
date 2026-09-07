@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
-import { SITE_NAME, buildPageOpenGraph } from '@/src/lib/siteConfig';
-import { ACHIEVEMENTS, EXPERIENCES } from '@/src/data/experienceData';
-import { SKILL_CATEGORIES } from '@/src/features/home/skillsData';
-import { publicAssetExists } from '@/src/lib/mdx';
+import { SITE_NAME, buildPageOpenGraph } from '@/lib/siteConfig';
+import { ACHIEVEMENTS, EXPERIENCES } from '@/data/experienceData';
+import { SKILL_CATEGORIES } from '@/data/skillsData';
+import { publicAssetExists } from '@/lib/mdx';
 
 const DESCRIPTION =
   '프론트엔드 엔지니어 백승엽의 경력, 자격증, 기술 스택을 정리한 이력서 페이지입니다.';

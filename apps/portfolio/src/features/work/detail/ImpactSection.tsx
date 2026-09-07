@@ -1,4 +1,4 @@
-import type { ProjectImpact } from '@/src/lib/mdx';
+import type { ProjectImpact } from '@/lib/mdx';
 import SectionHeading from './SectionHeading';
 
 /**

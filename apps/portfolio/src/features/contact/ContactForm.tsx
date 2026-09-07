@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import { useCursorStore } from '@/store/useCursorStore';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),

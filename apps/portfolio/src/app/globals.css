@@ -1,6 +1,6 @@
 /* 한글 웹폰트 — 라틴은 Inter Tight, 한글은 Pretendard가 받는다.
    Pretendard CSS는 여기서 @import하지 않는다. 스타일시트 안의 @import는 발견이 늦고
-   렌더를 차단해(Lighthouse 실측 775ms) app/layout.tsx의 <head>에서 <link>로 싣는다. */
+   렌더를 차단해(Lighthouse 실측 775ms) src/app/layout.tsx의 <head>에서 <link>로 싣는다. */
 @import "tailwindcss";
 @import "@repo/tailwind-config";
 

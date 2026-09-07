@@ -1,11 +1,11 @@
 'use client';
 
-import SectionLabel from '@/src/components/SectionLabel';
-import TagBar from '@/src/components/TagBar';
+import SectionLabel from '@/components/SectionLabel';
+import TagBar from '@/components/TagBar';
 import { motion } from 'framer-motion';
 
-import SkillChips from './components/SkillChips';
-import { SKILL_CATEGORIES, SKILL_TAGS } from './skillsData';
+import SkillChips from '@/components/SkillChips';
+import { SKILL_CATEGORIES, SKILL_TAGS } from '@/data/skillsData';
 
 // ─────────────────────────────────────────────
 // Main Component: SkillsSection

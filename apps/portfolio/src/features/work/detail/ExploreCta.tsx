@@ -1,7 +1,7 @@
 'use client';
 
-import RollingLink from '@/src/components/RollingText/RollingLink';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import RollingLink from '@/components/RollingText/RollingLink';
+import { useCursorStore } from '@/store/useCursorStore';
 
 /**
  * Explore the Project CTA 카드.

@@ -4,7 +4,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Footer from './Footer';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import { useCursorStore } from '@/store/useCursorStore';
 
 // Framer Motion Mocking
 jest.mock('framer-motion', () => {
@@ -49,7 +49,7 @@ jest.mock('framer-motion', () => {
 });
 
 // Zustand 스토어 Mocking
-jest.mock('@/src/store/useCursorStore');
+jest.mock('@/store/useCursorStore');
 
 describe('Footer', () => {
   const mockUseCursorStore = useCursorStore as unknown as jest.Mock;

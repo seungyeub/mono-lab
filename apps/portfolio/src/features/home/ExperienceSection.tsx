@@ -1,9 +1,9 @@
 'use client';
 
-import SectionLabel from '@/src/components/SectionLabel';
-import TagBar from '@/src/components/TagBar';
-import WordRoller from '@/src/components/WordRoller';
-import { ACHIEVEMENTS, EXPERIENCES } from '@/src/data/experienceData';
+import SectionLabel from '@/components/SectionLabel';
+import TagBar from '@/components/TagBar';
+import WordRoller from '@/components/WordRoller';
+import { ACHIEVEMENTS, EXPERIENCES } from '@/data/experienceData';
 import { motion } from 'framer-motion';
 
 /** 롤링 헤드라인에 들어갈 단어 목록 */

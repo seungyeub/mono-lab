@@ -1,13 +1,13 @@
-import PageLoader from '@/src/components/PageLoader';
-import CustomCursor from '@/src/features/layout/CustomCursor';
-import Footer from '@/src/features/layout/Footer';
-import Header from '@/src/features/layout/Header';
-import SmoothScroll from '@/src/features/layout/SmoothScroll';
+import PageLoader from '@/components/PageLoader';
+import CustomCursor from '@/features/layout/CustomCursor';
+import Footer from '@/features/layout/Footer';
+import Header from '@/features/layout/Header';
+import SmoothScroll from '@/features/layout/SmoothScroll';
 import '@repo/ui/styles.css';
 import type { Metadata } from 'next';
 
-import JsonLd from '@/src/components/JsonLd';
-import { buildPersonSchema, buildWebSiteSchema } from '@/src/lib/structuredData';
+import JsonLd from '@/components/JsonLd';
+import { buildPersonSchema, buildWebSiteSchema } from '@/lib/structuredData';
 import {
   OG_IMAGE,
   OG_IMAGE_HEIGHT,
@@ -18,7 +18,7 @@ import {
   SITE_NAME,
   SITE_TITLE,
   SITE_URL,
-} from '@/src/lib/siteConfig';
+} from '@/lib/siteConfig';
 import { Inter_Tight } from 'next/font/google';
 import './globals.css';
 

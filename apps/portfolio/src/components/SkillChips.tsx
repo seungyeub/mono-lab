@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
-import type { SkillItem } from '../skillsData';
+import type { SkillItem } from '@/data/skillsData';
 import SkillIcon from './SkillIcon';
 
 // ─────────────────────────────────────────────
