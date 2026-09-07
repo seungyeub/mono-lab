@@ -1,7 +1,7 @@
 'use client';
 
-import RollingLink from '@/src/components/RollingText/RollingLink';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import RollingLink from '@/components/RollingText/RollingLink';
+import { useCursorStore } from '@/store/useCursorStore';
 
 /**
  * Explore the Project CTA 카드.
@@ -19,7 +19,7 @@ export default function ExploreCta({ liveUrl, github }: { liveUrl?: string; gith
 
   return (
     <section className='mt-20 md:mt-28'>
-      <div className='flex flex-col items-center gap-6 rounded-2xl border border-white/10 bg-white/5 px-6 py-12 text-center transition-colors duration-500 hover:border-white/20 md:py-16'>
+      <div className='border-line hover:border-line-strong flex flex-col items-center gap-6 rounded-2xl border bg-white/5 px-6 py-12 text-center transition-colors duration-500 md:py-16'>
         <h2 className='text-2xl font-semibold tracking-tight md:text-3xl'>Explore the Project</h2>
         <p className='max-w-xl text-sm text-gray-400 md:text-base'>
           운영 중인 사이트와 소스 코드에서 실제 결과물을 확인할 수 있습니다.

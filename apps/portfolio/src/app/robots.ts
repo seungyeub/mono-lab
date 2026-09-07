@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { SITE_URL } from '@/src/lib/siteConfig';
+import { SITE_URL } from '@/lib/siteConfig';
 
 /**
  * robots.txt — 전체 허용 + sitemap 위치 안내.

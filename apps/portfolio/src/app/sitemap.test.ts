@@ -1,7 +1,7 @@
 import sitemap from '@/app/sitemap';
 import robots from '@/app/robots';
-import { getAllProjects } from '@/src/lib/mdx';
-import { SITE_URL } from '@/src/lib/siteConfig';
+import { getAllProjects } from '@/lib/mdx';
+import { SITE_URL } from '@/lib/siteConfig';
 
 /**
  * sitemap·robots는 화면에 없어 눈으로 회귀를 잡을 수 없고,

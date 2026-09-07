@@ -4,7 +4,7 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import CustomCursor from './CustomCursor';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import { useCursorStore } from '@/store/useCursorStore';
 
 // Framer Motion Mocking
 jest.mock('framer-motion', () => {
@@ -55,7 +55,7 @@ jest.mock('next/navigation', () => ({
 }));
 
 // Zustand 스토어 Mocking
-jest.mock('@/src/store/useCursorStore');
+jest.mock('@/store/useCursorStore');
 
 describe('CustomCursor', () => {
   const mockUseCursorStore = useCursorStore as unknown as jest.Mock;

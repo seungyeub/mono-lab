@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import { useCursorStore } from '@/store/useCursorStore';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { ProjectCard } from '@/src/lib/mdx';
+import type { ProjectCard } from '@/lib/mdx';
 
 export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((state) => state.setType);
@@ -31,7 +31,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
       <div className='hidden w-56 flex-shrink-0 flex-col md:flex'>
         <div className='sticky top-32 flex flex-col gap-6'>
           <div className='flex flex-col gap-1'>
-            <span className='text-[10px] tracking-[0.2em] text-white/40 uppercase'>All Works</span>
+            <span className='text-label tracking-label text-white/40 uppercase'>All Works</span>
             <span className='text-5xl font-medium tabular-nums'>
               ({String(projects.length).padStart(2, '0')})
             </span>
@@ -41,13 +41,13 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
           <div className='flex min-h-[3.5rem] flex-col gap-1'>
             {hovered ? (
               <>
-                <span className='text-[10px] tracking-widest text-white/40 uppercase'>
+                <span className='text-label tracking-label text-white/40 uppercase'>
                   {hovered.category}
                 </span>
                 <span className='text-sm leading-snug font-medium'>{hovered.title}</span>
               </>
             ) : (
-              <span className='text-[10px] leading-relaxed tracking-widest text-white/25 uppercase'>
+              <span className='text-label tracking-label leading-relaxed text-white/25 uppercase'>
                 Hover a project
                 <br />
                 to preview
@@ -59,7 +59,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
           <motion.div
             animate={{ opacity: hovered ? 1 : 0 }}
             transition={{ duration: 0.3 }}
-            className='aspect-[16/10] w-full overflow-hidden bg-[#1a1a1a]'
+            className='bg-surface-raised aspect-[16/10] w-full overflow-hidden'
           >
             {hovered?.imageExists && (
               <div
@@ -107,7 +107,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
                 }}
                 // 이미지가 있으면 링크 안이 배경·장식뿐이라 스크린리더가 목적 없는 링크로 읽는다
                 aria-label={project.title}
-                className='group relative block aspect-[16/10] overflow-hidden bg-[#1a1a1a]'
+                className='group bg-surface-raised relative block aspect-[16/10] overflow-hidden'
               >
                 {project.imageExists ? (
                   <>

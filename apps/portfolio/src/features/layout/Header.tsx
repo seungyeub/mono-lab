@@ -1,6 +1,6 @@
 'use client';
 
-import RollingLink from '@/src/components/RollingText/RollingLink';
+import RollingLink from '@/components/RollingText/RollingLink';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -37,7 +37,7 @@ export default function Header() {
       }}
       animate={hidden ? 'hidden' : 'visible'}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
-      className='fixed top-0 left-0 z-100 w-full bg-neutral-950'
+      className='bg-surface fixed top-0 left-0 z-100 w-full'
     >
       {/* <nav className='flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5 md:pr-35 md:pl-12'> */}
       <nav className='site-container flex h-min w-full flex-row content-center items-center justify-between px-6 py-6.5 md:px-12 md:py-6.5'>
@@ -45,7 +45,7 @@ export default function Header() {
         <Link
           href='/'
           aria-label='홈으로 이동'
-          className='relative block h-11.5 w-11.5 shrink-0 overflow-hidden rounded-full border border-white/20'
+          className='border-line-strong relative block h-11.5 w-11.5 shrink-0 overflow-hidden rounded-full border'
         >
           {!avatarLoadFailed ? (
             <Image

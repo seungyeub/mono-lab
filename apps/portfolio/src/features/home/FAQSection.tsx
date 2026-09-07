@@ -1,11 +1,11 @@
 'use client';
 
-import SectionLabel from '@/src/components/SectionLabel';
+import SectionLabel from '@/components/SectionLabel';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
-import { FAQS } from '@/src/data/faqData';
-import type { FaqItem } from '@/src/data/faqData';
+import { FAQS } from '@/data/faqData';
+import type { FaqItem } from '@/data/faqData';
 
 function FAQItem({ faq, index }: { faq: FaqItem; index: number }) {
   const [open, setOpen] = useState(false);
@@ -16,7 +16,7 @@ function FAQItem({ faq, index }: { faq: FaqItem; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.6, delay: index * 0.07 }}
-      className='border-b border-white/20'
+      className='border-line-strong border-b'
     >
       <button
         type='button'
@@ -75,7 +75,7 @@ export default function FAQSection() {
   return (
     <section
       data-testid='faq-section'
-      className='flex w-full flex-col items-start gap-[60px] pt-[140px] md:gap-[80px] xl:pt-[200px]'
+      className='pt-section xl:pt-section-lg flex w-full flex-col items-start gap-[60px] md:gap-[80px]'
     >
       <SectionLabel scene='05' leftLabel='© Help Center 도움말' rightLabel='Information' />
 
@@ -102,7 +102,7 @@ export default function FAQSection() {
           </div>
 
           {/* BOTTOM — Accordion */}
-          <div className='w-full border-t border-white/20'>
+          <div className='border-line-strong w-full border-t'>
             {FAQS.map((faq, i) => (
               <FAQItem key={i} faq={faq} index={i} />
             ))}

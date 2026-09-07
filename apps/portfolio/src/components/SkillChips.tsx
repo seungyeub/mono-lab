@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
-import type { SkillItem } from '../skillsData';
+import type { SkillItem } from '@/data/skillsData';
 import SkillIcon from './SkillIcon';
 
 // ─────────────────────────────────────────────
@@ -57,7 +57,7 @@ function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<Sk
       }}
       className={[
         'group relative inline-flex items-center gap-2',
-        'rounded-full border border-white/10 bg-white/[0.02]',
+        'border-line rounded-full border bg-white/[0.02]',
         // 모바일: 작게 / sm+: 중간 / md+: 넉넉하게
         'px-2.5 py-1.5 sm:px-3.5 sm:py-2',
         'cursor-none transition-colors duration-200',
@@ -75,7 +75,7 @@ function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<Sk
             className={[
               'absolute bottom-full left-1/2 z-50 mb-3 -translate-x-1/2',
               'flex w-[200px] flex-col items-center justify-center gap-4',
-              'rounded-xl border border-white/10 bg-neutral-900/60 backdrop-blur-xl',
+              'border-line rounded-xl border bg-neutral-900/60 backdrop-blur-xl',
               'pointer-events-none p-6 shadow-2xl',
             ].join(' ')}
           >
@@ -85,7 +85,7 @@ function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<Sk
                 {skill.name}
               </span>
               {categoryName && (
-                <span className='font-mono text-[10px] tracking-widest text-white/40 uppercase'>
+                <span className='text-label tracking-label font-mono text-white/40 uppercase'>
                   {categoryName}
                 </span>
               )}
@@ -105,7 +105,7 @@ function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<Sk
       <span
         className={[
           'leading-none whitespace-nowrap text-white/60',
-          'text-[10px] sm:text-xs md:text-[13px]',
+          'text-label sm:text-xs md:text-[13px]',
           'transition-colors duration-200',
           'group-hover:text-white', // 호버 시 텍스트 하얗게
         ].join(' ')}
