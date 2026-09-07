@@ -4,3 +4,6 @@ dist
 build
 pnpm-lock.yaml
 next-env.d.ts
+
+# release-please가 생성·갱신하는 파일. 도구의 출력 형식(* 불릿, 빈 줄 2개)이 Prettier와 달라 검사에서 제외한다
+apps/portfolio/CHANGELOG.md
