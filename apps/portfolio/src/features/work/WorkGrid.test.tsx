@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import type { ProjectCard } from '@/src/lib/mdx';
+import type { ProjectCard } from '@/lib/mdx';
 import WorkGrid from './WorkGrid';
 
 /**

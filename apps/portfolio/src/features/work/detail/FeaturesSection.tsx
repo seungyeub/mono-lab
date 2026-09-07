@@ -1,4 +1,4 @@
-import type { ProjectTextItem } from '@/src/lib/mdx';
+import type { ProjectTextItem } from '@/lib/mdx';
 import SectionHeading from './SectionHeading';
 
 /** Key Features — 번호 타일 + 제목 + 설명 카드 2열. 아이콘 대신 번호로 위계를 표현한다. */
@@ -12,13 +12,13 @@ export default function FeaturesSection({ features }: { features: ProjectTextIte
         {features.map((feature, index) => (
           <div
             key={feature.title}
-            className='rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'
+            className='border-line rounded-xl border bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'
           >
             {/* 번호 옆에 제목 — Project Overview·Key Highlights와 같은 배치로 맞춘다 */}
             <div className='flex items-start gap-3'>
               <span
                 aria-hidden
-                className='flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 font-mono text-xs text-white/60'
+                className='border-line-strong flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border font-mono text-xs text-white/60'
               >
                 {String(index + 1).padStart(2, '0')}
               </span>

@@ -3,7 +3,7 @@
 > **작성일:** 2026-09-03
 > **Title:** 버전 범프·체인지로그·태그 발행을 자동화한다
 > **Description:** 0.2.0 릴리스를 수동으로 진행하며 드러난 반복 작업과 실수 지점을 정리하고, Changesets·release-please 두 도구를 비교해 도입 여부를 판단한다.
-> **상태:** 검토 단계 — 도입 결정 전 (PRD **P3-8**)
+> **상태:** ✅ **도입 완료 (2026-09-05)** — release-please manifest 모드 (PRD **P3-8**)
 
 ---
 
@@ -75,17 +75,88 @@
 
 ---
 
-## 5. 도입 전 확인할 것
+## 5. 도입 전 확인 — 2026-09-05 전부 확인, release-please로 결정
 
-- [ ] release-please가 `apps/portfolio` 단일 패키지 모드로 동작하는지 (모노레포 루트에서 앱 하나만 릴리스)
-- [ ] Changesets를 택할 경우 `privatePackages: { version: true, tag: true }` 설정 — 도입 시점 최신 버전에서 기본값이 그대로인지 확인
-- [ ] 태그 형식을 현재와 동일한 `portfolio@X.Y.Z`로 맞출 수 있는지 — **배포 워크플로가 `portfolio@*` 패턴에 의존하므로 형식이 바뀌면 배포가 깨진다**
-- [ ] 현재 브랜치 전략(develop → master)과 어떻게 맞물리는지. release-please는 보통 단일 기본 브랜치를 전제한다
-- [ ] 릴리스 PR이 브랜치 보호 규칙(리뷰 스레드 해결 요구)과 충돌하지 않는지
-- [ ] 기존 태그(`portfolio@0.1.4`, `portfolio@0.2.0`)를 시작점으로 인식시키는 방법
+공식 문서(`googleapis/release-please`, `release-please-action` README)로 확인했다.
+
+- [x] **단일 패키지 모드** — manifest 설정 `packages: { "apps/portfolio": { ... } }`로 앱 하나만 릴리스한다. `component`는 JSON 스키마에 없는 키라 적지 않고, `release-type: node`가 `apps/portfolio/package.json`의 `name`(`portfolio`)에서 유추한다. 공유 패키지 4개는 대상에서 빠진다.
+- [x] **Changesets 검토 종결** — 패키지가 사실상 1개이고 커밋 규율이 이미 있어 release-please가 맞다(4절 판단 유지). Changesets의 `privatePackages` 옵션은 확인하지 않았다.
+- [x] **태그 형식 `portfolio@X.Y.Z`** — `include-component-in-tag: true` + `tag-separator: "@"` + `include-v-in-tag: false`로 생성된다. 태그 생성 규칙은 `${component}${separator}${includeV ? 'v' : ''}${version}`(소스 `src/util/tag-name.ts`). **`deploy-portfolio.yml`의 `portfolio@*` 트리거가 그대로 동작한다.**
+- [x] **브랜치 전략** — `target-branch: master`. 흐름은 develop 작업 → develop→master PR → [자동] 릴리스 PR → 머지 → [자동] 태그·Release·배포. **브랜치 전략은 바꾸지 않는다.** 대신 릴리스 직후 master→develop 백머지가 필요하다(7절).
+- [x] **브랜치 보호 규칙** — 릴리스 PR은 사람이 머지하므로 `required_review_thread_resolution`과 충돌하지 않는다. release-please가 push하는 브랜치(`release-please--branches--master--components--portfolio`)는 보호 대상이 아니다. 태그는 룰셋(branch 대상) 밖이다.
+- [x] **기존 태그 인식** — `.release-please-manifest.json`에 `"apps/portfolio": "0.3.0"`을 적으면 그 버전을 기준점으로 삼고 태그 `portfolio@0.3.0`을 찾아 이후 커밋만 센다. `bootstrap-sha`는 이전 릴리스가 없을 때만 쓰이는 값이라 두지 않았다.
+
+### 핵심 제약: PAT가 필요하다
+
+**기본 `GITHUB_TOKEN`으로 만든 PR과 태그는 다른 워크플로를 발화시키지 않는다**(GitHub의 재귀 방지, release-please-action README 명시). 이 상태로는 릴리스 PR에 CI가 안 돌고, **태그가 생겨도 `deploy-portfolio.yml`이 실행되지 않는다.** Contents·Pull requests·**Issues** 세 가지 Read and write 권한의 Fine-grained PAT를(Issues는 릴리스 PR의 `autorelease` 라벨 처리에 필요, README 명시) `RELEASE_PLEASE_TOKEN` 시크릿으로 등록해야 한다.
+
+### 0.x 버전 규칙
+
+기본값이 `feat`→minor, `fix`→patch로 0.3.0 릴리스 때의 판단과 같다. `bump-minor-pre-major: true`를 켜서 `BREAKING CHANGE`가 1.0.0으로 튀지 않고 minor에 머물게 했다. `bump-patch-for-minor-pre-major`는 끈다(켜면 `feat`가 patch가 되어 0.3.0 판단과 어긋난다).
 
 ---
 
-## 6. 범위 밖
+## 6. 도입한 파일
+
+| 파일                                   | 역할                                                                 |
+| -------------------------------------- | -------------------------------------------------------------------- |
+| `.github/workflows/release-please.yml` | master push 시 실행. PAT 사용. 액션은 v5.0.0 SHA로 고정              |
+| `release-please-config.json`           | 패키지 경로·컴포넌트·태그 형식·0.x 규칙·PR 제목 패턴·체인지로그 섹션 |
+| `.release-please-manifest.json`        | `{ "apps/portfolio": "0.3.0" }` — 기준 버전                          |
+
+릴리스 PR 제목은 `pull-request-title-pattern: "release(portfolio): ${version}"`으로 기존 관례에 맞췄다. 체인지로그는 `apps/portfolio/CHANGELOG.md`에 생성되며 `feat`·`fix`·`perf`·`refactor`만 노출한다.
+
+---
+
+## 7. 운영 절차
+
+### 일반 릴리스
+
+```
+1. develop에서 작업, feat:/fix: 커밋 (기존과 같음)
+2. develop → master PR을 **Merge commit**으로 머지   ← squash 금지 (아래 설명)
+3. [자동] release-please가 "release(portfolio): 0.4.0" PR을 연다 — 버전은 커밋 타입으로 결정
+4. 릴리스 PR 머지
+5. [자동] 태그 portfolio@0.4.0 + GitHub Release 발행 → deploy-portfolio.yml 실행
+6. master → develop 백머지
+```
+
+수동 단계가 4개(버전 범프 PR·develop→master·태그·Release)에서 2개(develop→master·릴리스 PR 머지)로 줄고, 버전 범프·체인지로그·태그·Release가 자동화된다.
+
+### develop → master는 반드시 Merge commit (2026-09-05 결정)
+
+release-please는 PR을 보지 않고 **master의 git log**를 읽는다. 지난 태그 이후 master에 실제로 존재하는 커밋의 제목 타입으로 버전을 정하고, 제목으로 체인지로그를 쓴다.
+
+- **squash로 합치면** master에 커밋 하나만 남는다. 제목이 기존 관례인 `release(portfolio): ...`면 `release`는 인식 타입이 아니라 **릴리스 PR이 열리지 않는다.** `feat(portfolio):`로 바꾸면 열리지만 체인지로그는 그 한 줄이 전부다 — develop에 쌓인 개별 변경이 사라진다.
+- **merge commit으로 합치면** develop의 커밋이 그대로 master에 들어와 release-please가 원본을 읽는다. 항목별 체인지로그가 자동으로 나온다.
+- develop의 커밋은 이미 기능 PR 단위로 squash된 의미 단위(`feat(portfolio): ... (#64)`)라 master 이력이 지저분해지지 않는다.
+- squash 본문을 `feat(...):` 문단 형식으로 손으로 옮겨 적으면 `splitMessages`가 파싱하긴 한다. 그러나 매번 베껴 적어야 하고 형식이 어긋나면 조용히 빠져, 자동화하면서 수동 규율을 하나 더 만드는 셈이라 택하지 않았다.
+
+**develop → master PR 제목은 Conventional Commits 형식으로 쓰지 않는다.** 저장소 설정(`merge_commit_message: PR_TITLE`)상 PR 제목이 merge commit 본문으로 들어가는데, 제목이 `feat(...):`면 `splitMessages`가 이를 커밋 하나로 더 세어 이중 집계된다. `Release: P3 반영` 처럼 타입 없이 쓴다. 기능 PR → develop은 지금처럼 squash를 유지한다.
+
+### hotfix
+
+```
+1. master에서 hotfix/xxx 브랜치 생성   ← develop을 거치지 않는다
+2. fix(portfolio): ... 커밋
+3. hotfix → master PR을 squash로 머지, 제목은 fix(portfolio): ...   ← 여기는 squash가 맞다
+4. [자동] "release(portfolio): 0.4.1" PR — fix:라서 patch
+5. 릴리스 PR 머지 → [자동] 태그·Release·배포
+6. master → develop 백머지                ← 빠뜨리면 다음 릴리스에서 버그가 되살아난다
+```
+
+hotfix 브랜치는 작업 중 커밋이 여러 개일 수 있어 squash가 맞다. 결과가 `fix(portfolio): ...` 커밋 하나로 남으면 release-please가 patch를 제안한다. develop → master와 규칙이 다른 이유는, develop은 이미 정리된 커밋의 모음이고 hotfix 브랜치는 아직 정리 전이기 때문이다.
+
+### 주의: 릴리스 PR을 열어두지 말 것
+
+develop→master를 머지해 릴리스 PR(예: 0.5.0)이 열려 있는 상태에서 hotfix가 master에 들어오면, release-please는 새 PR을 만들지 않고 **열려 있던 PR에 fix를 합친다.** 그러면 hotfix만 따로 내보낼 수 없다. **develop→master를 머지했으면 릴리스 PR을 바로 머지한다.**
+
+### 백머지가 필요한 이유
+
+릴리스 PR이 master의 `package.json`을 올리는데 develop은 이전 버전에 머문다. 백머지를 안 하면 hotfix 코드가 develop에 없어 다음 릴리스에서 버그가 되살아나고, `package.json` 버전이 충돌하거나 뒤로 간다.
+
+---
+
+## 8. 범위 밖
 
 **브랜치 전략 자체는 바꾸지 않는다.** GitHub Flow로 단순화하는 안(main 하나 + 짧은 feature 브랜치)도 검토했으나, 현재는 일반적인 Git Flow를 익히는 것이 목적이므로 유지한다. 이 문서는 **릴리스 작업의 자동화**만 다룬다.

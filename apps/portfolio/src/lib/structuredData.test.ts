@@ -1,13 +1,13 @@
-import { EXPERIENCES } from '@/src/data/experienceData';
-import { FAQS } from '@/src/data/faqData';
-import { SITE_URL, absoluteUrl } from '@/src/lib/siteConfig';
+import { EXPERIENCES } from '@/data/experienceData';
+import { FAQS } from '@/data/faqData';
+import { SITE_URL, absoluteUrl } from '@/lib/siteConfig';
 import {
   buildBreadcrumbSchema,
   buildCreativeWorkSchema,
   buildFaqSchema,
   buildPersonSchema,
   buildWebSiteSchema,
-} from '@/src/lib/structuredData';
+} from '@/lib/structuredData';
 
 /**
  * 구조화 데이터는 화면에 보이지 않아 눈으로 회귀를 잡을 수 없다.
@@ -45,7 +45,7 @@ describe('structuredData', () => {
     it('월이 01~12를 벗어나거나 순서가 뒤집힌 기간은 날짜 필드를 만들지 않는다', () => {
       // parsePeriod는 내부 함수라 EXPERIENCES를 갈아끼워 간접 검증한다
       jest.isolateModules(() => {
-        jest.doMock('@/src/data/experienceData', () => ({
+        jest.doMock('@/data/experienceData', () => ({
           EXPERIENCES: [
             { company: 'A', period: '2024.00 - 2024.06', role: 'Dev', type: 'Junior' },
             { company: 'B', period: '2024.13 - 2024.06', role: 'Dev', type: 'Junior' },
@@ -55,7 +55,7 @@ describe('structuredData', () => {
         }));
 
         // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const { buildPersonSchema: build } = require('@/src/lib/structuredData');
+        const { buildPersonSchema: build } = require('@/lib/structuredData');
         const roles = build().hasOccupation as Record<string, unknown>[];
 
         // 00월·13월·역순은 버리고, 정상 기간만 날짜를 갖는다

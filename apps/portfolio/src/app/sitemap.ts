@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
-import { getAllProjects } from '@/src/lib/mdx';
-import { SITE_URL } from '@/src/lib/siteConfig';
+import { getAllProjects } from '@/lib/mdx';
+import { SITE_URL } from '@/lib/siteConfig';
 
 /** 정적 라우트. `/gallery`는 `/resume`로 영구 리다이렉트되므로 싣지 않는다 */
 const STATIC_ROUTES = [

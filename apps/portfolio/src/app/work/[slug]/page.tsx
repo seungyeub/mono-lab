@@ -4,25 +4,25 @@ import {
   getProjectBySlug,
   getProjectSeoMetadata,
   publicAssetExists,
-} from '@/src/lib/mdx';
+} from '@/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import DemonstrationsSection from '@/src/features/work/detail/DemonstrationsSection';
-import ExploreCta from '@/src/features/work/detail/ExploreCta';
-import FeaturesSection from '@/src/features/work/detail/FeaturesSection';
-import ImpactSection from '@/src/features/work/detail/ImpactSection';
-import ImplementationSection from '@/src/features/work/detail/ImplementationSection';
-import ScrollToTop from '@/src/features/work/detail/ScrollToTop';
-import SectionHeading from '@/src/features/work/detail/SectionHeading';
-import TechStackSection from '@/src/features/work/detail/TechStackSection';
-import WorkDetailHero from '@/src/features/work/detail/WorkDetailHero';
+import DemonstrationsSection from '@/features/work/detail/DemonstrationsSection';
+import ExploreCta from '@/features/work/detail/ExploreCta';
+import FeaturesSection from '@/features/work/detail/FeaturesSection';
+import ImpactSection from '@/features/work/detail/ImpactSection';
+import ImplementationSection from '@/features/work/detail/ImplementationSection';
+import ScrollToTop from '@/features/work/detail/ScrollToTop';
+import SectionHeading from '@/features/work/detail/SectionHeading';
+import TechStackSection from '@/features/work/detail/TechStackSection';
+import WorkDetailHero from '@/features/work/detail/WorkDetailHero';
 import { ComponentPropsWithoutRef } from 'react';
 import type { Metadata } from 'next';
 
-import JsonLd from '@/src/components/JsonLd';
-import { SITE_NAME, absoluteUrl, buildPageOpenGraph } from '@/src/lib/siteConfig';
-import { buildBreadcrumbSchema, buildCreativeWorkSchema } from '@/src/lib/structuredData';
+import JsonLd from '@/components/JsonLd';
+import { SITE_NAME, absoluteUrl, buildPageOpenGraph } from '@/lib/siteConfig';
+import { buildBreadcrumbSchema, buildCreativeWorkSchema } from '@/lib/structuredData';
 
 type ProjectDetailParams = { slug: string };
 
@@ -67,7 +67,7 @@ const mdxComponents = {
   // article의 [counter-reset:story]와 SectionHeading(Project Story)을 제거하면 된다.
   h2: (props: ComponentPropsWithoutRef<'h2'>) => (
     <h2
-      className='mt-12 mb-4 flex items-center gap-3 text-xl font-medium text-gray-200 before:flex before:h-8 before:w-8 before:shrink-0 before:items-center before:justify-center before:rounded-md before:border before:border-white/15 before:font-mono before:text-[11px] before:font-normal before:text-white/60 before:content-[counter(story,decimal-leading-zero)] before:[counter-increment:story] md:text-2xl'
+      className='before:border-line-strong mt-12 mb-4 flex items-center gap-3 text-xl font-medium text-gray-200 before:flex before:h-8 before:w-8 before:shrink-0 before:items-center before:justify-center before:rounded-md before:border before:font-mono before:text-xs before:font-normal before:text-white/60 before:content-[counter(story,decimal-leading-zero)] before:[counter-increment:story] md:text-2xl'
       {...props}
     />
   ),
@@ -155,7 +155,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
 
       {/* ── Next Project — 순차 탐색 ── */}
       {nextProject && (
-        <section className='border-t border-white/10 px-6 py-12 md:px-12 md:py-16'>
+        <section className='border-line border-t px-6 py-12 md:px-12 md:py-16'>
           <Link href={`/work/${nextProject.slug}`} className='group flex flex-col gap-3'>
             <span className='text-xs tracking-widest text-white/40 uppercase'>Next Project</span>
             <div className='flex flex-wrap items-baseline justify-between gap-3'>

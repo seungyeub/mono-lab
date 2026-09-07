@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import { useCursorStore } from '@/store/useCursorStore';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -73,7 +73,7 @@ export default function ContactForm() {
   };
 
   const inputClass =
-    'w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors duration-300';
+    'w-full bg-transparent border-b border-line-strong py-4 text-lg text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors duration-300';
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='mt-16 flex max-w-2xl flex-col gap-12'>

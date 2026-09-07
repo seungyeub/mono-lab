@@ -15,7 +15,7 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     // Handle module aliases
-    '^@/(.*)$': '<rootDir>/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   coverageReporters: ['lcov', 'text', 'html'],
   collectCoverageFrom: [

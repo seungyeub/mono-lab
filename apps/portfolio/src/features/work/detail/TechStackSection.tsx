@@ -1,7 +1,7 @@
 'use client';
 
-import SkillChips from '@/src/features/home/components/SkillChips';
-import { resolveTechSkills } from '@/src/lib/techSkills';
+import SkillChips from '@/components/SkillChips';
+import { resolveTechSkills } from '@/lib/techSkills';
 import SectionHeading from './SectionHeading';
 
 /**

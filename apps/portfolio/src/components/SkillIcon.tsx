@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import type { SkillItem } from '../skillsData';
+import type { SkillItem } from '@/data/skillsData';
 
 // ─────────────────────────────────────────────
 // Types

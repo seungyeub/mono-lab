@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { ProjectMetadata } from '@/src/lib/mdx';
+import type { ProjectMetadata } from '@/lib/mdx';
 import ImageCarousel from './ImageCarousel';
 
 /**
@@ -28,7 +28,7 @@ export default function WorkDetailHero({
 
       {/* 중앙 헤드라인 */}
       <div className='mx-auto mt-10 flex max-w-4xl flex-col items-center gap-5 text-center md:mt-14'>
-        <span className='inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-1.5 text-[10px] font-medium tracking-[0.2em] text-white/50 uppercase'>
+        <span className='text-label tracking-label border-line-strong inline-flex items-center gap-2 rounded-full border px-4 py-1.5 font-medium text-white/50 uppercase'>
           <span aria-hidden className='h-1 w-1 animate-pulse rounded-full bg-white/70' />
           Featured Project
         </span>
@@ -41,7 +41,7 @@ export default function WorkDetailHero({
       </div>
 
       {/* 프레임 카드: 캐러셀 + Overview */}
-      <div className='mx-auto mt-10 max-w-6xl rounded-2xl border border-white/10 bg-white/5 p-4 transition-colors duration-500 hover:border-white/20 sm:p-6 md:mt-14 md:p-10'>
+      <div className='border-line hover:border-line-strong mx-auto mt-10 max-w-6xl rounded-2xl border bg-white/5 p-4 transition-colors duration-500 sm:p-6 md:mt-14 md:p-10'>
         <div className={`grid items-center gap-6 md:gap-10 ${hasOverview ? 'lg:grid-cols-2' : ''}`}>
           {/* 프레임은 목록(/work) 카드와 같은 16:10 — 캡쳐 비율은 contain으로 그대로 지킨다 */}
           <ImageCarousel images={heroImages} fallbackLabel={meta.title} />
@@ -56,7 +56,7 @@ export default function WorkDetailHero({
                   <div key={item.title} className='flex items-start gap-3'>
                     <span
                       aria-hidden
-                      className='mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-white/15 font-mono text-[10px] text-white/60'
+                      className='text-label border-line-strong mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border font-mono text-white/60'
                     >
                       {String(index + 1).padStart(2, '0')}
                     </span>

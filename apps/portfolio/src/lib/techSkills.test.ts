@@ -1,4 +1,4 @@
-import type { SkillItem } from '@/src/features/home/skillsData';
+import type { SkillItem } from '@/data/skillsData';
 import { resolveTechSkills } from './techSkills';
 
 /** resolveTechSkills는 입력 길이를 보존하는 전함수라 구조분해가 안전하다 — 타입에만 알려준다 */

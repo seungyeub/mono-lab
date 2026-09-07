@@ -1,11 +1,11 @@
 'use client';
 
-import SectionLabel from '@/src/components/SectionLabel';
-import TagBar from '@/src/components/TagBar';
+import SectionLabel from '@/components/SectionLabel';
+import TagBar from '@/components/TagBar';
 import { motion } from 'framer-motion';
 
-import SkillChips from './components/SkillChips';
-import { SKILL_CATEGORIES, SKILL_TAGS } from './skillsData';
+import SkillChips from '@/components/SkillChips';
+import { SKILL_CATEGORIES, SKILL_TAGS } from '@/data/skillsData';
 
 // ─────────────────────────────────────────────
 // Main Component: SkillsSection
@@ -15,7 +15,7 @@ export default function SkillsSection() {
   return (
     <section
       data-testid='skills-section'
-      className='flex w-full flex-col items-start gap-10 pt-[140px] sm:gap-[60px] md:gap-[80px] md:pt-[120px] xl:pt-[180px]'
+      className='pt-section xl:pt-section-lg flex w-full flex-col items-start gap-10 sm:gap-[60px] md:gap-[80px]'
     >
       {/* ── SectionLabel ── */}
       <SectionLabel scene='03' leftLabel='© Technical Skills 기술 역량' rightLabel='Stack' />
@@ -47,7 +47,10 @@ export default function SkillsSection() {
       </div>
 
       {/* ── TagBar ── */}
-      <TagBar tags={SKILL_TAGS} hideFromIndex={3} />
+      {/* Skills만 md(768px) 미만에서 숨긴다. 태그가 5개라 좁은 화면에서 빽빽해지는데,
+          Experience·Epilogue는 태그 수가 적어 그대로 둔다(2026-09-04 확정, P3-9).
+          바 전체가 숨겨지므로 hideFromIndex는 더 이상 관여하지 않아 제거했다. */}
+      <TagBar tags={SKILL_TAGS} className='hidden md:block' />
 
       {/* ── 카테고리별 스킬 목록 ── */}
       <div className='site-container w-full px-6 md:px-12'>
@@ -60,7 +63,7 @@ export default function SkillsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: catIndex * 0.05 }}
-                className='mb-5 border-b border-white/20 pb-4 text-lg font-bold uppercase md:mb-6 md:pb-6 md:text-xl'
+                className='border-line-strong mb-5 border-b pb-4 text-lg font-bold uppercase md:mb-6 md:pb-6 md:text-xl'
               >
                 <h3>{category.title}</h3>
               </motion.div>

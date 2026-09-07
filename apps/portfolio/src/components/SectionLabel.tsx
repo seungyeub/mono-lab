@@ -36,7 +36,7 @@ export default function SectionLabel({
       animate={{ top: headerHidden ? 0 : 99 }}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
     >
-      <div className='w-full bg-neutral-950 text-[13px]'>
+      <div className='bg-surface w-full text-[13px]'>
         <div className='flex flex-col gap-2.5 overflow-hidden'>
           <div className='h-px w-full bg-transparent' />
           <div className='site-container flex items-center justify-between px-6 text-white/70 uppercase md:px-12'>
@@ -48,7 +48,7 @@ export default function SectionLabel({
               {rightLabel}
             </h6>
           </div>
-          <div className='h-px w-full bg-white/15' />
+          <div className='bg-line h-px w-full' />
         </div>
       </div>
     </motion.div>

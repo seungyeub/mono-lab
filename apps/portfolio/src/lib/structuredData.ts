@@ -1,5 +1,5 @@
-import { EXPERIENCES } from '@/src/data/experienceData';
-import { FAQS } from '@/src/data/faqData';
+import { EXPERIENCES } from '@/data/experienceData';
+import { FAQS } from '@/data/faqData';
 import {
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -7,7 +7,7 @@ import {
   SITE_URL,
   SOCIAL_PROFILES,
   absoluteUrl,
-} from '@/src/lib/siteConfig';
+} from '@/lib/siteConfig';
 
 /**
  * schema.org 구조화 데이터 빌더.

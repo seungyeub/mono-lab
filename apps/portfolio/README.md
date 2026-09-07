@@ -42,19 +42,22 @@ pnpm run dev
 
 ## 📂 프로젝트 구조
 
+코드는 전부 `src/` 안에, 설정 파일은 앱 루트에 둔다. 별칭 `@/*`는 `./src/*`를 가리킨다.
+
 ```text
 apps/portfolio/
-├── app/                      # Next.js App Router 페이지
-│   ├── page.tsx              # 홈 (Hero, Works, Skills, Experience, FAQ, Epilogue)
-│   ├── work/                 # Work 목록 + [slug] 상세
-│   ├── resume/               # 이력서 페이지
-│   └── contact/              # Contact 폼
 ├── src/
-│   ├── features/             # 도메인별 컴포넌트 (home, work, layout, contact)
-│   ├── components/           # 공통 컴포넌트 (RollingText, Marquee 등)
-│   ├── contents/work/        # MDX 프로젝트 파일 (10건)
-│   ├── lib/                  # 유틸리티 (MDX 파서, 이미지 필터 등)
-│   └── store/                # 전역 상태 (커서 등)
+│   ├── app/                  # Next.js App Router — 라우트·레이아웃·sitemap·robots
+│   │   ├── page.tsx          # 홈 (Hero, Works, Skills, Experience, FAQ, Epilogue)
+│   │   ├── work/             # Work 목록 + [slug] 상세
+│   │   ├── resume/           # 이력서 페이지
+│   │   └── contact/          # Contact 폼
+│   ├── features/             # 화면 단위 컴포넌트 (home, work, layout, contact)
+│   ├── components/           # 둘 이상의 화면이 쓰는 UI (SectionLabel, SkillChips, RollingText 등)
+│   ├── data/                 # 화면·구조화 데이터가 함께 읽는 정적 데이터 (skills, experience, faq)
+│   ├── lib/                  # 유틸리티 (MDX 파서, siteConfig, JSON-LD 빌더)
+│   ├── store/                # 전역 상태 (커서)
+│   └── contents/work/        # MDX 프로젝트 파일
 ├── public/
 │   ├── icons/                # 커스텀 SVG 아이콘
 │   └── images/               # 정적 이미지 에셋
@@ -63,6 +66,8 @@ apps/portfolio/
 │   └── plan/                 # 기능별 상세 계획서
 └── e2e/                      # Playwright VRT 테스트
 ```
+
+테스트는 대상 파일 옆에 둔다(`*.test.ts` 또는 `*.test.tsx`). `features/` 안의 컴포넌트가 다른 feature에서 필요해지면 `components/`로 올린다.
 
 ## 📝 문서
 

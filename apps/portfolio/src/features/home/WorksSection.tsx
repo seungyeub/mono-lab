@@ -1,9 +1,9 @@
 'use client';
 
-import RollingLink from '@/src/components/RollingText/RollingLink';
-import SectionLabel from '@/src/components/SectionLabel';
-import type { ProjectCard } from '@/src/lib/mdx';
-import { useCursorStore } from '@/src/store/useCursorStore';
+import RollingLink from '@/components/RollingText/RollingLink';
+import SectionLabel from '@/components/SectionLabel';
+import type { ProjectCard } from '@/lib/mdx';
+import { useCursorStore } from '@/store/useCursorStore';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -30,7 +30,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
         onMouseLeave={() => setCursorType('default')}
         // 링크 안이 이미지·장식뿐일 때 스크린리더가 목적을 읽을 수 있게 이름을 준다
         aria-label={project.title}
-        className={`group relative block overflow-hidden bg-[#1a1a1a] ${aspectClass}`}
+        className={`group bg-surface-raised relative block overflow-hidden ${aspectClass}`}
       >
         {project.imageExists ? (
           <>

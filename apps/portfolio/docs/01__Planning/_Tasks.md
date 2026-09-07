@@ -18,16 +18,17 @@
 
 ### 🟢 P3 — Backlog (선택적/폴리싱)
 
-- [ ] P3-1. 데스크톱 폰트 스케일업 최종 결정
-- [ ] P3-2. Skills Section 구분선(White Line) 제거 여부 결정
+- [x] P3-1. 데스크톱 폰트 스케일업 — **조치 불필요로 결정**. `max-w` 래퍼가 이미 적용돼 1440→1920px에서 본문 폭이 변하지 않는다(실측). 스케일 조정은 P3-6에서 토큰으로 다룬다
+- [x] P3-2. Skills Section 구분선(White Line) 제거 — 그 구분선이 `EditorialDivider`였고 P3-10에서 함께 제거
 - [x] P3-3. `<html lang='en'>` → `ko` 수정 — P2-5에서 함께 처리
-- [ ] P3-4. 폴더 구조 정리 (Next.js 베스트 프랙티스 기준)
-- [ ] P3-5. HeroSection 하단 Marquee 디자인 개선
-- [ ] P3-8. 릴리스 자동화 도입 검토 (Changesets vs release-please) — `docs/plan/2026-09-03_release-automation.md`
-- [ ] P3-6. 디자인 토큰 체계 정비 (색상 `bg-[#1a1a1a]` + 타이포 `text-[10px]`·`tracking-[0.2em]` + spacing `pt-[140px]` 토큰 신규 정의 후 일괄 교체) — 실행 목록은 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53)
-- [ ] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
-- [ ] P3-10. 데드 컴포넌트 `EditorialDivider` 배치 또는 제거
-- [ ] P3-11. Lighthouse 성능 개선 — 현재 0.25(warn만 걸려 CI 통과). CSS 배경 이미지 → `next/image` 전환이 핵심
+- [x] P3-4. 폴더 구조 정리 — `app/`→`src/app/`, 별칭 `@/*`→`./src/*`(import 96건 정리). `SkillChips`·`SkillIcon`→`components/`, `skillsData`→`data/`로 feature 간 의존 해소. `dev.log` 추적 해제. `actions.ts`는 메일 발송 계획으로 유지. 루트 README에 새 앱 추가 규칙 기록
+- [x] P3-5. HeroSection 하단 Marquee — 구분자를 텍스트 사이 가운데로 이동(좌우 40px 동일). 띠 자체는 유지, 겹친 선 4줄은 P3-6으로 인계
+- [x] P3-12. 섹션 구분 강화 (긴 모니터 대응) — **현 상태 유지로 결론**. 배경 교대(ⓑ)·상단 선+제목 통일(ⓒ)을 로컬 비교했으나 ⓑ는 톤 훼손, ⓒ는 대형 제목이 이미 있어 선만 남아 효과 미미. 고정 라벨·대형 제목·통일 여백으로 충분. Epilogue scene 05→06, 잔여 `bg-neutral-950`→`bg-surface`만 정리
+- [x] P3-8. 릴리스 자동화 — release-please manifest 모드 도입. 태그 `portfolio@X.Y.Z`·develop→master 유지. **첫 실행 전 `RELEASE_PLEASE_TOKEN` 시크릿 등록 필요**
+- [x] P3-6. 디자인 토큰 체계 정비 — `globals.css` `@theme`에 surface·line·label·section 토큰 8개 정의, 27개 파일 임의값 일괄 교체. Hero 하단 선 2줄 제거(P3-5 인계), Footer 문구 통일. 실행 목록 [이슈 #53](https://github.com/seungyeub/mono-lab/issues/53). VRT 재촬영 필요
+- [x] P3-9. Skills의 TagBar를 768px 미만에서 숨김 — `hidden md:block`으로 감쌈. Skills만 변경, Experience·Epilogue는 유지(2026-09-04 확정). VRT 홈 기준선 재촬영 필요
+- [x] P3-10. `EditorialDivider` 제거 — 커밋된 코드 기준 데드 코드였다. 조사 중 작업 트리의 확인용 임시 호출을 커밋된 사용처로 오인한 적이 있으나, 저장소 이력에는 존재한 적 없다
+- [x] P3-11. Lighthouse 성능 개선 — 0.42→0.75(로컬). 원인은 CSS 배경 이미지가 아니라 3D 번들의 메인 스레드 점유·Pretendard `@import` 렌더 차단·`template.tsx` 진입 페이드였다. 관측 LCP 195ms(FCP와 동일), 보고값 4.3s는 시뮬레이션 특성. 임계값 상향은 CI 실측 후 결정
 
 ---
 
@@ -108,7 +109,7 @@
 - [x] 2026-08-19 — PR #49: Playwright CI 브라우저 설치 병목 제거 — 공식 컨테이너 전환 (P3-7 완료)
 - [x] 2026-08-19 — PR #50: Turborepo 2.9.14 → 2.10.11 업그레이드
 - [x] 2026-08-19 — PR #51: 홈 Work 카드를 MDX 단일 소스로 통합 (P0-6 완료)
-- [x] 2026-08-19 — P1-2: 주석 처리된 브랜드 디자이너 섹션의 **import·렌더 제거** (`BrandSection`/`ServicesSection`/`EditorialDivider`). **`EditorialDivider.tsx` 파일 자체는 남아 있다** — 데드 코드 상태이며 처분은 P3-10에서 결정한다
+- [x] 2026-08-19 — P1-2: 주석 처리된 브랜드 디자이너 섹션의 **import·렌더 제거** (`BrandSection`/`ServicesSection`/`EditorialDivider`). **`EditorialDivider.tsx` 파일은 남아 있었다** — 2026-09-04 P3-10에서 제거했다
 - [x] 2026-09-02 — `docs/01__Planning/` 4개 파일 + README 2개 기록 최신화
 - [x] 2026-09-03 — PR #52: Works 영역 전면 리뉴얼 (P1-1·P1-2 완료) — 실제 경력 프로젝트 10건 등재, 상세 페이지 재설계, 카드 16:10 통일, 이미지 라이트박스, VRT 인프라 결함 수정 (55 커밋)
 - [x] 2026-09-03 — 이슈 #53 생성: P3-6 디자인 토큰 정비 실행 목록 (PR #52 리뷰에서 파생)
