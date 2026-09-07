@@ -8,10 +8,6 @@ import RollingLink from '@/components/RollingText/RollingLink';
 import Marquee from '@/components/Marquee';
 import dynamic from 'next/dynamic';
 
-const InteractiveCardCanvas = dynamic(() => import('./components/InteractiveCardCanvas'), {
-  ssr: false,
-});
-
 /**
  * 3D 캔버스가 뜨기 전에 자리를 지키는 정적 플레이스홀더.
  * three.js + rapier 번들(전송 약 1.1MB, 실행 약 5초)이 하이드레이션 직후 메인 스레드를
@@ -25,6 +21,12 @@ function CardPlaceholder() {
     </div>
   );
 }
+
+const InteractiveCardCanvas = dynamic(() => import('./components/InteractiveCardCanvas'), {
+  ssr: false,
+  // idle 이후 청크를 받는 동안에도 같은 자리를 지킨다 — 기본 fallback은 null이라 영역이 비어 보인다
+  loading: () => <CardPlaceholder />,
+});
 
 const MARQUEE_ITEMS = [
   'Precision',

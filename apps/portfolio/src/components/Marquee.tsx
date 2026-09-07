@@ -40,14 +40,15 @@ export default function Marquee({
     setDuration(width / speed);
   }, [speed]);
 
-  // 아이템을 두 벌 복사 (seamless loop용)
+  // 아이템을 두 벌 복사 (seamless loop용). 트랙은 -50%만 이동하므로 두 벌 사이 gap이 하나 모자라면
+  // 이음새가 반 gap만큼 튄다 — 트랙 끝 padding(pr)이 그 gap 역할을 해 이동 거리가 정확히 한 벌이 된다.
   const allItems = [...items, ...items];
 
   return (
     <div className={`border-line w-full overflow-hidden border-y py-2 ${className}`}>
       <div
         ref={trackRef}
-        className='flex gap-6 whitespace-nowrap will-change-transform md:gap-10'
+        className='flex gap-6 pr-6 whitespace-nowrap will-change-transform md:gap-10 md:pr-10'
         style={{
           animation: `marquee-scroll ${duration}s linear infinite`,
         }}

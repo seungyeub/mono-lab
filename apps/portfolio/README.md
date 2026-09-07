@@ -67,7 +67,7 @@ apps/portfolio/
 └── e2e/                      # Playwright VRT 테스트
 ```
 
-테스트는 대상 파일 옆에 둔다(`*.test.tsx`). `features/` 안의 컴포넌트가 다른 feature에서 필요해지면 `components/`로 올린다.
+테스트는 대상 파일 옆에 둔다(`*.test.ts` 또는 `*.test.tsx`). `features/` 안의 컴포넌트가 다른 feature에서 필요해지면 `components/`로 올린다.
 
 ## 📝 문서
 

@@ -79,7 +79,7 @@
 
 공식 문서(`googleapis/release-please`, `release-please-action` README)로 확인했다.
 
-- [x] **단일 패키지 모드** — manifest 설정 `packages: { "apps/portfolio": { component: "portfolio" } }`로 앱 하나만 릴리스한다. 공유 패키지 4개는 대상에서 빠진다.
+- [x] **단일 패키지 모드** — manifest 설정 `packages: { "apps/portfolio": { ... } }`로 앱 하나만 릴리스한다. `component`는 JSON 스키마에 없는 키라 적지 않고, `release-type: node`가 `apps/portfolio/package.json`의 `name`(`portfolio`)에서 유추한다. 공유 패키지 4개는 대상에서 빠진다.
 - [x] **Changesets 검토 종결** — 패키지가 사실상 1개이고 커밋 규율이 이미 있어 release-please가 맞다(4절 판단 유지). Changesets의 `privatePackages` 옵션은 확인하지 않았다.
 - [x] **태그 형식 `portfolio@X.Y.Z`** — `include-component-in-tag: true` + `tag-separator: "@"` + `include-v-in-tag: false`로 생성된다. 태그 생성 규칙은 `${component}${separator}${includeV ? 'v' : ''}${version}`(소스 `src/util/tag-name.ts`). **`deploy-portfolio.yml`의 `portfolio@*` 트리거가 그대로 동작한다.**
 - [x] **브랜치 전략** — `target-branch: master`. 흐름은 develop 작업 → develop→master PR → [자동] 릴리스 PR → 머지 → [자동] 태그·Release·배포. **브랜치 전략은 바꾸지 않는다.** 대신 릴리스 직후 master→develop 백머지가 필요하다(7절).
@@ -88,7 +88,7 @@
 
 ### 핵심 제약: PAT가 필요하다
 
-**기본 `GITHUB_TOKEN`으로 만든 PR과 태그는 다른 워크플로를 발화시키지 않는다**(GitHub의 재귀 방지, release-please-action README 명시). 이 상태로는 릴리스 PR에 CI가 안 돌고, **태그가 생겨도 `deploy-portfolio.yml`이 실행되지 않는다.** `contents: write` + `pull-requests: write` 권한의 Fine-grained PAT를 `RELEASE_PLEASE_TOKEN` 시크릿으로 등록해야 한다.
+**기본 `GITHUB_TOKEN`으로 만든 PR과 태그는 다른 워크플로를 발화시키지 않는다**(GitHub의 재귀 방지, release-please-action README 명시). 이 상태로는 릴리스 PR에 CI가 안 돌고, **태그가 생겨도 `deploy-portfolio.yml`이 실행되지 않는다.** Contents·Pull requests·**Issues** 세 가지 Read and write 권한의 Fine-grained PAT를(Issues는 릴리스 PR의 `autorelease` 라벨 처리에 필요, README 명시) `RELEASE_PLEASE_TOKEN` 시크릿으로 등록해야 한다.
 
 ### 0.x 버전 규칙
 
