@@ -26,7 +26,7 @@
 
 - [ ] P6-5. 초기 JS 번들 감량 — Lighthouse 보고값(4.3s)을 내리려면 관측 LCP 이전 바이트(JS 290KB·폰트 330KB) 축소 필요
 - [ ] P6-6. CI Lighthouse 신뢰성 — 아티팩트 저장, `Manifest not found` 코멘트 단계 수정, 프리뷰 URL 측정 검토, 임계값 결정
-- [ ] P6-7. release-please `workflow_dispatch` 추가 — 릴리스 PR 재생성 수단 확보
+- [x] P6-7. release-please `workflow_dispatch` 추가 — Actions에서 수동 실행 가능. master 반영 후 효과
 
 **🟢 P3 — 결정 필요**
 
