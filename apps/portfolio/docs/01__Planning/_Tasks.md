@@ -6,7 +6,32 @@
 
 ## Next
 
-가장 먼저 해야 하는 작업 — Phase 5 PRD(`docs/plan/2026-08-18_phase5_prd.md`) 기준
+가장 먼저 해야 하는 작업 — Phase 6 PRD(`docs/plan/2026-09-08_phase6_prd.md`) 기준. Phase 5(`docs/plan/2026-08-18_phase5_prd.md`)는 0.4.0으로 전 항목 완료.
+
+### Phase 6 — 결함 정리·기능 연결·측정 인프라 신뢰성
+
+**🔴 P0 — 결함 수정**
+
+- [ ] P6-1. 에필로그 문구가 세로로 긴 화면에서 끝까지 밝아지지 않음 — 1280×2000에서 30개 중 8개가 어두운 채로 남음(실측). 진행도 기준이 화면 높이에 의존하는 것이 원인
+
+**🟡 P1 — 기능 연결** (항목마다 설명 후 착수)
+
+- [ ] P6-2. 문의 폼 메일 발송 연결 — `actions.ts`의 Resend 서버 액션을 `ContactForm`에 연결. 수신 주소·키 등록 절차 결정 필요
+- [ ] P6-3. 방문 분석 연동 — GA4 대 Vercel Analytics 비교 후 선택
+- [ ] P6-4. 접근성 점검·개선 — 키보드·대비·스크린리더·`prefers-reduced-motion`. 전역 `cursor: none` 영향 확인
+
+**🟡 P2 — 성능·인프라** (항목마다 설명 후 착수)
+
+- [ ] P6-5. 초기 JS 번들 감량 — Lighthouse 보고값(4.3s)을 내리려면 관측 LCP 이전 바이트(JS 290KB·폰트 330KB) 축소 필요
+- [ ] P6-6. CI Lighthouse 신뢰성 — 아티팩트 저장, `Manifest not found` 코멘트 단계 수정, 프리뷰 URL 측정 검토, 임계값 결정
+- [ ] P6-7. release-please `workflow_dispatch` 추가 — 릴리스 PR 재생성 수단 확보
+
+**🟢 P3 — 결정 필요**
+
+- [ ] P6-8. Resume PDF 다운로드 — 웹 페이지와 병행 확정. 직접 제작 파일 대 자동 생성 중 선택
+- [ ] P6-9. 배포 파이프라인 타입 체크 게이트 — `ignoreBuildErrors` 제거 / 배포 워크플로에 `check-types` 추가 / 둘 다
+
+### Phase 5 — 완료 (0.4.0, 2026-09-07)
 
 ### 🟡 P2 — Nice to Have (품질 향상)
 
