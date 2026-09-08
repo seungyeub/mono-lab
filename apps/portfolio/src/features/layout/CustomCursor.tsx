@@ -42,6 +42,10 @@ export default function CustomCursor() {
 
   if (!isVisible) return null;
 
+  // 표시 조건은 클래스의 미디어 변형 하나로 묶는다 — 정밀 포인터이면서 동작 줄이기가 꺼진 경우만.
+  // motion-reduce:hidden을 따로 두면 임의 미디어 변형의 flex에 밀려 적용되지 않는다(실측).
+  // globals.css의 커서 숨김 조건과 짝이다.
+
   // view 상태는 크기가 커지며 "VIEW" 텍스트 표시
   const isView = cursorType === 'view';
   const isGrab = cursorType === 'grab';
@@ -52,7 +56,7 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className='pointer-events-none fixed top-0 left-0 z-9999 hidden items-center justify-center rounded-full [@media(hover:hover)_and_(pointer:fine)]:flex'
+      className='pointer-events-none fixed top-0 left-0 z-9999 hidden items-center justify-center rounded-full [@media(hover:hover)_and_(pointer:fine)_and_(prefers-reduced-motion:no-preference)]:flex'
       style={{
         x: mouseX,
         y: mouseY,

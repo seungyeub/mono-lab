@@ -40,6 +40,8 @@ jest.mock('framer-motion', () => {
     })),
     // useTransform mock: return a dummy value
     useTransform: jest.fn(() => 1),
+    // 동작 줄이기 분기 — 테스트는 기본값(꺼짐)으로 돈다
+    useReducedMotion: jest.fn(() => false),
   };
 });
 

@@ -50,7 +50,6 @@
   }
 
   body {
-    cursor: none;
     color: #ffffff;
     font-size: 14px;
     line-height: 1.25;
@@ -59,15 +58,36 @@
     font-optical-sizing: auto;
   }
 
-  /* Hide OS cursor on all interactive elements */
-  a,
-  button,
-  input,
-  textarea,
-  select,
-  label,
-  [role="button"] {
-    cursor: none !important;
+  /*
+    운영체제 커서를 숨기고 CustomCursor가 대신 그린다. 단, 대체 커서가 실제로 뜰 수 있는
+    조건(정밀 포인터 + 동작 줄이기 꺼짐)에서만. 터치 기기나 동작 줄이기 사용자에게까지
+    숨기면 포인터가 아예 사라진다.
+  */
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    label,
+    [role="button"] {
+      cursor: none !important;
+    }
+  }
+
+  /* 위 조건 밖에서는 컴포넌트가 붙인 cursor-none 클래스도 무시한다 */
+  @media not ((pointer: fine) and (prefers-reduced-motion: no-preference)) {
+    .cursor-none {
+      cursor: auto !important;
+    }
+  }
+
+  /* 동작 줄이기: 무한 반복 애니메이션은 아예 멈춘다 (framer-motion 밖의 CSS 애니메이션) */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none !important;
+    }
   }
 
   /* Lenis smooth scrolling recommended CSS */

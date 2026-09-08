@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type MotionValue, useScroll, useTransform } from 'framer-motion';
+import { motion, type MotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, type RefObject } from 'react';
 
 type Align = 'left' | 'center' | 'right';
@@ -39,9 +39,12 @@ function WordReveal({
   start: number;
   end: number;
 }) {
+  // 동작 줄이기 사용자에게는 스크롤로 밝아지는 연출 대신 처음부터 읽히게 둔다
+  const prefersReducedMotion = useReducedMotion();
   // 진행도를 도달 가능한 범위로 다시 펴서 마지막 단어가 그 안에서 끝나게 한다.
   // 화면이 짧으면 reachable이 1이라 원래와 같다.
   const opacity = useTransform(scrollYProgress, (raw) => {
+    if (prefersReducedMotion) return 1;
     const progress = Math.min(1, raw / Math.max(reachable.current, 0.001));
     const t = Math.min(1, Math.max(0, (progress - start) / (end - start)));
     return DIM + (1 - DIM) * t;

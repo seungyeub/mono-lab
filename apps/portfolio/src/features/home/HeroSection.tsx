@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -45,6 +45,8 @@ export default function HeroSection() {
   // 캔버스는 LCP가 끝나고 메인 스레드가 비었을 때 올린다.
   // requestIdleCallback은 Safari에 없어 setTimeout으로 대체하고, 바쁜 페이지에서
   // 무한정 기다리지 않도록 timeout을 둔다.
+  // 동작 줄이기 사용자에게는 흔들리는 3D 카드 대신 정적 플레이스홀더를 그대로 둔다
+  const prefersReducedMotion = useReducedMotion();
   const [canvasReady, setCanvasReady] = useState(false);
   useEffect(() => {
     if (typeof window.requestIdleCallback === 'function') {
@@ -158,7 +160,11 @@ export default function HeroSection() {
                   </div>
                 }
               >
-                {canvasReady ? <InteractiveCardCanvas /> : <CardPlaceholder />}
+                {canvasReady && !prefersReducedMotion ? (
+                  <InteractiveCardCanvas />
+                ) : (
+                  <CardPlaceholder />
+                )}
               </ErrorBoundary>
             </div>
           </motion.div>

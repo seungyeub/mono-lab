@@ -1,5 +1,6 @@
 'use client';
 
+import { useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
 import { useCursorStore } from '@/store/useCursorStore';
 import ImageLightbox from './ImageLightbox';
@@ -30,7 +31,12 @@ export default function ImageCarousel({
    * - isHovered: 가리키는 동안만의 임시 정지. 벗어나면 원래 상태로 돌아간다
    * 하나로 합치면 도트로 멈춰도 포인터가 벗어나는 순간 다시 돌기 시작한다.
    */
+  const prefersReducedMotion = useReducedMotion();
+  // 동작 줄이기 사용자에게는 자동 넘김을 켜지 않는다. 버튼으로 켤 수는 있다
   const [isPlaying, setIsPlaying] = useState(true);
+  useEffect(() => {
+    if (prefersReducedMotion) setIsPlaying(false);
+  }, [prefersReducedMotion]);
   const [isHovered, setIsHovered] = useState(false);
   const setCursorType = useCursorStore((s) => s.setType);
   const hasCarousel = images.length > 1;
@@ -99,13 +105,14 @@ export default function ImageCarousel({
         )}
 
         {hasCarousel && (
-          <div className='absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2'>
-            {/* 움직임을 끄고 켤 수 있는 명시적 제어 — 끄면 벗어나도 유지된다 */}
+          <div className='absolute bottom-2 left-1/2 z-20 flex -translate-x-1/2 items-center'>
+            {/* 움직임을 끄고 켤 수 있는 명시적 제어 — 끄면 벗어나도 유지된다.
+                글리프 크기는 그대로 두고 색을 올려 보이게 하고, 클릭 영역만 24px로 넓혀 터치 기준을 채운다 */}
             <button
               type='button'
               onClick={() => setIsPlaying((prev) => !prev)}
               aria-label={isPlaying ? '자동 넘김 정지' : '자동 넘김 재생'}
-              className='mr-1 cursor-none text-[9px] leading-none text-white/50 transition-colors duration-200 hover:text-white'
+              className='flex h-6 w-6 cursor-none items-center justify-center text-[9px] leading-none text-white/80 transition-colors duration-200 hover:text-white'
             >
               {isPlaying ? '❚❚' : '▶'}
             </button>
@@ -117,10 +124,17 @@ export default function ImageCarousel({
                 // 선택 상태를 색·크기로만 알리면 스크린리더가 현재 위치를 알 수 없다
                 aria-current={index === current ? 'true' : undefined}
                 onClick={() => setCurrent(index)}
-                className={`h-1.5 w-1.5 cursor-none rounded-full transition-all duration-300 ${
-                  index === current ? 'scale-125 bg-white' : 'bg-white/30 hover:bg-white/60'
-                }`}
-              />
+                className='group/dot flex h-6 w-6 cursor-none items-center justify-center'
+              >
+                <span
+                  aria-hidden='true'
+                  className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+                    index === current
+                      ? 'scale-125 bg-white'
+                      : 'bg-white/50 group-hover/dot:bg-white/80'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}

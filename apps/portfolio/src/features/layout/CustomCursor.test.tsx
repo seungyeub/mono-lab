@@ -112,7 +112,9 @@ describe('CustomCursor', () => {
     });
 
     const wrapper = container.firstChild as HTMLElement;
-    expect(wrapper).toHaveClass('[@media(hover:hover)_and_(pointer:fine)]:flex');
+    expect(wrapper).toHaveClass(
+      '[@media(hover:hover)_and_(pointer:fine)_and_(prefers-reduced-motion:no-preference)]:flex',
+    );
     expect(wrapper).toHaveClass('hidden');
   });
 });

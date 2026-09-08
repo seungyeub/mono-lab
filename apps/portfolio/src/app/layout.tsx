@@ -1,3 +1,4 @@
+import MotionProvider from '@/components/MotionProvider';
 import PageLoader from '@/components/PageLoader';
 import CustomCursor from '@/features/layout/CustomCursor';
 import Footer from '@/features/layout/Footer';
@@ -119,15 +120,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           본문으로 건너뛰기
         </a>
-        <PageLoader />
-        <CustomCursor />
-        <SmoothScroll>
-          <Header />
-          <main id='main' className='min-h-screen w-full pt-24'>
-            {children}
-          </main>
-          <Footer />
-        </SmoothScroll>
+        <MotionProvider>
+          <PageLoader />
+          <CustomCursor />
+          <SmoothScroll>
+            <Header />
+            <main id='main' className='min-h-screen w-full pt-24'>
+              {children}
+            </main>
+            <Footer />
+          </SmoothScroll>
+        </MotionProvider>
         {/* 실사용자 Core Web Vitals. 대시보드에서 Speed Insights를 켜야 수집이 시작된다 */}
         <SpeedInsights />
       </body>
