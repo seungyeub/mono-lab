@@ -40,10 +40,20 @@ export async function generateMetadata({
   const seo = getProjectSeoMetadata(slug);
   if (!seo) return {};
 
-  // 카드 이미지가 실제로 있을 때만 쓴다. 없는 경로를 내보내면 미리보기가 깨진 채로
-  // 공유되므로, 그럴 때는 헬퍼가 사이트 기본 이미지로 대신 채운다.
+  // 공유 카드용 이미지를 고른다. 순서에 이유가 있다.
+  // 1) `/images/og/<slug>.jpg` — 1200x630으로 맞춰 둔 전용 이미지. 카드 이미지는 비율이
+  //    제각각이라 플랫폼이 임의로 잘라내고, WebP는 일부 메신저가 렌더링하지 못한다.
+  // 2) 전용 이미지가 없으면 카드 이미지를 쓴다.
+  // 3) 둘 다 없으면 헬퍼가 사이트 기본 이미지로 채운다 — 없는 경로를 내보내면
+  //    미리보기가 깨진 채로 공유된다.
   const { meta } = getProjectBySlug(slug);
-  const image = meta.image && publicAssetExists(meta.image) ? absoluteUrl(meta.image) : undefined;
+  const ogImagePath = `/images/og/${slug}.jpg`;
+  const imagePath = publicAssetExists(ogImagePath)
+    ? ogImagePath
+    : meta.image && publicAssetExists(meta.image)
+      ? meta.image
+      : undefined;
+  const image = imagePath ? absoluteUrl(imagePath) : undefined;
 
   return {
     ...seo,
