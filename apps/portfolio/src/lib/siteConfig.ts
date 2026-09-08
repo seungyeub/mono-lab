@@ -39,6 +39,9 @@ export const SITE_LOCALE = 'ko_KR';
 
 export const SITE_LANG = 'ko';
 
+/** 화면에 공개하는 연락 이메일. 문의 폼이 막혔을 때의 대체 안내에도 쓴다 */
+export const CONTACT_PUBLIC_EMAIL = 'superior051@gmail.com';
+
 /** JSON-LD Person에 싣는 공개 프로필 — Footer·Contact에 이미 노출된 것과 같아야 한다 */
 export const SOCIAL_PROFILES = [
   'https://github.com/seungyeub',

@@ -2,81 +2,59 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import emailjs from '@emailjs/browser';
+import { sendContactEmail, type ContactErrorCode } from '@/lib/actions';
+import { contactSchema, type ContactFormData } from '@/lib/contactSchema';
+import { CONTACT_PUBLIC_EMAIL } from '@/lib/siteConfig';
 import { useCursorStore } from '@/store/useCursorStore';
 
-const schema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters.'),
-  email: z.string().email('Please enter a valid email address.'),
-  message: z.string().min(10, 'Message must be at least 10 characters.'),
-});
-
-type FormData = z.infer<typeof schema>;
-
-// EmailJS 설정값 — 발급 후 아래 값들을 채워넣으세요
-// 1. https://www.emailjs.com/ 에서 무료 계정 생성
-// 2. Email Services에서 서비스 연결 후 Service ID 복사
-// 3. Email Templates에서 템플릿 생성 후 Template ID 복사
-// 4. Account > API Keys에서 Public Key 복사
-const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? '';
-const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? '';
-const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? '';
+/** 발송이 안 될 때는 성공을 가장하지 않고 직접 보낼 수 있는 주소를 안내한다 */
+function ErrorNotice({ code }: { code: ContactErrorCode }) {
+  if (code === 'invalid') return <>Please check the form and try again.</>;
+  return (
+    <>
+      Sending is unavailable right now. Email me directly at{' '}
+      <a href={`mailto:${CONTACT_PUBLIC_EMAIL}`} className='underline hover:text-white'>
+        {CONTACT_PUBLIC_EMAIL}
+      </a>
+      .
+    </>
+  );
+}
 
 export default function ContactForm() {
   const setCursorType = useCursorStore((s) => s.setType);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorCode, setErrorCode] = useState<ContactErrorCode>('failed');
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<ContactFormData>({ resolver: zodResolver(contactSchema) });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: ContactFormData) => {
     setStatus('loading');
-
-    // EmailJS 환경변수가 세팅되지 않은 경우 콘솔에만 로깅 (개발용 fallback)
-    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      console.log('--- Contact Form Submission (EmailJS keys not set) ---');
-      console.log('Name:', data.name);
-      console.log('Email:', data.email);
-      console.log('Message:', data.message);
-      console.log('------------------------------------------------------');
+    const result = await sendContactEmail(data);
+    if (result.success) {
       setStatus('success');
       reset();
       return;
     }
-
-    try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: data.name,
-          from_email: data.email,
-          message: data.message,
-        },
-        EMAILJS_PUBLIC_KEY,
-      );
-      setStatus('success');
-      reset();
-    } catch (error) {
-      console.error('EmailJS error:', error);
-      setStatus('error');
-      setErrorMessage('Failed to send message. Please try again.');
-    }
+    setErrorCode(result.error ?? 'failed');
+    setStatus('error');
   };
 
   const inputClass =
     'w-full bg-transparent border-b border-line-strong py-4 text-lg text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors duration-300';
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='mt-16 flex max-w-2xl flex-col gap-12'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='relative mt-16 flex max-w-2xl flex-col gap-12'
+    >
       {/* Name */}
       <div className='flex flex-col gap-2'>
         <input
@@ -115,6 +93,18 @@ export default function ContactForm() {
         {errors.message && <p className='mt-1 text-sm text-red-400'>{errors.message.message}</p>}
       </div>
 
+      {/* 허니팟 — 화면 밖에 두고 탭 순서·자동완성·보조기기에서 모두 제외한다. 봇만 채운다 */}
+      <div aria-hidden='true' className='absolute -left-[9999px] h-px w-px overflow-hidden'>
+        <label htmlFor='contact-company'>Company</label>
+        <input
+          id='contact-company'
+          type='text'
+          tabIndex={-1}
+          autoComplete='off'
+          {...register('company')}
+        />
+      </div>
+
       {/* Submit Button */}
       <div className='flex items-center gap-8'>
         <button
@@ -122,7 +112,7 @@ export default function ContactForm() {
           disabled={status === 'loading'}
           onMouseEnter={() => setCursorType('pointer')}
           onMouseLeave={() => setCursorType('default')}
-          className='border border-white/40 px-8 py-4 text-lg tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-50 md:text-xl'
+          className='border border-white/40 px-8 py-4 text-lg tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-50'
         >
           {status === 'loading' ? 'Sending...' : 'Send Message'}
         </button>
@@ -142,12 +132,13 @@ export default function ContactForm() {
           {status === 'error' && (
             <motion.p
               key='error'
+              role='alert'
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               className='text-sm text-red-400'
             >
-              {errorMessage}
+              <ErrorNotice code={errorCode} />
             </motion.p>
           )}
         </AnimatePresence>

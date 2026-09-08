@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { SITE_NAME, buildPageOpenGraph } from '@/lib/siteConfig';
+import { CONTACT_PUBLIC_EMAIL, SITE_NAME, buildPageOpenGraph } from '@/lib/siteConfig';
 import ContactForm from '@/features/contact/ContactForm';
 
 const DESCRIPTION =
@@ -33,8 +33,11 @@ export default function ContactPage() {
         <div className='flex flex-col justify-end gap-8 text-sm text-gray-400 md:max-w-xs md:text-base'>
           <div>
             <p className='mb-1 text-xs font-medium tracking-widest text-white uppercase'>Email</p>
-            <a href='mailto:superior051@icloud.com' className='transition-colors hover:text-white'>
-              superior051@icloud.com
+            <a
+              href={`mailto:${CONTACT_PUBLIC_EMAIL}`}
+              className='transition-colors hover:text-white'
+            >
+              {CONTACT_PUBLIC_EMAIL}
             </a>
           </div>
           <div>
