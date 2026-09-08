@@ -7,7 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import RollingButton from '@/components/RollingText/RollingButton';
 import { sendContactEmail, type ContactErrorCode } from '@/lib/actions';
 import { contactSchema, type ContactFormData } from '@/lib/contactSchema';
-import { CONTACT_PUBLIC_EMAIL } from '@/lib/siteConfig';
+import { CONTACT_PUBLIC_EMAIL, GA_MEASUREMENT_ID } from '@/lib/siteConfig';
+import { sendGAEvent } from '@next/third-parties/google';
 import { useCursorStore } from '@/store/useCursorStore';
 
 /** 발송이 안 될 때는 성공을 가장하지 않고 직접 보낼 수 있는 주소를 안내한다 */
@@ -40,6 +41,8 @@ export default function ContactForm() {
     setStatus('loading');
     const result = await sendContactEmail(data);
     if (result.success) {
+      // 방문 → 문의 전환을 센다. 이름·이메일 같은 입력값은 보내지 않는다
+      if (GA_MEASUREMENT_ID) sendGAEvent('event', 'contact_submit', { form: 'contact' });
       setStatus('success');
       reset();
       return;

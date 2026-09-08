@@ -39,6 +39,13 @@ export const SITE_LOCALE = 'ko_KR';
 
 export const SITE_LANG = 'ko';
 
+/**
+ * GA4 측정 ID(G-…). 비어 있으면 분석 스크립트를 싣지 않는다 — 로컬·프리뷰에서
+ * 실제 데이터가 섞이지 않게 하고, 등록 전 배포에서도 오류 없이 동작하게 한다.
+ * 공개 값이라 NEXT_PUBLIC_으로 두며 빌드 시점에 번들에 박힌다.
+ */
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? '';
+
 /** 화면에 공개하는 연락 이메일. 문의 폼이 막혔을 때의 대체 안내에도 쓴다 */
 export const CONTACT_PUBLIC_EMAIL = 'superior051@gmail.com';
 
