@@ -1,6 +1,7 @@
 'use client';
 
 import SectionLabel from '@/components/SectionLabel';
+import { reveal } from '@/lib/motion';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -11,13 +12,7 @@ function FAQItem({ faq, index }: { faq: FaqItem; index: number }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.6, delay: index * 0.07 }}
-      className='border-line-strong border-b'
-    >
+    <motion.div {...reveal('faqItem', index * 0.07)} className='border-line-strong border-b'>
       <button
         type='button'
         id={`faq-question-${index}`}
@@ -83,13 +78,7 @@ export default function FAQSection() {
         <div className='flex w-full flex-col items-start gap-16 md:gap-24'>
           {/* TOP — Title & Desc */}
           <div className='flex w-full flex-col gap-6 font-semibold md:gap-12'>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className='w-full'
-            >
+            <motion.div {...reveal('displayTitle')} className='w-full'>
               <h2 className='text-7xl font-semibold tracking-tight md:text-8xl lg:text-9xl'>
                 FAQ.
               </h2>

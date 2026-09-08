@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { reveal } from '@/lib/motion';
 import { useCursorStore } from '@/store/useCursorStore';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -79,16 +80,9 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
           return (
             <motion.div
               key={project.slug}
-              initial={{ opacity: 0, y: 40 }}
               // 마운트 시 한꺼번에 돌면 화면 밖 카드는 이미 끝난 채로 스크롤된다 —
               // 뷰포트 진입 시점에 리빌하고, 2열일 때만 같은 행의 두 장을 좌→우로 어긋나게 한다
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{
-                duration: 0.7,
-                delay: isTwoColumn ? (index % 2) * 0.08 : 0,
-                ease: [0.16, 1, 0.3, 1],
-              }}
+              {...reveal('gridCard', isTwoColumn ? (index % 2) * 0.08 : 0)}
               style={{
                 opacity: isDimmed ? 0.35 : 1,
                 transition: 'opacity 0.25s ease',

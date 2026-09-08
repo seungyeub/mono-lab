@@ -1,6 +1,7 @@
 'use client';
 
 import SectionLabel from '@/components/SectionLabel';
+import { reveal } from '@/lib/motion';
 import TagBar from '@/components/TagBar';
 import { motion } from 'framer-motion';
 
@@ -23,20 +24,14 @@ export default function SkillsSection() {
       {/* ── 헤딩 + 설명 문단 ── */}
       <div className='site-container w-full px-6 md:px-12'>
         <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          {...reveal('sectionTitle')}
           className='text-[44px] font-semibold tracking-tight sm:text-7xl md:text-8xl lg:text-9xl'
         >
           Skills.
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
+          {...reveal('sectionLead', 0.15)}
           className='mt-6 max-w-2xl text-base leading-relaxed text-gray-400 md:text-lg'
         >
           프론트엔드를 중심으로 백엔드, 인프라, 디자인까지 서비스의 전체 생애주기를 다루는 기술
@@ -59,10 +54,7 @@ export default function SkillsSection() {
             <div key={category.title}>
               {/* 카테고리 헤딩 */}
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: catIndex * 0.05 }}
+                {...reveal('smallItem', catIndex * 0.05)}
                 className='border-line-strong mb-5 border-b pb-4 text-lg font-bold uppercase md:mb-6 md:pb-6 md:text-xl'
               >
                 <h3>{category.title}</h3>
