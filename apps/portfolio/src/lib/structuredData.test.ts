@@ -108,7 +108,7 @@ describe('structuredData', () => {
     it('position이 1부터 순서대로 매겨지고 item이 절대 URL이다', () => {
       const crumb = buildBreadcrumbSchema([
         { name: 'Home', path: '/' },
-        { name: 'Archive', path: '/work' },
+        { name: 'Projects', path: '/work' },
         { name: 'mono-lab', path: '/work/mono-lab' },
       ]);
       const items = crumb.itemListElement as { position: number; item: string }[];

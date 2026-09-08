@@ -126,7 +126,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
         data={[
           buildBreadcrumbSchema([
             { name: 'Home', path: '/' },
-            { name: 'Archive', path: '/work' },
+            { name: 'Projects', path: '/work' },
             { name: meta.title, path: `/work/${slug}` },
           ]),
           buildCreativeWorkSchema({
