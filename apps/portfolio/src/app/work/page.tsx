@@ -24,7 +24,7 @@ export default function WorkPage() {
   const projects = getProjectCards();
 
   return (
-    <main className='min-h-screen w-full'>
+    <main className='site-container min-h-screen w-full'>
       {/* 페이지 헤더 */}
       <div className='border-line border-b px-6 pt-32 pb-12 md:px-12'>
         <div className='flex flex-col justify-between gap-6 md:flex-row md:items-end'>

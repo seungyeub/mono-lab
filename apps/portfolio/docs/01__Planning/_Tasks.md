@@ -19,6 +19,8 @@
 
 - [ ] P6-3. 방문 분석 연동 — GA4 대 Vercel Analytics 비교 후 선택
 - [ ] P6-4. 접근성 점검·개선 — 키보드·대비·스크린리더·`prefers-reduced-motion`. 전역 `cursor: none` 영향 확인
+- [x] P6-10. Contact 페이지 레이아웃 정리 — 제목 "Let's Talk About Your Team©", 폼+연락처(320px 우측) 나란히, 입력 라벨, 행·입력란 밑줄 채움 효과, 롤링 링크, 알약 버튼(홈 CONTACT와 동일 크기). `/work`·`/resume`·`/contact` 본문 `site-container` 통일
+- [ ] P6-11. Contact 페이지 Quick Answers(FAQ) 구역 — 문의용 질문 3~4개 초안 확인 후 착수 (보류)
 
 **🟡 P2 — 성능·인프라** (항목마다 설명 후 착수)
 

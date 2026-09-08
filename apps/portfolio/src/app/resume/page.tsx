@@ -28,7 +28,7 @@ export default function ResumePage() {
   const hasPdf = publicAssetExists(RESUME_PDF_PATH);
 
   return (
-    <main className='min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
+    <main className='site-container min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
       {/* ── 페이지 헤더 ── */}
       <div className='border-line flex flex-col justify-between gap-8 border-b pb-12 md:flex-row md:items-end'>
         <div className='flex flex-col gap-4'>

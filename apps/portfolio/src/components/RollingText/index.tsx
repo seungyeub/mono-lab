@@ -11,9 +11,11 @@
 interface RollingTextProps {
   text: string;
   className?: string;
+  /** 글자 사이 지연(ms). 0이면 모든 글자가 한 번에 굴러 짧은 링크 목록에서 빠르게 반응한다 */
+  stagger?: number;
 }
 
-export default function RollingText({ text, className = '' }: RollingTextProps) {
+export default function RollingText({ text, className = '', stagger = 25 }: RollingTextProps) {
   const chars = text.split('');
 
   return (
@@ -36,7 +38,7 @@ export default function RollingText({ text, className = '' }: RollingTextProps) 
             className='inline-block translate-y-0 transition-transform ease-in-out group-hover/roll:-translate-y-full'
             style={{
               transitionDuration: '300ms',
-              transitionDelay: `${i * 25}ms`,
+              transitionDelay: `${i * stagger}ms`,
             }}
           >
             {char === ' ' ? '\u00A0' : char}
@@ -47,7 +49,7 @@ export default function RollingText({ text, className = '' }: RollingTextProps) 
             className='absolute top-0 left-0 inline-block translate-y-full transition-transform ease-in-out group-hover/roll:translate-y-0'
             style={{
               transitionDuration: '300ms',
-              transitionDelay: `${i * 25}ms`,
+              transitionDelay: `${i * stagger}ms`,
             }}
           >
             {char === ' ' ? '\u00A0' : char}
