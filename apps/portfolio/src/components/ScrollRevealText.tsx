@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, type MotionValue, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 
 type Align = 'left' | 'center' | 'right';
 
@@ -17,18 +17,35 @@ const alignClass: Record<Align, string> = {
   right: 'justify-end',
 };
 
+/**
+ * 스크롤 진행도를 재는 기준. 문단 시작이 화면 높이의 90% 지점에 올 때 0,
+ * 문단 끝이 55% 지점에 올 때 1이다. `reachable` 계산도 같은 값을 써야 한다.
+ */
+const OFFSET_START = 0.9;
+const OFFSET_END = 0.55;
+const DIM = 0.12;
+
 function WordReveal({
   word,
   scrollYProgress,
+  reachable,
   start,
   end,
 }: {
   word: string;
   scrollYProgress: MotionValue<number>;
+  /** 페이지를 끝까지 내렸을 때 도달할 수 있는 최대 진행도(0~1) */
+  reachable: RefObject<number>;
   start: number;
   end: number;
 }) {
-  const opacity = useTransform(scrollYProgress, [start, end], [0.12, 1]);
+  // 진행도를 도달 가능한 범위로 다시 펴서 마지막 단어가 그 안에서 끝나게 한다.
+  // 화면이 짧으면 reachable이 1이라 원래와 같다.
+  const opacity = useTransform(scrollYProgress, (raw) => {
+    const progress = Math.min(1, raw / Math.max(reachable.current, 0.001));
+    const t = Math.min(1, Math.max(0, (progress - start) / (end - start)));
+    return DIM + (1 - DIM) * t;
+  });
 
   return (
     <motion.span style={{ opacity }} className='inline-block'>
@@ -51,8 +68,41 @@ export default function ScrollRevealText({
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 0.9', 'end 0.55'],
+    offset: [`start ${OFFSET_START}`, `end ${OFFSET_END}`],
   });
+
+  /**
+   * 화면이 세로로 길면 페이지를 끝까지 내려도 문단 끝이 55% 지점까지 올라오지 못해
+   * 진행도가 1에 닿지 않고 뒤쪽 단어가 어두운 채로 남는다 — 1280×2000에서 30개 중
+   * 8개가 그랬다(실측). 끝까지 내렸을 때의 최대 진행도를 재 두고 단어 구간을 그
+   * 안으로 맞춘다. 문단 높이·문서 높이가 바뀌면(폰트 로드, 창 크기) 다시 잰다.
+   */
+  const reachable = useRef(1);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const vh = window.innerHeight;
+      const rect = el.getBoundingClientRect();
+      const top = rect.top + window.scrollY;
+      const zero = top - OFFSET_START * vh;
+      const one = top + rect.height - OFFSET_END * vh;
+      const maxScroll = document.documentElement.scrollHeight - vh;
+      const ratio = (maxScroll - zero) / (one - zero);
+      reachable.current = Math.min(1, Math.max(0.2, ratio));
+    };
+
+    measure();
+    window.addEventListener('resize', measure);
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
+    observer?.observe(document.body);
+    return () => {
+      window.removeEventListener('resize', measure);
+      observer?.disconnect();
+    };
+  }, []);
 
   let wordIndex = 0;
 
@@ -74,6 +124,7 @@ export default function ScrollRevealText({
                     key={i}
                     word={word}
                     scrollYProgress={scrollYProgress}
+                    reachable={reachable}
                     start={start}
                     end={end}
                   />
