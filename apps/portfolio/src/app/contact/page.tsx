@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className='site-container min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
+    <div className='site-container min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
       {/* 페이지 헤더 — /work와 같은 구성. 제목이 페이지의 목적(프로젝트 이야기)을 말한다 */}
       <div className='border-line border-b pb-12'>
         <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>
@@ -98,6 +98,6 @@ export default function ContactPage() {
           </dl>
         </aside>
       </div>
-    </main>
+    </div>
   );
 }

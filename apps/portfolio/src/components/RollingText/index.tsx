@@ -27,6 +27,7 @@ export default function RollingText({ text, className = '', stagger = 25 }: Roll
       {chars.map((char, i) => (
         <span
           key={i}
+          aria-hidden='true'
           className='relative inline-block overflow-hidden'
           style={{
             // 각 글자별 높이를 line-height와 맞춤

@@ -124,7 +124,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
               </Link>
 
               <div className='flex items-start justify-between'>
-                <h3 className='text-base font-medium md:text-lg'>{project.title}</h3>
+                <h2 className='text-base font-medium md:text-lg'>{project.title}</h2>
                 <div className='flex flex-col items-end gap-0.5 text-right text-xs text-white/40'>
                   <span>({String(project.order).padStart(2, '0')})</span>
                   <span>{project.category}</span>

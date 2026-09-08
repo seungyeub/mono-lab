@@ -120,7 +120,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   }));
 
   return (
-    <main data-testid='work-detail' className='min-h-screen w-full'>
+    <div data-testid='work-detail' className='min-h-screen w-full'>
       {/* 경로 계층과 작업물 정보. 저자는 루트에서 낸 Person을 @id로 참조한다 */}
       <JsonLd
         data={[
@@ -179,6 +179,6 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
           </Link>
         </section>
       )}
-    </main>
+    </div>
   );
 }
