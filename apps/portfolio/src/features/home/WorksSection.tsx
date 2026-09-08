@@ -7,6 +7,7 @@ import type { ProjectCard } from '@/lib/mdx';
 import { useCursorStore } from '@/store/useCursorStore';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface CardProps {
   project: ProjectCard;
@@ -61,6 +62,24 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
 export default function WorksSection({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((s) => s.setType);
 
+  /**
+   * 카드 시차는 같은 행에 두 장이 나란히 있을 때만 의미가 있다. 1열 구간에서 홀수
+   * 카드에 지연이 붙으면 위아래 카드가 서로 다른 속도로 뜨는 것처럼 보인다.
+   * 이 그리드는 `md`와 `xl`에서만 2열이다(`lg`는 좌측 텍스트와 나란히 놓느라 1열).
+   * 초기값 false는 SSR(모바일 우선)과 맞춰 hydration 불일치를 피한다.
+   */
+  const [isTwoColumn, setIsTwoColumn] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia(
+      '(min-width: 768px) and (max-width: 1023px), (min-width: 1280px)',
+    );
+    const sync = () => setIsTwoColumn(query.matches);
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  }, []);
+
   return (
     <section data-testid='works-section' className='relative flex w-full flex-col pt-16'>
       <SectionLabel
@@ -111,9 +130,13 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
           <div className='grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-8 lg:w-7/12 lg:grid-cols-1 lg:gap-12 lg:pt-24 xl:grid-cols-2 xl:gap-8'>
             {projects.map((p, i) => (
               <div key={p.slug} className={i % 2 === 1 ? 'md:pt-16 lg:pt-0 xl:pt-16' : undefined}>
-                {/* 시차는 같은 행의 두 카드 사이에만 준다 — 순번 누적은 아래쪽 카드를 홀로
-                    등장시키면서도 0.5초까지 기다리게 해 느리게 느껴졌다 */}
-                <ProjectCard project={p} delay={(i % 2) * 0.08} aspectClass='aspect-[16/10]' />
+                {/* 시차는 2열일 때 같은 행의 두 카드 사이에만 준다 — 순번 누적은 아래쪽
+                    카드를 홀로 등장시키면서도 0.5초까지 기다리게 해 느리게 느껴졌다 */}
+                <ProjectCard
+                  project={p}
+                  delay={isTwoColumn ? (i % 2) * 0.08 : 0}
+                  aspectClass='aspect-[16/10]'
+                />
               </div>
             ))}
           </div>
