@@ -167,12 +167,12 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
       {nextProject && (
         <section className='border-line border-t px-6 py-12 md:px-12 md:py-16'>
           <Link href={`/work/${nextProject.slug}`} className='group flex flex-col gap-3'>
-            <span className='text-xs tracking-widest text-white/40 uppercase'>Next Project</span>
+            <span className='text-xs tracking-widest text-white/50 uppercase'>Next Project</span>
             <div className='flex flex-wrap items-baseline justify-between gap-3'>
               <h2 className='text-3xl font-medium tracking-tight transition-colors duration-300 group-hover:text-white/70 md:text-5xl'>
                 {nextProject.meta.title}
               </h2>
-              <span className='text-xs tracking-widest text-white/40 uppercase md:text-sm'>
+              <span className='text-xs tracking-widest text-white/50 uppercase md:text-sm'>
                 {nextProject.meta.category} →
               </span>
             </div>

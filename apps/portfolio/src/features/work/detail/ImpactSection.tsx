@@ -28,7 +28,7 @@ export default function ImpactSection({ impact }: { impact: ProjectImpact }) {
                   key={metric.label}
                   className='border-line flex items-baseline justify-between gap-4 rounded-lg border bg-black/40 px-4 py-3.5 transition-colors duration-300 hover:border-white/25'
                 >
-                  <dt className='text-xs tracking-widest text-white/40 uppercase'>
+                  <dt className='text-xs tracking-widest text-white/50 uppercase'>
                     {metric.label}
                   </dt>
                   <dd className='text-right text-lg font-semibold md:text-xl'>{metric.value}</dd>

@@ -51,7 +51,7 @@ export default function ResumePage() {
 
       {/* ── Experience ── */}
       <section className='mt-16 flex flex-col gap-6'>
-        <h2 className='text-xs font-medium tracking-widest text-white/40 uppercase'>Experience</h2>
+        <h2 className='text-xs font-medium tracking-widest text-white/50 uppercase'>Experience</h2>
         <div className='border-line flex flex-col border-t'>
           {EXPERIENCES.map((exp) => (
             <div
@@ -61,7 +61,7 @@ export default function ResumePage() {
               <span className='text-base font-medium md:text-lg'>{exp.company}</span>
               <span className='text-sm text-gray-400 md:text-base'>{exp.role}</span>
               <span className='text-sm text-gray-400 md:text-base'>{exp.period}</span>
-              <span className='text-sm text-white/40 md:text-right'>{exp.type}</span>
+              <span className='text-sm text-white/50 md:text-right'>{exp.type}</span>
             </div>
           ))}
         </div>
@@ -69,7 +69,7 @@ export default function ResumePage() {
 
       {/* ── Certifications ── */}
       <section className='mt-16 flex flex-col gap-6'>
-        <h2 className='text-xs font-medium tracking-widest text-white/40 uppercase'>
+        <h2 className='text-xs font-medium tracking-widest text-white/50 uppercase'>
           Certifications
         </h2>
         <div className='border-line flex flex-col border-t'>
@@ -81,7 +81,7 @@ export default function ResumePage() {
               <span className='text-base font-medium md:text-lg'>{achievement.certificate}</span>
               <span className='text-sm text-gray-400 md:text-base'>{achievement.organization}</span>
               <span className='text-sm text-gray-400 md:text-base'>{achievement.date}</span>
-              <span className='text-sm text-white/40 md:text-right'>{achievement.result}</span>
+              <span className='text-sm text-white/50 md:text-right'>{achievement.result}</span>
             </div>
           ))}
         </div>
@@ -89,7 +89,7 @@ export default function ResumePage() {
 
       {/* ── Skills ── */}
       <section className='mt-16 flex flex-col gap-6'>
-        <h2 className='text-xs font-medium tracking-widest text-white/40 uppercase'>Skills</h2>
+        <h2 className='text-xs font-medium tracking-widest text-white/50 uppercase'>Skills</h2>
         <div className='border-line flex flex-col border-t'>
           {SKILL_CATEGORIES.map((category) => (
             <div

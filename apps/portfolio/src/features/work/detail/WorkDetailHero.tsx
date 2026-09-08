@@ -21,7 +21,7 @@ export default function WorkDetailHero({
       {/* 복귀 링크 */}
       <Link
         href='/work'
-        className='inline-flex items-center gap-2 text-xs tracking-widest text-white/40 uppercase transition-colors duration-200 hover:text-white'
+        className='inline-flex items-center gap-2 text-xs tracking-widest text-white/50 uppercase transition-colors duration-200 hover:text-white'
       >
         ← All Works
       </Link>

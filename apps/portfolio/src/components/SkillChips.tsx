@@ -79,7 +79,7 @@ function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<Sk
                 {skill.name}
               </span>
               {categoryName && (
-                <span className='text-label tracking-label font-mono text-white/40 uppercase'>
+                <span className='text-label tracking-label font-mono text-white/50 uppercase'>
                   {categoryName}
                 </span>
               )}

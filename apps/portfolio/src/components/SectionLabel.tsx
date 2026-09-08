@@ -42,7 +42,7 @@ export default function SectionLabel({
           {/* 제목이 아니라 섹션 라벨이다. h6로 두면 h1 다음 h6가 되어 제목 계층이 끊긴다 */}
           <div className='site-container flex items-center justify-between px-6 text-white/70 uppercase md:px-12'>
             <p className='flex-1 text-left whitespace-pre text-white'>{leftLabel}</p>
-            <p className='hidden flex-1 text-center whitespace-pre text-white/40 md:block'>
+            <p className='hidden flex-1 text-center whitespace-pre text-white/50 md:block'>
               SCENE — {scene}
             </p>
             <p className='hidden flex-1 text-right whitespace-pre min-[360px]:block'>

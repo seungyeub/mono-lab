@@ -83,7 +83,7 @@ export default function HeroSection() {
             className='pointer-events-none z-10 col-start-1 row-start-1 flex flex-col gap-8 bg-transparent py-8 pr-0 md:pointer-events-auto md:mr-[-4px] md:py-12'
           >
             {/* 상단 메타 */}
-            <div className='text-label tracking-label mt-8 hidden flex-col gap-1 font-medium text-white/40 uppercase md:flex'>
+            <div className='text-label tracking-label mt-8 hidden flex-col gap-1 font-medium text-white/50 uppercase md:flex'>
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -155,7 +155,7 @@ export default function HeroSection() {
               <ErrorBoundary
                 fallback={
                   <div className='border-line flex h-full w-full flex-col items-center justify-center rounded-xl border bg-black/20'>
-                    <p className='mb-2 text-sm text-white/40'>3D Component Error</p>
+                    <p className='mb-2 text-sm text-white/50'>3D Component Error</p>
                     <div className="h-16 w-16 rounded-full bg-[url('/images/avatar.jpg')] bg-cover bg-center opacity-50 grayscale" />
                   </div>
                 }

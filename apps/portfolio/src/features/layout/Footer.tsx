@@ -65,7 +65,7 @@ export default function Footer() {
 
       {/* 거대한 포트폴리오 푸터 */}
       <div className='group/footer border-line flex w-full flex-col border-t'>
-        <div className='site-container text-label flex w-full flex-col justify-between gap-2 px-6 pt-6 tracking-widest text-white/40 uppercase md:flex-row md:px-12 md:pt-10 md:text-xs'>
+        <div className='site-container text-label flex w-full flex-col justify-between gap-2 px-6 pt-6 tracking-widest text-white/50 uppercase md:flex-row md:px-12 md:pt-10 md:text-xs'>
           <span>Front-End Developer</span>
           <span>All Rights Reserved</span>
         </div>

@@ -42,7 +42,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
         ) : (
           // 에셋 미확보 프로젝트 — 빈 상자 대신 제목을 읽히게 둔다
           <div className='absolute inset-0 flex items-center justify-center px-6'>
-            <span className='text-center text-sm tracking-widest text-white/40 uppercase transition-colors duration-300 group-hover:text-white/70'>
+            <span className='text-center text-sm tracking-widest text-white/50 uppercase transition-colors duration-300 group-hover:text-white/70'>
               {project.title}
             </span>
           </div>
@@ -50,7 +50,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
       </Link>
       <div className='flex items-start justify-between'>
         <span className='text-sm font-medium md:text-base'>{project.title}</span>
-        <div className='flex flex-col items-end text-right text-xs text-white/40'>
+        <div className='flex flex-col items-end text-right text-xs text-white/50'>
           <span>({String(project.order).padStart(2, '0')})</span>
           <span>{project.category}</span>
         </div>

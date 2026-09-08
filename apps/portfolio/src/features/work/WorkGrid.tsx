@@ -32,7 +32,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
       <div className='hidden w-56 flex-shrink-0 flex-col md:flex'>
         <div className='sticky top-32 flex flex-col gap-6'>
           <div className='flex flex-col gap-1'>
-            <span className='text-label tracking-label text-white/40 uppercase'>All Works</span>
+            <span className='text-label tracking-label text-white/50 uppercase'>All Works</span>
             <span className='text-5xl font-medium tabular-nums'>
               ({String(projects.length).padStart(2, '0')})
             </span>
@@ -42,7 +42,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
           <div className='flex min-h-[3.5rem] flex-col gap-1'>
             {hovered ? (
               <>
-                <span className='text-label tracking-label text-white/40 uppercase'>
+                <span className='text-label tracking-label text-white/50 uppercase'>
                   {hovered.category}
                 </span>
                 <span className='text-sm leading-snug font-medium'>{hovered.title}</span>
@@ -116,7 +116,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
                 ) : (
                   // 에셋 미확보 프로젝트 — 빈 상자 대신 제목을 읽히게 둔다
                   <div className='absolute inset-0 flex items-center justify-center px-6'>
-                    <span className='text-center text-sm tracking-widest text-white/40 uppercase transition-colors duration-300 group-hover:text-white/70'>
+                    <span className='text-center text-sm tracking-widest text-white/50 uppercase transition-colors duration-300 group-hover:text-white/70'>
                       {project.title}
                     </span>
                   </div>
@@ -125,7 +125,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
 
               <div className='flex items-start justify-between'>
                 <h2 className='text-base font-medium md:text-lg'>{project.title}</h2>
-                <div className='flex flex-col items-end gap-0.5 text-right text-xs text-white/40'>
+                <div className='flex flex-col items-end gap-0.5 text-right text-xs text-white/50'>
                   <span>({String(project.order).padStart(2, '0')})</span>
                   <span>{project.category}</span>
                 </div>
