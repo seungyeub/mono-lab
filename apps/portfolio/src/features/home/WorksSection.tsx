@@ -1,11 +1,13 @@
 'use client';
 
 import RollingLink from '@/components/RollingText/RollingLink';
+import { reveal } from '@/lib/motion';
 import SectionLabel from '@/components/SectionLabel';
 import type { ProjectCard } from '@/lib/mdx';
 import { useCursorStore } from '@/store/useCursorStore';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface CardProps {
   project: ProjectCard;
@@ -17,13 +19,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
   const setCursorType = useCursorStore((s) => s.setType);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
-      className='flex flex-col gap-3'
-    >
+    <motion.div {...reveal('worksCard', delay)} className='flex flex-col gap-3'>
       <Link
         href={project.href}
         onMouseEnter={() => setCursorType('view')}
@@ -66,6 +62,24 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
 export default function WorksSection({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((s) => s.setType);
 
+  /**
+   * 카드 시차는 같은 행에 두 장이 나란히 있을 때만 의미가 있다. 1열 구간에서 홀수
+   * 카드에 지연이 붙으면 위아래 카드가 서로 다른 속도로 뜨는 것처럼 보인다.
+   * 이 그리드는 `md`와 `xl`에서만 2열이다(`lg`는 좌측 텍스트와 나란히 놓느라 1열).
+   * 초기값 false는 SSR(모바일 우선)과 맞춰 hydration 불일치를 피한다.
+   */
+  const [isTwoColumn, setIsTwoColumn] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia(
+      '(min-width: 768px) and (max-width: 1023px), (min-width: 1280px)',
+    );
+    const sync = () => setIsTwoColumn(query.matches);
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  }, []);
+
   return (
     <section data-testid='works-section' className='relative flex w-full flex-col pt-16'>
       <SectionLabel
@@ -81,13 +95,7 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
           {/* Left Column: 데스크톱에서 화면 전체 높이(h-screen)를 차지하며 top-0에 Sticky */}
           <div className='w-full lg:w-5/12'>
             <div className='z-10 flex flex-col justify-center gap-10 py-10 lg:sticky lg:top-0 lg:h-screen lg:gap-12 lg:py-0'>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className='w-full font-semibold'
-              >
+              <motion.div {...reveal('displayTitle')} className='w-full font-semibold'>
                 {/* 페이지의 h1은 Hero의 자기소개 한 문장이다. 섹션 제목은 h2로 둔다 —
                     시각 크기는 클래스로 유지하므로 화면은 그대로다 (P2-5) */}
                 <h2 className='text-7xl tracking-tight md:text-8xl lg:text-9xl'>Works.</h2>
@@ -122,7 +130,13 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
           <div className='grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-8 lg:w-7/12 lg:grid-cols-1 lg:gap-12 lg:pt-24 xl:grid-cols-2 xl:gap-8'>
             {projects.map((p, i) => (
               <div key={p.slug} className={i % 2 === 1 ? 'md:pt-16 lg:pt-0 xl:pt-16' : undefined}>
-                <ProjectCard project={p} delay={i * 0.1} aspectClass='aspect-[16/10]' />
+                {/* 시차는 2열일 때 같은 행의 두 카드 사이에만 준다 — 순번 누적은 아래쪽
+                    카드를 홀로 등장시키면서도 0.5초까지 기다리게 해 느리게 느껴졌다 */}
+                <ProjectCard
+                  project={p}
+                  delay={isTwoColumn ? (i % 2) * 0.08 : 0}
+                  aspectClass='aspect-[16/10]'
+                />
               </div>
             ))}
           </div>

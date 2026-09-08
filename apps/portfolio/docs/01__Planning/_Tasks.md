@@ -118,6 +118,12 @@
 - [x] 2026-09-04 — PR #64: mono-lab 저장소를 order 2 프로젝트로 등재 (P2-4 완료)
 - [x] 2026-09-04 — PR #65: 검색 가시성 인프라 — sitemap·robots·OG·JSON-LD·h1 계층 (P2-5·P3-3 완료)
 - [x] 2026-09-04 — PR #66: 개인 자료 `.gitignore` 추가, P3-9·P3-10·P3-11 등재
+- [x] 2026-09-07 — **P3 전 항목 완료.** PR #70(P3 12건)·#69(Search Console 태그)·#72(0.3.0 이력 동기화)·#73(develop→master)·#75(CHANGELOG Prettier 제외)
+- [x] 2026-09-07 — portfolio@0.4.0 릴리스 — release-please 첫 자동 실행(PR #74). 태그·Release·프로덕션 배포까지 PAT로 정상 연결됨을 확인. PR #76으로 역머지
+- [x] 2026-09-07 — Search Console 소유 확인 완료(HTML 태그 자동 인식), sitemap 제출 성공(발견 15페이지). 구조화 데이터·OG 메타 전 페이지 점검 완료
+- [x] 2026-09-08 — OG 전용 이미지 11장 추가(1200×630 JPEG). 카드 이미지를 그대로 쓰던 것을 대체 — WebP 미지원 플랫폼과 임의 잘림 문제 해소. 캡쳐 공개 불가 2건은 사이트 톤 텍스트 카드로 제작
+- [x] 2026-09-08 — `/work` 이름을 Archive에서 Projects로 통일(h1·BreadcrumbList). 메뉴·URL과 어긋나던 표기 정리
+- [x] 2026-09-08 — 스크롤 등장 효과를 `src/lib/motion.ts` 프리셋 8개로 통합. 관측 여백을 양수로 돌려 체감 지연 단축 — Works 809→591ms, Skills 874→649ms, Experience 737→666ms, FAQ 797→721ms. Epilogue·Footer는 의도된 연출이라 유지
 - [x] 2026-09-04 — **P2 전 항목 완료.** develop 전 범위 점검(경로 19개·링크 61개·45개 조합) 문제 없음
 - [x] 2026-09-03 — portfolio@0.2.0 릴리스 (PR #54·#57·#55) — P0·P1 완료분을 master 반영 후 프로덕션 배포, GitHub Release 발행
 - [x] 2026-09-03 — PR #58: Experience 그리드·모바일 가로 넘침 회귀 수정 및 모바일 QA 반영 (0.2.0 배포 후 발견)

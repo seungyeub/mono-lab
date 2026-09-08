@@ -238,7 +238,7 @@ export function getProjectCards(): ProjectCard[] {
  *
  * 홈은 2열 격자라 **짝수를 유지해야 마지막 줄이 비지 않는다**(테스트로 강제).
  * `mono-lab`은 이 목록에 넣지 않는다 — 넣으면 9개가 되어 기존 8건 중 하나를 빼야 하는데,
- * 남은 8건이 이미 선별된 결과라 Archive(`/work`) 노출만으로 충분하다고 판단했다.
+ * 남은 8건이 이미 선별된 결과라 Projects(`/work`) 노출만으로 충분하다고 판단했다.
  */
 export const FEATURED_SLUGS = [
   'app-review-tracker',

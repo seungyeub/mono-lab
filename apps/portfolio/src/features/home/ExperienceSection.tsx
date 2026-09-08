@@ -1,6 +1,7 @@
 'use client';
 
 import SectionLabel from '@/components/SectionLabel';
+import { reveal } from '@/lib/motion';
 import TagBar from '@/components/TagBar';
 import WordRoller from '@/components/WordRoller';
 import { ACHIEVEMENTS, EXPERIENCES } from '@/data/experienceData';
@@ -41,10 +42,7 @@ export default function ExperienceSection() {
           {EXPERIENCES.map((exp, index) => (
             <motion.div
               key={exp.company + index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
+              {...reveal('listItem', index * 0.08)}
               className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-6 md:py-8'
             >
               {/* col 1 — 회사명 (lg+) / 회사명+기간 (< lg) */}
@@ -83,10 +81,7 @@ export default function ExperienceSection() {
           {ACHIEVEMENTS.map((achievement, index) => (
             <motion.div
               key={achievement.certificate + index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
+              {...reveal('listItem', index * 0.08)}
               className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-6 md:py-8'
             >
               {/* col 1 — 자격증명 (lg+) / 자격증명+연도 (< lg) */}
