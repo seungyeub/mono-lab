@@ -32,7 +32,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
       <div className='hidden w-56 flex-shrink-0 flex-col md:flex'>
         <div className='sticky top-32 flex flex-col gap-6'>
           <div className='flex flex-col gap-1'>
-            <span className='text-label tracking-label text-white/50 uppercase'>All Works</span>
+            <span className='text-label tracking-label text-white/50 uppercase'>All Projects</span>
             <span className='text-5xl font-medium tabular-nums'>
               ({String(projects.length).padStart(2, '0')})
             </span>
@@ -90,7 +90,7 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
               className={`flex flex-col gap-3 ${index % 2 === 1 ? 'md:mt-16' : ''}`}
             >
               <Link
-                href={`/work/${project.slug}`}
+                href={`/projects/${project.slug}`}
                 onMouseEnter={() => {
                   setCursorType('view');
                   setHoveredSlug(project.slug);

@@ -15,7 +15,7 @@ describe('sitemap', () => {
   it('MDX 프로젝트를 하나도 빠뜨리지 않는다', () => {
     // 목록을 손으로 관리하면 MDX 추가 시 누락된다 — 같은 소스에서 나와야 한다
     getAllProjects().forEach(({ slug }) => {
-      expect(urls).toContain(`${SITE_URL}/work/${slug}`);
+      expect(urls).toContain(`${SITE_URL}/projects/${slug}`);
     });
   });
 
@@ -23,7 +23,7 @@ describe('sitemap', () => {
     expect(urls).toEqual(
       expect.arrayContaining([
         SITE_URL,
-        `${SITE_URL}/work`,
+        `${SITE_URL}/projects`,
         `${SITE_URL}/resume`,
         `${SITE_URL}/contact`,
       ]),

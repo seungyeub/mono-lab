@@ -10,7 +10,7 @@ import ImageLightbox from './ImageLightbox';
  * 이미지는 서버에서 실존 검증(filterExistingPublicImages)을 마친 경로만 받는다.
  * 이미지가 없으면 프로젝트 제목을 타이포 플레이스홀더로 보여준다(빈 박스 방지).
  *
- * 프레임은 목록(/work) 카드와 같은 규칙이다 — 비율 고정 + contain이라 캡쳐가
+ * 프레임은 목록(/projects) 카드와 같은 규칙이다 — 비율 고정 + contain이라 캡쳐가
  * 세로든 와이드든 잘리지 않고, 남는 자리는 배경으로 둔다. 그만큼 작게 보이므로
  * 클릭하면 라이트박스로 크게 볼 수 있다.
  */

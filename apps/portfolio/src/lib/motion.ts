@@ -40,7 +40,7 @@ const VARIANTS: Record<RevealVariant, RevealSpec> = {
    */
   worksCard: { y: 40, duration: 1, margin: '0px', ease: SMOOTH },
 
-  /** `/work` 목록 카드 */
+  /** `/projects` 목록 카드 */
   gridCard: { y: 40, duration: 0.7, margin: '-80px', ease: SMOOTH },
 
   /** 화면을 가득 채우는 대제목 — Works., FAQ. */

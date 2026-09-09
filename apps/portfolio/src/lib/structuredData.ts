@@ -133,9 +133,9 @@ export function buildCreativeWorkSchema(project: {
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
-    '@id': absoluteUrl(`/work/${project.slug}#work`),
+    '@id': absoluteUrl(`/projects/${project.slug}#work`),
     name: project.title,
-    url: absoluteUrl(`/work/${project.slug}`),
+    url: absoluteUrl(`/projects/${project.slug}`),
     genre: project.category,
     inLanguage: 'ko-KR',
     ...(project.summary ? { description: project.summary } : {}),
