@@ -36,6 +36,14 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
 
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 태그를 사람이 직접 밀어도 타입 오류가 배포되지 않도록 여기서 한 번 더 막는다.
+      # release-please가 만든 태그는 릴리스 PR의 CI를 거치지만 그 관문은 PR을 거친 경우에만 있다 (P6-9)
+      - name: Type check
+        run: pnpm exec turbo run check-types --filter portfolio
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
