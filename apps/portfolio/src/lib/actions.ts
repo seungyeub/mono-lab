@@ -12,6 +12,11 @@ export type ContactErrorCode = 'invalid' | 'unavailable' | 'failed';
 export interface ActionResult {
   success: boolean;
   error?: ContactErrorCode;
+  /**
+   * 이 성공을 분석 지표로 세도 되는지. 허니팟에 걸린 봇에게는 화면상 성공을 보여주지만
+   * 메일은 가지 않았으므로 전환으로 세면 문의 수치가 봇만큼 부풀려진다.
+   */
+  trackAnalytics?: boolean;
 }
 
 /** 메일 본문은 HTML이라 방문자 입력을 그대로 넣으면 태그가 해석된다 */
@@ -38,8 +43,9 @@ export async function sendContactEmail(input: ContactFormData): Promise<ActionRe
 
   const { name, email, message, company } = parsed.data;
 
-  // 허니팟이 채워졌으면 봇이다. 거부했다고 알려 주면 우회를 시도하므로 성공인 척한다
-  if (company) return { success: true };
+  // 허니팟이 채워졌으면 봇이다. 거부했다고 알려 주면 우회를 시도하므로 성공인 척한다.
+  // 다만 화면에만 성공이고 실제 발송은 없으므로 분석에는 세지 않는다
+  if (company) return { success: true, trackAnalytics: false };
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL;

@@ -22,6 +22,7 @@
 - [x] P6-10. Contact 페이지 레이아웃 정리 — 제목 `Contact©`(우측 열 라벨은 중복을 피해 `Channels`), 헤더 설명문 두 문장, 폼+연락처(320px 우측) 나란히, 입력 라벨, 행·입력란 밑줄 채움 효과, 롤링 링크, 알약 버튼(홈 CONTACT와 동일 크기). `/work`·`/resume`·`/contact` 본문 `site-container` 통일
 - [x] P6-13. 페이지 간 일관성 정리 — `/work` 헤더 설명문을 `/resume` 기준(본문급·제목 아래)으로, 홈 `See All Works` 하단 고정 버튼 복구(1863b07에서 딸려 나간 회귀), Resume 다운로드·라이트박스 닫기 버튼을 롤링+굵은 글자로 통일
 - [x] P6-14. 프로젝트 명칭·경로 통일 — 라벨·메뉴를 `Projects`로 모으고 순서를 `Home, Projects, Resume, Contact`로, 경로 `/work` → `/projects`(영구 리다이렉트 2건 동반). 홈 대제목 넘침은 글자 크기 대신 `lg` 구간 6:6 비율로 해결
+- [x] P6-15. 코드 리뷰 지적 반영 — PR #78 CodeRabbit 9건 중 8건 수정(허니팟 GA 오집계, 서버 액션 거부 시 버튼 잠김, 커서 사라짐, 스킵 링크 가림, reachable 미반영, 동작 줄이기 미반영, 댓글 조회, 액션 SHA). 문의 폼 rate limit은 공유 저장소가 필요해 Phase 7로 보류
 - [ ] P6-11. Contact 페이지 Quick Answers(FAQ) 구역 — 문의용 질문 3~4개 초안 확인 후 착수 (보류)
 
 **🟡 P2 — 성능·인프라** (항목마다 설명 후 착수)

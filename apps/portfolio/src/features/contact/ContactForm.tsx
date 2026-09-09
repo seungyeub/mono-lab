@@ -40,16 +40,30 @@ export default function ContactForm() {
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus('loading');
-    const result = await sendContactEmail(data);
-    if (result.success) {
-      // 방문 → 문의 전환을 센다. 이름·이메일 같은 입력값은 보내지 않는다
-      if (GA_MEASUREMENT_ID) sendGAEvent('event', 'contact_submit', { form: 'contact' });
-      setStatus('success');
-      reset();
-      return;
+    /*
+      Server Action은 호출·전송 단계에서 거부될 수 있다(네트워크 끊김, 배포 중 등).
+      감싸지 않으면 await 이후가 실행되지 않아 status가 loading에 묶이고 제출 버튼이
+      영영 비활성 상태로 남는다.
+    */
+    try {
+      const result = await sendContactEmail(data);
+      if (result.success) {
+        // 방문 → 문의 전환을 센다. 이름·이메일 같은 입력값은 보내지 않는다.
+        // 허니팟에 걸린 봇의 가짜 성공(trackAnalytics: false)은 세지 않는다
+        if (GA_MEASUREMENT_ID && result.trackAnalytics !== false) {
+          sendGAEvent('event', 'contact_submit', { form: 'contact' });
+        }
+        setStatus('success');
+        reset();
+        return;
+      }
+      setErrorCode(result.error ?? 'failed');
+      setStatus('error');
+    } catch (cause) {
+      console.error('Contact form: 서버 액션 호출 실패', cause);
+      setErrorCode('failed');
+      setStatus('error');
     }
-    setErrorCode(result.error ?? 'failed');
-    setStatus('error');
   };
 
   const inputClass =

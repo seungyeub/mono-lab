@@ -40,6 +40,11 @@ jest.mock('framer-motion', () => {
     })),
     // useTransform mock: return a dummy value
     useTransform: jest.fn(() => 1),
+    // reachable을 MotionValue로 관리한다 — 스크롤 없이 문서 높이만 바뀌어도 다시 계산되게
+    useMotionValue: jest.fn((initial: number) => {
+      let value = initial;
+      return { get: () => value, set: (next: number) => (value = next) };
+    }),
     // 동작 줄이기 분기 — 테스트는 기본값(꺼짐)으로 돈다
     useReducedMotion: jest.fn(() => false),
   };

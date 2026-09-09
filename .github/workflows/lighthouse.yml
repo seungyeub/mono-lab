@@ -70,7 +70,7 @@ jobs:
       - name: Upload Lighthouse reports
         # 검증이 실패해도 리포트는 남긴다 — 점수가 낮은 원인(코드인지 러너인지)을 사후에 볼 수 있어야 한다
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: lighthouse-reports-${{ github.event.pull_request.number }}-${{ github.run_attempt }}
           path: apps/portfolio/.lighthouseci
@@ -147,14 +147,21 @@ jobs:
               `*Tested on: \`${result.url}\`* · 상세 리포트는 이 실행의 Artifacts(\`lighthouse-reports-*\`)`,
             ].join('\n');
 
-            // 푸시할 때마다 댓글을 쌓지 않는다 — 표식이 있는 기존 댓글을 찾아 갱신
-            const { data: comments } = await github.rest.issues.listComments({
+            /*
+              푸시할 때마다 댓글을 쌓지 않는다 — 표식이 있는 기존 댓글을 찾아 갱신.
+              한 페이지만 읽으면 댓글이 100개를 넘는 PR에서 기존 댓글을 놓쳐 중복이 생기고,
+              표식만 보면 같은 문자열을 인용한 사람의 댓글을 덮어쓸 수 있다.
+              전체 페이지를 훑고 작성자가 이 워크플로의 봇인지까지 확인한다.
+            */
+            const comments = await github.paginate(github.rest.issues.listComments, {
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               per_page: 100,
             });
-            const existing = comments.find((c) => c.body?.includes(marker));
+            const existing = comments.find(
+              (c) => c.user?.login === 'github-actions[bot]' && c.body?.includes(marker),
+            );
             if (existing) {
               await github.rest.issues.updateComment({
                 comment_id: existing.id,

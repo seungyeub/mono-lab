@@ -35,7 +35,8 @@ describe('sendContactEmail', () => {
 
   it('허니팟이 채워지면 발송하지 않고 성공인 척한다', async () => {
     const result = await sendContactEmail({ ...valid, company: 'bot inc' });
-    expect(result).toEqual({ success: true });
+    // 화면에는 성공이지만 분석에는 세지 않는다 — 메일이 가지 않았다
+    expect(result).toEqual({ success: true, trackAnalytics: false });
     expect(send).not.toHaveBeenCalled();
   });
 

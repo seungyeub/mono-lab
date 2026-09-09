@@ -1,7 +1,14 @@
 'use client';
 
-import { motion, type MotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { useEffect, useRef, type RefObject } from 'react';
+import {
+  motion,
+  type MotionValue,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 type Align = 'left' | 'center' | 'right';
 
@@ -35,17 +42,23 @@ function WordReveal({
   word: string;
   scrollYProgress: MotionValue<number>;
   /** 페이지를 끝까지 내렸을 때 도달할 수 있는 최대 진행도(0~1) */
-  reachable: RefObject<number>;
+  reachable: MotionValue<number>;
   start: number;
   end: number;
 }) {
   // 동작 줄이기 사용자에게는 스크롤로 밝아지는 연출 대신 처음부터 읽히게 둔다
   const prefersReducedMotion = useReducedMotion();
-  // 진행도를 도달 가능한 범위로 다시 펴서 마지막 단어가 그 안에서 끝나게 한다.
-  // 화면이 짧으면 reachable이 1이라 원래와 같다.
-  const opacity = useTransform(scrollYProgress, (raw) => {
+  /*
+    진행도를 도달 가능한 범위로 다시 펴서 마지막 단어가 그 안에서 끝나게 한다.
+    화면이 짧으면 reachable이 1이라 원래와 같다.
+
+    reachable을 ref로 두면 값이 바뀌어도 다시 그려지지 않는다 — scrollYProgress만
+    구독하기 때문이다. 창 크기나 문서 높이가 바뀌었는데 스크롤이 없으면 마지막 단어가
+    옛 기준으로 어두운 채 남는다. 두 값을 모두 읽는 함수형 useTransform을 쓴다.
+  */
+  const opacity = useTransform(() => {
     if (prefersReducedMotion) return 1;
-    const progress = Math.min(1, raw / Math.max(reachable.current, 0.001));
+    const progress = Math.min(1, scrollYProgress.get() / Math.max(reachable.get(), 0.001));
     const t = Math.min(1, Math.max(0, (progress - start) / (end - start)));
     return DIM + (1 - DIM) * t;
   });
@@ -80,7 +93,7 @@ export default function ScrollRevealText({
    * 8개가 그랬다(실측). 끝까지 내렸을 때의 최대 진행도를 재 두고 단어 구간을 그
    * 안으로 맞춘다. 문단 높이·문서 높이가 바뀌면(폰트 로드, 창 크기) 다시 잰다.
    */
-  const reachable = useRef(1);
+  const reachable = useMotionValue(1);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -94,7 +107,7 @@ export default function ScrollRevealText({
       const one = top + rect.height - OFFSET_END * vh;
       const maxScroll = document.documentElement.scrollHeight - vh;
       const ratio = (maxScroll - zero) / (one - zero);
-      reachable.current = Math.min(1, Math.max(0.2, ratio));
+      reachable.set(Math.min(1, Math.max(0.2, ratio)));
     };
 
     measure();
@@ -105,7 +118,7 @@ export default function ScrollRevealText({
       window.removeEventListener('resize', measure);
       observer?.disconnect();
     };
-  }, []);
+  }, [reachable]);
 
   let wordIndex = 0;
 

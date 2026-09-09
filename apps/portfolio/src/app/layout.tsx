@@ -113,10 +113,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         {/* 모든 페이지가 공유하는 주체·사이트 정보. 개별 페이지 스키마가 @id로 이것을 참조한다 */}
         <JsonLd data={[buildPersonSchema(), buildWebSiteSchema()]} />
-        {/* 키보드 사용자가 헤더 링크를 매번 지나지 않도록. 포커스될 때만 보인다 */}
+        {/* 키보드 사용자가 헤더 링크를 매번 지나지 않도록. 포커스될 때만 보인다.
+            z-index는 PageLoader(z-99999)보다 높아야 한다 — 첫 방문의 로더 표시 중에
+            Tab을 눌러도 링크가 가려지지 않게 한다 */}
         <a
           href='#main'
-          className='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black'
+          className='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100000] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black'
         >
           본문으로 건너뛰기
         </a>
