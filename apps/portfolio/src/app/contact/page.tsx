@@ -45,13 +45,14 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className='site-container min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
-      {/* 페이지 헤더 — /work와 같은 구성. 제목이 페이지의 목적(프로젝트 이야기)을 말한다 */}
+      {/* 페이지 헤더 — /projects와 같은 구성. 제목이 페이지의 목적(프로젝트 이야기)을 말한다 */}
       <div className='border-line border-b pb-12'>
-        <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>
-          Let&apos;s Talk About
-          <br />
-          Your Team©
-        </h1>
+        <div className='flex flex-col gap-4'>
+          <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Contact©</h1>
+          <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
+            궁금한 점이 있다면 언제든지 편하게 문의 주세요. 채용 제안과 협업 문의 모두 환영합니다.
+          </p>
+        </div>
       </div>
 
       {/*
@@ -69,7 +70,7 @@ export default function ContactPage() {
           링크 글자는 헤더 메뉴와 같은 롤링 효과를 낸다.
         */}
         <aside className='order-1 w-full lg:order-2 lg:w-80 lg:shrink-0'>
-          <p className='mb-2 font-semibold text-white'>Contact</p>
+          <p className='mb-2 font-semibold text-white'>Channels</p>
           <dl className='text-sm text-gray-400'>
             <ContactRow label='Email'>
               <RollingLink

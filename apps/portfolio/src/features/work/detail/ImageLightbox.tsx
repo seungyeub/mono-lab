@@ -1,5 +1,6 @@
 'use client';
 
+import RollingButton from '@/components/RollingText/RollingButton';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useRef } from 'react';
 
@@ -148,16 +149,16 @@ export default function ImageLightbox({
             className='absolute inset-0 cursor-none'
           />
 
-          <button
+          <RollingButton
             ref={closeButtonRef}
             type='button'
             onClick={onClose}
             aria-label='닫기'
+            text='Close (ESC)'
+            textClassName='font-bold tracking-tight'
             // 이미지가 화면을 꽉 채우면 버튼이 밝은 화면 위에 얹혀 묻힌다 — 자체 배경을 준다
-            className='absolute top-4 right-4 z-20 rounded-full border border-white/30 bg-black/70 px-4 py-2 text-xs tracking-widest text-white/80 uppercase backdrop-blur-sm transition-colors duration-200 hover:border-white/60 hover:bg-black/90 hover:text-white md:top-8 md:right-8'
-          >
-            Close (ESC)
-          </button>
+            className='absolute top-4 right-4 z-20 rounded-full border-2 border-white bg-black/70 px-5 py-2 text-xs tracking-widest text-white uppercase backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black md:top-8 md:right-8'
+          />
 
           <div className='relative z-10 flex max-h-full w-full max-w-6xl flex-col items-center gap-4'>
             {/* 좌우로 쓸어넘기기 — 터치와 마우스 드래그 모두 같은 제스처로 처리된다 */}
