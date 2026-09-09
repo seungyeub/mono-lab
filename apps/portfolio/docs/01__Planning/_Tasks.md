@@ -19,7 +19,9 @@
 
 - [x] P6-3. 방문 분석 연동 — GA4(`@next/third-parties`, 측정 ID 있을 때만 로드) + 문의 제출 `contact_submit` 이벤트 + Speed Insights. 측정 ID `G-SJXH41DRD4` Vercel 등록 완료. **배포 후 실시간 보고서·Speed Insights 수집 확인 필요.** 개인정보 처리방침 문구 배치는 미결
 - [x] P6-4. 접근성 점검·개선 — 랜드마크·제목 계층·건너뛰기 링크, 동작 줄이기 대응, 캐러셀 제어 가시성·터치 크기, 커서 숨김 조건화, 보조 텍스트 대비 40→50%. 접근성 0.95~0.96, 남은 실패는 의도된 연출(에필로그 시작 밝기·워터마크)뿐
-- [x] P6-10. Contact 페이지 레이아웃 정리 — 제목 "Let's Talk About Your Team©", 폼+연락처(320px 우측) 나란히, 입력 라벨, 행·입력란 밑줄 채움 효과, 롤링 링크, 알약 버튼(홈 CONTACT와 동일 크기). `/work`·`/resume`·`/contact` 본문 `site-container` 통일
+- [x] P6-10. Contact 페이지 레이아웃 정리 — 제목 `Contact©`(우측 열 라벨은 중복을 피해 `Channels`), 헤더 설명문 두 문장, 폼+연락처(320px 우측) 나란히, 입력 라벨, 행·입력란 밑줄 채움 효과, 롤링 링크, 알약 버튼(홈 CONTACT와 동일 크기). `/work`·`/resume`·`/contact` 본문 `site-container` 통일
+- [x] P6-13. 페이지 간 일관성 정리 — `/work` 헤더 설명문을 `/resume` 기준(본문급·제목 아래)으로, 홈 `See All Works` 하단 고정 버튼 복구(1863b07에서 딸려 나간 회귀), Resume 다운로드·라이트박스 닫기 버튼을 롤링+굵은 글자로 통일
+- [x] P6-14. 프로젝트 명칭·경로 통일 — 라벨·메뉴를 `Projects`로 모으고 순서를 `Home, Projects, Resume, Contact`로, 경로 `/work` → `/projects`(영구 리다이렉트 2건 동반). 홈 대제목 넘침은 글자 크기 대신 `lg` 구간 6:6 비율로 해결
 - [ ] P6-11. Contact 페이지 Quick Answers(FAQ) 구역 — 문의용 질문 3~4개 초안 확인 후 착수 (보류)
 
 **🟡 P2 — 성능·인프라** (항목마다 설명 후 착수)
@@ -30,7 +32,7 @@
 
 **🟢 P3 — 결정 필요**
 
-- [ ] P6-8. Resume PDF 다운로드 — 웹 페이지와 병행 확정. 직접 제작 파일 대 자동 생성 중 선택
+- [x] P6-8. Resume PDF 다운로드 — 직접 제작 파일(ⓐ) 확정. `RollingLink` 알약 버튼(`DOWNLOAD PDF`), 저장 파일명 `Seungyeub-Baek-Resume.pdf`. **임시 플레이스홀더 PDF로 배선만 완료 — 릴리스 전 실제 파일로 교체 필요**
 - [x] P6-9. 배포 파이프라인 타입 체크 게이트 — `ignoreBuildErrors` 제거 + 배포 워크플로에 `check-types` 단계. 숨은 타입 오류 없음 확인
 - [ ] P6-12. 개인정보 처리방침 페이지 — 문의 폼(이름·이메일)과 GA4 쿠키 수집에 따른 고지. GA 약관상 의무. **착수 전 상의**
 
