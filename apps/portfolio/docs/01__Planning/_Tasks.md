@@ -32,7 +32,7 @@
 
 **🟢 P3 — 결정 필요**
 
-- [x] P6-8. Resume PDF 다운로드 — 직접 제작 파일(ⓐ) 확정. `RollingLink` 알약 버튼(`DOWNLOAD PDF`), 저장 파일명 `Seungyeub-Baek-Resume.pdf`. **임시 플레이스홀더 PDF로 배선만 완료 — 릴리스 전 실제 파일로 교체 필요**
+- [x] P6-8. Resume PDF 다운로드 — 직접 제작 파일(ⓐ) 확정. `RollingLink` 알약 버튼(`DOWNLOAD PDF`), 저장 파일명 `Seungyeub-Baek-Resume.pdf`. 실제 이력서 파일(2쪽) 교체 완료
 - [x] P6-9. 배포 파이프라인 타입 체크 게이트 — `ignoreBuildErrors` 제거 + 배포 워크플로에 `check-types` 단계. 숨은 타입 오류 없음 확인
 - [x] P6-12. 개인정보 수집 고지 — 처리방침 페이지 대신 **문의 폼 아래 두 줄 고지**로 결론. 조문은 위치를 지정하지 않고, 수집의 무게는 GA가 아니라 폼에 있다. GA 쿠키 고지는 덮지 않는 간극이 남음(PRD 기록)
 
