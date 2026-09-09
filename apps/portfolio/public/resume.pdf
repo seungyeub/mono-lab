@@ -1,0 +1,59 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 424 >>
+stream
+BT
+/F2 22 Tf
+1 0 0 1 28 760 Tm
+(Seungyeub Baek - Resume) Tj
+/F1 12 Tf
+1 0 0 1 28 730 Tm
+(Frontend Engineer / Seoul, KR) Tj
+/F2 13 Tf
+1 0 0 1 28 690 Tm
+(PLACEHOLDER FILE) Tj
+/F1 11 Tf
+1 0 0 1 28 668 Tm
+(This file exists only to wire up the download button.) Tj
+/F1 11 Tf
+1 0 0 1 28 650 Tm
+(It will be replaced with the real resume PDF.) Tj
+/F1 11 Tf
+1 0 0 1 28 620 Tm
+(Web version: https://seungyeub.vercel.app/resume) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+7 0 obj
+<< /Title (Seungyeub Baek - Resume (placeholder)) /Producer (mono-lab) >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000725 00000 n 
+0000000795 00000 n 
+0000000870 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R /Info 7 0 R >>
+startxref
+959
+%%EOF
