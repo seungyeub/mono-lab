@@ -139,6 +139,24 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
                 />
               </div>
             ))}
+
+            {/*
+              1024px 미만에서는 좌측 컬럼의 버튼이 숨겨지므로 여기서 대신 노출한다.
+              카드를 훑는 동안 계속 닿을 수 있도록 하단에 붙여 두고, 밝은 카드 위에
+              겹쳐도 읽히도록 자체 배경과 blur를 준다.
+            */}
+            <div className='pointer-events-none sticky bottom-4 z-10 col-span-1 flex justify-center pt-16 pb-8 md:col-span-2 lg:hidden'>
+              <div className='pointer-events-auto'>
+                <RollingLink
+                  href='/work'
+                  onMouseEnter={() => setCursorType('pointer')}
+                  onMouseLeave={() => setCursorType('default')}
+                  text='See All Works'
+                  textClassName='font-bold tracking-tight'
+                  className='bg-surface/85 inline-block rounded-full border-2 border-white px-5 py-2 text-[16px] tracking-widest uppercase backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black md:text-[23px]'
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
