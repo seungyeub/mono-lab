@@ -215,11 +215,12 @@ export default function ContactForm() {
         {/*
           수집 시점 고지 (P6-12). 별도 처리방침 페이지를 두는 대신, 실제로 이름·이메일을
           입력하는 이 자리에서만 알린다 — 개인 포트폴리오에 처리방침 문서는 과하다고 판단했다.
-          문장은 실제 동작과 어긋나면 안 된다: 발송은 Resend를 거치고, 받은 메일은 메일함에
-          남는다. "보관하지 않는다"처럼 지킬 수 없는 약속은 쓰지 않는다.
+          문장은 실제 동작과 어긋나면 안 된다: 폼은 이름·이메일·메시지를 모두 보내고, 발송은
+          Resend를 거치며, 받은 메일은 메일함과 Resend 발송 기록 양쪽에 남는다.
+          "보관하지 않는다"처럼 지킬 수 없는 약속은 쓰지 않는다.
         */}
         <p className='max-w-md text-center text-xs leading-relaxed break-keep text-white/50'>
-          입력하신 이름과 이메일은 문의에 답장하는 용도로만 사용합니다.
+          입력하신 이름과 이메일, 메시지는 문의에 답장하는 용도로만 사용합니다.
           <br />
           발송은{' '}
           <RollingLink
@@ -230,7 +231,7 @@ export default function ContactForm() {
             stagger={0}
             className='border-b border-white/40 align-baseline text-white/80 transition-colors hover:border-white hover:text-white'
           />
-          를 거치며, 받은 내용은 제 메일함에만 남습니다.
+          를 거치며, 받은 내용은 제 메일함과 Resend 발송 기록에 남습니다.
         </p>
       </div>
     </form>
