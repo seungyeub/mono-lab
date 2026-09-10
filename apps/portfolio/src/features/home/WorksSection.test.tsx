@@ -56,7 +56,7 @@ const PROJECT_CARDS = [
     order: 1,
     image: '/images/projects/app-review-tracker.jpg',
     imageExists: false,
-    href: '/work/app-review-tracker',
+    href: '/projects/app-review-tracker',
   },
   {
     slug: 'yoga-editor',
@@ -65,7 +65,7 @@ const PROJECT_CARDS = [
     order: 2,
     image: '/images/projects/yoga-editor.jpg',
     imageExists: false,
-    href: '/work/yoga-editor',
+    href: '/projects/yoga-editor',
   },
   {
     slug: 'kti',
@@ -74,7 +74,7 @@ const PROJECT_CARDS = [
     order: 3,
     image: '/images/projects/kti.jpg',
     imageExists: false,
-    href: '/work/kti',
+    href: '/projects/kti',
   },
 ];
 
@@ -83,8 +83,8 @@ describe('WorksSection', () => {
     render(<WorksSection projects={PROJECT_CARDS} />);
 
     // 타이틀 렌더링 검증
-    expect(screen.getByText('Works.')).toBeInTheDocument();
-    expect(screen.getByText(/Selected Works/i)).toBeInTheDocument();
+    expect(screen.getByText('Projects.')).toBeInTheDocument();
+    expect(screen.getByText(/Selected Projects/i)).toBeInTheDocument();
 
     // 프로젝트 렌더링 검증
     expect(screen.getAllByText('App Review Tracker')[0]).toBeInTheDocument();
@@ -103,15 +103,19 @@ describe('WorksSection', () => {
   it('모든 카드 링크가 상세 페이지를 가리켜야 합니다(죽은 링크 방지)', () => {
     render(<WorksSection projects={PROJECT_CARDS} />);
 
-    // 카드 링크만 추출 (See All Works 버튼은 /work 으로 별도 존재)
+    // 카드 링크만 추출 (See All Projects 버튼은 /projects 으로 별도 존재)
     const cardLinks = screen
       .getAllByRole('link')
       .map((link) => link.getAttribute('href'))
-      .filter((href) => href !== '/work');
+      .filter((href) => href !== '/projects');
 
     // DOM 순서는 전달받은 배열 순서와 같아야 한다. 2열 배치는 CSS로만 처리하므로
     // 1열이 되는 모바일에서도 순서가 뒤섞이지 않는다.
-    expect(cardLinks).toEqual(['/work/app-review-tracker', '/work/yoga-editor', '/work/kti']);
+    expect(cardLinks).toEqual([
+      '/projects/app-review-tracker',
+      '/projects/yoga-editor',
+      '/projects/kti',
+    ]);
     expect(cardLinks).not.toContain('#');
   });
 });

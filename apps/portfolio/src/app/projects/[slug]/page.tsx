@@ -57,11 +57,11 @@ export async function generateMetadata({
 
   return {
     ...seo,
-    alternates: { canonical: `/work/${slug}` },
+    alternates: { canonical: `/projects/${slug}` },
     ...buildPageOpenGraph({
       title: `${seo.title} | ${SITE_NAME}`,
       description: seo.description,
-      path: `/work/${slug}`,
+      path: `/projects/${slug}`,
       type: 'article',
       ...(image ? { image } : {}),
     }),
@@ -120,14 +120,14 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   }));
 
   return (
-    <main data-testid='work-detail' className='min-h-screen w-full'>
+    <div data-testid='work-detail' className='min-h-screen w-full'>
       {/* 경로 계층과 작업물 정보. 저자는 루트에서 낸 Person을 @id로 참조한다 */}
       <JsonLd
         data={[
           buildBreadcrumbSchema([
             { name: 'Home', path: '/' },
-            { name: 'Projects', path: '/work' },
-            { name: meta.title, path: `/work/${slug}` },
+            { name: 'Projects', path: '/projects' },
+            { name: meta.title, path: `/projects/${slug}` },
           ]),
           buildCreativeWorkSchema({
             slug,
@@ -166,19 +166,19 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
       {/* ── Next Project — 순차 탐색 ── */}
       {nextProject && (
         <section className='border-line border-t px-6 py-12 md:px-12 md:py-16'>
-          <Link href={`/work/${nextProject.slug}`} className='group flex flex-col gap-3'>
-            <span className='text-xs tracking-widest text-white/40 uppercase'>Next Project</span>
+          <Link href={`/projects/${nextProject.slug}`} className='group flex flex-col gap-3'>
+            <span className='text-xs tracking-widest text-white/50 uppercase'>Next Project</span>
             <div className='flex flex-wrap items-baseline justify-between gap-3'>
               <h2 className='text-3xl font-medium tracking-tight transition-colors duration-300 group-hover:text-white/70 md:text-5xl'>
                 {nextProject.meta.title}
               </h2>
-              <span className='text-xs tracking-widest text-white/40 uppercase md:text-sm'>
+              <span className='text-xs tracking-widest text-white/50 uppercase md:text-sm'>
                 {nextProject.meta.category} →
               </span>
             </div>
           </Link>
         </section>
       )}
-    </main>
+    </div>
   );
 }

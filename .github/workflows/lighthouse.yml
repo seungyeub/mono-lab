@@ -67,6 +67,16 @@ jobs:
           cd apps/portfolio
           pnpm exec lhci autorun --config=./.lighthouserc.cjs
 
+      - name: Upload Lighthouse reports
+        # 검증이 실패해도 리포트는 남긴다 — 점수가 낮은 원인(코드인지 러너인지)을 사후에 볼 수 있어야 한다
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: lighthouse-reports-${{ github.event.pull_request.number }}-${{ github.run_attempt }}
+          path: apps/portfolio/.lighthouseci
+          retention-days: 14
+          if-no-files-found: warn
+
       - name: Parse Lighthouse Report and Add PR Comment
         uses: actions/github-script@v7
         if: always() # Lighthouse 검증이 실패하더라도 점수를 확인할 수 있도록 항상 실행
@@ -74,11 +84,12 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const fs = require('fs');
-            const manifestPath = './apps/portfolio/.lighthouseci/manifest.json';
-            const linksPath = './apps/portfolio/.lighthouseci/links.json';
+            const path = require('path');
+            const dir = './apps/portfolio/.lighthouseci';
+            const manifestPath = path.join(dir, 'manifest.json');
 
             if (!fs.existsSync(manifestPath)) {
-              console.log('Manifest not found');
+              core.warning('manifest.json이 없다 — upload.target이 filesystem인지 확인');
               return;
             }
 
@@ -86,54 +97,83 @@ jobs:
             try {
               manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
             } catch (error) {
-              console.log('Failed to parse manifest.json:', error.message);
+              core.warning(`manifest.json 파싱 실패: ${error.message}`);
               return;
             }
             if (!Array.isArray(manifest) || manifest.length === 0) {
-              console.log('Manifest is empty');
+              core.warning('manifest.json이 비어 있다');
               return;
             }
-            const result = manifest[0];
-            const formatResult = (res) => Math.round((res ?? 0) * 100);
 
+            // 3회 실행 중 lhci가 고른 대표 실행(중앙값). 없으면 첫 항목
+            const result = manifest.find((m) => m.isRepresentativeRun) ?? manifest[0];
+            const pct = (v) => (typeof v === 'number' ? Math.round(v * 100) : '-');
             const summary = result.summary || {};
-            const performance = formatResult(summary.performance);
-            const accessibility = formatResult(summary.accessibility);
-            const bestPractices = formatResult(summary['best-practices']);
-            const seo = formatResult(summary.seo);
 
-            // 링크 데이터가 있다면 상세 리포트 URL 파싱
-            let reportUrlStr = '';
-            if (fs.existsSync(linksPath)) {
-              try {
-                const links = JSON.parse(fs.readFileSync(linksPath, 'utf8'));
-                const urlKeys = Object.keys(links);
-                if (urlKeys.length > 0) {
-                  reportUrlStr = `\n[🔗 상세 리포트 보러가기](${links[urlKeys[0]]})`;
-                }
-              } catch (error) {
-                console.log('Failed to parse links.json:', error.message);
-              }
+            // 대표 실행의 전체 리포트에서 관측값과 러너 지표를 꺼낸다.
+            // 시뮬레이션 LCP와 관측 LCP의 차이, benchmarkIndex(러너 CPU 속도)를 같이 보여야
+            // 점수가 낮은 이유가 코드인지 러너인지 댓글만으로 구분된다
+            let extra = '';
+            try {
+              const lhr = JSON.parse(fs.readFileSync(result.jsonPath, 'utf8'));
+              const m = lhr.audits?.metrics?.details?.items?.[0] ?? {};
+              const ms = (v) => (typeof v === 'number' ? `${Math.round(v)} ms` : '-');
+              extra = [
+                '',
+                '| Metric | Simulated | Observed |',
+                '| --- | --- | --- |',
+                `| LCP | ${ms(m.largestContentfulPaint)} | ${ms(m.observedLargestContentfulPaint)} |`,
+                `| FCP | ${ms(m.firstContentfulPaint)} | ${ms(m.observedFirstContentfulPaint)} |`,
+                `| TBT | ${ms(m.totalBlockingTime)} | - |`,
+                '',
+                `*Runner benchmarkIndex: \`${lhr.environment?.benchmarkIndex ?? '-'}\`* (로컬 M-시리즈 약 3000 · 낮을수록 느린 러너) · runs: ${manifest.length}, median`,
+              ].join('\n');
+            } catch (error) {
+              core.warning(`리포트 상세 읽기 실패: ${error.message}`);
             }
 
-            // 마크다운 표 형태의 댓글 포맷
+            const marker = '<!-- lighthouse-report -->';
             const commentBody = [
+              marker,
               '## ⚡️ Lighthouse Report',
               '| Category | Score |',
               '| --- | --- |',
-              `| 🚀 Performance | ${performance} |`,
-              `| ♿ Accessibility | ${accessibility} |`,
-              `| 💡 Best Practices | ${bestPractices} |`,
-              `| 🔎 SEO | ${seo} |`,
-              reportUrlStr,
+              `| 🚀 Performance | ${pct(summary.performance)} |`,
+              `| ♿ Accessibility | ${pct(summary.accessibility)} |`,
+              `| 💡 Best Practices | ${pct(summary['best-practices'])} |`,
+              `| 🔎 SEO | ${pct(summary.seo)} |`,
+              extra,
               '',
-              `*Tested on: \`${result.url}\`*`,
+              `*Tested on: \`${result.url}\`* · 상세 리포트는 이 실행의 Artifacts(\`lighthouse-reports-*\`)`,
             ].join('\n');
 
-            // PR에 코멘트 작성
-            await github.rest.issues.createComment({
+            /*
+              푸시할 때마다 댓글을 쌓지 않는다 — 표식이 있는 기존 댓글을 찾아 갱신.
+              한 페이지만 읽으면 댓글이 100개를 넘는 PR에서 기존 댓글을 놓쳐 중복이 생기고,
+              표식만 보면 같은 문자열을 인용한 사람의 댓글을 덮어쓸 수 있다.
+              전체 페이지를 훑고 작성자가 이 워크플로의 봇인지까지 확인한다.
+            */
+            const comments = await github.paginate(github.rest.issues.listComments, {
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: commentBody
+              per_page: 100,
             });
+            const existing = comments.find(
+              (c) => c.user?.login === 'github-actions[bot]' && c.body?.includes(marker),
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                comment_id: existing.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody,
+              });
+            }

@@ -1,3 +1,4 @@
+import MotionProvider from '@/components/MotionProvider';
 import PageLoader from '@/components/PageLoader';
 import CustomCursor from '@/features/layout/CustomCursor';
 import Footer from '@/features/layout/Footer';
@@ -5,10 +6,13 @@ import Header from '@/features/layout/Header';
 import SmoothScroll from '@/features/layout/SmoothScroll';
 import '@repo/ui/styles.css';
 import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import JsonLd from '@/components/JsonLd';
 import { buildPersonSchema, buildWebSiteSchema } from '@/lib/structuredData';
 import {
+  GA_MEASUREMENT_ID,
   GOOGLE_SITE_VERIFICATION,
   OG_IMAGE,
   OG_IMAGE_HEIGHT,
@@ -109,14 +113,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         {/* 모든 페이지가 공유하는 주체·사이트 정보. 개별 페이지 스키마가 @id로 이것을 참조한다 */}
         <JsonLd data={[buildPersonSchema(), buildWebSiteSchema()]} />
-        <PageLoader />
-        <CustomCursor />
-        <SmoothScroll>
-          <Header />
-          <main className='min-h-screen w-full pt-24'>{children}</main>
-          <Footer />
-        </SmoothScroll>
+        {/* 키보드 사용자가 헤더 링크를 매번 지나지 않도록. 포커스될 때만 보인다.
+            z-index는 PageLoader(z-99999)보다 높아야 한다 — 첫 방문의 로더 표시 중에
+            Tab을 눌러도 링크가 가려지지 않게 한다 */}
+        <a
+          href='#main'
+          className='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100000] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black'
+        >
+          본문으로 건너뛰기
+        </a>
+        <MotionProvider>
+          <PageLoader />
+          <CustomCursor />
+          <SmoothScroll>
+            <Header />
+            <main id='main' className='min-h-screen w-full pt-24'>
+              {children}
+            </main>
+            <Footer />
+          </SmoothScroll>
+        </MotionProvider>
+        {/* 실사용자 Core Web Vitals. 대시보드에서 Speed Insights를 켜야 수집이 시작된다 */}
+        <SpeedInsights />
       </body>
+      {/* GA4. 문서 권장대로 body 밖에 둔다. 측정 ID가 없으면 아예 싣지 않는다 */}
+      {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
     </html>
   );
 }

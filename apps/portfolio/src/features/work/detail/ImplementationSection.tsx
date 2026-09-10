@@ -36,7 +36,7 @@ export default async function ImplementationSection({
 
             {implementation.architecture && (
               <div className='border-line mb-6 rounded-lg border bg-black/40 p-4'>
-                <p className='text-label tracking-label mb-1.5 font-medium text-white/40 uppercase'>
+                <p className='text-label tracking-label mb-1.5 font-medium text-white/50 uppercase'>
                   System Design
                 </p>
                 <p className='text-sm leading-relaxed font-medium md:text-base'>
@@ -47,7 +47,7 @@ export default async function ImplementationSection({
 
             {implementation.highlights.length > 0 && (
               <div>
-                <p className='text-label tracking-label mb-3 font-medium text-white/40 uppercase'>
+                <p className='text-label tracking-label mb-3 font-medium text-white/50 uppercase'>
                   Key Highlights
                 </p>
                 <ul className='flex flex-col gap-2.5'>
@@ -79,7 +79,7 @@ export default async function ImplementationSection({
 
             {implementation.codeCaption && (
               <div className='border-line mb-6 rounded-lg border bg-black/40 p-4'>
-                <p className='text-label tracking-label mb-1.5 font-medium text-white/40 uppercase'>
+                <p className='text-label tracking-label mb-1.5 font-medium text-white/50 uppercase'>
                   Implementation
                 </p>
                 <p className='text-sm leading-relaxed font-medium md:text-base'>

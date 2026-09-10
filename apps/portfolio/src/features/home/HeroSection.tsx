@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -45,6 +45,8 @@ export default function HeroSection() {
   // 캔버스는 LCP가 끝나고 메인 스레드가 비었을 때 올린다.
   // requestIdleCallback은 Safari에 없어 setTimeout으로 대체하고, 바쁜 페이지에서
   // 무한정 기다리지 않도록 timeout을 둔다.
+  // 동작 줄이기 사용자에게는 흔들리는 3D 카드 대신 정적 플레이스홀더를 그대로 둔다
+  const prefersReducedMotion = useReducedMotion();
   const [canvasReady, setCanvasReady] = useState(false);
   useEffect(() => {
     if (typeof window.requestIdleCallback === 'function') {
@@ -81,7 +83,7 @@ export default function HeroSection() {
             className='pointer-events-none z-10 col-start-1 row-start-1 flex flex-col gap-8 bg-transparent py-8 pr-0 md:pointer-events-auto md:mr-[-4px] md:py-12'
           >
             {/* 상단 메타 */}
-            <div className='text-label tracking-label mt-8 hidden flex-col gap-1 font-medium text-white/40 uppercase md:flex'>
+            <div className='text-label tracking-label mt-8 hidden flex-col gap-1 font-medium text-white/50 uppercase md:flex'>
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -153,12 +155,16 @@ export default function HeroSection() {
               <ErrorBoundary
                 fallback={
                   <div className='border-line flex h-full w-full flex-col items-center justify-center rounded-xl border bg-black/20'>
-                    <p className='mb-2 text-sm text-white/40'>3D Component Error</p>
+                    <p className='mb-2 text-sm text-white/50'>3D Component Error</p>
                     <div className="h-16 w-16 rounded-full bg-[url('/images/avatar.jpg')] bg-cover bg-center opacity-50 grayscale" />
                   </div>
                 }
               >
-                {canvasReady ? <InteractiveCardCanvas /> : <CardPlaceholder />}
+                {canvasReady && !prefersReducedMotion ? (
+                  <InteractiveCardCanvas />
+                ) : (
+                  <CardPlaceholder />
+                )}
               </ErrorBoundary>
             </div>
           </motion.div>

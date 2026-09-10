@@ -6,7 +6,7 @@ import { SITE_URL } from '@/lib/siteConfig';
 /** 정적 라우트. `/gallery`는 `/resume`로 영구 리다이렉트되므로 싣지 않는다 */
 const STATIC_ROUTES = [
   { path: '', priority: 1, changeFrequency: 'monthly' as const },
-  { path: '/work', priority: 0.9, changeFrequency: 'monthly' as const },
+  { path: '/projects', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/resume', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/contact', priority: 0.5, changeFrequency: 'yearly' as const },
 ];
@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const projectEntries = getAllProjects().map(({ slug }) => ({
-    url: `${SITE_URL}/work/${slug}`,
+    url: `${SITE_URL}/projects/${slug}`,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));

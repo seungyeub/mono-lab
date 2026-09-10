@@ -16,7 +16,7 @@ const PROJECTS: ProjectCard[] = [
     order: 1,
     image: '/images/projects/app-review-tracker.webp',
     imageExists: true,
-    href: '/work/app-review-tracker',
+    href: '/projects/app-review-tracker',
   },
   {
     slug: 'kti',
@@ -25,7 +25,7 @@ const PROJECTS: ProjectCard[] = [
     order: 3,
     image: '/images/projects/kti.webp',
     imageExists: true,
-    href: '/work/kti',
+    href: '/projects/kti',
   },
   {
     slug: 'yoga-editor',
@@ -34,7 +34,7 @@ const PROJECTS: ProjectCard[] = [
     order: 2,
     image: '/images/projects/yoga-editor.jpg',
     imageExists: false,
-    href: '/work/yoga-editor',
+    href: '/projects/yoga-editor',
   },
 ];
 
@@ -140,7 +140,11 @@ describe('WorkGrid', () => {
 
     const hrefs = screen.getAllByRole('link').map((l) => l.getAttribute('href'));
 
-    expect(hrefs).toEqual(['/work/app-review-tracker', '/work/kti', '/work/yoga-editor']);
+    expect(hrefs).toEqual([
+      '/projects/app-review-tracker',
+      '/projects/kti',
+      '/projects/yoga-editor',
+    ]);
     expect(hrefs).not.toContain('#');
   });
 });

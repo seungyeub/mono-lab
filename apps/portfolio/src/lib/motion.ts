@@ -38,9 +38,9 @@ const VARIANTS: Record<RevealVariant, RevealSpec> = {
    * 걸렸다(실측). 닿기 전에 시작하도록 바꿔 줄였다. 다만 너무 앞당기면 보이기 전에 끝나 효과가
    * 사라지므로, 움직임이 눈에 남는 선에서 멈췄다.
    */
-  worksCard: { y: 40, duration: 0.9, margin: '80px 0px', ease: SMOOTH },
+  worksCard: { y: 40, duration: 1, margin: '0px', ease: SMOOTH },
 
-  /** `/work` 목록 카드 */
+  /** `/projects` 목록 카드 */
   gridCard: { y: 40, duration: 0.7, margin: '-80px', ease: SMOOTH },
 
   /** 화면을 가득 채우는 대제목 — Works., FAQ. */
