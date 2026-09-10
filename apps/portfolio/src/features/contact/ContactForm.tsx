@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RollingButton from '@/components/RollingText/RollingButton';
 import RollingLink from '@/components/RollingText/RollingLink';
@@ -26,10 +26,25 @@ function ErrorNotice({ code }: { code: ContactErrorCode }) {
   );
 }
 
+/**
+ * 성공 문구를 보여 주는 시간. 발송 뒤 입력칸은 비워지는데 문구가 계속 남아 있으면,
+ * 새로 쓰는 문의가 이미 보낸 것처럼 읽힌다. 그래서 시간이 지나거나 다시 입력을
+ * 시작하면 거둔다. 문구는 role='status'로 나타나는 즉시 읽히므로, 사라져도 스크린리더
+ * 사용자가 놓치지 않는다. 오류 문구는 거두지 않는다 — 직접 연락할 주소를 읽고 옮겨
+ * 적을 시간이 필요하다.
+ */
+const SUCCESS_NOTICE_MS = 5000;
+
 export default function ContactForm() {
   const setCursorType = useCursorStore((s) => s.setType);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorCode, setErrorCode] = useState<ContactErrorCode>('failed');
+
+  useEffect(() => {
+    if (status !== 'success') return;
+    const timer = setTimeout(() => setStatus('idle'), SUCCESS_NOTICE_MS);
+    return () => clearTimeout(timer);
+  }, [status]);
 
   const {
     register,
@@ -83,7 +98,13 @@ export default function ContactForm() {
   const labelClass = 'text-label tracking-label font-medium text-white uppercase';
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='relative flex flex-col gap-10'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onChange={() => {
+        if (status === 'success') setStatus('idle');
+      }}
+      className='relative flex flex-col gap-10'
+    >
       <p className='-mb-4 font-semibold text-white'>Send a Message</p>
       {/* Name */}
       <div className={fieldClass}>
@@ -190,6 +211,7 @@ export default function ContactForm() {
           {status === 'success' && (
             <motion.p
               key='success'
+              role='status'
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
