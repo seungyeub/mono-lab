@@ -40,18 +40,28 @@ export async function generateMetadata({
   const seo = getProjectSeoMetadata(slug);
   if (!seo) return {};
 
-  // 카드 이미지가 실제로 있을 때만 쓴다. 없는 경로를 내보내면 미리보기가 깨진 채로
-  // 공유되므로, 그럴 때는 헬퍼가 사이트 기본 이미지로 대신 채운다.
+  // 공유 카드용 이미지를 고른다. 순서에 이유가 있다.
+  // 1) `/images/og/<slug>.jpg` — 1200x630으로 맞춰 둔 전용 이미지. 카드 이미지는 비율이
+  //    제각각이라 플랫폼이 임의로 잘라내고, WebP는 일부 메신저가 렌더링하지 못한다.
+  // 2) 전용 이미지가 없으면 카드 이미지를 쓴다.
+  // 3) 둘 다 없으면 헬퍼가 사이트 기본 이미지로 채운다 — 없는 경로를 내보내면
+  //    미리보기가 깨진 채로 공유된다.
   const { meta } = getProjectBySlug(slug);
-  const image = meta.image && publicAssetExists(meta.image) ? absoluteUrl(meta.image) : undefined;
+  const ogImagePath = `/images/og/${slug}.jpg`;
+  const imagePath = publicAssetExists(ogImagePath)
+    ? ogImagePath
+    : meta.image && publicAssetExists(meta.image)
+      ? meta.image
+      : undefined;
+  const image = imagePath ? absoluteUrl(imagePath) : undefined;
 
   return {
     ...seo,
-    alternates: { canonical: `/work/${slug}` },
+    alternates: { canonical: `/projects/${slug}` },
     ...buildPageOpenGraph({
       title: `${seo.title} | ${SITE_NAME}`,
       description: seo.description,
-      path: `/work/${slug}`,
+      path: `/projects/${slug}`,
       type: 'article',
       ...(image ? { image } : {}),
     }),
@@ -110,14 +120,14 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   }));
 
   return (
-    <main data-testid='work-detail' className='min-h-screen w-full'>
+    <div data-testid='work-detail' className='min-h-screen w-full'>
       {/* 경로 계층과 작업물 정보. 저자는 루트에서 낸 Person을 @id로 참조한다 */}
       <JsonLd
         data={[
           buildBreadcrumbSchema([
             { name: 'Home', path: '/' },
-            { name: 'Archive', path: '/work' },
-            { name: meta.title, path: `/work/${slug}` },
+            { name: 'Projects', path: '/projects' },
+            { name: meta.title, path: `/projects/${slug}` },
           ]),
           buildCreativeWorkSchema({
             slug,
@@ -156,19 +166,19 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
       {/* ── Next Project — 순차 탐색 ── */}
       {nextProject && (
         <section className='border-line border-t px-6 py-12 md:px-12 md:py-16'>
-          <Link href={`/work/${nextProject.slug}`} className='group flex flex-col gap-3'>
-            <span className='text-xs tracking-widest text-white/40 uppercase'>Next Project</span>
+          <Link href={`/projects/${nextProject.slug}`} className='group flex flex-col gap-3'>
+            <span className='text-xs tracking-widest text-white/50 uppercase'>Next Project</span>
             <div className='flex flex-wrap items-baseline justify-between gap-3'>
               <h2 className='text-3xl font-medium tracking-tight transition-colors duration-300 group-hover:text-white/70 md:text-5xl'>
                 {nextProject.meta.title}
               </h2>
-              <span className='text-xs tracking-widest text-white/40 uppercase md:text-sm'>
+              <span className='text-xs tracking-widest text-white/50 uppercase md:text-sm'>
                 {nextProject.meta.category} →
               </span>
             </div>
           </Link>
         </section>
       )}
-    </main>
+    </div>
   );
 }

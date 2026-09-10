@@ -72,7 +72,7 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
   test('Capture Work Detail Page', async ({ page }) => {
     // order 1이자 구조화 섹션(Overview·Tech Stack·Features·Implementation·Impact)이
     // 전부 채워진 대표 프로젝트를 촬영한다.
-    await page.goto('/work/app-review-tracker');
+    await page.goto('/projects/app-review-tracker');
 
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('data-testid=work-detail')).toBeVisible();

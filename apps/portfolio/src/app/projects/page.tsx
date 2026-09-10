@@ -8,14 +8,14 @@ const DESCRIPTION = 'Next.js, React, TypeScript 기반으로 작업한 프론트
 
 // 제목에 사이트명을 넣지 않는다 — 루트 layout의 title.template가 한 번만 덧붙인다
 export const metadata: Metadata = {
-  title: 'Work',
+  title: 'Projects',
   description: DESCRIPTION,
   // canonical이 없으면 쿼리스트링이 붙은 주소가 별도 페이지로 색인될 수 있다
-  alternates: { canonical: '/work' },
+  alternates: { canonical: '/projects' },
   ...buildPageOpenGraph({
-    title: `Work | ${SITE_NAME}`,
+    title: `Projects | ${SITE_NAME}`,
     description: DESCRIPTION,
-    path: '/work',
+    path: '/projects',
   }),
 };
 
@@ -24,14 +24,13 @@ export default function WorkPage() {
   const projects = getProjectCards();
 
   return (
-    <main className='min-h-screen w-full'>
+    <div className='site-container min-h-screen w-full'>
       {/* 페이지 헤더 */}
       <div className='border-line border-b px-6 pt-32 pb-12 md:px-12'>
-        <div className='flex flex-col justify-between gap-6 md:flex-row md:items-end'>
-          <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Archive©</h1>
-          <p className='max-w-sm text-sm text-gray-400 md:text-base'>
-            웹 서비스와 앱, 사내 시스템과 데이터 파이프라인까지
-            <br className='hidden md:block' /> 2017년부터 만들어 온 작업들입니다.
+        <div className='flex flex-col gap-4'>
+          <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Projects©</h1>
+          <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
+            웹 서비스와 앱, 사내 시스템과 데이터 파이프라인까지 2017년부터 만들어 온 작업들입니다.
           </p>
         </div>
       </div>
@@ -40,6 +39,6 @@ export default function WorkPage() {
       <div className='px-6 pt-12 pb-24 md:px-12'>
         <WorkGrid projects={projects} />
       </div>
-    </main>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import SectionLabel from '@/components/SectionLabel';
+import { reveal } from '@/lib/motion';
 import TagBar from '@/components/TagBar';
 import WordRoller from '@/components/WordRoller';
 import { ACHIEVEMENTS, EXPERIENCES } from '@/data/experienceData';
@@ -41,25 +42,22 @@ export default function ExperienceSection() {
           {EXPERIENCES.map((exp, index) => (
             <motion.div
               key={exp.company + index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
+              {...reveal('listItem', index * 0.08)}
               className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-6 md:py-8'
             >
               {/* col 1 — 회사명 (lg+) / 회사명+기간 (< lg) */}
               <div className='flex flex-col gap-1'>
                 <h4 className='text-base font-medium md:text-lg'>{exp.company}</h4>
-                <span className='font-mono text-xs text-gray-500 lg:hidden'>{exp.period}</span>
+                <span className='font-mono text-xs text-gray-400 lg:hidden'>{exp.period}</span>
               </div>
               {/* col 2 (소형) — 역할+지역, 오른쪽 정렬. lg 이상에서는 숨김 */}
               <div className='flex flex-col gap-1 text-right lg:hidden'>
                 <span className='text-base font-medium text-gray-300 md:text-lg'>{exp.role}</span>
-                <span className='text-xs tracking-widest text-gray-500 uppercase'>{exp.type}</span>
+                <span className='text-xs tracking-widest text-white/50 uppercase'>{exp.type}</span>
               </div>
               {/* col 2 (lg+) — 기간 단독 */}
               <div className='hidden items-center lg:flex'>
-                <span className='font-mono text-xs text-gray-500'>{exp.period}</span>
+                <span className='font-mono text-xs text-gray-400'>{exp.period}</span>
               </div>
               {/* col 3 (lg+) — 역할 */}
               <div className='hidden items-center lg:flex'>
@@ -67,7 +65,7 @@ export default function ExperienceSection() {
               </div>
               {/* col 4 (lg+) — 지역, 오른쪽 정렬 */}
               <div className='hidden items-center justify-end lg:flex'>
-                <span className='text-xs tracking-widest text-gray-500 uppercase'>{exp.type}</span>
+                <span className='text-xs tracking-widest text-white/50 uppercase'>{exp.type}</span>
               </div>
             </motion.div>
           ))}
@@ -83,16 +81,13 @@ export default function ExperienceSection() {
           {ACHIEVEMENTS.map((achievement, index) => (
             <motion.div
               key={achievement.certificate + index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
+              {...reveal('listItem', index * 0.08)}
               className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-6 md:py-8'
             >
               {/* col 1 — 자격증명 (lg+) / 자격증명+연도 (< lg) */}
               <div className='flex flex-col gap-1'>
                 <h4 className='text-base font-medium md:text-lg'>{achievement.certificate}</h4>
-                <span className='font-mono text-xs text-gray-500 lg:hidden'>
+                <span className='font-mono text-xs text-gray-400 lg:hidden'>
                   {achievement.organization}
                 </span>
               </div>
@@ -101,23 +96,23 @@ export default function ExperienceSection() {
                 <span className='text-base font-medium text-gray-300 md:text-lg'>
                   {achievement.date}
                 </span>
-                <span className='text-xs tracking-widest text-gray-500 uppercase'>
+                <span className='text-xs tracking-widest text-white/50 uppercase'>
                   {achievement.result}
                 </span>
               </div>
-              {/* col 2 (lg+) — 취득연도 단독 */}
-              <div className='hidden items-center lg:flex'>
-                <span className='font-mono text-xs text-gray-500'>{achievement.date}</span>
-              </div>
-              {/* col 3 (lg+) — 발급기관 */}
+              {/* col 2 (lg+) — 발급기관. 작은 화면에서 자격증명과 한 묶음이므로 여기서도 바로 뒤에 온다 */}
               <div className='hidden items-center lg:flex'>
                 <span className='text-sm text-gray-300 md:text-base'>
                   {achievement.organization}
                 </span>
               </div>
+              {/* col 3 (lg+) — 취득연도 */}
+              <div className='hidden items-center lg:flex'>
+                <span className='font-mono text-xs text-gray-400'>{achievement.date}</span>
+              </div>
               {/* col 4 (lg+) — 결과, 오른쪽 정렬 */}
               <div className='hidden items-center justify-end lg:flex'>
-                <span className='text-xs tracking-widest text-gray-500 uppercase'>
+                <span className='text-xs tracking-widest text-white/50 uppercase'>
                   {achievement.result}
                 </span>
               </div>

@@ -6,7 +6,50 @@
 
 ## Next
 
-가장 먼저 해야 하는 작업 — Phase 5 PRD(`docs/plan/2026-08-18_phase5_prd.md`) 기준
+가장 먼저 해야 하는 작업 — Phase 6 PRD(`docs/plan/2026-09-08_phase6_prd.md`) 기준. Phase 5(`docs/plan/2026-08-18_phase5_prd.md`)는 0.4.0으로 전 항목 완료.
+
+### Phase 6 — 결함 정리·기능 연결·측정 인프라 신뢰성
+
+**🔴 P0 — 결함 수정**
+
+- [x] P6-1. 에필로그 문구가 세로로 긴 화면에서 끝까지 밝아지지 않음 — 도달 가능한 최대 진행도를 실행 시점에 재서 단어 구간을 그 안에 맞춤. 900~2400px 여섯 해상도 30/30, 짧은 화면 순차 효과 유지
+- [x] P6-2. 문의 폼이 메일을 보내지 않으면서 "보냈다"고 표시 — 프로덕션에 EmailJS 키가 없어 개발용 분기를 타고 있었다(실측). Resend 서버 액션으로 일원화, 설정 없으면 오류+직접 연락 안내, 서버 재검증·허니팟, EmailJS 제거. **배포 후 실제 발송 1회 확인 필요**
+
+**🟡 P1 — 기능 연결** (항목마다 설명 후 착수)
+
+- [x] P6-3. 방문 분석 연동 — GA4(`@next/third-parties`, 측정 ID 있을 때만 로드) + 문의 제출 `contact_submit` 이벤트 + Speed Insights. 측정 ID `G-SJXH41DRD4` Vercel 등록 완료. **배포 후 실시간 보고서·Speed Insights 수집 확인 필요.** 개인정보 처리방침 문구 배치는 미결
+- [x] P6-4. 접근성 점검·개선 — 랜드마크·제목 계층·건너뛰기 링크, 동작 줄이기 대응, 캐러셀 제어 가시성·터치 크기, 커서 숨김 조건화, 보조 텍스트 대비 40→50%. 접근성 0.95~0.96, 남은 실패는 의도된 연출(에필로그 시작 밝기·워터마크)뿐
+- [x] P6-10. Contact 페이지 레이아웃 정리 — 제목 `Contact©`(우측 열 라벨은 중복을 피해 `Channels`), 헤더 설명문 두 문장, 폼+연락처(320px 우측) 나란히, 입력 라벨, 행·입력란 밑줄 채움 효과, 롤링 링크, 알약 버튼(홈 CONTACT와 동일 크기). `/work`·`/resume`·`/contact` 본문 `site-container` 통일
+- [x] P6-13. 페이지 간 일관성 정리 — `/work` 헤더 설명문을 `/resume` 기준(본문급·제목 아래)으로, 홈 `See All Works` 하단 고정 버튼 복구(1863b07에서 딸려 나간 회귀), Resume 다운로드·라이트박스 닫기 버튼을 롤링+굵은 글자로 통일
+- [x] P6-14. 프로젝트 명칭·경로 통일 — 라벨·메뉴를 `Projects`로 모으고 순서를 `Home, Projects, Resume, Contact`로, 경로 `/work` → `/projects`(영구 리다이렉트 2건 동반). 홈 대제목 넘침은 글자 크기 대신 `lg` 구간 6:6 비율로 해결
+- [x] P6-15. 코드 리뷰 지적 반영 — PR #78 CodeRabbit 9건 중 8건 수정(허니팟 GA 오집계, 서버 액션 거부 시 버튼 잠김, 커서 사라짐, 스킵 링크 가림, reachable 미반영, 동작 줄이기 미반영, 댓글 조회, 액션 SHA). 문의 폼 rate limit은 공유 저장소가 필요해 Phase 7로 보류
+- [ ] P6-11. Contact 페이지 Quick Answers(FAQ) 구역 — 문의용 질문 3~4개 초안 확인 후 착수 (보류)
+
+**🟡 P2 — 성능·인프라** (항목마다 설명 후 착수)
+
+- [x] P6-5. 초기 JS 번들 감량 — **현 수준 유지로 결론**. 초기 JS 283KB 중 React 런타임 110KB·폰트 377KB는 줄일 수 없고, 가능한 것(아이콘 18KB·framer 25KB)은 전체의 7%라 점수 0.03 상한. 조사 결과는 PRD에 기록
+- [x] P6-6. CI Lighthouse 신뢰성 — 리포트 아티팩트 보관, 댓글 수정(관측값·러너 지표, 갱신형), 3회 중앙값. `Manifest not found` 원인은 업로드 타깃. **프리뷰 URL 측정·임계값은 보류**(리포트 확인 후)
+- [x] P6-7. release-please `workflow_dispatch` 추가 — Actions에서 수동 실행 가능. master 반영 후 효과
+
+**🟢 P3 — 결정 필요**
+
+- [x] P6-8. Resume PDF 다운로드 — 직접 제작 파일(ⓐ) 확정. `RollingLink` 알약 버튼(`DOWNLOAD PDF`), 저장 파일명 `Seungyeub-Baek-Resume.pdf`. 실제 이력서 파일(2쪽) 교체 완료
+- [x] P6-9. 배포 파이프라인 타입 체크 게이트 — `ignoreBuildErrors` 제거 + 배포 워크플로에 `check-types` 단계. 숨은 타입 오류 없음 확인
+- [x] P6-12. 개인정보 수집 고지 — 처리방침 페이지 대신 **문의 폼 아래 두 줄 고지**로 결론. 조문은 위치를 지정하지 않고, 수집의 무게는 GA가 아니라 폼에 있다. GA 쿠키 고지는 덮지 않는 간극이 남음(PRD 기록)
+
+### Phase 7(portfolio) 후보 — Phase 6에서 넘긴 것
+
+> 루트 `docs/PRD.md`의 Phase 7(`apps/resume`)과 다른 번호다. 상세 사유는 Phase 6 PRD 5절.
+
+- [ ] P6-11 이월. Contact Quick Answers — 질문 초안 4개 준비됨, "찾는 기회의 형태"는 사용자 답 필요
+- [ ] `@testing-library/user-event` 도입 — `ContactForm.test.tsx`를 `fireEvent`에서 옮긴다
+- [ ] 문의 폼 rate limit — 공유 저장소(Vercel KV·Upstash) 필요
+- [ ] 브랜치 전략 문서 + `master → develop` 역머지 자동화 워크플로
+- [ ] Lighthouse TBT 이상치(10만 ms대) 원인 확인
+- [ ] 프리뷰 URL Lighthouse 측정·임계값 (P6-6 보류분)
+- [ ] GA 쿠키 고지 (P6-12의 남은 간극)
+
+### Phase 5 — 완료 (0.4.0, 2026-09-07)
 
 ### 🟡 P2 — Nice to Have (품질 향상)
 
@@ -118,6 +161,12 @@
 - [x] 2026-09-04 — PR #64: mono-lab 저장소를 order 2 프로젝트로 등재 (P2-4 완료)
 - [x] 2026-09-04 — PR #65: 검색 가시성 인프라 — sitemap·robots·OG·JSON-LD·h1 계층 (P2-5·P3-3 완료)
 - [x] 2026-09-04 — PR #66: 개인 자료 `.gitignore` 추가, P3-9·P3-10·P3-11 등재
+- [x] 2026-09-07 — **P3 전 항목 완료.** PR #70(P3 12건)·#69(Search Console 태그)·#72(0.3.0 이력 동기화)·#73(develop→master)·#75(CHANGELOG Prettier 제외)
+- [x] 2026-09-07 — portfolio@0.4.0 릴리스 — release-please 첫 자동 실행(PR #74). 태그·Release·프로덕션 배포까지 PAT로 정상 연결됨을 확인. PR #76으로 역머지
+- [x] 2026-09-07 — Search Console 소유 확인 완료(HTML 태그 자동 인식), sitemap 제출 성공(발견 15페이지). 구조화 데이터·OG 메타 전 페이지 점검 완료
+- [x] 2026-09-08 — OG 전용 이미지 11장 추가(1200×630 JPEG). 카드 이미지를 그대로 쓰던 것을 대체 — WebP 미지원 플랫폼과 임의 잘림 문제 해소. 캡쳐 공개 불가 2건은 사이트 톤 텍스트 카드로 제작
+- [x] 2026-09-08 — `/work` 이름을 Archive에서 Projects로 통일(h1·BreadcrumbList). 메뉴·URL과 어긋나던 표기 정리
+- [x] 2026-09-08 — 스크롤 등장 효과를 `src/lib/motion.ts` 프리셋 8개로 통합. 관측 여백을 양수로 돌려 체감 지연 단축 — Works 809→591ms, Skills 874→649ms, Experience 737→666ms, FAQ 797→721ms. Epilogue·Footer는 의도된 연출이라 유지
 - [x] 2026-09-04 — **P2 전 항목 완료.** develop 전 범위 점검(경로 19개·링크 61개·45개 조합) 문제 없음
 - [x] 2026-09-03 — portfolio@0.2.0 릴리스 (PR #54·#57·#55) — P0·P1 완료분을 master 반영 후 프로덕션 배포, GitHub Release 발행
 - [x] 2026-09-03 — PR #58: Experience 그리드·모바일 가로 넘침 회귀 수정 및 모바일 QA 반영 (0.2.0 배포 후 발견)

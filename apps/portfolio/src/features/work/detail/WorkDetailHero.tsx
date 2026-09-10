@@ -20,10 +20,10 @@ export default function WorkDetailHero({
     <section className='site-container w-full px-6 pt-10 md:px-12 md:pt-14'>
       {/* 복귀 링크 */}
       <Link
-        href='/work'
-        className='inline-flex items-center gap-2 text-xs tracking-widest text-white/40 uppercase transition-colors duration-200 hover:text-white'
+        href='/projects'
+        className='inline-flex items-center gap-2 text-xs tracking-widest text-white/50 uppercase transition-colors duration-200 hover:text-white'
       >
-        ← All Works
+        ← All Projects
       </Link>
 
       {/* 중앙 헤드라인 */}
@@ -43,7 +43,7 @@ export default function WorkDetailHero({
       {/* 프레임 카드: 캐러셀 + Overview */}
       <div className='border-line hover:border-line-strong mx-auto mt-10 max-w-6xl rounded-2xl border bg-white/5 p-4 transition-colors duration-500 sm:p-6 md:mt-14 md:p-10'>
         <div className={`grid items-center gap-6 md:gap-10 ${hasOverview ? 'lg:grid-cols-2' : ''}`}>
-          {/* 프레임은 목록(/work) 카드와 같은 16:10 — 캡쳐 비율은 contain으로 그대로 지킨다 */}
+          {/* 프레임은 목록(/projects) 카드와 같은 16:10 — 캡쳐 비율은 contain으로 그대로 지킨다 */}
           <ImageCarousel images={heroImages} fallbackLabel={meta.title} />
 
           {hasOverview && (

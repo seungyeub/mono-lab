@@ -91,7 +91,7 @@ describe('getProjectCards', () => {
     // 하드코딩 배열에 있던 href='#' 같은 죽은 링크가 생길 수 없어야 한다
     expect(cards.length).toBeGreaterThan(0);
     cards.forEach((card) => {
-      expect(card.href).toBe(`/work/${card.slug}`);
+      expect(card.href).toBe(`/projects/${card.slug}`);
     });
   });
 
@@ -115,7 +115,7 @@ describe('getProjectCards', () => {
       order: 1,
       image: '/images/projects/app-review-tracker.webp',
       imageExists: true,
-      href: '/work/app-review-tracker',
+      href: '/projects/app-review-tracker',
     });
   });
 

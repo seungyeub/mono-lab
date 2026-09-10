@@ -48,7 +48,7 @@ export default function Marquee({
     <div className={`border-line w-full overflow-hidden border-y py-2 ${className}`}>
       <div
         ref={trackRef}
-        className='flex gap-6 pr-6 whitespace-nowrap will-change-transform md:gap-10 md:pr-10'
+        className='marquee-track flex gap-6 pr-6 whitespace-nowrap will-change-transform md:gap-10 md:pr-10'
         style={{
           animation: `marquee-scroll ${duration}s linear infinite`,
         }}

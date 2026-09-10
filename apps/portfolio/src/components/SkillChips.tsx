@@ -1,6 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import { reveal } from '@/lib/motion';
 import { useState } from 'react';
 
 import type { SkillItem } from '@/data/skillsData';
@@ -37,14 +38,7 @@ function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<Sk
   const [isHovered, setIsHovered] = useState(false);
 
   // 끄면 motion 속성을 아예 넘기지 않아 정적으로 렌더링된다
-  const revealProps = animate
-    ? {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: '-40px' },
-        transition: { duration: 0.5, delay: animationDelay, ease: 'easeOut' as const },
-      }
-    : {};
+  const revealProps = animate ? reveal('smallItem', animationDelay) : {};
 
   return (
     <motion.div
@@ -85,7 +79,7 @@ function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<Sk
                 {skill.name}
               </span>
               {categoryName && (
-                <span className='text-label tracking-label font-mono text-white/40 uppercase'>
+                <span className='text-label tracking-label font-mono text-white/50 uppercase'>
                   {categoryName}
                 </span>
               )}
@@ -133,7 +127,9 @@ export default function SkillChips({
           key={skill.name}
           skill={skill}
           categoryName={categoryName}
-          animationDelay={(indexOffset + index) * 0.04}
+          // 상한을 둔다. 순번대로 누적하면 마지막 칩이 0.84초를 기다려
+          // 화면에 들어온 뒤에도 한참 비어 보였다
+          animationDelay={Math.min(indexOffset + index, 8) * 0.03}
           animate={animate}
         />
       ))}
