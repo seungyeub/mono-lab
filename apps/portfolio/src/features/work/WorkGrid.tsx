@@ -83,51 +83,58 @@ export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
               // 마운트 시 한꺼번에 돌면 화면 밖 카드는 이미 끝난 채로 스크롤된다 —
               // 뷰포트 진입 시점에 리빌하고, 2열일 때만 같은 행의 두 장을 좌→우로 어긋나게 한다
               {...reveal('gridCard', isTwoColumn ? (index % 2) * 0.08 : 0)}
-              style={{
-                opacity: isDimmed ? 0.35 : 1,
-                transition: 'opacity 0.25s ease',
-              }}
-              className={`flex flex-col gap-3 ${index % 2 === 1 ? 'md:mt-16' : ''}`}
+              className={index % 2 === 1 ? 'md:mt-16' : undefined}
             >
-              <Link
-                href={`/projects/${project.slug}`}
-                onMouseEnter={() => {
-                  setCursorType('view');
-                  setHoveredSlug(project.slug);
-                }}
-                onMouseLeave={() => {
-                  setCursorType('default');
-                  setHoveredSlug(null);
-                }}
-                // 이미지가 있으면 링크 안이 배경·장식뿐이라 스크린리더가 목적 없는 링크로 읽는다
-                aria-label={project.title}
-                className='group bg-surface-raised relative block aspect-[16/10] overflow-hidden'
+              {/*
+                마우스를 올렸을 때 다른 카드를 흐리게 하는 효과는 안쪽 요소에 둔다.
+                등장 효과가 투명도를 애니메이션하는 바로 그 요소에 CSS transition까지 걸면
+                두 장치가 같은 속성을 다투어, 모바일에서 등장이 끝나는 순간 카드 전체가
+                검게 꺼졌다가 다시 나타났다. 홈 카드에는 이 transition이 없어 증상도 없었다.
+                값(0.25초·ease·0.35)은 그대로 옮겼다.
+              */}
+              <div
+                className={`flex flex-col gap-3 transition-opacity duration-250 ease-[ease] ${isDimmed ? 'opacity-35' : ''}`}
               >
-                {project.imageExists ? (
-                  <>
-                    {/* 캡쳐 비율이 제각각이라 contain으로 잘림 없이 담는다 */}
-                    <div
-                      className='absolute inset-0 bg-contain bg-center bg-no-repeat transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105'
-                      style={{ backgroundImage: `url(${project.image})` }}
-                    />
-                    {/* overlay on hover */}
-                    <div className='absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10' />
-                  </>
-                ) : (
-                  // 에셋 미확보 프로젝트 — 빈 상자 대신 제목을 읽히게 둔다
-                  <div className='absolute inset-0 flex items-center justify-center px-6'>
-                    <span className='text-center text-sm tracking-widest text-white/50 uppercase transition-colors duration-300 group-hover:text-white/70'>
-                      {project.title}
-                    </span>
-                  </div>
-                )}
-              </Link>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  onMouseEnter={() => {
+                    setCursorType('view');
+                    setHoveredSlug(project.slug);
+                  }}
+                  onMouseLeave={() => {
+                    setCursorType('default');
+                    setHoveredSlug(null);
+                  }}
+                  // 이미지가 있으면 링크 안이 배경·장식뿐이라 스크린리더가 목적 없는 링크로 읽는다
+                  aria-label={project.title}
+                  className='group bg-surface-raised relative block aspect-[16/10] overflow-hidden'
+                >
+                  {project.imageExists ? (
+                    <>
+                      {/* 캡쳐 비율이 제각각이라 contain으로 잘림 없이 담는다 */}
+                      <div
+                        className='absolute inset-0 bg-contain bg-center bg-no-repeat transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105'
+                        style={{ backgroundImage: `url(${project.image})` }}
+                      />
+                      {/* overlay on hover */}
+                      <div className='absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10' />
+                    </>
+                  ) : (
+                    // 에셋 미확보 프로젝트 — 빈 상자 대신 제목을 읽히게 둔다
+                    <div className='absolute inset-0 flex items-center justify-center px-6'>
+                      <span className='text-center text-sm tracking-widest text-white/50 uppercase transition-colors duration-300 group-hover:text-white/70'>
+                        {project.title}
+                      </span>
+                    </div>
+                  )}
+                </Link>
 
-              <div className='flex items-start justify-between'>
-                <h2 className='text-base font-medium md:text-lg'>{project.title}</h2>
-                <div className='flex flex-col items-end gap-0.5 text-right text-xs text-white/50'>
-                  <span>({String(project.order).padStart(2, '0')})</span>
-                  <span>{project.category}</span>
+                <div className='flex items-start justify-between'>
+                  <h2 className='text-base font-medium md:text-lg'>{project.title}</h2>
+                  <div className='flex flex-col items-end gap-0.5 text-right text-xs text-white/50'>
+                    <span>({String(project.order).padStart(2, '0')})</span>
+                    <span>{project.category}</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
