@@ -14,8 +14,6 @@ import SkillIcon from './SkillIcon';
 interface SkillChipsProps {
   skills: SkillItem[];
   categoryName?: string;
-  /** stagger 애니메이션 시작 인덱스 오프셋 */
-  indexOffset?: number;
   /**
    * 리빌 애니메이션 사용 여부. 홈처럼 훑어보는 화면에서는 켜고,
    * 상세처럼 읽는 화면에서는 꺼서 스크롤 중 요소가 떠오르지 않게 한다.
@@ -117,7 +115,6 @@ function SkillChip({ skill, categoryName, animationDelay, animate }: Readonly<Sk
 export default function SkillChips({
   skills,
   categoryName,
-  indexOffset = 0,
   animate = true,
 }: Readonly<SkillChipsProps>) {
   return (
@@ -127,9 +124,9 @@ export default function SkillChips({
           key={skill.name}
           skill={skill}
           categoryName={categoryName}
-          // 상한을 둔다. 순번대로 누적하면 마지막 칩이 0.84초를 기다려
-          // 화면에 들어온 뒤에도 한참 비어 보였다
-          animationDelay={Math.min(indexOffset + index, 8) * 0.03}
+          // 같은 분류 안의 순번으로만 준다 — 분류 순번까지 더하면 뒤쪽 분류는 첫 칩부터 늦게 떴다.
+          // 상한은 여러 줄로 감긴 칩이 화면 안에서 오래 기다리지 않게 하려는 것
+          animationDelay={Math.min(index, 8) * 0.03}
           animate={animate}
         />
       ))}
