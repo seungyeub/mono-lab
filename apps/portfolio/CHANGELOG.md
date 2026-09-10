@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.3](https://github.com/seungyeub/mono-lab/compare/portfolio@0.5.2...portfolio@0.5.3) (2026-09-10)
+
+
+### Bug Fixes
+
+* **portfolio:** /projects 카드에 마우스를 올리면 나머지 카드가 어두워지던 효과 제거 ([6083686](https://github.com/seungyeub/mono-lab/commit/6083686e797152111c44d46bbabfa2f95f248d70))
+* **portfolio:** 0.5.3 핫픽스 — /projects hover 흐림 제거, 자격증 열 구성 ([#90](https://github.com/seungyeub/mono-lab/issues/90)) ([faaa88a](https://github.com/seungyeub/mono-lab/commit/faaa88a14f721dcb10c25eff1b280a59c9a2faee))
+* **portfolio:** 자격증 목록의 열 구성을 경력 목록과 맞춤 ([1cc3188](https://github.com/seungyeub/mono-lab/commit/1cc318843f22e6664596138440f0b4d490984363))
+
 ## [0.5.2](https://github.com/seungyeub/mono-lab/compare/portfolio@0.5.1...portfolio@0.5.2) (2026-09-10)
 
 
