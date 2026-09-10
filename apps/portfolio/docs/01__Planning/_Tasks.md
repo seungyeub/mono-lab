@@ -37,6 +37,14 @@
 - [x] P6-9. 배포 파이프라인 타입 체크 게이트 — `ignoreBuildErrors` 제거 + 배포 워크플로에 `check-types` 단계. 숨은 타입 오류 없음 확인
 - [x] P6-12. 개인정보 수집 고지 — 처리방침 페이지 대신 **문의 폼 아래 두 줄 고지**로 결론. 조문은 위치를 지정하지 않고, 수집의 무게는 GA가 아니라 폼에 있다. GA 쿠키 고지는 덮지 않는 간극이 남음(PRD 기록)
 
+### 0.5.x 후속 (2026-09-10) — 상세는 Phase 6 PRD 6절
+
+- [x] 문의 폼 발송 복구 — Vercel 변수명 오타(`CONTACT_EMAL`) 수정 후 배포 재실행(버전 유지), 로그로 성공 확인
+- [x] 0.5.1 핫픽스 — pharmgenscience 링크 http(사이트 주인 결정), `/projects` 카드 깜빡임(실기기 확인)
+- [x] 0.5.0·0.5.1 develop 역머지(PR #84), 끝난 브랜치 정리
+- [x] Work → Project 코드 이름 통일(PR #85)
+- [x] 문의 성공 문구 5초·재입력 시 사라짐 + `role="status"`, Networks 순서(GitHub·Blog·LinkedIn·Pinterest), 푸터 `GitHub` 표기
+
 ### Phase 7(portfolio) 후보 — Phase 6에서 넘긴 것
 
 > 루트 `docs/PRD.md`의 Phase 7(`apps/resume`)과 다른 번호다. 상세 사유는 Phase 6 PRD 5절.
