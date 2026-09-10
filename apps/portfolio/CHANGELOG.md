@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.1](https://github.com/seungyeub/mono-lab/compare/portfolio@0.5.0...portfolio@0.5.1) (2026-09-10)
+
+
+### Bug Fixes
+
+* **portfolio:** /projects 카드가 모바일에서 등장 직후 검게 깜빡이는 문제 수정 ([d2e5288](https://github.com/seungyeub/mono-lab/commit/d2e5288f0bb65a62eac4be2507f30e3888187410))
+* **portfolio:** pharmgenscience 사이트 링크를 http로 수정 ([0c684a7](https://github.com/seungyeub/mono-lab/commit/0c684a71ddf9a9a2ed82b3e5796e55d9e90ded1f))
+
 ## [0.5.0](https://github.com/seungyeub/mono-lab/compare/portfolio@0.4.0...portfolio@0.5.0) (2026-09-10)
 
 
