@@ -84,31 +84,35 @@ export default function ExperienceSection() {
               {...reveal('listItem')}
               className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-6 md:py-8'
             >
-              {/* col 1 — 자격증명 (lg+) / 자격증명+연도 (< lg) */}
+              {/*
+                경력 목록과 같은 열 틀이라 위아래로 칸이 겹쳐 보인다 — 칸마다 같은 종류를 둔다
+                (기간 ↔ 취득일, 역할 ↔ 발급기관, 형태 ↔ 결과). 작은 화면 묶음도 경력과 같다
+              */}
+              {/* col 1 — 자격증명 (lg+) / 자격증명+취득일 (< lg) */}
               <div className='flex flex-col gap-1'>
                 <h4 className='text-base font-medium md:text-lg'>{achievement.certificate}</h4>
                 <span className='font-mono text-xs text-gray-400 lg:hidden'>
-                  {achievement.organization}
+                  {achievement.date}
                 </span>
               </div>
               {/* col 2 (소형) — 발급기관+결과, 오른쪽 정렬. lg 이상에서는 숨김 */}
               <div className='flex flex-col gap-1 text-right lg:hidden'>
                 <span className='text-base font-medium text-gray-300 md:text-lg'>
-                  {achievement.date}
+                  {achievement.organization}
                 </span>
                 <span className='text-xs tracking-widest text-white/50 uppercase'>
                   {achievement.result}
                 </span>
               </div>
-              {/* col 2 (lg+) — 발급기관. 작은 화면에서 자격증명과 한 묶음이므로 여기서도 바로 뒤에 온다 */}
+              {/* col 2 (lg+) — 취득일 단독 */}
+              <div className='hidden items-center lg:flex'>
+                <span className='font-mono text-xs text-gray-400'>{achievement.date}</span>
+              </div>
+              {/* col 3 (lg+) — 발급기관 */}
               <div className='hidden items-center lg:flex'>
                 <span className='text-sm text-gray-300 md:text-base'>
                   {achievement.organization}
                 </span>
-              </div>
-              {/* col 3 (lg+) — 취득연도 */}
-              <div className='hidden items-center lg:flex'>
-                <span className='font-mono text-xs text-gray-400'>{achievement.date}</span>
               </div>
               {/* col 4 (lg+) — 결과, 오른쪽 정렬 */}
               <div className='hidden items-center justify-end lg:flex'>
