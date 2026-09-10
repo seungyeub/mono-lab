@@ -58,7 +58,10 @@ function WordReveal({
   */
   const opacity = useTransform(() => {
     if (prefersReducedMotion) return 1;
-    const progress = Math.min(1, scrollYProgress.get() / Math.max(reachable.get(), 0.001));
+    // 도달 가능한 최대 진행도가 0 이하면 스크롤로 밝힐 방법이 없다 — 그냥 다 보여준다
+    const maxProgress = reachable.get();
+    if (maxProgress <= 0) return 1;
+    const progress = Math.min(1, scrollYProgress.get() / maxProgress);
     const t = Math.min(1, Math.max(0, (progress - start) / (end - start)));
     return DIM + (1 - DIM) * t;
   });
@@ -106,8 +109,13 @@ export default function ScrollRevealText({
       const zero = top - OFFSET_START * vh;
       const one = top + rect.height - OFFSET_END * vh;
       const maxScroll = document.documentElement.scrollHeight - vh;
+      /*
+        아래로 하한을 두면 안 된다. 문단이 짧고 문서 끝에 가까우면 ratio가 0.2보다 작을 수
+        있는데, 그때 0.2로 올려 두면 맨 아래까지 내려도 progress가 ratio/0.2에서 멈춰
+        뒤쪽 단어가 끝내 밝아지지 않는다. 위로만 1로 자른다.
+      */
       const ratio = (maxScroll - zero) / (one - zero);
-      reachable.set(Math.min(1, Math.max(0.2, ratio)));
+      reachable.set(Math.min(1, ratio));
     };
 
     measure();

@@ -20,7 +20,7 @@ function ContactRow({ label, children }: { label: string; children: ReactNode })
       <dd>{children}</dd>
       <span
         aria-hidden='true'
-        className='absolute bottom-[-1px] left-0 h-px w-0 bg-white transition-[width] duration-500 ease-out group-hover/row:w-full'
+        className='absolute -bottom-px left-0 h-px w-0 bg-white transition-[width] duration-500 ease-out group-hover/row:w-full'
       />
     </div>
   );

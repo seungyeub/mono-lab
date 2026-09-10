@@ -75,6 +75,10 @@ export default function ContactForm() {
   // 다른 페이지의 알약형 버튼(Hero CONTACT · Works SEE ALL WORKS · 상세 Visit Website)과 같은 스타일
   const buttonClass =
     'inline-block rounded-full border-2 border-white px-5 py-2 text-[16px] tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black md:text-[23px] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-white';
+  /*
+    오류 문구는 화면에만 있으면 스크린리더가 읽지 못한다. 각 입력에 aria-invalid와
+    aria-describedby를 걸어 포커스한 칸의 오류가 함께 읽히게 한다.
+  */
   // 입력란 위의 작은 대문자 라벨. placeholder만 있으면 입력을 시작한 순간 무엇을 적는 칸인지 사라진다
   const labelClass = 'text-label tracking-label font-medium text-white uppercase';
 
@@ -90,6 +94,8 @@ export default function ContactForm() {
           <input
             id='contact-name'
             {...register('name')}
+            aria-invalid={errors.name ? 'true' : undefined}
+            aria-describedby={errors.name ? 'contact-name-error' : undefined}
             placeholder='Jane Doe'
             className={inputClass}
             onMouseEnter={() => setCursorType('pointer')}
@@ -97,7 +103,11 @@ export default function ContactForm() {
           />
           <span aria-hidden='true' className={underlineClass} />
         </span>
-        {errors.name && <p className='mt-1 text-sm text-red-400'>{errors.name.message}</p>}
+        {errors.name && (
+          <p id='contact-name-error' role='alert' className='mt-1 text-sm text-red-400'>
+            {errors.name.message}
+          </p>
+        )}
       </div>
 
       {/* Email */}
@@ -109,6 +119,8 @@ export default function ContactForm() {
           <input
             id='contact-email'
             {...register('email')}
+            aria-invalid={errors.email ? 'true' : undefined}
+            aria-describedby={errors.email ? 'contact-email-error' : undefined}
             placeholder='jane@example.com'
             type='email'
             className={inputClass}
@@ -117,7 +129,11 @@ export default function ContactForm() {
           />
           <span aria-hidden='true' className={underlineClass} />
         </span>
-        {errors.email && <p className='mt-1 text-sm text-red-400'>{errors.email.message}</p>}
+        {errors.email && (
+          <p id='contact-email-error' role='alert' className='mt-1 text-sm text-red-400'>
+            {errors.email.message}
+          </p>
+        )}
       </div>
 
       {/* Message */}
@@ -129,6 +145,8 @@ export default function ContactForm() {
           <textarea
             id='contact-message'
             {...register('message')}
+            aria-invalid={errors.message ? 'true' : undefined}
+            aria-describedby={errors.message ? 'contact-message-error' : undefined}
             placeholder='어떤 프로젝트나 포지션인지, 일정이 있다면 언제까지인지 알려 주세요.'
             rows={5}
             className={`${inputClass} resize-none`}
@@ -137,7 +155,11 @@ export default function ContactForm() {
           />
           <span aria-hidden='true' className={underlineClass} />
         </span>
-        {errors.message && <p className='mt-1 text-sm text-red-400'>{errors.message.message}</p>}
+        {errors.message && (
+          <p id='contact-message-error' role='alert' className='mt-1 text-sm text-red-400'>
+            {errors.message.message}
+          </p>
+        )}
       </div>
 
       {/* 허니팟 — 화면 밖에 두고 탭 순서·자동완성·보조기기에서 모두 제외한다. 봇만 채운다 */}
