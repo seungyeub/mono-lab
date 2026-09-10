@@ -5,7 +5,7 @@ import { useCursorStore } from '@/store/useCursorStore';
 
 /**
  * Explore the Project CTA 카드.
- * - 버튼은 홈 "SEE ALL WORKS"와 동일한 스타일·효과(rounded-full + hover 시 white 배경 + 롤링 텍스트).
+ * - 버튼은 홈 "SEE ALL PROJECTS"와 동일한 스타일·효과(rounded-full + hover 시 white 배경 + 롤링 텍스트).
  * - 등재된 liveUrl은 전부 실운영 사이트라 라벨을 "Visit Website"로 쓴다(Live Demo는 데모처럼 읽힘).
  * - 값이 없는 CTA는 렌더링하지 않는다(P0-3 계약).
  */

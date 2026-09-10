@@ -7,7 +7,7 @@ import ImageCarousel from './ImageCarousel';
  * 우리 톤으로 옮긴 것. 프레임 카드는 좌측 캐러셀 + 우측 Project Overview 2열이며,
  * overview 데이터가 없으면 캐러셀 단독(1열)로 렌더링한다.
  */
-export default function WorkDetailHero({
+export default function ProjectDetailHero({
   meta,
   heroImages,
 }: {

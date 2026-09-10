@@ -72,7 +72,7 @@ export default function ContactForm() {
   const fieldClass = 'group/row relative flex flex-col gap-2';
   const underlineClass =
     'pointer-events-none absolute bottom-0 left-0 h-px w-0 bg-white transition-[width] duration-500 ease-out group-hover/row:w-full group-focus-within/row:w-full';
-  // 다른 페이지의 알약형 버튼(Hero CONTACT · Works SEE ALL WORKS · 상세 Visit Website)과 같은 스타일
+  // 다른 페이지의 알약형 버튼(Hero CONTACT · Projects SEE ALL PROJECTS · 상세 Visit Website)과 같은 스타일
   const buttonClass =
     'inline-block rounded-full border-2 border-white px-5 py-2 text-[16px] tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-black md:text-[23px] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-white';
   /*

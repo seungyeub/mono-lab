@@ -26,7 +26,7 @@ Framer Helios 템플릿을 레퍼런스로 한 **Next.js 기반 개인 포트폴
 | **Animation** | Framer Motion, Lenis                               |
 | **Form**      | React Hook Form, Zod v3, Resend                    |
 | **State**     | Zustand                                            |
-| **Content**   | MDX (`src/contents/work/`)                         |
+| **Content**   | MDX (`src/contents/projects/`)                     |
 | **Test**      | Jest, Playwright (Visual Regression Testing)       |
 | **CI/CD**     | GitHub Actions, SonarCloud, CodeRabbit, Lighthouse |
 
@@ -57,7 +57,7 @@ apps/portfolio/
 │   ├── data/                 # 화면·구조화 데이터가 함께 읽는 정적 데이터 (skills, experience, faq)
 │   ├── lib/                  # 유틸리티 (MDX 파서, siteConfig, JSON-LD 빌더)
 │   ├── store/                # 전역 상태 (커서)
-│   └── contents/work/        # MDX 프로젝트 파일
+│   └── contents/projects/        # MDX 프로젝트 파일
 ├── public/
 │   ├── icons/                # 커스텀 SVG 아이콘
 │   └── images/               # 정적 이미지 에셋

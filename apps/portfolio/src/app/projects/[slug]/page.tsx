@@ -8,15 +8,15 @@ import {
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import DemonstrationsSection from '@/features/work/detail/DemonstrationsSection';
-import ExploreCta from '@/features/work/detail/ExploreCta';
-import FeaturesSection from '@/features/work/detail/FeaturesSection';
-import ImpactSection from '@/features/work/detail/ImpactSection';
-import ImplementationSection from '@/features/work/detail/ImplementationSection';
-import ScrollToTop from '@/features/work/detail/ScrollToTop';
-import SectionHeading from '@/features/work/detail/SectionHeading';
-import TechStackSection from '@/features/work/detail/TechStackSection';
-import WorkDetailHero from '@/features/work/detail/WorkDetailHero';
+import DemonstrationsSection from '@/features/projects/detail/DemonstrationsSection';
+import ExploreCta from '@/features/projects/detail/ExploreCta';
+import FeaturesSection from '@/features/projects/detail/FeaturesSection';
+import ImpactSection from '@/features/projects/detail/ImpactSection';
+import ImplementationSection from '@/features/projects/detail/ImplementationSection';
+import ScrollToTop from '@/features/projects/detail/ScrollToTop';
+import SectionHeading from '@/features/projects/detail/SectionHeading';
+import TechStackSection from '@/features/projects/detail/TechStackSection';
+import ProjectDetailHero from '@/features/projects/detail/ProjectDetailHero';
 import { ComponentPropsWithoutRef } from 'react';
 import type { Metadata } from 'next';
 
@@ -120,7 +120,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
   }));
 
   return (
-    <div data-testid='work-detail' className='min-h-screen w-full'>
+    <div data-testid='project-detail' className='min-h-screen w-full'>
       {/* 경로 계층과 작업물 정보. 저자는 루트에서 낸 Person을 @id로 참조한다 */}
       <JsonLd
         data={[
@@ -140,7 +140,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
         ]}
       />
       <ScrollToTop trigger={slug} />
-      <WorkDetailHero meta={meta} heroImages={heroImages} />
+      <ProjectDetailHero meta={meta} heroImages={heroImages} />
 
       <div className='site-container w-full px-6 pb-24 md:px-12'>
         {/* MDX 서사 — 배경·과정을 산문으로 잇는 우리 사이트의 에디토리얼 축 */}

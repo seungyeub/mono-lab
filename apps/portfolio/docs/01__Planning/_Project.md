@@ -57,7 +57,7 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 - 기존 에디토리얼 디자인 무드(다크 테마, 미니멀 타이포그래피, 여백)를 절대 해치지 않는다
 - 한 번에 하나의 단계만 진행한다 — 중간에 문제가 생기면 멈추고 논의한다
 - 새로운 기능은 반드시 계획서(`docs/plan/`) 작성 및 승인 후에 구현한다
-- 컴포넌트는 기존 패턴(`WorksSection`, `ExperienceSection`)과 일관성을 유지한다
+- 컴포넌트는 기존 패턴(`ProjectsSection`, `ExperienceSection`)과 일관성을 유지한다
 
 ---
 
