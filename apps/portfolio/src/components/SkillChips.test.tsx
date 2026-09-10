@@ -54,7 +54,7 @@ describe('SkillChips', () => {
       { name: 'AWS', icon: null, brandColor: '#FF9900', customIconPath: '/icons/aws.svg' },
       { name: 'TypeScript', icon: () => <svg data-testid='ts-icon' />, brandColor: '#3178C6' },
     ];
-    render(<SkillChips categoryName='Frontend' skills={skills} indexOffset={0} />);
+    render(<SkillChips categoryName='Frontend' skills={skills} />);
 
     expect(screen.getByText('AWS')).toBeInTheDocument();
     expect(screen.getByText('TypeScript')).toBeInTheDocument();

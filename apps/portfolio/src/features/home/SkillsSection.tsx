@@ -50,21 +50,17 @@ export default function SkillsSection() {
       {/* ── 카테고리별 스킬 목록 ── */}
       <div className='site-container w-full px-6 md:px-12'>
         <div className='flex flex-col gap-12 md:gap-16'>
-          {SKILL_CATEGORIES.map((category, catIndex) => (
+          {SKILL_CATEGORIES.map((category) => (
             <div key={category.title}>
               {/* 카테고리 헤딩 */}
               <motion.div
-                {...reveal('smallItem', catIndex * 0.05)}
+                {...reveal('smallItem')}
                 className='border-line-strong mb-5 border-b pb-4 text-lg font-bold uppercase md:mb-6 md:pb-6 md:text-xl'
               >
                 <h3>{category.title}</h3>
               </motion.div>
 
-              <SkillChips
-                skills={category.skills}
-                categoryName={category.title}
-                indexOffset={catIndex * 3}
-              />
+              <SkillChips skills={category.skills} categoryName={category.title} />
             </div>
           ))}
         </div>

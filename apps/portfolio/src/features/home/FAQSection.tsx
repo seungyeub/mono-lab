@@ -12,7 +12,7 @@ function FAQItem({ faq, index }: { faq: FaqItem; index: number }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <motion.div {...reveal('faqItem', index * 0.07)} className='border-line-strong border-b'>
+    <motion.div {...reveal('faqItem')} className='border-line-strong border-b'>
       <button
         type='button'
         id={`faq-question-${index}`}
