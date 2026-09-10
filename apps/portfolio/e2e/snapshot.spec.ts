@@ -53,7 +53,9 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
     // fullPage: true를 제거하여 전체 페이지 촬영 시 발생하는 폰트 누적 오차(나비효과)를 방지합니다.
     await expect(page.locator('data-testid=header')).toHaveScreenshot('header-baseline.png');
     await expect(page.locator('data-testid=hero-section')).toHaveScreenshot('hero-baseline.png');
-    await expect(page.locator('data-testid=works-section')).toHaveScreenshot('works-baseline.png');
+    await expect(page.locator('data-testid=projects-section')).toHaveScreenshot(
+      'projects-baseline.png',
+    );
     await expect(page.locator('data-testid=experience-section')).toHaveScreenshot(
       'experience-baseline.png',
     );
@@ -67,21 +69,21 @@ test.describe('Visual Snapshot Tests (Component-level)', () => {
     await expect(page.locator('data-testid=footer')).toHaveScreenshot('footer-baseline.png');
   });
 
-  // Work 상세는 P1-1에서 섹션이 대폭 늘어난 화면인데 VRT 사각지대였다.
+  // 프로젝트 상세는 P1-1에서 섹션이 대폭 늘어난 화면인데 VRT 사각지대였다.
   // 대표 프로젝트 한 곳을 촬영해 구조 변경 시 회귀를 감지한다.
-  test('Capture Work Detail Page', async ({ page }) => {
+  test('Capture Project Detail Page', async ({ page }) => {
     // order 1이자 구조화 섹션(Overview·Tech Stack·Features·Implementation·Impact)이
     // 전부 채워진 대표 프로젝트를 촬영한다.
     await page.goto('/projects/app-review-tracker');
 
     await page.waitForLoadState('domcontentloaded');
-    await expect(page.locator('data-testid=work-detail')).toBeVisible();
+    await expect(page.locator('data-testid=project-detail')).toBeVisible();
     await page.locator('data-testid=page-loader').waitFor({ state: 'detached' });
 
     await revealAll(page);
 
-    await expect(page.locator('data-testid=work-detail')).toHaveScreenshot(
-      'work-detail-baseline.png',
+    await expect(page.locator('data-testid=project-detail')).toHaveScreenshot(
+      'project-detail-baseline.png',
     );
   });
 });

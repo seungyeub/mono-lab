@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import type { ProjectCard } from '@/lib/mdx';
 
-export default function WorkGrid({ projects }: { projects: ProjectCard[] }) {
+export default function ProjectGrid({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((state) => state.setType);
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   /**

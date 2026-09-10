@@ -19,7 +19,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
   const setCursorType = useCursorStore((s) => s.setType);
 
   return (
-    <motion.div {...reveal('worksCard', delay)} className='flex flex-col gap-3'>
+    <motion.div {...reveal('projectsCard', delay)} className='flex flex-col gap-3'>
       <Link
         href={project.href}
         onMouseEnter={() => setCursorType('view')}
@@ -59,7 +59,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
   );
 }
 
-export default function WorksSection({ projects }: { projects: ProjectCard[] }) {
+export default function ProjectsSection({ projects }: { projects: ProjectCard[] }) {
   const setCursorType = useCursorStore((s) => s.setType);
 
   /**
@@ -81,7 +81,7 @@ export default function WorksSection({ projects }: { projects: ProjectCard[] }) 
   }, []);
 
   return (
-    <section data-testid='works-section' className='relative flex w-full flex-col pt-16'>
+    <section data-testid='projects-section' className='relative flex w-full flex-col pt-16'>
       <SectionLabel
         scene='02'
         leftLabel='© Featured Projects 프로젝트'

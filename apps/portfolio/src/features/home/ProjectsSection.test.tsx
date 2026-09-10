@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import WorksSection from './WorksSection';
+import ProjectsSection from './ProjectsSection';
 
 jest.mock('framer-motion', () => {
   const removeProps = ({
@@ -78,9 +78,9 @@ const PROJECT_CARDS = [
   },
 ];
 
-describe('WorksSection', () => {
+describe('ProjectsSection', () => {
   it('주요 타이틀 및 전달받은 프로젝트 카드들이 올바르게 렌더링되어야 합니다', () => {
-    render(<WorksSection projects={PROJECT_CARDS} />);
+    render(<ProjectsSection projects={PROJECT_CARDS} />);
 
     // 타이틀 렌더링 검증
     expect(screen.getByText('Projects.')).toBeInTheDocument();
@@ -93,7 +93,7 @@ describe('WorksSection', () => {
   });
 
   it('카드 순번은 MDX order를 2자리로 표기해야 합니다', () => {
-    render(<WorksSection projects={PROJECT_CARDS} />);
+    render(<ProjectsSection projects={PROJECT_CARDS} />);
 
     expect(screen.getByText('(01)')).toBeInTheDocument();
     expect(screen.getByText('(02)')).toBeInTheDocument();
@@ -101,7 +101,7 @@ describe('WorksSection', () => {
   });
 
   it('모든 카드 링크가 상세 페이지를 가리켜야 합니다(죽은 링크 방지)', () => {
-    render(<WorksSection projects={PROJECT_CARDS} />);
+    render(<ProjectsSection projects={PROJECT_CARDS} />);
 
     // 카드 링크만 추출 (See All Projects 버튼은 /projects 으로 별도 존재)
     const cardLinks = screen
