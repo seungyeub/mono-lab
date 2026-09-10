@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.2](https://github.com/seungyeub/mono-lab/compare/portfolio@0.5.1...portfolio@0.5.2) (2026-09-10)
+
+
+### Bug Fixes
+
+* **portfolio:** Networks 순서 정리와 푸터 GitHub 표기 수정 ([dce3aeb](https://github.com/seungyeub/mono-lab/commit/dce3aebf9e17c9ff5b55484c6bff2cea833dfdc6))
+* **portfolio:** 문의 성공 문구가 계속 남고 스크린리더에 읽히지 않던 문제 수정 ([34a4a70](https://github.com/seungyeub/mono-lab/commit/34a4a7026fe6f5c779f575af3b0da9ede6cf25e0))
+
+
+### Refactoring
+
+* **portfolio:** 코드의 Work 이름을 Project로 통일 ([#85](https://github.com/seungyeub/mono-lab/issues/85)) ([d922a84](https://github.com/seungyeub/mono-lab/commit/d922a84b03bebb1bb271939d0ba2e251af57cdc1))
+
 ## [0.5.1](https://github.com/seungyeub/mono-lab/compare/portfolio@0.5.0...portfolio@0.5.1) (2026-09-10)
 
 
