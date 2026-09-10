@@ -3,7 +3,7 @@ import ExperienceSection from '@/features/home/ExperienceSection';
 import FAQSection from '@/features/home/FAQSection';
 import HeroSection from '@/features/home/HeroSection';
 import SkillsSection from '@/features/home/SkillsSection';
-import WorksSection from '@/features/home/WorksSection';
+import ProjectsSection from '@/features/home/ProjectsSection';
 import JsonLd from '@/components/JsonLd';
 import { getFeaturedProjectCards } from '@/lib/mdx';
 import { buildFaqSchema } from '@/lib/structuredData';
@@ -17,7 +17,7 @@ export default function Home() {
       {/* 화면의 FAQ 섹션과 같은 데이터를 쓴다 — 답변 엔진이 그대로 인용할 수 있는 형태 */}
       <JsonLd data={buildFaqSchema()} />
       <HeroSection />
-      <WorksSection projects={projects} />
+      <ProjectsSection projects={projects} />
       <SkillsSection />
       <ExperienceSection />
       <FAQSection />

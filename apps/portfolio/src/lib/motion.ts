@@ -6,7 +6,7 @@ import type { MotionProps } from 'framer-motion';
  * 같은 효과를 파일마다 리터럴로 적어 두어 어느 값이 어디에 쓰이는지 한눈에 보이지
  * 않았고, 한 곳만 고치면 다른 곳과 어긋났다. 역할별 이름을 붙여 여기 모은다.
  *
- * **값은 기존 화면 그대로다.** 아래 `worksCard` 하나만 의도적으로 바꿨다 —
+ * **값은 기존 화면 그대로다.** 아래 `projectsCard` 하나만 의도적으로 바꿨다 —
  * 나머지는 이전 수치를 그대로 옮겼으므로 통합만으로 속도가 달라지지 않는다.
  */
 
@@ -21,7 +21,7 @@ interface RevealSpec {
 }
 
 export type RevealVariant =
-  | 'worksCard'
+  | 'projectsCard'
   | 'gridCard'
   | 'displayTitle'
   | 'sectionTitle'
@@ -32,18 +32,18 @@ export type RevealVariant =
 
 const VARIANTS: Record<RevealVariant, RevealSpec> = {
   /**
-   * 홈 Works의 프로젝트 카드. **여기만 값을 바꿨다.**
+   * 홈 Projects 섹션의 카드. **여기만 값을 바꿨다.**
    * 이전(`-80px` · 0.9초 · 순번×0.1초)에는 카드가 이미 보이는 상태에서 애니메이션이
    * 시작해 빈 상자가 노출됐고, 화면 진입부터 완전 표시까지 809ms(최대 966ms)가
    * 걸렸다(실측). 닿기 전에 시작하도록 바꿔 줄였다. 다만 너무 앞당기면 보이기 전에 끝나 효과가
    * 사라지므로, 움직임이 눈에 남는 선에서 멈췄다.
    */
-  worksCard: { y: 40, duration: 1, margin: '0px', ease: SMOOTH },
+  projectsCard: { y: 40, duration: 1, margin: '0px', ease: SMOOTH },
 
   /** `/projects` 목록 카드 */
   gridCard: { y: 40, duration: 0.7, margin: '-80px', ease: SMOOTH },
 
-  /** 화면을 가득 채우는 대제목 — Works., FAQ. */
+  /** 화면을 가득 채우는 대제목 — Projects., FAQ. */
   displayTitle: { y: 20, duration: 1.2, margin: '-40px', ease: SMOOTH },
 
   /** 섹션 제목 — Skills. */

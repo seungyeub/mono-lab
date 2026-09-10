@@ -6,7 +6,7 @@ import { reveal, type RevealVariant } from '@/lib/motion';
  */
 
 const VARIANTS: RevealVariant[] = [
-  'worksCard',
+  'projectsCard',
   'gridCard',
   'displayTitle',
   'sectionTitle',
@@ -32,9 +32,9 @@ describe('reveal', () => {
     expect(reveal('listItem', 0.24)).toMatchObject({ transition: { delay: 0.24 } });
   });
 
-  it('worksCard는 화면에 닿는 순간 1.0초로 시작한다 (P6 조정값)', () => {
+  it('projectsCard는 화면에 닿는 순간 1.0초로 시작한다 (P6 조정값)', () => {
     // 이전 값(-80px · 0.9초)에서는 카드가 이미 보이는 상태에서 시작해 빈 상자가 노출됐다
-    const props = reveal('worksCard');
+    const props = reveal('projectsCard');
 
     expect(props.initial).toEqual({ opacity: 0, y: 40 });
     expect(props.viewport).toMatchObject({ margin: '0px' });
@@ -52,6 +52,6 @@ describe('reveal', () => {
   });
 
   it('ease가 정의된 프리셋은 4개 수를 그대로 넘긴다', () => {
-    expect(reveal('worksCard').transition).toMatchObject({ ease: [0.16, 1, 0.3, 1] });
+    expect(reveal('projectsCard').transition).toMatchObject({ ease: [0.16, 1, 0.3, 1] });
   });
 });

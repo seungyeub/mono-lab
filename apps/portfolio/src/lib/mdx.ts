@@ -161,7 +161,7 @@ export function normalizeProjectMetadata(raw: unknown): ProjectMetadata {
 
 export function getProjectBySlug(slug: string) {
   const realSlug = slug.replace(/\.mdx$/, '');
-  const fullPath = path.join(contentDir, 'work', `${realSlug}.mdx`);
+  const fullPath = path.join(contentDir, 'projects', `${realSlug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
@@ -214,7 +214,7 @@ export interface ProjectCard {
 }
 
 /**
- * 홈 WorksSection 등 카드 목록에 필요한 최소 필드만 MDX에서 추려낸다.
+ * 홈 ProjectsSection 등 카드 목록에 필요한 최소 필드만 MDX에서 추려낸다.
  * 카드 데이터를 별도로 하드코딩하면 MDX와 어긋나므로(P0-6) 항상 이 함수를 거친다.
  * MDX 본문(content)은 카드 렌더링에 불필요하므로 제외해 클라이언트 전달량을 줄인다.
  */
@@ -232,7 +232,7 @@ export function getProjectCards(): ProjectCard[] {
 }
 
 /**
- * 홈 WorksSection에 노출할 프로젝트 선택 목록.
+ * 홈 ProjectsSection에 노출할 프로젝트 선택 목록.
  * 자동(최신순)이 아니라 **여기서 직접 슬러그를 골라** 큐레이션한다 — 배열 순서가 곧 노출 순서다.
  * 항목을 바꾸려면 slug를 교체하면 되고, 오타·삭제된 슬러그는 테스트가 잡아낸다.
  *
@@ -260,10 +260,10 @@ export function getFeaturedProjectCards(): ProjectCard[] {
 }
 
 export function getAllProjects() {
-  const workDir = path.join(contentDir, 'work');
-  if (!fs.existsSync(workDir)) return [];
+  const projectsDir = path.join(contentDir, 'projects');
+  if (!fs.existsSync(projectsDir)) return [];
 
-  const files = fs.readdirSync(workDir);
+  const files = fs.readdirSync(projectsDir);
   const projects = files
     .filter((file) => file.endsWith('.mdx'))
     .map((file) => getProjectBySlug(file))

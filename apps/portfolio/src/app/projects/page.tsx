@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { SITE_NAME, buildPageOpenGraph } from '@/lib/siteConfig';
 import { getProjectCards } from '@/lib/mdx';
-import WorkGrid from '@/features/work/WorkGrid';
+import ProjectGrid from '@/features/projects/ProjectGrid';
 
 const DESCRIPTION = 'Next.js, React, TypeScript 기반으로 작업한 프론트엔드 프로젝트 모음입니다.';
 
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   }),
 };
 
-export default function WorkPage() {
+export default function ProjectsPage() {
   // 카드 데이터는 항상 getProjectCards를 거친다(P0-6) — 이미지 실존 여부도 여기서 온다
   const projects = getProjectCards();
 
@@ -37,7 +37,7 @@ export default function WorkPage() {
 
       {/* Split Layout */}
       <div className='px-6 pt-12 pb-24 md:px-12'>
-        <WorkGrid projects={projects} />
+        <ProjectGrid projects={projects} />
       </div>
     </div>
   );
