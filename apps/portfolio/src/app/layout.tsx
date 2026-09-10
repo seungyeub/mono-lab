@@ -118,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Tab을 눌러도 링크가 가려지지 않게 한다 */}
         <a
           href='#main'
-          className='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100000] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black'
+          className='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100000 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black'
         >
           본문으로 건너뛰기
         </a>

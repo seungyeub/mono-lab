@@ -37,6 +37,18 @@
 - [x] P6-9. 배포 파이프라인 타입 체크 게이트 — `ignoreBuildErrors` 제거 + 배포 워크플로에 `check-types` 단계. 숨은 타입 오류 없음 확인
 - [x] P6-12. 개인정보 수집 고지 — 처리방침 페이지 대신 **문의 폼 아래 두 줄 고지**로 결론. 조문은 위치를 지정하지 않고, 수집의 무게는 GA가 아니라 폼에 있다. GA 쿠키 고지는 덮지 않는 간극이 남음(PRD 기록)
 
+### Phase 7(portfolio) 후보 — Phase 6에서 넘긴 것
+
+> 루트 `docs/PRD.md`의 Phase 7(`apps/resume`)과 다른 번호다. 상세 사유는 Phase 6 PRD 5절.
+
+- [ ] P6-11 이월. Contact Quick Answers — 질문 초안 4개 준비됨, "찾는 기회의 형태"는 사용자 답 필요
+- [ ] `@testing-library/user-event` 도입 — `ContactForm.test.tsx`를 `fireEvent`에서 옮긴다
+- [ ] 문의 폼 rate limit — 공유 저장소(Vercel KV·Upstash) 필요
+- [ ] 브랜치 전략 문서 + `master → develop` 역머지 자동화 워크플로
+- [ ] Lighthouse TBT 이상치(10만 ms대) 원인 확인
+- [ ] 프리뷰 URL Lighthouse 측정·임계값 (P6-6 보류분)
+- [ ] GA 쿠키 고지 (P6-12의 남은 간극)
+
 ### Phase 5 — 완료 (0.4.0, 2026-09-07)
 
 ### 🟡 P2 — Nice to Have (품질 향상)
