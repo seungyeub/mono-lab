@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import ContactForm from '@/features/contact/ContactForm';
 import { sendContactEmail } from '@/lib/actions';
@@ -60,6 +60,10 @@ function fillAndSubmit() {
 }
 
 describe('ContactForm', () => {
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
     (useCursorStore as unknown as jest.Mock).mockImplementation(() => jest.fn());
@@ -119,5 +123,53 @@ describe('ContactForm', () => {
     );
     expect(screen.getByLabelText('Name')).toHaveAttribute('aria-describedby', 'contact-name-error');
     expect(mockSend).not.toHaveBeenCalled();
+  });
+  it('성공 문구는 role="status"로 바로 읽히고, 5초쯤 뒤 사라진다', async () => {
+    // 경계(정확히 5000ms)에 맞추면 타이머 스케줄 시점의 오차로 흔들린다 — 앞뒤로 여유를 둔다
+    jest.useFakeTimers();
+    mockSend.mockResolvedValue({ success: true });
+
+    render(<ContactForm />);
+    fillAndSubmit();
+
+    const notice = await screen.findByRole('status');
+    expect(notice).toHaveTextContent(/message sent successfully/i);
+
+    act(() => {
+      jest.advanceTimersByTime(4000);
+    });
+    expect(screen.getByRole('status')).toBeInTheDocument();
+
+    act(() => {
+      jest.advanceTimersByTime(1100);
+    });
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  it('성공 뒤 다시 입력을 시작하면 성공 문구가 바로 사라진다', async () => {
+    // 비워진 칸에 새 문의를 쓰는데 이전 성공 문구가 남아 있으면 이미 보낸 것처럼 읽힌다
+    mockSend.mockResolvedValue({ success: true });
+
+    render(<ContactForm />);
+    fillAndSubmit();
+    await screen.findByRole('status');
+
+    fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'J' } });
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  it('오류 문구는 시간이 지나도 남는다', async () => {
+    // 직접 연락할 주소를 읽고 옮겨 적을 시간이 필요하다
+    jest.useFakeTimers();
+    mockSend.mockResolvedValue({ success: false, error: 'unavailable' });
+
+    render(<ContactForm />);
+    fillAndSubmit();
+    expect(await screen.findByText(/sending is unavailable/i)).toBeInTheDocument();
+
+    act(() => {
+      jest.advanceTimersByTime(10000);
+    });
+    expect(screen.getByText(/sending is unavailable/i)).toBeInTheDocument();
   });
 });

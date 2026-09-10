@@ -10,14 +10,15 @@ const QUICK_LINKS = [
   { label: 'Contact', href: '/contact' },
 ];
 
+// Contact 페이지의 Channels와 같은 순서로 둔다 — 목록이 두 곳에 있어 한쪽만 바꾸면 어긋난다
 const NETWORKS = [
-  { label: 'Github,', href: 'https://github.com/seungyeub' },
-  { label: 'Pinterest,', href: 'https://pinterest.com/bseungyeub' },
+  { label: 'GitHub,', href: 'https://github.com/seungyeub' },
   { label: 'Blog,', href: 'https://blog.naver.com/backsajang420' },
   {
-    label: 'LinkedIn',
+    label: 'LinkedIn,',
     href: 'https://www.linkedin.com/in/seungyeub-baek-23aa9016a/',
   },
+  { label: 'Pinterest', href: 'https://pinterest.com/bseungyeub' },
 ];
 
 /**

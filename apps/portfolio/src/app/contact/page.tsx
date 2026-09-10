@@ -5,11 +5,12 @@ import { CONTACT_PUBLIC_EMAIL, SITE_NAME, buildPageOpenGraph } from '@/lib/siteC
 import ContactForm from '@/features/contact/ContactForm';
 import RollingLink from '@/components/RollingText/RollingLink';
 
+// 푸터 Networks와 같은 순서로 둔다 — 목록이 두 곳에 있어 한쪽만 바꾸면 어긋난다
 const NETWORKS = [
   { label: 'GitHub', href: 'https://github.com/seungyeub' },
-  { label: 'Pinterest', href: 'https://pinterest.com/bseungyeub' },
   { label: 'Blog', href: 'https://blog.naver.com/backsajang420' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/seungyeub-baek-23aa9016a/' },
+  { label: 'Pinterest', href: 'https://pinterest.com/bseungyeub' },
 ];
 
 /** 연락처 한 행. 아래 선 위에 흰 선이 겹쳐 있다가 hover 시 왼쪽에서 오른쪽으로 자란다 */
