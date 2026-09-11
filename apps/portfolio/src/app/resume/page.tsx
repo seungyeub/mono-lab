@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+// 서버 컴포넌트라 'use client'가 붙은 motion 요소를 가져온다 — 페이지 전체를 클라이언트로 돌리지 않는다
+import * as motion from 'framer-motion/client';
 
 import RollingLink from '@/components/RollingText/RollingLink';
 import { SITE_NAME, buildPageOpenGraph } from '@/lib/siteConfig';
 import { ACHIEVEMENTS, EXPERIENCES } from '@/data/experienceData';
 import { SKILL_CATEGORIES } from '@/data/skillsData';
 import { publicAssetExists } from '@/lib/mdx';
+import { reveal } from '@/lib/motion';
 
 const DESCRIPTION =
   '프론트엔드 엔지니어 백승엽의 경력, 자격증, 기술 스택을 정리한 이력서 페이지입니다.';
@@ -61,8 +64,9 @@ export default function ResumePage() {
         <h2 className='font-semibold text-white'>Experience</h2>
         <div className='border-line flex flex-col border-t'>
           {EXPERIENCES.map((exp) => (
-            <div
+            <motion.div
               key={`${exp.company}-${exp.period}`}
+              {...reveal('listItem')}
               className='lg:grid-cols-experience border-line grid grid-cols-2 gap-4 border-b py-5 lg:items-center'
             >
               {/* col 1 — 회사명 (lg+) / 회사명+기간 (< lg) */}
@@ -83,7 +87,7 @@ export default function ResumePage() {
               <span className='hidden text-sm text-white/50 lg:block lg:text-right'>
                 {exp.type}
               </span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -93,8 +97,9 @@ export default function ResumePage() {
         <h2 className='font-semibold text-white'>Certifications</h2>
         <div className='border-line flex flex-col border-t'>
           {ACHIEVEMENTS.map((achievement) => (
-            <div
+            <motion.div
               key={achievement.certificate}
+              {...reveal('listItem')}
               className='lg:grid-cols-experience border-line grid grid-cols-2 gap-4 border-b py-5 lg:items-center'
             >
               {/* 홈 자격증 목록과 같은 구성 — 경력의 기간·역할 자리에 취득일·발급기관 */}
@@ -119,7 +124,7 @@ export default function ResumePage() {
               <span className='hidden text-sm text-white/50 lg:block lg:text-right'>
                 {achievement.result}
               </span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -129,15 +134,16 @@ export default function ResumePage() {
         <h2 className='font-semibold text-white'>Skills</h2>
         <div className='border-line flex flex-col border-t'>
           {SKILL_CATEGORIES.map((category) => (
-            <div
+            <motion.div
               key={category.title}
+              {...reveal('listItem')}
               className='border-line grid grid-cols-1 gap-1 border-b py-5 md:grid-cols-[1fr_3fr] md:gap-4'
             >
               <span className='text-base font-medium md:text-lg'>{category.title}</span>
               <p className='text-sm leading-relaxed text-gray-400 md:text-base'>
                 {category.skills.map((skill) => skill.name).join(' · ')}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
