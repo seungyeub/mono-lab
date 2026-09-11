@@ -94,7 +94,8 @@ mono-lab/
 - **Phase 4:** MDX 파이프라인 구축 및 Work/About 페이지 구현.
 - **Phase 5:** Contact 폼 처리 (Resend), Jest/Playwright 테스트 환경 구축 및 Sentry 에러 모니터링 연동.
 - **Phase 6:** Lighthouse 성능/접근성 최적화, SEO 및 Google Analytics 연동.
-- **Phase 7:** `apps/resume` (Vite 기반) 이력서 프로젝트 환경 세팅 및 모노레포 연동 구현.
+- **Phase 7:** 포트폴리오 운영 품질 — 테스트 입력 방식(`user-event`), 문의 폼 남용 방지(rate limit), 브랜치 전략 문서·역머지 자동화, 측정 신뢰성(Lighthouse TBT·프리뷰 URL), GA 쿠키 고지, Contact Quick Answers, easing 토큰화. 상세는 `apps/portfolio/docs/plan/2026-09-08_phase6_prd.md` 5절.
+- **Phase 8:** `apps/resume` (Vite 기반) 이력서 프로젝트 환경 세팅 및 모노레포 연동 구현. (원래 Phase 7 — 포트폴리오 후속을 먼저 하기로 해 2026-09-11에 옮겼다)
 
 ---
 

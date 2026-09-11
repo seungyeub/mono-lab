@@ -23,7 +23,7 @@
 - [x] P6-13. 페이지 간 일관성 정리 — `/work` 헤더 설명문을 `/resume` 기준(본문급·제목 아래)으로, 홈 `See All Works` 하단 고정 버튼 복구(1863b07에서 딸려 나간 회귀), Resume 다운로드·라이트박스 닫기 버튼을 롤링+굵은 글자로 통일
 - [x] P6-14. 프로젝트 명칭·경로 통일 — 라벨·메뉴를 `Projects`로 모으고 순서를 `Home, Projects, Resume, Contact`로, 경로 `/work` → `/projects`(영구 리다이렉트 2건 동반). 홈 대제목 넘침은 글자 크기 대신 `lg` 구간 6:6 비율로 해결
 - [x] P6-15. 코드 리뷰 지적 반영 — PR #78 CodeRabbit 9건 중 8건 수정(허니팟 GA 오집계, 서버 액션 거부 시 버튼 잠김, 커서 사라짐, 스킵 링크 가림, reachable 미반영, 동작 줄이기 미반영, 댓글 조회, 액션 SHA). 문의 폼 rate limit은 공유 저장소가 필요해 Phase 7로 보류
-- [ ] P6-11. Contact 페이지 Quick Answers(FAQ) 구역 — 문의용 질문 3~4개 초안 확인 후 착수 (보류)
+- [ ] P6-11. Contact 페이지 Quick Answers(FAQ) 구역 — 문의용 질문 3~4개 초안 확인 후 착수 (보류 → Phase 7로 이월, 아래 후보 목록)
 
 **🟡 P2 — 성능·인프라** (항목마다 설명 후 착수)
 
@@ -45,9 +45,9 @@
 - [x] Work → Project 코드 이름 통일(PR #85)
 - [x] 문의 성공 문구 5초·재입력 시 사라짐 + `role="status"`, Networks 순서(GitHub·Blog·LinkedIn·Pinterest), 푸터 `GitHub` 표기
 
-### Phase 7(portfolio) 후보 — Phase 6에서 넘긴 것
+### Phase 7 후보 — Phase 6에서 넘긴 것
 
-> 루트 `docs/PRD.md`의 Phase 7(`apps/resume`)과 다른 번호다. 상세 사유는 Phase 6 PRD 5절.
+> 루트 `docs/PRD.md` 로드맵의 Phase 7이다(`apps/resume`는 Phase 8로 옮김, 2026-09-11). 상세 사유는 Phase 6 PRD 5절.
 
 - [ ] P6-11 이월. Contact Quick Answers — 질문 초안 4개 준비됨, "찾는 기회의 형태"는 사용자 답 필요
 - [ ] `@testing-library/user-event` 도입 — `ContactForm.test.tsx`를 `fireEvent`에서 옮긴다
