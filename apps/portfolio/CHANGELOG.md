@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/seungyeub/mono-lab/compare/portfolio@0.5.3...portfolio@0.6.0) (2026-09-11)
+
+
+### Features
+
+* **portfolio:** /resume 목록에 홈과 같은 등장 효과 적용 ([8f050cd](https://github.com/seungyeub/mono-lab/commit/8f050cd5689dcd386b4887045fc9cba6927212aa))
+
+
+### Bug Fixes
+
+* **portfolio:** 목록·FAQ·Skills 등장 효과가 아래 행일수록 늦게 뜨던 문제 수정 ([8f050cd](https://github.com/seungyeub/mono-lab/commit/8f050cd5689dcd386b4887045fc9cba6927212aa))
+
 ## [0.5.3](https://github.com/seungyeub/mono-lab/compare/portfolio@0.5.2...portfolio@0.5.3) (2026-09-10)
 
 
