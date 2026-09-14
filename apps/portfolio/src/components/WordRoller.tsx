@@ -17,6 +17,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { SMOOTH } from '@/lib/motion';
 
 interface WordRollerProps {
   /** 순환할 단어(혹은 문장) 배열 */
@@ -95,7 +96,7 @@ export default function WordRoller({
                     transition: {
                       duration,
                       delay: i * staggerSec,
-                      ease: [0.16, 1, 0.3, 1], // easeOutExpo — Helios 느낌
+                      ease: SMOOTH, // easeOutExpo — Helios 느낌
                     },
                   },
                   exit: {

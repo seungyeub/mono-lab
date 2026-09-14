@@ -1,7 +1,7 @@
 'use client';
 
 import SectionLabel from '@/components/SectionLabel';
-import { reveal } from '@/lib/motion';
+import { reveal, SMOOTH } from '@/lib/motion';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -42,7 +42,7 @@ function FAQItem({ faq, index }: { faq: FaqItem; index: number }) {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.35, ease: SMOOTH }}
                 className='overflow-hidden'
               >
                 <p className='max-w-2xl pt-3 text-sm leading-relaxed text-gray-400 md:text-base lg:text-lg'>
