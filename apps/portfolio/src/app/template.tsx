@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
+import { SMOOTH } from '@/lib/motion';
 
 export default function Template({ children }: { children: ReactNode }) {
   // 래퍼가 opacity 0으로 시작하면 서버가 그린 본문 전체가 하이드레이션 전까지 보이지 않아
@@ -12,7 +13,7 @@ export default function Template({ children }: { children: ReactNode }) {
       initial={{ y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.4, ease: SMOOTH }}
     >
       {children}
     </motion.div>

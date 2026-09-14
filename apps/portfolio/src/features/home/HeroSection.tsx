@@ -6,6 +6,7 @@ import { useCursorStore } from '@/store/useCursorStore';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import RollingLink from '@/components/RollingText/RollingLink';
 import Marquee from '@/components/Marquee';
+import { SMOOTH } from '@/lib/motion';
 import dynamic from 'next/dynamic';
 
 /**
@@ -107,7 +108,7 @@ export default function HeroSection() {
             <motion.h1
               initial={{ y: 40 }}
               animate={{ y: 0 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              transition={{ duration: 1.1, ease: SMOOTH, delay: 0.15 }}
               className='mt-4 text-[clamp(1.1rem,3.5vw,3rem)] leading-[1.2] font-semibold md:mt-12 md:font-bold lg:mt-16'
             >
               명확함과 정교함, 그리고
@@ -144,7 +145,7 @@ export default function HeroSection() {
             style={{ y: textY, opacity: textOpacity, pointerEvents }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            transition={{ duration: 1.2, ease: SMOOTH, delay: 0.3 }}
             // 배경이미지(hero.jpg) 및 배경색상 제거, 투명(bg-transparent) 처리하여 로딩 중 여백 연출
             className='relative col-start-1 row-start-1 h-[120vw] w-full rounded-xl bg-transparent sm:h-[96vw] md:col-start-2 md:h-full md:min-h-[350px] lg:min-h-[400px]'
           >

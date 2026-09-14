@@ -101,7 +101,7 @@ export default function ProjectGrid({ projects }: { projects: ProjectCard[] }) {
                 <>
                   {/* 캡쳐 비율이 제각각이라 contain으로 잘림 없이 담는다 */}
                   <div
-                    className='absolute inset-0 bg-contain bg-center bg-no-repeat transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105'
+                    className='ease-smooth absolute inset-0 bg-contain bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105'
                     style={{ backgroundImage: `url(${project.image})` }}
                   />
                   {/* overlay on hover */}

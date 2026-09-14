@@ -10,7 +10,11 @@ import type { MotionProps } from 'framer-motion';
  * 순번 지연을 없애면서 화면 안 100px로 옮겼다(2026-09-11, 각 항목 주석).
  */
 
-const SMOOTH: [number, number, number, number] = [0.16, 1, 0.3, 1];
+/**
+ * 사이트 공통 easing(easeOutExpo). CSS 전환은 globals.css의 `--ease-smooth`(`ease-smooth` 클래스)가
+ * 같은 값이다. framer-motion은 CSS 변수를 ease로 받지 못해 숫자 배열을 따로 두므로, 바꿀 때는 두 곳을 같이 고친다.
+ */
+export const SMOOTH: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 interface RevealSpec {
   y: number;
