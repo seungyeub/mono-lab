@@ -9,7 +9,8 @@ on:
   push:
     tags:
       - 'portfolio@*'
-  # 수동 실행. 태그 이벤트를 놓쳤거나 동작을 확인하고 싶을 때 기존 태그를 넣어 돌린다
+  # 수동 실행. 태그 이벤트를 놓쳤거나 동작을 확인하고 싶을 때 기존 태그를 넣어 돌린다.
+  # GitHub는 workflow_dispatch를 기본 브랜치(master)에 있는 워크플로에만 연다 — develop에만 있는 동안은 실행할 수 없다
   workflow_dispatch:
     inputs:
       tag:
