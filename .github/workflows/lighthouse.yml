@@ -74,6 +74,9 @@ jobs:
         with:
           name: lighthouse-reports-${{ github.event.pull_request.number }}-${{ github.run_attempt }}
           path: apps/portfolio/.lighthouseci
+          # upload-artifact v4.4+는 `.`으로 시작하는 폴더를 기본으로 제외한다 — 이 옵션 없이는
+          # 매번 "No files were found"로 끝나 리포트가 한 번도 남지 않았다(2026-09-16 확인)
+          include-hidden-files: true
           retention-days: 14
           if-no-files-found: warn
 
