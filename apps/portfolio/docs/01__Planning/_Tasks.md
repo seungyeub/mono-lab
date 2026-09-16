@@ -53,10 +53,11 @@
 - [ ] `@testing-library/user-event` 도입 — `ContactForm.test.tsx`를 `fireEvent`에서 옮긴다
 - [ ] 문의 폼 rate limit — 공유 저장소(Vercel KV·Upstash) 필요
 - [ ] 브랜치 전략 문서 + `master → develop` 역머지 자동화 워크플로
-- [ ] Lighthouse TBT 이상치(10만 ms대) 원인 확인
+- [x] Lighthouse TBT 이상치(10만 ms대) 원인 확인 — 집계 오류가 아니라 GPU 없는 CI 러너가 3D 카드를 소프트웨어 렌더링해서 생기는 값(2026-09-16, Phase 6 PRD 5절). 리포트 아티팩트가 숨김 폴더라 한 번도 업로드되지 않던 문제도 같이 수정
+- [ ] 소프트웨어 렌더러 감지 시 3D 카드 대신 플레이스홀더 유지 — `WEBGL_debug_renderer_info`로 SwiftShader·llvmpipe를 감지. GPU 가속이 꺼진 사용자에게도 버벅이는 카드를 안 보여 주고 CI 성능 점수도 실제와 가까워진다 (TBT 조사 후속)
 - [ ] 프리뷰 URL Lighthouse 측정·임계값 (P6-6 보류분)
 - [ ] GA 쿠키 고지 (P6-12의 남은 간극)
-- [ ] easing 곡선 토큰화 — `cubic-bezier(0.16,1,0.3,1)` 7개 파일 8곳을 `@theme` 토큰으로 모은다 (PR #90 리뷰)
+- [x] easing 곡선 토큰화 — `cubic-bezier(0.16,1,0.3,1)` 7개 파일 8곳을 `--ease-smooth` 토큰과 `SMOOTH` 상수로 모았다 (PR #98, 2026-09-15)
 
 ### Phase 5 — 완료 (0.4.0, 2026-09-07)
 
