@@ -118,10 +118,10 @@
 3. [자동] release-please가 "release(portfolio): 0.4.0" PR을 연다 — 버전은 커밋 타입으로 결정
 4. 릴리스 PR 머지
 5. [자동] 태그 portfolio@0.4.0 + GitHub Release 발행 → deploy-portfolio.yml 실행
-6. master → develop 백머지
+6. [자동] 역머지 PR chore/sync-master-0.4.0 → develop (sync-master-to-develop.yml, 2026-09-16부터) → 사람이 Merge commit
 ```
 
-수동 단계가 4개(버전 범프 PR·develop→master·태그·Release)에서 2개(develop→master·릴리스 PR 머지)로 줄고, 버전 범프·체인지로그·태그·Release가 자동화된다.
+수동 단계가 4개(버전 범프 PR·develop→master·태그·Release)에서 2개(develop→master·릴리스 PR 머지)로 줄고, 버전 범프·체인지로그·태그·Release가 자동화된다. 6번 역머지는 PR 생성까지만 자동이다 — 충돌 해결과 최종 확인은 사람이 하고, 규칙은 `docs/guides/branching-strategy.md` 4절.
 
 ### develop → master는 반드시 Merge commit (2026-09-05 결정)
 
@@ -142,7 +142,7 @@ release-please는 PR을 보지 않고 **master의 git log**를 읽는다. 지난
 3. hotfix → master PR을 squash로 머지, 제목은 fix(portfolio): ...   ← 여기는 squash가 맞다
 4. [자동] "release(portfolio): 0.4.1" PR — fix:라서 patch
 5. 릴리스 PR 머지 → [자동] 태그·Release·배포
-6. master → develop 백머지                ← 빠뜨리면 다음 릴리스에서 버그가 되살아난다
+6. [자동] 역머지 PR → 사람이 Merge commit   ← 빠뜨리면 다음 릴리스에서 버그가 되살아난다. 태그가 PR을 열어 주지만 머지는 사람 몫
 ```
 
 hotfix 브랜치는 작업 중 커밋이 여러 개일 수 있어 squash가 맞다. 결과가 `fix(portfolio): ...` 커밋 하나로 남으면 release-please가 patch를 제안한다. develop → master와 규칙이 다른 이유는, develop은 이미 정리된 커밋의 모음이고 hotfix 브랜치는 아직 정리 전이기 때문이다.
@@ -159,4 +159,4 @@ develop→master를 머지해 릴리스 PR(예: 0.5.0)이 열려 있는 상태�
 
 ## 8. 범위 밖
 
-**브랜치 전략 자체는 바꾸지 않는다.** GitHub Flow로 단순화하는 안(main 하나 + 짧은 feature 브랜치)도 검토했으나, 현재는 일반적인 Git Flow를 익히는 것이 목적이므로 유지한다. 이 문서는 **릴리스 작업의 자동화**만 다룬다.
+**브랜치 전략 자체는 바꾸지 않는다.** GitHub Flow로 단순화하는 안(main 하나 + 짧은 feature 브랜치)도 검토했으나, 현재는 일반적인 Git Flow를 익히는 것이 목적이므로 유지한다. 이 문서는 **릴리스 작업의 자동화**만 다룬다. 브랜치 역할과 머지 방식, 유지 근거는 `docs/guides/branching-strategy.md`(2026-09-16)에 있다.
