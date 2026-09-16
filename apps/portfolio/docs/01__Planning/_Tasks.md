@@ -52,7 +52,7 @@
 - [ ] P6-11 이월. Contact Quick Answers — 질문 초안 4개 준비됨, "찾는 기회의 형태"는 사용자 답 필요
 - [ ] `@testing-library/user-event` 도입 — `ContactForm.test.tsx`를 `fireEvent`에서 옮긴다
 - [ ] 문의 폼 rate limit — 공유 저장소(Vercel KV·Upstash) 필요
-- [ ] 브랜치 전략 문서 + `master → develop` 역머지 자동화 워크플로
+- [x] 브랜치 전략 문서 + `master → develop` 역머지 자동화 워크플로 — `docs/guides/branching-strategy.md`, `sync-master-to-develop.yml`(태그 생성 시 역머지 PR 자동 생성, 머지는 사람) (2026-09-16). PR 생성 경로는 다음 릴리스에서 처음 돈다
 - [x] Lighthouse TBT 이상치(10만 ms대) 원인 확인 — 집계 오류가 아니라 GPU 없는 CI 러너가 3D 카드를 소프트웨어 렌더링해서 생기는 값(2026-09-16, Phase 6 PRD 5절). 리포트 아티팩트가 숨김 폴더라 한 번도 업로드되지 않던 문제도 같이 수정
 - [ ] 소프트웨어 렌더러 감지 시 3D 카드 대신 플레이스홀더 유지 — `WEBGL_debug_renderer_info`로 SwiftShader·llvmpipe를 감지. GPU 가속이 꺼진 사용자에게도 버벅이는 카드를 안 보여 주고 CI 성능 점수도 실제와 가까워진다 (TBT 조사 후속)
 - [ ] 프리뷰 URL Lighthouse 측정·임계값 (P6-6 보류분)
