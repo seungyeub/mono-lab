@@ -41,6 +41,26 @@ describe('reveal', () => {
     expect(props.transition).toMatchObject({ duration: 1 });
   });
 
+  it.each(['listItem', 'faqItem'] as const)(
+    '%s는 화면 안 180px에서 28px·0.8초로 움직인다 (2026-09-17 조정값)',
+    (variant) => {
+      // 시작 지점과 이동 거리는 함께 정한 값이다. 하나만 되돌리면 화면 아래 띠에서 끝나거나
+      // 움직임이 다시 작아진다 — 셋 중 무엇이 바뀌어도 여기서 걸린다
+      const props = reveal(variant);
+
+      expect(props.initial).toEqual({ opacity: 0, y: 28 });
+      expect(props.viewport).toMatchObject({ margin: '-180px 0px' });
+      expect(props.transition).toMatchObject({ duration: 0.8 });
+    },
+  );
+
+  it('Skills 칩은 목록과 함께 키우지 않는다 — 시차가 붙어 이미 비슷한 길이다', () => {
+    const props = reveal('smallItem');
+
+    expect(props.initial).toEqual({ opacity: 0, y: 12 });
+    expect(props.transition).toMatchObject({ duration: 0.5 });
+  });
+
   it('프리셋마다 margin과 duration이 독립적으로 유지된다', () => {
     const grid = reveal('gridCard');
     const display = reveal('displayTitle');
