@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0](https://github.com/seungyeub/mono-lab/compare/portfolio@0.6.0...portfolio@0.7.0) (2026-09-20)
+
+
+### Features
+
+* **portfolio:** GPU 없는 환경에서 Hero 3D 카드 대신 아바타 표시 ([#101](https://github.com/seungyeub/mono-lab/issues/101)) ([3604ce8](https://github.com/seungyeub/mono-lab/commit/3604ce8ea58717f66fc2516f677cfa68cb185bd7))
+* **portfolio:** 경력·자격증·FAQ 등장 효과를 더 또렷하게 ([#102](https://github.com/seungyeub/mono-lab/issues/102)) ([76671bd](https://github.com/seungyeub/mono-lab/commit/76671bdc6326a9d9e006f8f90f950e2ca965d943))
+
 ## [0.6.0](https://github.com/seungyeub/mono-lab/compare/portfolio@0.5.3...portfolio@0.6.0) (2026-09-11)
 
 
