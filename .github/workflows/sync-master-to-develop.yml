@@ -1,0 +1,137 @@
+name: Sync master → develop
+
+# 릴리스 태그가 생기면 master → develop 역머지 PR을 연다 — git-flow의 마지막 단계.
+# 0.3.0 때 사람이 빠뜨린 단계라 기계가 PR을 열어 두게 한다. 머지는 사람이 Merge commit으로 한다.
+#
+# 태그는 release-please가 PAT로 만들므로 이 워크플로를 발화시킨다(deploy-portfolio.yml과 같은 이벤트).
+# 기본 GITHUB_TOKEN으로 만든 PR에는 CI가 돌지 않아, 브랜치 푸시와 PR 생성에 RELEASE_PLEASE_TOKEN을 쓴다.
+on:
+  push:
+    tags:
+      - 'portfolio@*'
+  # 수동 실행. 태그 이벤트를 놓쳤거나 동작을 확인하고 싶을 때 기존 태그를 넣어 돌린다.
+  # GitHub는 workflow_dispatch를 기본 브랜치(master)에 있는 워크플로에만 연다 — develop에만 있는 동안은 실행할 수 없다
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '역머지할 릴리스 태그 (예: portfolio@0.6.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-master-to-develop
+  cancel-in-progress: false
+
+jobs:
+  open-pr:
+    name: Open back-merge PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # merge-base 판정과 커밋 목록에 master·develop 전체 이력이 필요하다
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Resolve tag and version
+        id: meta
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -eu
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then TAG="$INPUT_TAG"; else TAG="$REF_NAME"; fi
+          case "$TAG" in
+            portfolio@*) ;;
+            *) echo "::error::portfolio@x.y.z 형식이 아니다: $TAG"; exit 1 ;;
+          esac
+          git rev-parse -q --verify "refs/tags/$TAG^{commit}" >/dev/null || { echo "::error::태그가 없다: $TAG"; exit 1; }
+          VERSION="${TAG#portfolio@}"
+          {
+            echo "tag=$TAG"
+            echo "version=$VERSION"
+            echo "branch=chore/sync-master-$VERSION"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Decide whether a back-merge is needed
+        id: check
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          set -eu
+          TAG_SHA=$(git rev-parse "refs/tags/$TAG^{commit}")
+          MASTER_SHA=$(git rev-parse origin/master)
+          # 태그가 master 밖에 있으면(잘못 입력한 옛 태그 등) 역머지 대상이 아니다
+          git merge-base --is-ancestor "$TAG_SHA" "$MASTER_SHA" \
+            || { echo "::error::태그 커밋($TAG_SHA)이 master에 없다"; exit 1; }
+          if git merge-base --is-ancestor "$MASTER_SHA" origin/develop; then
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "## 역머지 불필요"
+              echo "develop이 master(\`${MASTER_SHA:0:7}\`)를 이미 포함한다. PR을 만들지 않았다."
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check for an existing branch or PR
+        if: steps.check.outputs.needed == 'true'
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        run: |
+          set -eu
+          PR_URL=$(gh pr list --base develop --head "$BRANCH" --state open --json url --jq '.[0].url // empty')
+          if [ -n "$PR_URL" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            { echo "## 이미 열린 역머지 PR"; echo "$PR_URL"; } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          # PR은 없는데 브랜치만 남아 있으면(닫힌 PR 등) 어느 쪽이 맞는지 사람이 봐야 한다 — 덮어쓰지 않는다
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            echo "::error::브랜치 $BRANCH 가 이미 있다. 지우고 다시 실행하거나 직접 PR을 열어라"
+            exit 1
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Push branch and open PR
+        if: steps.check.outputs.needed == 'true' && steps.existing.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          TAG: ${{ steps.meta.outputs.tag }}
+          VERSION: ${{ steps.meta.outputs.version }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        run: |
+          set -eu
+          # 태그 커밋이 아니라 master 끝에서 만든다 — 태그 뒤에 master로 더 들어온 것(연이은 hotfix 등)도 함께 가져간다
+          git push origin "origin/master:refs/heads/$BRANCH"
+
+          COMMITS=$(git log --oneline --no-decorate origin/develop..origin/master)
+          BODY_FILE=$(mktemp)
+          {
+            echo "\`$TAG\` 릴리스 뒤 master를 develop으로 역머지한다(git-flow)."
+            echo
+            echo "## 들어가는 것"
+            echo
+            echo '```'
+            echo "$COMMITS"
+            echo '```'
+            echo
+            echo "**머지 방식: Merge commit.** 충돌이 있으면 이 브랜치에서 해결한다."
+            echo
+            echo "_\`sync-master-to-develop.yml\`이 자동으로 열었다. 절차는 \`docs/guides/branching-strategy.md\`._"
+          } > "$BODY_FILE"
+
+          PR_URL=$(gh pr create \
+            --base develop \
+            --head "$BRANCH" \
+            --title "chore(portfolio): $VERSION 릴리스 후 master → develop 역머지" \
+            --body-file "$BODY_FILE")
+          { echo "## 역머지 PR"; echo "$PR_URL"; } >> "$GITHUB_STEP_SUMMARY"

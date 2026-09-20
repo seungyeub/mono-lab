@@ -6,6 +6,8 @@ import { useCursorStore } from '@/store/useCursorStore';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import RollingLink from '@/components/RollingText/RollingLink';
 import Marquee from '@/components/Marquee';
+import { SMOOTH } from '@/lib/motion';
+import { detectSoftwareRenderer } from '@/lib/webglRenderer';
 import dynamic from 'next/dynamic';
 
 /**
@@ -13,11 +15,15 @@ import dynamic from 'next/dynamic';
  * three.js + rapier 번들(전송 약 1.1MB, 실행 약 5초)이 하이드레이션 직후 메인 스레드를
  * 잡으면 첫 화면 텍스트가 그려지지 못해 LCP가 13초까지 밀렸다(P3-11 Lighthouse 실측).
  * 캔버스 마운트를 브라우저가 한가해진 뒤로 미루고, 그동안은 이 블록을 보여준다.
+ *
+ * 동작 줄이기 사용자와 소프트웨어 렌더러 환경에서는 이 블록이 최종 화면이다. 테두리 상자 안의
+ * 흐린 흑백 아바타는 로딩·실패 자리처럼 읽혀서, 상자를 없애고 아바타만 또렷하게 둔다(2026-09-16,
+ * 네 안 비교 후 선택). 영역 크기는 그대로 둔다 — 줄이면 캔버스가 뜰 때 아래 콘텐츠가 밀린다.
  */
 function CardPlaceholder() {
   return (
-    <div className='border-line flex h-full w-full items-center justify-center rounded-xl border bg-black/20'>
-      <div className="h-16 w-16 rounded-full bg-[url('/images/avatar.jpg')] bg-cover bg-center opacity-50 grayscale" />
+    <div className='flex h-full w-full items-center justify-center'>
+      <div className="h-24 w-24 rounded-full bg-[url('/images/avatar.jpg')] bg-cover bg-center" />
     </div>
   );
 }
@@ -46,14 +52,19 @@ export default function HeroSection() {
   // requestIdleCallback은 Safari에 없어 setTimeout으로 대체하고, 바쁜 페이지에서
   // 무한정 기다리지 않도록 timeout을 둔다.
   // 동작 줄이기 사용자에게는 흔들리는 3D 카드 대신 정적 플레이스홀더를 그대로 둔다
+  // GPU 없이 CPU로 WebGL을 그리는 환경도 플레이스홀더에 머문다 — 카드가 매 프레임 메인 스레드를
+  // 수백 ms씩 잡아 페이지 전체가 굳는다(PR #99). 판정은 LCP 이후 이 콜백에서 한 번만 한다
   const prefersReducedMotion = useReducedMotion();
   const [canvasReady, setCanvasReady] = useState(false);
   useEffect(() => {
+    const mountIfHardware = () => {
+      if (!detectSoftwareRenderer()) setCanvasReady(true);
+    };
     if (typeof window.requestIdleCallback === 'function') {
-      const id = window.requestIdleCallback(() => setCanvasReady(true), { timeout: 2000 });
+      const id = window.requestIdleCallback(mountIfHardware, { timeout: 2000 });
       return () => window.cancelIdleCallback(id);
     }
-    const id = window.setTimeout(() => setCanvasReady(true), 200);
+    const id = window.setTimeout(mountIfHardware, 200);
     return () => window.clearTimeout(id);
   }, []);
 
@@ -107,7 +118,7 @@ export default function HeroSection() {
             <motion.h1
               initial={{ y: 40 }}
               animate={{ y: 0 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              transition={{ duration: 1.1, ease: SMOOTH, delay: 0.15 }}
               className='mt-4 text-[clamp(1.1rem,3.5vw,3rem)] leading-[1.2] font-semibold md:mt-12 md:font-bold lg:mt-16'
             >
               명확함과 정교함, 그리고
@@ -144,7 +155,7 @@ export default function HeroSection() {
             style={{ y: textY, opacity: textOpacity, pointerEvents }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            transition={{ duration: 1.2, ease: SMOOTH, delay: 0.3 }}
             // 배경이미지(hero.jpg) 및 배경색상 제거, 투명(bg-transparent) 처리하여 로딩 중 여백 연출
             className='relative col-start-1 row-start-1 h-[120vw] w-full rounded-xl bg-transparent sm:h-[96vw] md:col-start-2 md:h-full md:min-h-[350px] lg:min-h-[400px]'
           >

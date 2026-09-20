@@ -23,6 +23,10 @@
   /* 홈 섹션 상단 간격 */
   --spacing-section: 140px;
   --spacing-section-lg: 180px;
+
+  /* 사이트 공통 easing(easeOutExpo). framer-motion 쪽은 src/lib/motion.ts의 SMOOTH가 같은 값이다 —
+     CSS 전환과 JS 애니메이션이 한 곡선으로 움직여야 하므로 한쪽만 바꾸지 않는다 */
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* 사이트 토큰 — 여기만 수정 */
