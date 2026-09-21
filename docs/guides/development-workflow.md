@@ -51,6 +51,19 @@ CI의 VRT는 Playwright 공식 컨테이너(`mcr.microsoft.com/playwright`) 안�
 - **로컬에서 특정 스냅샷만 반복해서 실패**하고 화면상 실제 변경이 없다면, 환경 차이일 가능성이 큽니다. 이때는 로컬에서 덮어쓰지 말고 **`Update Visual Snapshots` 워크플로(Actions → workflow_dispatch, 브랜치 지정)** 를 실행하세요 - 컨테이너에서 재촬영한 baseline이 해당 브랜치에 자동 커밋됩니다. 실행 후 `git pull`로 받아옵니다.
 - 반대로 컨테이너 기준 baseline은 macOS 로컬 `playwright test`에서 해당 스냅샷 1~2개가 실패할 수 있습니다. **CI가 통과하면 정상**이며, 로컬 실패를 없애려고 baseline을 로컬 촬영본으로 되돌리면 CI가 깨집니다.
 
+### 2-2. 화면을 바꿨는데 VRT가 통과하면 baseline이 낡은 것입니다
+
+허용치(`maxDiffPixelRatio: 0.05`)보다 작은 변화는 VRT가 잡지 않습니다. 넓은 영역 안의 작은 글자 하나가 대표적입니다 - 푸터에 `Privacy` 링크를 넣었을 때, 기준 이미지 대부분을 큰 워터마크가 차지해 차이가 5% 안에 들어갔고 **VRT는 통과했지만 baseline에는 링크가 없었습니다**(2026-09-22).
+
+이대로 두면 다음 변경을 옛 화면과 비교하게 되고, 그 요소가 사라져도 잡지 못합니다. `--update-snapshots`와 `Update Visual Snapshots` 워크플로도 **허용치 안이면 건너뛰므로**, 바뀐 화면의 baseline은 **지우고 다시 찍어야** 합니다.
+
+```bash
+git rm apps/portfolio/e2e/snapshot.spec.ts-snapshots/footer-baseline-*.png
+# 커밋·푸시 후 Update Visual Snapshots 워크플로 실행 - "doesn't exist"로 새로 촬영된다
+```
+
+봇 커밋 뒤에는 CI가 `action_required`로 멈추므로, 본인 계정 커밋을 하나 더 올려야 전체 검사가 다시 돕니다.
+
 ---
 
 ## 3. 🔵 핵심 비즈니스 로직(함수 등)을 수정했을 때 (Jest)
