@@ -9,10 +9,12 @@ const STATIC_ROUTES = [
   { path: '/projects', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/resume', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/contact', priority: 0.5, changeFrequency: 'yearly' as const },
+  // 검색 유입을 노리는 페이지는 아니지만, 처리방침은 언제든 찾아볼 수 있어야 한다
+  { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' as const },
 ];
 
 /**
- * sitemap.xml — 프로젝트 상세는 MDX에서 동적으로 채운다.
+ * sitemap.xml - 프로젝트 상세는 MDX에서 동적으로 채운다.
  *
  * 목록을 손으로 관리하면 MDX를 추가했을 때 빠뜨리기 쉬우므로,
  * 상세 페이지를 정적 생성할 때 쓰는 `getAllProjects()`를 그대로 재사용한다.
