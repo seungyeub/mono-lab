@@ -40,7 +40,7 @@ function ProjectCard({ project, delay = 0, aspectClass = 'aspect-[16/10]' }: Car
             </div>
           </>
         ) : (
-          // 에셋 미확보 프로젝트 — 빈 상자 대신 제목을 읽히게 둔다
+          // 에셋 미확보 프로젝트 - 빈 상자 대신 제목을 읽히게 둔다
           <div className='absolute inset-0 flex items-center justify-center px-6'>
             <span className='text-center text-sm tracking-widest text-white/50 uppercase transition-colors duration-300 group-hover:text-white/70'>
               {project.title}
@@ -105,7 +105,7 @@ export default function ProjectsSection({ projects }: { projects: ProjectCard[] 
           <div className='w-full lg:w-6/12 xl:w-5/12'>
             <div className='z-10 flex flex-col justify-center gap-10 py-10 lg:sticky lg:top-0 lg:h-screen lg:gap-12 lg:py-0'>
               <motion.div {...reveal('displayTitle')} className='w-full font-semibold'>
-                {/* 페이지의 h1은 Hero의 자기소개 한 문장이다. 섹션 제목은 h2로 둔다 —
+                {/* 페이지의 h1은 Hero의 자기소개 한 문장이다. 섹션 제목은 h2로 둔다 -
                     시각 크기는 클래스로 유지하므로 화면은 그대로다 (P2-5) */}
                 <h2 className='text-7xl tracking-tight md:text-8xl lg:text-9xl'>Projects.</h2>
               </motion.div>
@@ -139,7 +139,7 @@ export default function ProjectsSection({ projects }: { projects: ProjectCard[] 
           <div className='grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-8 lg:w-6/12 lg:grid-cols-1 lg:gap-12 lg:pt-24 xl:w-7/12 xl:grid-cols-2 xl:gap-8'>
             {projects.map((p, i) => (
               <div key={p.slug} className={i % 2 === 1 ? 'md:pt-16 lg:pt-0 xl:pt-16' : undefined}>
-                {/* 시차는 2열일 때 같은 행의 두 카드 사이에만 준다 — 순번 누적은 아래쪽
+                {/* 시차는 2열일 때 같은 행의 두 카드 사이에만 준다 - 순번 누적은 아래쪽
                     카드를 홀로 등장시키면서도 0.5초까지 기다리게 해 느리게 느껴졌다 */}
                 <ProjectCard
                   project={p}

@@ -12,7 +12,7 @@ import {
 /**
  * schema.org 구조화 데이터 빌더.
  *
- * 모두 화면에 이미 있는 내용만 옮긴다 — 구조화 데이터에만 있고 본문에 없는 주장은
+ * 모두 화면에 이미 있는 내용만 옮긴다 - 구조화 데이터에만 있고 본문에 없는 주장은
  * 검색엔진이 스팸으로 볼 수 있고, 무엇보다 사실이 어긋나기 시작하는 지점이다.
  */
 
@@ -21,7 +21,7 @@ import {
  *
  * 월은 01~12만 받고, 종료가 시작보다 이르면 통째로 버린다.
  * 형식만 맞으면 통과시키면 `2024.00`이나 역순 기간이 그대로 나가서
- * 크롤러가 잘못된 날짜를 읽는다 — 의심스러우면 필드를 만들지 않는 편이 낫다.
+ * 크롤러가 잘못된 날짜를 읽는다 - 의심스러우면 필드를 만들지 않는 편이 낫다.
  */
 function parsePeriod(period: string): { start?: string; end?: string } {
   const match = /^(\d{4})\.(0[1-9]|1[0-2])\s*-\s*(\d{4})\.(0[1-9]|1[0-2])$/.exec(period.trim());
@@ -31,13 +31,13 @@ function parsePeriod(period: string): { start?: string; end?: string } {
   const start = `${sy}-${sm}`;
   const end = `${ey}-${em}`;
 
-  // 문자열 비교로 충분하다 — 둘 다 YYYY-MM 고정 폭이다
+  // 문자열 비교로 충분하다 - 둘 다 YYYY-MM 고정 폭이다
   if (end < start) return {};
 
   return { start, end };
 }
 
-/** 사람 — 이 사이트의 주체. 경력은 화면의 Experience 표와 같은 데이터를 쓴다 */
+/** 사람 - 이 사이트의 주체. 경력은 화면의 Experience 표와 같은 데이터를 쓴다 */
 export function buildPersonSchema(): Record<string, unknown> {
   return {
     '@context': 'https://schema.org',
@@ -105,7 +105,7 @@ export function buildFaqSchema(): Record<string, unknown> {
   };
 }
 
-/** 프로젝트 상세 — 경로 계층을 크롤러에게 알린다 */
+/** 프로젝트 상세 - 경로 계층을 크롤러에게 알린다 */
 export function buildBreadcrumbSchema(
   trail: { name: string; path: string }[],
 ): Record<string, unknown> {
@@ -121,7 +121,7 @@ export function buildBreadcrumbSchema(
   };
 }
 
-/** 프로젝트 상세 본문 — 저자와 기술 키워드를 명시한다 */
+/** 프로젝트 상세 본문 - 저자와 기술 키워드를 명시한다 */
 export function buildCreativeWorkSchema(project: {
   slug: string;
   title: string;

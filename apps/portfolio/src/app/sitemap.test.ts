@@ -13,7 +13,7 @@ describe('sitemap', () => {
   const urls = entries.map((entry) => entry.url);
 
   it('MDX 프로젝트를 하나도 빠뜨리지 않는다', () => {
-    // 목록을 손으로 관리하면 MDX 추가 시 누락된다 — 같은 소스에서 나와야 한다
+    // 목록을 손으로 관리하면 MDX 추가 시 누락된다 - 같은 소스에서 나와야 한다
     getAllProjects().forEach(({ slug }) => {
       expect(urls).toContain(`${SITE_URL}/projects/${slug}`);
     });
@@ -31,7 +31,7 @@ describe('sitemap', () => {
   });
 
   it('리다이렉트되는 구 경로는 싣지 않는다', () => {
-    // /gallery는 /resume로 301된다 — 색인시키면 중복 신호가 된다
+    // /gallery는 /resume로 301된다 - 색인시키면 중복 신호가 된다
     expect(urls).not.toContain(`${SITE_URL}/gallery`);
   });
 
@@ -68,7 +68,7 @@ describe('robots', () => {
     const rules = Array.isArray(result.rules) ? result.rules[0] : result.rules;
     expect(rules?.userAgent).toBe('*');
     expect(rules?.allow).toBe('/');
-    // 공개 포트폴리오라 숨길 경로가 없다 — disallow가 생기면 의도한 변경인지 확인해야 한다
+    // 공개 포트폴리오라 숨길 경로가 없다 - disallow가 생기면 의도한 변경인지 확인해야 한다
     expect(rules?.disallow).toBeUndefined();
   });
 });

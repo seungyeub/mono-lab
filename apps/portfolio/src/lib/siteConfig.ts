@@ -1,5 +1,5 @@
 /**
- * 사이트 전역 상수 — 절대 URL이 필요한 곳(canonical·sitemap·robots·OG·JSON-LD)의 단일 소스.
+ * 사이트 전역 상수 - 절대 URL이 필요한 곳(canonical·sitemap·robots·OG·JSON-LD)의 단일 소스.
  *
  * 도메인을 여러 파일에 흩어 두면 하나만 고쳐졌을 때 canonical과 sitemap이
  * 서로 다른 호스트를 가리키게 되고, 그 상태는 크롤러에게만 보여서 늦게 발견된다.
@@ -23,12 +23,12 @@ export const OG_IMAGE_HEIGHT = 630;
 /**
  * Google Search Console 소유 확인 토큰.
  *
- * 비밀값이 아니라 공개 검증용 문자열이다 — 페이지 소스에 그대로 렌더링된다.
+ * 비밀값이 아니라 공개 검증용 문자열이다 - 페이지 소스에 그대로 렌더링된다.
  * HTML 파일 업로드 대신 메타 태그 방식을 쓴 이유: public/에 정체불명 파일이
  * 놓이면 나중에 정리하다 지워져 검증이 조용히 풀린다. 여기 두면 이유를
  * 주석으로 남길 수 있고 지우려면 의도적으로 코드를 건드려야 한다.
  *
- * 커스텀 도메인을 붙이면 DNS TXT 방식(도메인 속성)으로 바꾸는 편이 낫다 —
+ * 커스텀 도메인을 붙이면 DNS TXT 방식(도메인 속성)으로 바꾸는 편이 낫다 -
  * 서브도메인과 프로토콜을 한 번에 덮는다. vercel.app은 DNS를 만질 수 없어
  * 지금은 쓸 수 없다.
  */
@@ -40,7 +40,7 @@ export const SITE_LOCALE = 'ko_KR';
 export const SITE_LANG = 'ko';
 
 /**
- * GA4 측정 ID(G-…). 비어 있으면 분석 스크립트를 싣지 않는다 — 로컬·프리뷰에서
+ * GA4 측정 ID(G-…). 비어 있으면 분석 스크립트를 싣지 않는다 - 로컬·프리뷰에서
  * 실제 데이터가 섞이지 않게 하고, 등록 전 배포에서도 오류 없이 동작하게 한다.
  * 공개 값이라 NEXT_PUBLIC_으로 두며 빌드 시점에 번들에 박힌다.
  */
@@ -49,7 +49,7 @@ export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''
 /** 화면에 공개하는 연락 이메일. 문의 폼이 막혔을 때의 대체 안내에도 쓴다 */
 export const CONTACT_PUBLIC_EMAIL = 'superior051@gmail.com';
 
-/** JSON-LD Person에 싣는 공개 프로필 — Footer·Contact에 이미 노출된 것과 같아야 한다 */
+/** JSON-LD Person에 싣는 공개 프로필 - Footer·Contact에 이미 노출된 것과 같아야 한다 */
 export const SOCIAL_PROFILES = [
   'https://github.com/seungyeub',
   'https://www.linkedin.com/in/seungyeub-baek-23aa9016a/',
@@ -79,7 +79,7 @@ interface PageOpenGraphInput {
  * 사라진다. 페이지마다 손으로 채우면 반드시 빠뜨리는 것이 생기고,
  * 그 결과는 링크를 공유해 봐야만 드러난다.
  *
- * 그래서 공유 필드를 여기서 항상 채운다 — 페이지는 고유한 값만 넘기면 된다.
+ * 그래서 공유 필드를 여기서 항상 채운다 - 페이지는 고유한 값만 넘기면 된다.
  */
 export function buildPageOpenGraph({
   title,
@@ -93,7 +93,7 @@ export function buildPageOpenGraph({
       url: image ?? OG_IMAGE,
       width: OG_IMAGE_WIDTH,
       height: OG_IMAGE_HEIGHT,
-      alt: `${title} — ${SITE_NAME}`,
+      alt: `${title} - ${SITE_NAME}`,
     },
   ];
 

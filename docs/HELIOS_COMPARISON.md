@@ -47,8 +47,8 @@
 
 | 항목                                  | 레퍼런스                            | 프로젝트                                                     |
 | ------------------------------------- | ----------------------------------- | ------------------------------------------------------------ |
-| `© Curated Interfaces ビジュアル` 띠 | **가로 무한 스크롤** (여러 줄 반복) | `EditorialDivider` — **정적** 3열, `text-[10px]`, `white/30` |
-| WDX® 스타일 라벨                     | `(WDX® — 03)` 등 섹션 번호         | 프로젝트 divider에는 **WDX 번호 없음**                       |
+| `© Curated Interfaces ビジュアル` 띠 | **가로 무한 스크롤** (여러 줄 반복) | `EditorialDivider` - **정적** 3열, `text-[10px]`, `white/30` |
+| WDX® 스타일 라벨                     | `(WDX® - 03)` 등 섹션 번호         | 프로젝트 divider에는 **WDX 번호 없음**                       |
 
 ---
 
@@ -72,7 +72,7 @@
 | ----------- | -------------------------------- | ----------------------------------------------------------- |
 | 헤더        | 고정 네비, mix-blend 느낌 가능   | `mixBlendMode: 'difference'` (`Header.tsx`)                 |
 | 커스텀 커서 | Framer 인터랙션 (링크·카드 반응) | 원형 커서 + `difference` / `VIEW` 라벨 (`CustomCursor.tsx`) |
-| 선택 영역   | —                                | `selection:bg-white selection:text-black`                   |
+| 선택 영역   | -                                | `selection:bg-white selection:text-black`                   |
 
 ---
 
@@ -177,7 +177,7 @@
 | 효과      | 레퍼런스  | 프로젝트                                                            |
 | --------- | --------- | ------------------------------------------------------------------- |
 | Nav hover | 글자 롤링 | `RollingText` 글자별 25ms delay ✅                                  |
-| 스크롤 시 | 고정      | 아래 스크롤 시 **헤더 숨김** (`y: -100%`) — 레퍼런스에 없을 수 있음 |
+| 스크롤 시 | 고정      | 아래 스크롤 시 **헤더 숨김** (`y: -100%`) - 레퍼런스에 없을 수 있음 |
 
 ### 5.4 Featured Works / Work 카드
 
@@ -260,7 +260,7 @@
 
 ## 10. 우선순위별 정합화 제안
 
-### P0 — 레퍼런스 정체성에 큰 영향
+### P0 - 레퍼런스 정체성에 큰 영향
 
 1. **Practice.** 글자 분해 + 스크롤 모션 섹션 추가
 2. **Experience 탭** (Freelance / Agency / Studio / Client)
@@ -269,19 +269,19 @@
 5. Featured Works **인트로 문단** + CTA `SEE WORKS`
 6. Services 섹션 제목 **`Services` + `(6)`** 및 레이아웃 재검토
 
-### P1 — 시각·타이포
+### P1 - 시각·타이포
 
 7. Inter → 레퍼런스에 가까운 **커스텀 웹폰트** (예: geometric sans)
 8. placeholder 이미지 → 실 asset 교체
 9. Featured Works **프로젝트 순서** 레퍼런스와 동일화
 
-### P2 — 폴리시
+### P2 - 폴리시
 
 10. Hero 마르퀴에 **Web Design** 추가
 11. Profile 섹션 **SEE WORKS** CTA
 12. FAQ 질문·제목 레퍼런스 문구 정렬 (또는 의도적 차이 문서화)
 13. Footer 캐러셀 **인물/비주얼** vs 프로젝트 썸네일 선택
-14. PageLoader·헤더 hide on scroll — 레퍼런스와 맞출지 결정
+14. PageLoader·헤더 hide on scroll - 레퍼런스와 맞출지 결정
 
 ---
 

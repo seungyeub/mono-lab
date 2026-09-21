@@ -5,7 +5,7 @@ import TagBar from './TagBar';
 /**
  * TagBar는 Skills·Experience·Epilogue 세 곳이 공유한다.
  * Skills만 좁은 화면에서 숨기기로 했으므로(P3-9), 그 구분이 호출부의 className으로
- * 이뤄진다는 계약을 고정한다 — 컴포넌트 자체가 반응형을 결정하면 나머지 두 곳까지
+ * 이뤄진다는 계약을 고정한다 - 컴포넌트 자체가 반응형을 결정하면 나머지 두 곳까지
  * 같이 바뀐다.
  */
 describe('TagBar', () => {

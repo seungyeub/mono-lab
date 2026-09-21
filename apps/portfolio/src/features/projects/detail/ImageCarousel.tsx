@@ -6,11 +6,11 @@ import { useCursorStore } from '@/store/useCursorStore';
 import ImageLightbox from './ImageLightbox';
 
 /**
- * 상세 페이지 이미지 캐러셀 — 3초 간격 자동 순환 + 하단 도트 네비게이션.
+ * 상세 페이지 이미지 캐러셀 - 3초 간격 자동 순환 + 하단 도트 네비게이션.
  * 이미지는 서버에서 실존 검증(filterExistingPublicImages)을 마친 경로만 받는다.
  * 이미지가 없으면 프로젝트 제목을 타이포 플레이스홀더로 보여준다(빈 박스 방지).
  *
- * 프레임은 목록(/projects) 카드와 같은 규칙이다 — 비율 고정 + contain이라 캡쳐가
+ * 프레임은 목록(/projects) 카드와 같은 규칙이다 - 비율 고정 + contain이라 캡쳐가
  * 세로든 와이드든 잘리지 않고, 남는 자리는 배경으로 둔다. 그만큼 작게 보이므로
  * 클릭하면 라이트박스로 크게 볼 수 있다.
  */
@@ -58,14 +58,14 @@ export default function ImageCarousel({
   };
 
   // 라이트박스가 뒤로가기 처리를 위해 열림 시점에 히스토리를 얹으므로,
-  // onClose가 매 렌더 새로 만들어지면 항목이 쌓인다 — 참조를 고정한다
+  // onClose가 매 렌더 새로 만들어지면 항목이 쌓인다 - 참조를 고정한다
   const closeLightbox = useCallback(() => {
     setLightboxIndex(null);
   }, []);
 
   return (
     <>
-      {/* 움직임을 멈출 방법을 준다 — 가리키거나 키보드로 들어오면 순환을 세운다 */}
+      {/* 움직임을 멈출 방법을 준다 - 가리키거나 키보드로 들어오면 순환을 세운다 */}
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -75,7 +75,7 @@ export default function ImageCarousel({
       >
         {hasImages ? (
           <>
-            {/* 이미지 전체가 클릭 대상 — 커서는 홈 카드와 같은 'view'(확대 + VIEW 라벨) */}
+            {/* 이미지 전체가 클릭 대상 - 커서는 홈 카드와 같은 'view'(확대 + VIEW 라벨) */}
             <button
               type='button'
               onClick={openLightbox}
@@ -106,7 +106,7 @@ export default function ImageCarousel({
 
         {hasCarousel && (
           <div className='absolute bottom-2 left-1/2 z-20 flex -translate-x-1/2 items-center'>
-            {/* 움직임을 끄고 켤 수 있는 명시적 제어 — 끄면 벗어나도 유지된다.
+            {/* 움직임을 끄고 켤 수 있는 명시적 제어 - 끄면 벗어나도 유지된다.
                 글리프 크기는 그대로 두고 색을 올려 보이게 하고, 클릭 영역만 24px로 넓혀 터치 기준을 채운다 */}
             <button
               type='button'

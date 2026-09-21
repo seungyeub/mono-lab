@@ -1,6 +1,6 @@
 # mono-lab
 
-**Turborepo + pnpm 기반의 모노레포** — 개인 프론트엔드 프로젝트들을 하나의 저장소에서 관리합니다.
+**Turborepo + pnpm 기반의 모노레포** - 개인 프론트엔드 프로젝트들을 하나의 저장소에서 관리합니다.
 
 ## 🚀 기술 스택
 
@@ -18,14 +18,14 @@
 
 ### Apps
 
-- `apps/portfolio` — 개인 포트폴리오 웹사이트 ([상세 README](apps/portfolio/README.md))
+- `apps/portfolio` - 개인 포트폴리오 웹사이트 ([상세 README](apps/portfolio/README.md))
 
 ### Packages
 
-- `packages/ui` — 여러 앱에서 공유 가능한 React UI 컴포넌트
-- `packages/eslint-config` — 공통 ESLint 설정 (Next.js 지원 포함)
-- `packages/typescript-config` — 공통 `tsconfig.json` 설정
-- `packages/tailwind-config` — 공통 Tailwind CSS 설정
+- `packages/ui` - 여러 앱에서 공유 가능한 React UI 컴포넌트
+- `packages/eslint-config` - 공통 ESLint 설정 (Next.js 지원 포함)
+- `packages/typescript-config` - 공통 `tsconfig.json` 설정
+- `packages/tailwind-config` - 공통 Tailwind CSS 설정
 
 ### 새 앱을 추가할 때
 

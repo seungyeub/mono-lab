@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * WordRoller — Helios 스타일 자동 단어 교체 롤링 텍스트.
+ * WordRoller - Helios 스타일 자동 단어 교체 롤링 텍스트.
  *
  * 동작 원리:
  *  - `words` 배열의 단어들을 일정 간격(interval)으로 순환.
@@ -72,7 +72,7 @@ export default function WordRoller({
              * 핵심: 각 글자를 overflow:hidden + inline-block 슬롯으로 감쌈.
              * 슬롯 밖으로 이동한 글자(y > 100% 또는 y < -100%)는
              * 클립되어 보이지 않으므로 잔상이 완전히 사라짐.
-             * opacity 는 제거 — 투명도 겹침이 잔상의 주원인이었음.
+             * opacity 는 제거 - 투명도 겹침이 잔상의 주원인이었음.
              */
             <span
               key={i}
@@ -96,7 +96,7 @@ export default function WordRoller({
                     transition: {
                       duration,
                       delay: i * staggerSec,
-                      ease: SMOOTH, // easeOutExpo — Helios 느낌
+                      ease: SMOOTH, // easeOutExpo - Helios 느낌
                     },
                   },
                   exit: {

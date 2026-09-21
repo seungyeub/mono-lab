@@ -65,7 +65,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-playwright-
 
-      # 브라우저 설치 단계 없음 — 컨테이너 이미지에 chromium·webkit과 필요한 OS
+      # 브라우저 설치 단계 없음 - 컨테이너 이미지에 chromium·webkit과 필요한 OS
       # 라이브러리가 모두 내장되어 있다(PLAYWRIGHT_BROWSERS_PATH=/ms-playwright).
       #
       # 이미지 태그가 @playwright/test 버전과 어긋나면 브라우저를 찾지 못해 테스트가

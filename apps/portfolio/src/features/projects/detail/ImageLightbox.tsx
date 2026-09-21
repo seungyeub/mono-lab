@@ -29,7 +29,7 @@ export default function ImageLightbox({
   const isOpen = index !== null;
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
-  /** 닫은 뒤 포커스를 돌려줄 자리 — 모달을 연 그 버튼 */
+  /** 닫은 뒤 포커스를 돌려줄 자리 - 모달을 연 그 버튼 */
   const triggerRef = useRef<Element | null>(null);
 
   const goPrev = useCallback(() => {
@@ -66,7 +66,7 @@ export default function ImageLightbox({
       if (event.key === 'ArrowRight') goNext();
       if (event.key !== 'Tab') return;
 
-      // aria-modal만으로는 Tab이 뒤 페이지로 새어 나간다 — 순환을 대화상자 안에 가둔다
+      // aria-modal만으로는 Tab이 뒤 페이지로 새어 나간다 - 순환을 대화상자 안에 가둔다
       const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
         'button:not([tabindex="-1"]), [href], [tabindex]:not([tabindex="-1"])',
       );
@@ -156,12 +156,12 @@ export default function ImageLightbox({
             aria-label='닫기'
             text='Close (ESC)'
             textClassName='font-bold tracking-tight'
-            // 이미지가 화면을 꽉 채우면 버튼이 밝은 화면 위에 얹혀 묻힌다 — 자체 배경을 준다
+            // 이미지가 화면을 꽉 채우면 버튼이 밝은 화면 위에 얹혀 묻힌다 - 자체 배경을 준다
             className='absolute top-4 right-4 z-20 rounded-full border-2 border-white bg-black/70 px-5 py-2 text-xs tracking-widest text-white uppercase backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black md:top-8 md:right-8'
           />
 
           <div className='relative z-10 flex max-h-full w-full max-w-6xl flex-col items-center gap-4'>
-            {/* 좌우로 쓸어넘기기 — 터치와 마우스 드래그 모두 같은 제스처로 처리된다 */}
+            {/* 좌우로 쓸어넘기기 - 터치와 마우스 드래그 모두 같은 제스처로 처리된다 */}
             <motion.img
               key={images[index]}
               src={images[index]}

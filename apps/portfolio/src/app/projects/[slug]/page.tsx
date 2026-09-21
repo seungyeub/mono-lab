@@ -41,10 +41,10 @@ export async function generateMetadata({
   if (!seo) return {};
 
   // 공유 카드용 이미지를 고른다. 순서에 이유가 있다.
-  // 1) `/images/og/<slug>.jpg` — 1200x630으로 맞춰 둔 전용 이미지. 카드 이미지는 비율이
+  // 1) `/images/og/<slug>.jpg` - 1200x630으로 맞춰 둔 전용 이미지. 카드 이미지는 비율이
   //    제각각이라 플랫폼이 임의로 잘라내고, WebP는 일부 메신저가 렌더링하지 못한다.
   // 2) 전용 이미지가 없으면 카드 이미지를 쓴다.
-  // 3) 둘 다 없으면 헬퍼가 사이트 기본 이미지로 채운다 — 없는 경로를 내보내면
+  // 3) 둘 다 없으면 헬퍼가 사이트 기본 이미지로 채운다 - 없는 경로를 내보내면
   //    미리보기가 깨진 채로 공유된다.
   const { meta } = getProjectBySlug(slug);
   const ogImagePath = `/images/og/${slug}.jpg`;
@@ -143,7 +143,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
       <ProjectDetailHero meta={meta} heroImages={heroImages} />
 
       <div className='site-container w-full px-6 pb-24 md:px-12'>
-        {/* MDX 서사 — 배경·과정을 산문으로 잇는 우리 사이트의 에디토리얼 축 */}
+        {/* MDX 서사 - 배경·과정을 산문으로 잇는 우리 사이트의 에디토리얼 축 */}
         <section className='mt-20 md:mt-28'>
           <SectionHeading
             eyebrow='Project Story'
@@ -163,7 +163,7 @@ export default async function ProjectDetail({ params }: { params: Promise<Projec
         <ExploreCta liveUrl={meta.liveUrl} github={meta.github} />
       </div>
 
-      {/* ── Next Project — 순차 탐색 ── */}
+      {/* ── Next Project - 순차 탐색 ── */}
       {nextProject && (
         <section className='border-line border-t px-6 py-12 md:px-12 md:py-16'>
           <Link href={`/projects/${nextProject.slug}`} className='group flex flex-col gap-3'>

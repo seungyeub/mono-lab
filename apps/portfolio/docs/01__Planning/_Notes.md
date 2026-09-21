@@ -45,14 +45,14 @@ GitHub 레포: `https://github.com/seungyeub/frontend-foundation`
 
 ### Skills Section 레퍼런스 분석 인사이트
 
-**Site A — Syahril Arfian Almazril (`syahrilarfianalmazril.my.id`)**
+**Site A - Syahril Arfian Almazril (`syahrilarfianalmazril.my.id`)**
 
 - 별도 `/skills` 페이지로 분리 (홈과 독립)
 - 로봇 3D 아이콘 활용, 시각적으로 임팩트 강함
 - 카드 그리드 + 인라인 칩 혼합 레이아웃
 - 스크롤 기반 등장 애니메이션
 
-**Site B — Mahesh P Pai (`maheshppai-v1.netlify.app`)**
+**Site B - Mahesh P Pai (`maheshppai-v1.netlify.app`)**
 
 - 홈 페이지 내 섹션으로 통합 (별도 페이지 없음)
 - 프로젝트 카드 내 태그 형식 (컴팩트, 정보 밀도 높음)
@@ -124,19 +124,19 @@ PR #11, #12에서 전역 레이아웃과 CSS Sticky 포지션이 충돌하는 �
 
 ---
 
-## 2026-07-20 — Footer GIF 캐러셀
+## 2026-07-20 - Footer GIF 캐러셀
 
 ### Footer GIF 캐러셀 구현 경험
 
 - 외부 GIF를 `next/image` 대신 일반 `<img>` 태그로 로드하는 것이 적합 (Next.js 이미지 최적화 불필요)
 - CLS 방지: `<img>`에 명시적 `width`/`height` 속성 필수
 - `will-change-transform` GPU 가속 및 700s 무한 marquee 애니메이션 적용
-- 81개 GIF 데이터를 `carouselGifs.ts`로 데이터 모듈 분리 — 컴포넌트 파일 크기 절감
+- 81개 GIF 데이터를 `carouselGifs.ts`로 데이터 모듈 분리 - 컴포넌트 파일 크기 절감
 - inline `style={{ fontSize }}` → Tailwind v4 arbitrary value 클래스(`text-[min(14vw,12rem)]`)로 전환
 
 ---
 
-## 2026-07-20 — 커서 상태 체계 통일
+## 2026-07-20 - 커서 상태 체계 통일
 
 ### 커서 상태 체계 통일 및 타입 안전성 강화
 
@@ -148,36 +148,36 @@ PR #11, #12에서 전역 레이아웃과 CSS Sticky 포지션이 충돌하는 �
 
 ---
 
-## 2026-08-18 — ExperienceSection 리팩토링
+## 2026-08-18 - ExperienceSection 리팩토링
 
 ### ExperienceSection 데이터 리팩토링 인사이트
 
-- 속성명은 데이터의 의미를 정확히 반영해야 한다 — `stack`(기술 스택 연상) → `type`(직무 형태)이 적합
+- 속성명은 데이터의 의미를 정확히 반영해야 한다 - `stack`(기술 스택 연상) → `type`(직무 형태)이 적합
 - 반복되는 Tailwind arbitrary value는 테마 토큰으로 추출해야 유지보수성이 높아진다 (CodeRabbit 리뷰에서 학습)
-- `Junier` → `Junior` 오타 수정 — 데이터 입력 시 맞춤법 검증 없이 방치된 사례, 향후 데이터 검증 레이어 고려
+- `Junier` → `Junior` 오타 수정 - 데이터 입력 시 맞춤법 검증 없이 방치된 사례, 향후 데이터 검증 레이어 고려
 
 ---
 
-## 2026-08-18 — Phase 5 PRD 준비
+## 2026-08-18 - Phase 5 PRD 준비
 
-### Phase 5 PRD — Work Detail 레퍼런스(`3d-portfolio-ruby-nine.vercel.app`) 분석
+### Phase 5 PRD - Work Detail 레퍼런스(`3d-portfolio-ruby-nine.vercel.app`) 분석
 
 Vite + React SPA(SSR 없음, Three.js/R3F + GSAP `ScrollTrigger`/`ScrollSmoother` 기반)라 정적 HTML에 콘텐츠가 없어, 프로덕션 JS 번들(`assets/index-*.js`)에서 UI 문자열을 직접 추출해 구조를 역산했다.
 
 - 프로젝트 상세는 **Overview → Technology Stack → Impact & Results → 차별점** 4단 구조.
 - **Live Demo + View Source Code** 이중 CTA를 항상 함께 노출(GitHub URL이 프로젝트별로 존재).
 - 상세 페이지 하단에 **Next Project 순차 네비게이션** + Back to Portfolio.
-- 우리 `ProjectMetadata`(`src/lib/mdx.ts`)에는 `techStack`/`github` 필드가 아예 없다는 것을 이 비교 과정에서 확인 — Phase 5 P1-1에서 스키마 확장 필요.
+- 우리 `ProjectMetadata`(`src/lib/mdx.ts`)에는 `techStack`/`github` 필드가 아예 없다는 것을 이 비교 과정에서 확인 - Phase 5 P1-1에서 스키마 확장 필요.
 
-### Phase 5 PRD — 코드 감사 중 발견한 추가 사실
+### Phase 5 PRD - 코드 감사 중 발견한 추가 사실
 
-- `src/contents/work/meltdown.mdx` 등 MDX 4개는 Helios 템플릿 원본의 **가상 브랜드 디자인 에이전시 카피**를 그대로 사용 중("tier-1 investors" 등). 메타데이터만 "Frontend Engineer"로 바꿔도 Work 본문은 여전히 브랜드 디자이너 서사로 남는 구조적 문제 — GEO 관점에서 본문 재작성이 메타데이터 수정만큼 중요함.
-- `public/icons/`의 `antigravity.svg`가 2.4MB, `zustand.svg`가 190KB로 확인됨 — 2026-06-21 노트에서 언급한 "7개 placeholder"보다 실제로는 `customIconPath` 사용처가 15개로 늘어나 있었고, 그중 일부는 용량 문제(비최적화 SVG)까지 겹쳐 있음.
-- `WorksSection.tsx`의 `PROJECTS`(6개, 하드코딩)와 `getAllProjects()`가 읽는 MDX(4개)가 서로 다른 데이터 소스라는 것을 코드 대조로 확인 — id 5·6은 제목이 `'Animal & Birds'`로 동일하고 `href='#'`인 죽은 카드.
+- `src/contents/work/meltdown.mdx` 등 MDX 4개는 Helios 템플릿 원본의 **가상 브랜드 디자인 에이전시 카피**를 그대로 사용 중("tier-1 investors" 등). 메타데이터만 "Frontend Engineer"로 바꿔도 Work 본문은 여전히 브랜드 디자이너 서사로 남는 구조적 문제 - GEO 관점에서 본문 재작성이 메타데이터 수정만큼 중요함.
+- `public/icons/`의 `antigravity.svg`가 2.4MB, `zustand.svg`가 190KB로 확인됨 - 2026-06-21 노트에서 언급한 "7개 placeholder"보다 실제로는 `customIconPath` 사용처가 15개로 늘어나 있었고, 그중 일부는 용량 문제(비최적화 SVG)까지 겹쳐 있음.
+- `WorksSection.tsx`의 `PROJECTS`(6개, 하드코딩)와 `getAllProjects()`가 읽는 MDX(4개)가 서로 다른 데이터 소스라는 것을 코드 대조로 확인 - id 5·6은 제목이 `'Animal & Birds'`로 동일하고 `href='#'`인 죽은 카드.
 
 ---
 
-## 2026-08-18 ~ 09-02 — Phase 5 P0 전항목 완료 인사이트
+## 2026-08-18 ~ 09-02 - Phase 5 P0 전항목 완료 인사이트
 
 ### P0-1. 메타데이터 포지셔닝 교체 (PR #42, #43, #44)
 
@@ -192,7 +192,7 @@ Vite + React SPA(SSR 없음, Three.js/R3F + GSAP `ScrollTrigger`/`ScrollSmoother
 
 ### P0-3. Work Detail 플레이스홀더 제거 (PR #46)
 
-- `filterExistingPublicImages` 유틸리티 신설 — 빌드 타임에 `public/` 디렉토리를 스캔하여 실제 존재하는 이미지만 렌더링
+- `filterExistingPublicImages` 유틸리티 신설 - 빌드 타임에 `public/` 디렉토리를 스캔하여 실제 존재하는 이미지만 렌더링
 - 보안: `public` 디렉토리 경계 검증 로직 추가, 일반 파일만 허용 (심볼릭 링크/디렉토리 제외)
 - 프로젝트별 자료가 준비되는 대로 해당 영역이 자동 활성화되는 점진적 콘텐츠 채움 패턴 확립
 
@@ -213,7 +213,7 @@ Vite + React SPA(SSR 없음, Three.js/R3F + GSAP `ScrollTrigger`/`ScrollSmoother
 
 ### 인프라 개선
 
-- **Playwright CI 컨테이너 전환 (PR #49)**: apt 정체 근본 해결 — 공식 Docker 컨테이너로 전환하여 브라우저 설치 단계 자체를 제거
+- **Playwright CI 컨테이너 전환 (PR #49)**: apt 정체 근본 해결 - 공식 Docker 컨테이너로 전환하여 브라우저 설치 단계 자체를 제거
 - **Turborepo 업그레이드 (PR #50)**: 2.9.14 → 2.10.11, `turbo.json` `$schema`를 버전 비고정 URL로 변경
 - **CI 안정화**: `actions/cache` SHA 고정, dubious ownership 수정, VRT 스냅샷 자동 커밋 인증 문제 수정
 

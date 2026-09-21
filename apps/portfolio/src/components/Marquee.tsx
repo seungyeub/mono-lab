@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Marquee — CSS keyframe 기반 무한 좌→우 스크롤 텍스트 띠.
+ * Marquee - CSS keyframe 기반 무한 좌→우 스크롤 텍스트 띠.
  * 레퍼런스 사이트(Helios)의 여러 구분선 역할 마르퀴와 동일한 느낌.
  *
  * 사용 예시:
@@ -15,7 +15,7 @@ interface MarqueeProps {
   items: string[];
   /** 구분자 (기본: ✦) */
   separator?: string;
-  /** 이동 속도 — 낮을수록 빠름 (px/s 기준, 기본 60) */
+  /** 이동 속도 - 낮을수록 빠름 (px/s 기준, 기본 60) */
   speed?: number;
   /** 추가 클래스 */
   className?: string;
@@ -41,7 +41,7 @@ export default function Marquee({
   }, [speed]);
 
   // 아이템을 두 벌 복사 (seamless loop용). 트랙은 -50%만 이동하므로 두 벌 사이 gap이 하나 모자라면
-  // 이음새가 반 gap만큼 튄다 — 트랙 끝 padding(pr)이 그 gap 역할을 해 이동 거리가 정확히 한 벌이 된다.
+  // 이음새가 반 gap만큼 튄다 - 트랙 끝 padding(pr)이 그 gap 역할을 해 이동 거리가 정확히 한 벌이 된다.
   const allItems = [...items, ...items];
 
   return (

@@ -16,16 +16,16 @@ Vincent Driessen이 2010년에 제안한 모델이다. 그는 2020년에 같은 
 
 | 브랜치                  | 어디서 분기 | 어디로 머지                 | 역할                                                                                          |
 | ----------------------- | ----------- | --------------------------- | --------------------------------------------------------------------------------------------- |
-| `master`                | —           | —                           | 프로덕션. `portfolio@x.y.z` 태그가 여기 찍히고 태그가 배포를 발화시킨다                       |
-| `develop`               | —           | `release/*`                 | 다음 릴리스 후보. 기능 PR이 모이는 곳                                                         |
+| `master`                | -           | -                           | 프로덕션. `portfolio@x.y.z` 태그가 여기 찍히고 태그가 배포를 발화시킨다                       |
+| `develop`               | -           | `release/*`                 | 다음 릴리스 후보. 기능 PR이 모이는 곳                                                         |
 | `feat/*` `fix/*` `ci/*` | `develop`   | `develop`                   | 작업 단위. PR 하나에 항목 하나가 원칙                                                         |
 | `release/x.y.z`         | `develop`   | `master` (→ develop 역머지) | 릴리스 QA. 여기서 고친 것은 master와 develop 양쪽에 들어가야 한다                             |
-| `hotfix/x.y.z`          | `master`    | `master` (→ develop 역머지) | 프로덕션 결함. **develop을 거치지 않는다** — develop에는 아직 배포하면 안 되는 것이 섞여 있다 |
+| `hotfix/x.y.z`          | `master`    | `master` (→ develop 역머지) | 프로덕션 결함. **develop을 거치지 않는다** - develop에는 아직 배포하면 안 되는 것이 섞여 있다 |
 | `chore/sync-master-*`   | `master`    | `develop`                   | 역머지 전용. 태그가 생기면 워크플로가 만든다(4절)                                             |
 
 ## 3. 머지 방식
 
-방식이 갈리는 이유는 하나다 — **release-please는 PR을 보지 않고 master의 git log를 읽는다.** master에 어떤 커밋이 어떤 제목으로 남느냐가 버전과 CHANGELOG를 정한다.
+방식이 갈리는 이유는 하나다 - **release-please는 PR을 보지 않고 master의 git log를 읽는다.** master에 어떤 커밋이 어떤 제목으로 남느냐가 버전과 CHANGELOG를 정한다.
 
 | PR                                          | 방식             | 제목                                         | 왜                                                                                                                                                                       |
 | ------------------------------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -35,16 +35,16 @@ Vincent Driessen이 2010년에 제안한 모델이다. 그는 2020년에 같은 
 | release-please의 릴리스 PR → `master`       | **squash**       | 자동 생성(`release(portfolio): x.y.z`)       | 버전 파일과 CHANGELOG 갱신 한 건이면 충분하다                                                                                                                            |
 | `chore/sync-master-*` → `develop`           | **Merge commit** | 기본값                                       | master의 이력을 develop에 그대로 잇는다                                                                                                                                  |
 
-master로 가는 Merge commit 제목은 `Release 0.6.0 — …` 또는 GitHub 기본값 `Merge pull request #…`처럼 타입 없이 쓴다.
+master로 가는 Merge commit 제목은 `Release 0.6.0 - …` 또는 GitHub 기본값 `Merge pull request #…`처럼 타입 없이 쓴다.
 
-## 4. 역머지 — 자동으로 열리고, 사람이 머지한다
+## 4. 역머지 - 자동으로 열리고, 사람이 머지한다
 
 release나 hotfix가 master에 들어가면 develop은 그 변경과 버전 파일(`package.json`, `.release-please-manifest.json`, `CHANGELOG.md`)을 모른다. 역머지를 빠뜨리면 다음 릴리스에서 hotfix가 되살아나고 버전이 뒤로 간다. 0.3.0 때 실제로 빠뜨렸다.
 
 그래서 `.github/workflows/sync-master-to-develop.yml`이 **태그 `portfolio@*`가 생기면** 다음을 한다.
 
 1. develop이 master를 이미 포함하면 PR을 만들지 않고 실행 요약에 "역머지 불필요"를 남긴다.
-2. 같은 이름의 PR이 열려 있으면 그 링크만 남긴다. PR은 없는데 브랜치만 남아 있으면 덮어쓰지 않고 실패한다 — 어느 쪽이 맞는지 사람이 봐야 한다.
+2. 같은 이름의 PR이 열려 있으면 그 링크만 남긴다. PR은 없는데 브랜치만 남아 있으면 덮어쓰지 않고 실패한다 - 어느 쪽이 맞는지 사람이 봐야 한다.
 3. 그 밖에는 master 끝에서 `chore/sync-master-x.y.z`를 만들어 develop 대상 PR을 연다. 본문에 `develop..master` 커밋 목록이 들어간다.
 
 **머지는 자동화하지 않는다.** 충돌 해결과 최종 확인은 사람 몫이고, 규칙대로 Merge commit으로 머지한 뒤 브랜치를 지운다. 태그 이벤트를 놓쳤거나 동작을 확인하고 싶으면 Actions에서 `workflow_dispatch`로 태그를 넣어 돌린다.

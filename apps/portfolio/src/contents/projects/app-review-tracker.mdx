@@ -29,7 +29,7 @@ overview:
   - title: '역할'
     description: '검증 기준·게이트 도입 판단, AI 산출물에 대한 리뷰·반증, 조사의 비용 판단과 중단 결정. 코드 작성 주체는 AI이며, 이는 저장소 PR 이력에도 남아 있는 사실이다.'
   - title: '기간·상태'
-    description: '2026.07~ 진행 중 — 개인 프로젝트. 로컬 cron으로 수집이 매일 계속되고 있다. 저장소는 비공개이며 요청 시 열람을 제공한다.'
+    description: '2026.07~ 진행 중 - 개인 프로젝트. 로컬 cron으로 수집이 매일 계속되고 있다. 저장소는 비공개이며 요청 시 열람을 제공한다.'
 features:
   - title: '일일 수집 파이프라인'
     description: 'Apple·Google 스토어의 앱 순위와 리뷰를 cron 야간 자동화로 매일 수집해 MySQL에 적재한다.'
@@ -47,7 +47,7 @@ implementation:
 
           The name describes only what was observed, and that is deliberate. This
           class used to be called AppleThrottledError, which named a *cause* the
-          response cannot actually tell us — the shape (same feed keys, empty
+          response cannot actually tell us - the shape (same feed keys, empty
           pagination hrefs, no 'entry') is byte-for-byte what Apple returns for a
           nonexistent app id, and there is no header or body signal separating the
           possibilities. Naming it after one guess cost this project nine days: a
@@ -61,26 +61,26 @@ implementation:
 
           1. **A URL Apple does not accept.** Legacy RSS answers a malformed or
              wrongly ordered path with this empty feed rather than a 4xx. See
-             REVIEW_URL_TEMPLATE above — segment order matters.
+             REVIEW_URL_TEMPLATE above - segment order matters.
           # ...
           """
     - |
       if "entry" not in feed:
           # This message lands verbatim in crawl_run.error_message, so it
-          # lists the candidates rather than asserting one — the previous
+          # lists the candidates rather than asserting one - the previous
           # wording said "throttled" and that single word steered nine days
           # of diagnosis toward waiting instead of checking the URL.
           saved_path = _save_empty_feed_body(response, app_id)
           last_link = _last_link_state(feed)
           body_note = (
-              f" — body saved: {saved_path}"
+              f" - body saved: {saved_path}"
               if saved_path and len(response.content) not in KNOWN_EMPTY_FEED_BYTES
               else ""
           )
           raise AppleEmptyFeedError(
               f"apple customer reviews: HTTP 200 but no 'entry' in feed for "
               f"app_id={app_id} ({len(response.content)}B) last={last_link} "
-              f"(url={url}) — "
+              f"(url={url}) - "
               f"possible causes: malformed URL (segment order matters), rate "
               f"limiting, or an app id with no reviews in this storefront"
               f"{body_note}",
@@ -90,10 +90,10 @@ implementation:
           )
   architecture: '4-패키지 모노레포 · docker-compose 4서비스 · cron 야간 자동화'
   highlights:
-    - 'AI가 9일간 "rate limit"으로 오진한 Apple 수집 실패를, 브라우저에 URL을 직접 입력하는 A/B 실험으로 반증 — 실제 원인이 URL 세그먼트 순서임을 같은 초의 비교 실측으로 규명하고, 예외명을 관측만 서술하도록 개명'
-    - '이틀 연속 실패율 급등에 AI가 권한 설정 복귀 대신, 반례 근거를 들어 설정 유지와 1일 추가 관측을 결정 — 다음 날 정상 복귀해 틀린 원인 귀속이 기록에 남는 것을 방지'
-    - '관점을 지정한 구조화 리뷰 패스를 PR 단위로 정례화 — 사양 누락(재시도 정책), 크롤 이력 식별 단위 결함, 유니크 키 누락 등을 병합 전에 발견'
-    - '수집 간격 실험에서 채택 게이트를 관측 전에 문서로 고정하고, 결과가 게이트를 벗어나도 조건을 완화하지 않은 채 종료 — 운영값의 한계(기준선 대비 높은 실패율)도 숨기지 않고 기록'
+    - 'AI가 9일간 "rate limit"으로 오진한 Apple 수집 실패를, 브라우저에 URL을 직접 입력하는 A/B 실험으로 반증 - 실제 원인이 URL 세그먼트 순서임을 같은 초의 비교 실측으로 규명하고, 예외명을 관측만 서술하도록 개명'
+    - '이틀 연속 실패율 급등에 AI가 권한 설정 복귀 대신, 반례 근거를 들어 설정 유지와 1일 추가 관측을 결정 - 다음 날 정상 복귀해 틀린 원인 귀속이 기록에 남는 것을 방지'
+    - '관점을 지정한 구조화 리뷰 패스를 PR 단위로 정례화 - 사양 누락(재시도 정책), 크롤 이력 식별 단위 결함, 유니크 키 누락 등을 병합 전에 발견'
+    - '수집 간격 실험에서 채택 게이트를 관측 전에 문서로 고정하고, 결과가 게이트를 벗어나도 조건을 완화하지 않은 채 종료 - 운영값의 한계(기준선 대비 높은 실패율)도 숨기지 않고 기록'
 impact:
   outcomes:
     - 'Apple·Google 양대 스토어의 앱 순위·리뷰를 매일 수집하고, 한국어 리뷰 키워드까지 분석하는 파이프라인 운영'
@@ -102,7 +102,7 @@ impact:
 
 ## 배경
 
-2022년, 재직 중이던 회사에서 같은 문제의식으로 기획했다가 스캐폴딩 단계에서 중단한 프로젝트가 있었다. 폐업 후 그 문제의식만 이어받아 처음부터 다시 시작했다 — 앱의 순위와 리뷰는 매일 흘러가 버리는 데이터이고, 쌓아두지 않으면 추이를 볼 수 없다.
+2022년, 재직 중이던 회사에서 같은 문제의식으로 기획했다가 스캐폴딩 단계에서 중단한 프로젝트가 있었다. 폐업 후 그 문제의식만 이어받아 처음부터 다시 시작했다 - 앱의 순위와 리뷰는 매일 흘러가 버리는 데이터이고, 쌓아두지 않으면 추이를 볼 수 없다.
 
 ## AI 페어 개발에서 사람의 일
 

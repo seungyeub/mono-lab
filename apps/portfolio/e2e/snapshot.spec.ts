@@ -7,7 +7,7 @@ import { test, expect, type Page } from '@playwright/test';
  * 스크롤로 훑어 발화시키고 기다리는 방식은 안정적이지 않았다. stagger·트랜지션에
  * 맞춰 대기를 2.5s까지 늘려도 CI 컨테이너에서 8장 중 2~3장만 찍힌 baseline이
  * 나왔다. 그래서 훑은 뒤 framer-motion이 남긴 인라인 스타일을 최종 상태로
- * 직접 확정한다 — 타이밍에 기대지 않으므로 환경이 느려도 결과가 같다.
+ * 직접 확정한다 - 타이밍에 기대지 않으므로 환경이 느려도 결과가 같다.
  *
  * 인라인 opacity/transform은 framer-motion이 쓰는 것이라 대상이 정확하고,
  * 클래스로 지정한 의도적 투명도(캐러셀 비활성 이미지의 opacity-0,
