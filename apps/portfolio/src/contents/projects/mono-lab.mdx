@@ -13,7 +13,7 @@ carouselImages:
   - '/images/projects/mono-lab-07.webp'
 liveUrl: 'https://seungyeub.vercel.app'
 github: 'https://github.com/seungyeub/mono-lab'
-summary: '지금 보고 있는 이 사이트를 만든 Turborepo 모노레포. 설계는 Codex로 시작해 Antigravity로 기본 틀을 쌓았고, Gemini의 성능 한계를 확인한 뒤 Claude Code로 옮겨 이어왔다. 코드 작성 주체는 AI이며 본인 기여는 검증 기준을 세우고 AI의 진단을 반증하는 일이다. 저장소·커밋·PR 토론을 공개해 코드 구조와 판단 기록을 직접 대조할 수 있다.'
+summary: '지금 보고 있는 이 사이트를 만든 Turborepo 모노레포. 본인 작업 기록상 설계는 Codex로 시작해 Antigravity로 기본 틀을 쌓았고, Gemini의 성능 한계를 확인한 뒤 Claude Code로 옮겨 이어왔다. 코드 작성 주체는 AI이며 본인 기여는 검증 기준을 세우고 AI의 진단을 반증하는 일이다. 저장소·커밋·PR 토론을 공개해 코드 구조와 판단 기록을 직접 대조할 수 있다.'
 techStack:
   [
     'Next.js 16',
@@ -44,7 +44,7 @@ features:
   - title: '다중 AI 협업'
     description: '본인 작업 기록을 기준으로 Codex에서 설계를 시작해 Antigravity로 기본 틀을 만들고, 성능 한계를 확인한 뒤 Claude Code로 전환했다.'
   - title: '자동 품질 게이트'
-    description: 'GitHub Actions에 CodeRabbit · SonarCloud · Lighthouse를 연결해, 사람이 놓친 것을 병합 전에 잡도록 했다.'
+    description: 'GitHub Actions에 SonarCloud와 Lighthouse CI를 연결하고, GitHub App으로 CodeRabbit을 통합해 사람이 놓친 것을 병합 전에 잡도록 했다.'
 implementation:
   codeLanguage: 'typescript'
   codeCaption: '허용치가 회귀를 숨기는 것을 막기 위해, 촬영 전에 스크롤 리빌을 강제로 완료시키는 자리'
