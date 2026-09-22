@@ -83,7 +83,9 @@ export default function HeroSection() {
     <section
       data-testid='hero-section'
       ref={containerRef}
-      className='relative flex min-h-8/12 w-full flex-col gap-6 pb-6 md:min-h-0 md:gap-16 md:pb-10'
+      // lg 이상에서만 아래 여백을 키운다. 위쪽은 주면 안 된다 - 캔버스 윗변이 드러나
+      // 카드를 매단 끈이 헤더 뒤에서 이어지지 않고 허공에서 시작한 것처럼 끊겨 보인다
+      className='relative flex min-h-8/12 w-full flex-col gap-6 pb-6 md:min-h-0 md:gap-16 md:pb-10 lg:pb-15'
     >
       {/* ── 2단 메인 그리드 (상단 자연 흐름 배치) ── */}
       <div className='w-full'>
@@ -91,7 +93,8 @@ export default function HeroSection() {
           {/* LEFT - 타이포그래피 */}
           <motion.div
             style={{ y: textY, opacity: textOpacity }}
-            className='pointer-events-none z-10 col-start-1 row-start-1 flex flex-col gap-8 bg-transparent py-8 pr-0 md:pointer-events-auto md:mr-[-4px] md:py-12'
+            // lg 이상의 여백은 오른쪽 카드 칸 높이도 함께 정한다 - 카드 열이 이 행 높이에 맞춰 늘어난다
+            className='pointer-events-none z-10 col-start-1 row-start-1 flex flex-col gap-8 bg-transparent py-8 pr-0 md:pointer-events-auto md:mr-[-4px] md:py-12 lg:py-20'
           >
             {/* 상단 메타 */}
             <div className='text-label tracking-label mt-8 hidden flex-col gap-1 font-medium text-white/50 uppercase md:flex'>
@@ -157,7 +160,7 @@ export default function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, ease: SMOOTH, delay: 0.3 }}
             // 배경이미지(hero.jpg) 및 배경색상 제거, 투명(bg-transparent) 처리하여 로딩 중 여백 연출
-            className='relative col-start-1 row-start-1 h-[120vw] w-full rounded-xl bg-transparent sm:h-[96vw] md:col-start-2 md:h-full md:min-h-[350px] lg:min-h-[400px]'
+            className='md:min-h-hero-card lg:min-h-hero-card-lg relative col-start-1 row-start-1 h-[120vw] w-full rounded-xl bg-transparent sm:h-[96vw] md:col-start-2 md:h-full'
           >
             {/* 웹 접근성(a11y) 스크린리더를 위한 대체 텍스트 */}
             <span className='sr-only'>인터랙티브 3D 포트폴리오 사원증 뷰어</span>

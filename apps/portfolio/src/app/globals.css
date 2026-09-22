@@ -1,8 +1,8 @@
 /* 한글 웹폰트 - 라틴은 Inter Tight, 한글은 Pretendard가 받는다.
    Pretendard CSS는 여기서 @import하지 않는다. 스타일시트 안의 @import는 발견이 늦고
    렌더를 차단해(Lighthouse 실측 775ms) src/app/layout.tsx의 <head>에서 <link>로 싣는다. */
-@import "tailwindcss";
-@import "@repo/tailwind-config";
+@import 'tailwindcss';
+@import '@repo/tailwind-config';
 
 /* 디자인 토큰 (P3-6) - 임의값(text-[10px]·bg-[#1a1a1a]·pt-[140px]) 대신 이 토큰을 쓴다.
    @repo/tailwind-config가 아니라 여기 두는 이유: 소비 앱이 포트폴리오뿐이고
@@ -23,6 +23,11 @@
   /* 홈 섹션 상단 간격 */
   --spacing-section: 140px;
   --spacing-section-lg: 180px;
+
+  /* Hero 사원증 카드가 놓이는 칸의 최소 높이. 실제 높이는 왼쪽 텍스트 열이 만드는 행 높이를
+     따르고, 이 값은 텍스트가 짧을 때 칸이 무너지지 않게 받치는 바닥이다 */
+  --spacing-hero-card: 350px;
+  --spacing-hero-card-lg: 480px;
 
   /* 사이트 공통 easing(easeOutExpo). framer-motion 쪽은 src/lib/motion.ts의 SMOOTH가 같은 값이다 -
      CSS 전환과 JS 애니메이션이 한 곡선으로 움직여야 하므로 한쪽만 바꾸지 않는다 */
@@ -47,7 +52,6 @@
 }
 
 @layer base {
-
   html,
   body {
     background-color: var(--color-surface);
@@ -78,7 +82,7 @@
     textarea,
     select,
     label,
-    [role="button"] {
+    [role='button'] {
       cursor: none !important;
     }
   }
