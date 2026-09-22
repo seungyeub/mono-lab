@@ -160,7 +160,7 @@ export default function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, ease: SMOOTH, delay: 0.3 }}
             // 배경이미지(hero.jpg) 및 배경색상 제거, 투명(bg-transparent) 처리하여 로딩 중 여백 연출
-            className='relative col-start-1 row-start-1 h-[120vw] w-full rounded-xl bg-transparent sm:h-[96vw] md:col-start-2 md:h-full md:min-h-[350px] lg:min-h-[480px]'
+            className='md:min-h-hero-card lg:min-h-hero-card-lg relative col-start-1 row-start-1 h-[120vw] w-full rounded-xl bg-transparent sm:h-[96vw] md:col-start-2 md:h-full'
           >
             {/* 웹 접근성(a11y) 스크린리더를 위한 대체 텍스트 */}
             <span className='sr-only'>인터랙티브 3D 포트폴리오 사원증 뷰어</span>
