@@ -13,9 +13,9 @@ describe('getProjectSeoMetadata', () => {
     const result = getProjectSeoMetadata('app-review-tracker');
 
     expect(result).toEqual({
-      // 사이트명은 루트 layout의 title.template가 붙인다 — 여기 넣으면 두 번 붙는다
+      // 사이트명은 루트 layout의 title.template가 붙인다 - 여기 넣으면 두 번 붙는다
       title: 'App Review Tracker',
-      description: 'App Review Tracker — Data Pipeline 프로젝트 상세입니다.',
+      description: 'App Review Tracker - Data Pipeline 프로젝트 상세입니다.',
     });
   });
 
@@ -229,7 +229,7 @@ describe('normalizeProjectMetadata', () => {
   });
 });
 
-describe('normalizeProjectMetadata — 리디자인 확장 필드', () => {
+describe('normalizeProjectMetadata - 리디자인 확장 필드', () => {
   const BASE = {
     title: 'T',
     category: 'C',

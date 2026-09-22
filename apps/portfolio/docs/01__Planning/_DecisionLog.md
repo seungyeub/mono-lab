@@ -140,7 +140,7 @@ Skills Section은 Grid + Chips 두 가지 레이아웃, Mono + Brand + Interacti
 
 ### Status
 
-- Accepted — Phase 4에서 **Chips 레이아웃 + Brand 색상 모드**로 최종 확정 (2026-06-23). `SkillGrid` 컴포넌트 및 비교 토글 UI 제거 완료.
+- Accepted - Phase 4에서 **Chips 레이아웃 + Brand 색상 모드**로 최종 확정 (2026-06-23). `SkillGrid` 컴포넌트 및 비교 토글 UI 제거 완료.
 
 ---
 
@@ -164,7 +164,7 @@ WordRoller 텍스트 롤링 애니메이션 적용 (HeroSection과 유사한 방
 
 ---
 
-## 2026-07-20 — Footer GIF 캐러셀 전환
+## 2026-07-20 - Footer GIF 캐러셀 전환
 
 ### Decision
 
@@ -184,7 +184,7 @@ Footer 캐러셀을 기존 정적 프로젝트 이미지(`next/image`)에서 외
 
 ---
 
-## 2026-07-20 — 커서 상태 체계 통일
+## 2026-07-20 - 커서 상태 체계 통일
 
 ### Decision
 
@@ -196,7 +196,7 @@ Footer 캐러셀을 기존 정적 프로젝트 이미지(`next/image`)에서 외
 
 ### Alternatives
 
-`PULL` (당기다) — 물리적 장력을 강조하지만 직관성에서 `GRAB`보다 열세
+`PULL` (당기다) - 물리적 장력을 강조하지만 직관성에서 `GRAB`보다 열세
 
 ### Status
 
@@ -216,7 +216,7 @@ ExperienceSection의 `stack` 속성명을 `type`으로 변경하고, 하드코�
 
 ### Alternatives
 
-`role`이나 `position` 등 다른 속성명 — 기존 `role` (Frontend Engineer 등)과 의미 충돌
+`role`이나 `position` 등 다른 속성명 - 기존 `role` (Frontend Engineer 등)과 의미 충돌
 
 ### Status
 
@@ -224,7 +224,7 @@ ExperienceSection의 `stack` 속성명을 `type`으로 변경하고, 하드코�
 
 ---
 
-## 2026-08-18 — 사이트 메타데이터 Frontend Engineer 포지셔닝 전면 교체
+## 2026-08-18 - 사이트 메타데이터 Frontend Engineer 포지셔닝 전면 교체
 
 ### Decision
 
@@ -236,7 +236,7 @@ Helios 템플릿 클론 과정에서 남아 있던 "Brand Designer" 잔재를 �
 
 ### Alternatives
 
-메타데이터만 부분 수정 (상세 페이지 `generateMetadata` 미신설) — SEO 품질 미달
+메타데이터만 부분 수정 (상세 페이지 `generateMetadata` 미신설) - SEO 품질 미달
 
 ### Status
 
@@ -244,7 +244,7 @@ Helios 템플릿 클론 과정에서 남아 있던 "Brand Designer" 잔재를 �
 
 ---
 
-## 2026-08-18 — Work Detail 에셋 조건부 렌더링 도입
+## 2026-08-18 - Work Detail 에셋 조건부 렌더링 도입
 
 ### Decision
 
@@ -256,7 +256,7 @@ MDX frontmatter에 이미지 경로가 지정되어 있더라도 실제 파일�
 
 ### Alternatives
 
-모든 프로젝트의 이미지를 한번에 준비한 뒤 일괄 배포 — 유연성 부족
+모든 프로젝트의 이미지를 한번에 준비한 뒤 일괄 배포 - 유연성 부족
 
 ### Status
 
@@ -264,7 +264,7 @@ MDX frontmatter에 이미지 경로가 지정되어 있더라도 실제 파일�
 
 ---
 
-## 2026-08-18 — Gallery 플레이스홀더를 Resume 페이지로 전환
+## 2026-08-18 - Gallery 플레이스홀더를 Resume 페이지로 전환
 
 ### Decision
 
@@ -284,7 +284,7 @@ Gallery 기능을 실제 구현하여 프로젝트 스크린샷 갤러리로 활
 
 ---
 
-## 2026-08-18 — Footer 에필로그 분리
+## 2026-08-18 - Footer 에필로그 분리
 
 ### Decision
 
@@ -296,7 +296,7 @@ Root Layout에서 Footer를 통째로 렌더링하고 있어, 홈에서만 보�
 
 ### Alternatives
 
-Route Group `(home)` 레이아웃 분리 — 구조 복잡도 증가
+Route Group `(home)` 레이아웃 분리 - 구조 복잡도 증가
 
 ### Status
 
@@ -304,7 +304,7 @@ Route Group `(home)` 레이아웃 분리 — 구조 복잡도 증가
 
 ---
 
-## 2026-08-18 — Work 데이터 소스 단일화
+## 2026-08-18 - Work 데이터 소스 단일화
 
 ### Decision
 
@@ -316,7 +316,7 @@ Route Group `(home)` 레이아웃 분리 — 구조 복잡도 증가
 
 ### Alternatives
 
-`PROJECTS` 배열을 유지하면서 MDX와 수동 동기화 — 동기화 누락 위험
+`PROJECTS` 배열을 유지하면서 MDX와 수동 동기화 - 동기화 누락 위험
 
 ### Status
 
@@ -324,7 +324,7 @@ Route Group `(home)` 레이아웃 분리 — 구조 복잡도 증가
 
 ---
 
-## 2026-08-19 — Playwright CI 컨테이너 전환
+## 2026-08-19 - Playwright CI 컨테이너 전환
 
 ### Decision
 
@@ -336,7 +336,7 @@ apt 저장소 정체로 인한 Playwright 브라우저 설치 실패가 재시�
 
 ### Alternatives
 
-재시도 횟수 증가 + dpkg 잠금 정리 — 근본 해결이 아닌 우회
+재시도 횟수 증가 + dpkg 잠금 정리 - 근본 해결이 아닌 우회
 
 ### Status
 
@@ -344,7 +344,7 @@ apt 저장소 정체로 인한 Playwright 브라우저 설치 실패가 재시�
 
 ---
 
-## 2026-08-19 — 주석 처리된 브랜드 디자이너 섹션 제거
+## 2026-08-19 - 주석 처리된 브랜드 디자이너 섹션 제거
 
 ### Decision
 
@@ -356,7 +356,7 @@ Helios 템플릿의 브랜드 디자인 에이전시 서사에 해당하는 컴�
 
 ### Alternatives
 
-`BrandSection`을 다른 용도로 재활용 — 현 시점에서 구체적인 활용 계획 없음
+`BrandSection`을 다른 용도로 재활용 - 현 시점에서 구체적인 활용 계획 없음
 
 ### Status
 

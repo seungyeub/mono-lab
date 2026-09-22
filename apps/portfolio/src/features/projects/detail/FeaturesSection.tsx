@@ -1,7 +1,7 @@
 import type { ProjectTextItem } from '@/lib/mdx';
 import SectionHeading from './SectionHeading';
 
-/** Key Features — 번호 타일 + 제목 + 설명 카드 2열. 아이콘 대신 번호로 위계를 표현한다. */
+/** Key Features - 번호 타일 + 제목 + 설명 카드 2열. 아이콘 대신 번호로 위계를 표현한다. */
 export default function FeaturesSection({ features }: { features: ProjectTextItem[] }) {
   if (features.length === 0) return null;
 
@@ -14,7 +14,7 @@ export default function FeaturesSection({ features }: { features: ProjectTextIte
             key={feature.title}
             className='border-line rounded-xl border bg-white/5 p-6 transition-colors duration-300 hover:border-white/30 md:p-8'
           >
-            {/* 번호 옆에 제목 — Project Overview·Key Highlights와 같은 배치로 맞춘다 */}
+            {/* 번호 옆에 제목 - Project Overview·Key Highlights와 같은 배치로 맞춘다 */}
             <div className='flex items-start gap-3'>
               <span
                 aria-hidden

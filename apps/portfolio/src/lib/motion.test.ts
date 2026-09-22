@@ -17,12 +17,12 @@ const VARIANTS: RevealVariant[] = [
 ];
 
 describe('reveal', () => {
-  it.each(VARIANTS)('%s — 공통 구조를 갖춘다', (variant) => {
+  it.each(VARIANTS)('%s - 공통 구조를 갖춘다', (variant) => {
     const props = reveal(variant);
 
     expect(props.initial).toEqual({ opacity: 0, y: expect.any(Number) });
     expect(props.whileInView).toEqual({ opacity: 1, y: 0 });
-    // 한 번만 재생한다 — 스크롤을 오르내릴 때마다 다시 나타나면 산만하다
+    // 한 번만 재생한다 - 스크롤을 오르내릴 때마다 다시 나타나면 산만하다
     expect(props.viewport).toEqual({ once: true, margin: expect.any(String) });
     expect(props.transition).toMatchObject({ duration: expect.any(Number), delay: 0 });
   });
@@ -45,7 +45,7 @@ describe('reveal', () => {
     '%s는 화면 안 180px에서 28px·0.8초로 움직인다 (2026-09-17 조정값)',
     (variant) => {
       // 시작 지점과 이동 거리는 함께 정한 값이다. 하나만 되돌리면 화면 아래 띠에서 끝나거나
-      // 움직임이 다시 작아진다 — 셋 중 무엇이 바뀌어도 여기서 걸린다
+      // 움직임이 다시 작아진다 - 셋 중 무엇이 바뀌어도 여기서 걸린다
       const props = reveal(variant);
 
       expect(props.initial).toEqual({ opacity: 0, y: 28 });
@@ -54,7 +54,7 @@ describe('reveal', () => {
     },
   );
 
-  it('Skills 칩은 목록과 함께 키우지 않는다 — 시차가 붙어 이미 비슷한 길이다', () => {
+  it('Skills 칩은 목록과 함께 키우지 않는다 - 시차가 붙어 이미 비슷한 길이다', () => {
     const props = reveal('smallItem');
 
     expect(props.initial).toEqual({ opacity: 0, y: 12 });

@@ -18,8 +18,8 @@
 2. [레퍼런스 사이트 분석 요약](#2-레퍼런스-사이트-분석-요약)
 3. [카테고리 구조 및 데이터](#3-카테고리-구조-및-데이터)
 4. [아이콘 전략](#4-아이콘-전략)
-5. [레이아웃 — 최종 확정 (Chips)](#5-레이아웃--최종-확정-chips)
-6. [아이콘 색상 — 최종 확정 (Brand)](#6-아이콘-색상--최종-확정-brand)
+5. [레이아웃 - 최종 확정 (Chips)](#5-레이아웃--최종-확정-chips)
+6. [아이콘 색상 - 최종 확정 (Brand)](#6-아이콘-색상--최종-확정-brand)
 7. [섹션 오프닝 구조](#7-섹션-오프닝-구조)
 8. [애니메이션 전략](#8-애니메이션-전략)
 9. [반응형 전략](#9-반응형-전략)
@@ -48,17 +48,17 @@
 
 ## 2. 레퍼런스 사이트 분석 요약
 
-### Site A — syahrilarfianalmazril.my.id
+### Site A - syahrilarfianalmazril.my.id
 
 Skills 전용 페이지(`/about/skills`)에서 다양한 패턴 혼합:
 
 - **카드 그리드**: 2-Column 카드에 제목 + 진행 바 + 설명
 - **Sticky Accordion**: Core Focus 영역, 클릭 시 활성화/dim
-- **3-Column 아이콘 그리드**: Technical Stack — `아이콘 | 이름 | 짧은 설명` → **채택 패턴**
-- **마르퀴 칩**: Professional Tooling — 가로 무한 스크롤 필캡슐
-- **별자리 CTA**: Engineering the Future — 아이콘들이 점선 원호 위에 배치
+- **3-Column 아이콘 그리드**: Technical Stack - `아이콘 | 이름 | 짧은 설명` → **채택 패턴**
+- **마르퀴 칩**: Professional Tooling - 가로 무한 스크롤 필캡슐
+- **별자리 CTA**: Engineering the Future - 아이콘들이 점선 원호 위에 배치
 
-### Site B — maheshppai-v1.netlify.app
+### Site B - maheshppai-v1.netlify.app
 
 홈페이지 내 섹션으로 Skills를 다룸:
 
@@ -82,10 +82,10 @@ Skills 전용 페이지(`/about/skills`)에서 다양한 패턴 혼합:
 
 | #   | 카테고리       | TagBar 표시명  | 성격                                           |
 | --- | -------------- | -------------- | ---------------------------------------------- |
-| 1   | Frontend       | Frontend       | 핵심 정체성 — UI/프론트엔드 기술               |
-| 2   | Backend        | Backend        | 서버/DB — 풀스택 역량                          |
-| 3   | Infrastructure | Infrastructure | 배포/운영 — 클라우드, 서버, 빌드               |
-| 4   | Tooling        | Tooling        | 개발 워크플로우 — 디자인, 코드 품질, 협업 도구 |
+| 1   | Frontend       | Frontend       | 핵심 정체성 - UI/프론트엔드 기술               |
+| 2   | Backend        | Backend        | 서버/DB - 풀스택 역량                          |
+| 3   | Infrastructure | Infrastructure | 배포/운영 - 클라우드, 서버, 빌드               |
+| 4   | Tooling        | Tooling        | 개발 워크플로우 - 디자인, 코드 품질, 협업 도구 |
 | 5   | AI             | AI             | AI 코딩/생산성 도구                            |
 
 ### 3.2 확정 기술 스택 데이터
@@ -104,7 +104,7 @@ Skills 전용 페이지(`/about/skills`)에서 다양한 패턴 혼합:
 | 8   | Tailwind CSS    | `SiTailwindcss`   | `#06B6D4`                          | ✅               |
 | 9   | Framer Motion   | `SiFramer`        | `#0055FF`                          | ✅               |
 | 10  | Three.js        | `SiThreedotjs`    | `#000000` → `#FFFFFF`              | ✅               |
-| 11  | Zustand         | —                 | —                                  | ❌ 커스텀 필요   |
+| 11  | Zustand         | -                 | -                                  | ❌ 커스텀 필요   |
 | 12  | Redux           | `SiRedux`         | `#764ABC`                          | ✅               |
 | 13  | Recoil          | `SiRecoil`        | `#3578E5`                          | ✅               |
 | 14  | React Query     | `SiReactquery`    | `#FF4154`                          | ✅               |
@@ -163,7 +163,7 @@ Skills 전용 페이지(`/about/skills`)에서 다양한 패턴 혼합:
 | 2   | Cursor         | `SiCursor`        | `#000000` → `#FFFFFF` | ✅                         |
 | 3   | Codex          | `SiOpenai`        | `#412991`             | ✅ (OpenAI 아이콘 사용)    |
 | 4   | GitHub Copilot | `SiGithubcopilot` | `#000000` → `#FFFFFF` | ✅                         |
-| 5   | Antigravity    | —                 | —                     | ❌ 커스텀 필요             |
+| 5   | Antigravity    | -                 | -                     | ❌ 커스텀 필요             |
 
 ### 3.3 미지원 아이콘 정리 (커스텀 필요: 7개)
 
@@ -218,7 +218,7 @@ import { SiReact } from '@icons-pack/react-simple-icons';
 "npm 미지원 2개 항목(Zustand, Antigravity) + 추가 커스텀 배치 5개"는 래퍼 컴포넌트로 통일:
 
 ```tsx
-// SkillIcon 래퍼 — simpleicons 컴포넌트와 커스텀 SVG를 동일 인터페이스로 제공
+// SkillIcon 래퍼 - simpleicons 컴포넌트와 커스텀 SVG를 동일 인터페이스로 제공
 interface SkillIconProps {
   size?: number;
   color?: string;
@@ -231,7 +231,7 @@ interface SkillIconProps {
 
 ---
 
-## 5. 레이아웃 — 최종 확정 (Chips)
+## 5. 레이아웃 - 최종 확정 (Chips)
 
 구현 결과 인라인 칩 레이아웃을 최종 채택하였고, 카드 그리드(`SkillGrid`)는 삭제되었습니다.
 
@@ -255,12 +255,12 @@ Frontend
 **장점:**
 
 - 더 compact, 공간 효율적
-- 유동적 — 항목 수에 관계없이 자연스러운 줄바꿈
+- 유동적 - 항목 수에 관계없이 자연스러운 줄바꿈
 - 칩 크기가 텍스트 길이에 맞춰 가변 → 다이나믹한 느낌
 
 ---
 
-## 6. 아이콘 색상 — 최종 확정 (Brand)
+## 6. 아이콘 색상 - 최종 확정 (Brand)
 
 ### Mode 2: 브랜드 컬러 (Brand Color) 확정
 
@@ -346,7 +346,7 @@ pb-4 md:pb-6 border-b border-white/20 text-lg md:text-xl font-bold uppercase
 >
 ```
 
-- `once: false` — 프로젝트 전체 패턴 (re-enter 시 재생)
+- `once: false` - 프로젝트 전체 패턴 (re-enter 시 재생)
 - stagger: `index * 0.05` (항목이 많으므로 ExperienceSection의 0.08보다 짧게)
 - easing: 기본 ease
 
@@ -489,10 +489,10 @@ pnpm add @icons-pack/react-simple-icons -F portfolio
 
 ### Phase 2: 컴포넌트 구현
 
-4. `SkillIcon.tsx` — 아이콘 래퍼 (3가지 색상 모드 지원)
-5. `SkillGrid.tsx` — Layout A (카드 그리드)
-6. `SkillChips.tsx` — Layout B (인라인 칩)
-7. `SkillsSection.tsx` — 메인 섹션 + 비교 토글
+4. `SkillIcon.tsx` - 아이콘 래퍼 (3가지 색상 모드 지원)
+5. `SkillGrid.tsx` - Layout A (카드 그리드)
+6. `SkillChips.tsx` - Layout B (인라인 칩)
+7. `SkillsSection.tsx` - 메인 섹션 + 비교 토글
 
 ### Phase 3: 통합
 

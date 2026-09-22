@@ -4,16 +4,16 @@ Framer Helios 템플릿을 레퍼런스로 한 **Next.js 기반 개인 포트폴
 
 ## ✨ 주요 기능
 
-- **Hero Section** — Three.js / React Three Fiber 기반 3D 인터랙티브 카드 + 물리 엔진(Rapier)
-- **Works Section** — MDX 기반 10개 실제 프로젝트 (Overview → Tech Stack → Key Features → Demonstrations → Impact & Results 구조)
-- **Skills Section** — 브랜드 칼러 칩 레이아웃 (5 카테고리, 50개 기술 스택)
-- **Experience Section** — 경력/자격증 타임라인
-- **FAQ Section** — 아코디언 UI
-- **Epilogue** — 81개 GIF 무한 스크롤 캐러셀 (홈 전용)
-- **Resume 페이지** — 경력/자격증 상세 (ExperienceSection과 데이터 공유)
-- **Contact 폼** — React Hook Form + Zod + Resend Server Action
-- **커스텀 커서** — 4가지 상태 (`default` | `view` | `grab` | `pointer`)
-- **스무스 스크롤** — Lenis
+- **Hero Section** - Three.js / React Three Fiber 기반 3D 인터랙티브 카드 + 물리 엔진(Rapier)
+- **Works Section** - MDX 기반 10개 실제 프로젝트 (Overview → Tech Stack → Key Features → Demonstrations → Impact & Results 구조)
+- **Skills Section** - 브랜드 칼러 칩 레이아웃 (5 카테고리, 50개 기술 스택)
+- **Experience Section** - 경력/자격증 타임라인
+- **FAQ Section** - 아코디언 UI
+- **Epilogue** - 81개 GIF 무한 스크롤 캐러셀 (홈 전용)
+- **Resume 페이지** - 경력/자격증 상세 (ExperienceSection과 데이터 공유)
+- **Contact 폼** - React Hook Form + Zod + Resend Server Action
+- **커스텀 커서** - 4가지 상태 (`default` | `view` | `grab` | `pointer`)
+- **스무스 스크롤** - Lenis
 
 ## 🛠 기술 스택
 
@@ -47,7 +47,7 @@ pnpm run dev
 ```text
 apps/portfolio/
 ├── src/
-│   ├── app/                  # Next.js App Router — 라우트·레이아웃·sitemap·robots
+│   ├── app/                  # Next.js App Router - 라우트·레이아웃·sitemap·robots
 │   │   ├── page.tsx          # 홈 (Hero, Works, Skills, Experience, FAQ, Epilogue)
 │   │   ├── work/             # Work 목록 + [slug] 상세
 │   │   ├── resume/           # 이력서 페이지
@@ -71,10 +71,10 @@ apps/portfolio/
 
 ## 📝 문서
 
-- [\_Project.md](docs/01__Planning/_Project.md) — 프로젝트 목적 및 운영 원칙
-- [\_Tasks.md](docs/01__Planning/_Tasks.md) — 작업 진행 현황
-- [\_DecisionLog.md](docs/01__Planning/_DecisionLog.md) — 의사결정 기록
-- [\_Notes.md](docs/01__Planning/_Notes.md) — 자유 기록
+- [\_Project.md](docs/01__Planning/_Project.md) - 프로젝트 목적 및 운영 원칙
+- [\_Tasks.md](docs/01__Planning/_Tasks.md) - 작업 진행 현황
+- [\_DecisionLog.md](docs/01__Planning/_DecisionLog.md) - 의사결정 기록
+- [\_Notes.md](docs/01__Planning/_Notes.md) - 자유 기록
 
 ## 📄 라이선스
 

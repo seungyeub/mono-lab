@@ -43,7 +43,7 @@ export default function SectionLabel({
           <div className='site-container flex items-center justify-between px-6 text-white/70 uppercase md:px-12'>
             <p className='flex-1 text-left whitespace-pre text-white'>{leftLabel}</p>
             <p className='hidden flex-1 text-center whitespace-pre text-white/50 md:block'>
-              SCENE — {scene}
+              SCENE - {scene}
             </p>
             <p className='hidden flex-1 text-right whitespace-pre min-[360px]:block'>
               {rightLabel}

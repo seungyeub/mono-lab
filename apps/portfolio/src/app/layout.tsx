@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: OG_IMAGE_WIDTH,
         height: OG_IMAGE_HEIGHT,
-        alt: `${SITE_NAME} — Frontend Engineer 포트폴리오`,
+        alt: `${SITE_NAME} - Frontend Engineer 포트폴리오`,
       },
     ],
   },
@@ -99,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang={SITE_LANG}>
       <head>
-        {/* Pretendard는 globals.css의 @import가 아니라 여기서 싣는다 — @import는 발견이 늦고
+        {/* Pretendard는 globals.css의 @import가 아니라 여기서 싣는다 - @import는 발견이 늦고
             렌더를 차단한다. dynamic-subset 가변 폰트는 굵기 9종·woff2 27개를 선언하던 static
             빌드 대신 실제로 쓰이는 유니코드 범위의 파일만 받는다. preconnect로 연결을 먼저 연다. */}
         <link rel='preconnect' href='https://cdn.jsdelivr.net' crossOrigin='anonymous' />
@@ -114,7 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* 모든 페이지가 공유하는 주체·사이트 정보. 개별 페이지 스키마가 @id로 이것을 참조한다 */}
         <JsonLd data={[buildPersonSchema(), buildWebSiteSchema()]} />
         {/* 키보드 사용자가 헤더 링크를 매번 지나지 않도록. 포커스될 때만 보인다.
-            z-index는 PageLoader(z-99999)보다 높아야 한다 — 첫 방문의 로더 표시 중에
+            z-index는 PageLoader(z-99999)보다 높아야 한다 - 첫 방문의 로더 표시 중에
             Tab을 눌러도 링크가 가려지지 않게 한다 */}
         <a
           href='#main'

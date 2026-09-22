@@ -1,11 +1,11 @@
 import type { SkillItem } from '@/data/skillsData';
 import { resolveTechSkills } from './techSkills';
 
-/** resolveTechSkills는 입력 길이를 보존하는 전함수라 구조분해가 안전하다 — 타입에만 알려준다 */
+/** resolveTechSkills는 입력 길이를 보존하는 전함수라 구조분해가 안전하다 - 타입에만 알려준다 */
 const resolveTuple = <N extends string[]>(...names: N) =>
   resolveTechSkills(names) as { [K in keyof N]: SkillItem };
 
-/** 정식 항목 이름으로 해석했을 때의 brandColor — 별칭이 그 항목에 닿았는지 확인하는 기준 */
+/** 정식 항목 이름으로 해석했을 때의 brandColor - 별칭이 그 항목에 닿았는지 확인하는 기준 */
 const canonicalBrandColor = (canonicalName: string) =>
   resolveTechSkills([canonicalName])[0]!.brandColor;
 

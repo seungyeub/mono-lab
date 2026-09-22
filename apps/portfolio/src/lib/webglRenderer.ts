@@ -17,7 +17,7 @@ export function isSoftwareRenderer(renderer: string): boolean {
 }
 
 /**
- * 판정할 수 없으면 false — 지금처럼 카드를 올린다. WebKit은 실제 이름 대신 "Apple GPU"를 주고,
+ * 판정할 수 없으면 false - 지금처럼 카드를 올린다. WebKit은 실제 이름 대신 "Apple GPU"를 주고,
  * Firefox의 지문 방지 설정은 확장 자체를 막는다. WebGL이 아예 없으면 카드 쪽 ErrorBoundary가 받는다.
  */
 export function detectSoftwareRenderer(): boolean {
@@ -30,7 +30,7 @@ export function detectSoftwareRenderer(): boolean {
     const renderer: unknown = gl.getParameter(info.UNMASKED_RENDERER_WEBGL);
     return typeof renderer === 'string' && isSoftwareRenderer(renderer);
   } finally {
-    // 브라우저가 페이지당 WebGL 컨텍스트 수를 제한한다 — 판정용 컨텍스트가 카드의 자리를 잡아먹지 않게 바로 돌려준다
+    // 브라우저가 페이지당 WebGL 컨텍스트 수를 제한한다 - 판정용 컨텍스트가 카드의 자리를 잡아먹지 않게 바로 돌려준다
     gl.getExtension('WEBGL_lose_context')?.loseContext();
   }
 }

@@ -52,13 +52,13 @@ function WordReveal({
     진행도를 도달 가능한 범위로 다시 펴서 마지막 단어가 그 안에서 끝나게 한다.
     화면이 짧으면 reachable이 1이라 원래와 같다.
 
-    reachable을 ref로 두면 값이 바뀌어도 다시 그려지지 않는다 — scrollYProgress만
+    reachable을 ref로 두면 값이 바뀌어도 다시 그려지지 않는다 - scrollYProgress만
     구독하기 때문이다. 창 크기나 문서 높이가 바뀌었는데 스크롤이 없으면 마지막 단어가
     옛 기준으로 어두운 채 남는다. 두 값을 모두 읽는 함수형 useTransform을 쓴다.
   */
   const opacity = useTransform(() => {
     if (prefersReducedMotion) return 1;
-    // 도달 가능한 최대 진행도가 0 이하면 스크롤로 밝힐 방법이 없다 — 그냥 다 보여준다
+    // 도달 가능한 최대 진행도가 0 이하면 스크롤로 밝힐 방법이 없다 - 그냥 다 보여준다
     const maxProgress = reachable.get();
     if (maxProgress <= 0) return 1;
     const progress = Math.min(1, scrollYProgress.get() / maxProgress);
@@ -73,7 +73,7 @@ function WordReveal({
   );
 }
 
-/** 단어별 scroll-reveal — 스크롤에 따라 앞부터 순서대로 밝아집니다 */
+/** 단어별 scroll-reveal - 스크롤에 따라 앞부터 순서대로 밝아집니다 */
 export default function ScrollRevealText({
   lines,
   align = 'left',
@@ -92,7 +92,7 @@ export default function ScrollRevealText({
 
   /**
    * 화면이 세로로 길면 페이지를 끝까지 내려도 문단 끝이 55% 지점까지 올라오지 못해
-   * 진행도가 1에 닿지 않고 뒤쪽 단어가 어두운 채로 남는다 — 1280×2000에서 30개 중
+   * 진행도가 1에 닿지 않고 뒤쪽 단어가 어두운 채로 남는다 - 1280×2000에서 30개 중
    * 8개가 그랬다(실측). 끝까지 내렸을 때의 최대 진행도를 재 두고 단어 구간을 그
    * 안으로 맞춘다. 문단 높이·문서 높이가 바뀌면(폰트 로드, 창 크기) 다시 잰다.
    */

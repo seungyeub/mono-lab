@@ -42,7 +42,7 @@ export default function CustomCursor() {
 
   if (!isVisible) return null;
 
-  // 표시 조건은 클래스의 미디어 변형 하나로 묶는다 — 정밀 포인터이면서 동작 줄이기가 꺼진 경우만.
+  // 표시 조건은 클래스의 미디어 변형 하나로 묶는다 - 정밀 포인터이면서 동작 줄이기가 꺼진 경우만.
   // motion-reduce:hidden을 따로 두면 임의 미디어 변형의 flex에 밀려 적용되지 않는다(실측).
   // globals.css의 커서 숨김 조건과 짝이다.
 

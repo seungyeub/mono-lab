@@ -5,7 +5,7 @@ import { CONTACT_PUBLIC_EMAIL, SITE_NAME, buildPageOpenGraph } from '@/lib/siteC
 import ContactForm from '@/features/contact/ContactForm';
 import RollingLink from '@/components/RollingText/RollingLink';
 
-// 푸터 Networks와 같은 순서로 둔다 — 목록이 두 곳에 있어 한쪽만 바꾸면 어긋난다
+// 푸터 Networks와 같은 순서로 둔다 - 목록이 두 곳에 있어 한쪽만 바꾸면 어긋난다
 const NETWORKS = [
   { label: 'GitHub', href: 'https://github.com/seungyeub' },
   { label: 'Blog', href: 'https://blog.naver.com/backsajang420' },
@@ -30,7 +30,7 @@ function ContactRow({ label, children }: { label: string; children: ReactNode })
 const DESCRIPTION =
   '프론트엔드 개발 협업 및 채용 문의를 위해 백승엽에게 연락할 수 있는 페이지입니다.';
 
-// 제목에 사이트명을 넣지 않는다 — 루트 layout의 title.template가 한 번만 덧붙인다
+// 제목에 사이트명을 넣지 않는다 - 루트 layout의 title.template가 한 번만 덧붙인다
 export const metadata: Metadata = {
   title: 'Contact',
   description: DESCRIPTION,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className='site-container min-h-screen w-full px-6 pt-32 pb-24 md:px-12'>
-      {/* 페이지 헤더 — /projects와 같은 구성. 제목이 페이지의 목적(프로젝트 이야기)을 말한다 */}
+      {/* 페이지 헤더 - /projects와 같은 구성. 제목이 페이지의 목적(프로젝트 이야기)을 말한다 */}
       <div className='border-line border-b pb-12'>
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Contact©</h1>

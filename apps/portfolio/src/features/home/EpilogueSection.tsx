@@ -10,7 +10,7 @@ import { useCursorStore } from '@/store/useCursorStore';
 const TAGS = ['UI Precision', 'Motion Focused', 'Responsive Design', 'Detail-Driven'];
 
 /**
- * EpilogueSection — 홈 페이지 전용 에필로그(Scene 05).
+ * EpilogueSection - 홈 페이지 전용 에필로그(Scene 05).
  * GIF 캐러셀·태그 바·철학 문구로 구성되며, 홈의 마지막 섹션으로만 사용한다.
  * 사이트 공통 하단 영역(Quick Links/Networks·대형 타이포)은 Footer가 담당한다.
  */

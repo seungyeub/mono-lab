@@ -41,7 +41,7 @@ export default function Header() {
     >
       {/* <nav className='flex flex-row justify-between content-center items-center w-full h-min px-6 py-6.5 md:px-12 md:py-6.5 md:pr-35 md:pl-12'> */}
       <nav className='site-container flex h-min w-full flex-row content-center items-center justify-between px-6 py-6.5 md:px-12 md:py-6.5'>
-        {/* LEFT — Avatar (difference 블렌드 제외: 사진은 그대로 보여야 함) */}
+        {/* LEFT - Avatar (difference 블렌드 제외: 사진은 그대로 보여야 함) */}
         <Link
           href='/'
           aria-label='홈으로 이동'
@@ -62,7 +62,7 @@ export default function Header() {
           )}
         </Link>
 
-        {/* Right — Helios 스타일 difference는 텍스트 영역만 (이미지에 쓰면 사라짐) */}
+        {/* Right - Helios 스타일 difference는 텍스트 영역만 (이미지에 쓰면 사라짐) */}
         <div
           className='relative flex h-min w-min flex-none flex-row content-center items-center gap-[270px] overflow-hidden p-0 opacity-100'
           style={{ mixBlendMode: 'difference' }}

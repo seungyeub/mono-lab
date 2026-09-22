@@ -6,7 +6,7 @@ import ProjectGrid from '@/features/projects/ProjectGrid';
 
 const DESCRIPTION = 'Next.js, React, TypeScript 기반으로 작업한 프론트엔드 프로젝트 모음입니다.';
 
-// 제목에 사이트명을 넣지 않는다 — 루트 layout의 title.template가 한 번만 덧붙인다
+// 제목에 사이트명을 넣지 않는다 - 루트 layout의 title.template가 한 번만 덧붙인다
 export const metadata: Metadata = {
   title: 'Projects',
   description: DESCRIPTION,
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
-  // 카드 데이터는 항상 getProjectCards를 거친다(P0-6) — 이미지 실존 여부도 여기서 온다
+  // 카드 데이터는 항상 getProjectCards를 거친다(P0-6) - 이미지 실존 여부도 여기서 온다
   const projects = getProjectCards();
 
   return (

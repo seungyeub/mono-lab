@@ -21,7 +21,7 @@ function FAQItem({ faq, index }: { faq: FaqItem; index: number }) {
         aria-controls={`faq-answer-${index}`}
         className='group flex w-full cursor-pointer flex-row items-start gap-6 py-6 text-left md:py-8 xl:gap-[160px]'
       >
-        {/* 번호 — xl에서만 표시 */}
+        {/* 번호 - xl에서만 표시 */}
         <span className='mt-1 hidden shrink-0 font-mono text-sm text-white xl:block'>
           {String(index + 1).padStart(2, '0')}
         </span>
@@ -76,7 +76,7 @@ export default function FAQSection() {
 
       <div className='site-container mt-12 w-full px-6 md:mt-24 md:px-12'>
         <div className='flex w-full flex-col items-start gap-16 md:gap-24'>
-          {/* TOP — Title & Desc */}
+          {/* TOP - Title & Desc */}
           <div className='flex w-full flex-col gap-6 font-semibold md:gap-12'>
             <motion.div {...reveal('displayTitle')} className='w-full'>
               <h2 className='text-7xl font-semibold tracking-tight md:text-8xl lg:text-9xl'>
@@ -90,7 +90,7 @@ export default function FAQSection() {
             </h3>
           </div>
 
-          {/* BOTTOM — Accordion */}
+          {/* BOTTOM - Accordion */}
           <div className='border-line-strong w-full border-t'>
             {FAQS.map((faq, i) => (
               <FAQItem key={i} faq={faq} index={i} />

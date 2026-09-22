@@ -108,12 +108,12 @@ describe('SkillsSection', () => {
 
   it('태그 5개를 모두 렌더링한다', () => {
     const { container } = render(<SkillsSection />);
-    // 카테고리 <h3>에도 같은 문구가 있어 화면 전체에서 찾으면 TagBar가 비어도 통과한다 — <ul> 안으로 좁힌다
+    // 카테고리 <h3>에도 같은 문구가 있어 화면 전체에서 찾으면 TagBar가 비어도 통과한다 - <ul> 안으로 좁힌다
     const list = container.querySelector('ul');
     expect(list).not.toBeNull();
 
     // 바가 보이는 구간(768px 이상)은 sm도 넘으므로 li의 sm:block이 적용돼
-    // 개별 태그가 숨겨지는 일은 없다 — 5개가 항상 함께 보인다
+    // 개별 태그가 숨겨지는 일은 없다 - 5개가 항상 함께 보인다
     SKILL_TAGS.forEach((tag) => {
       expect(within(list as HTMLElement).getByText(tag)).toBeInTheDocument();
     });

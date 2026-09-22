@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <div className='flex w-full flex-col'>
-      {/* 화면의 FAQ 섹션과 같은 데이터를 쓴다 — 답변 엔진이 그대로 인용할 수 있는 형태 */}
+      {/* 화면의 FAQ 섹션과 같은 데이터를 쓴다 - 답변 엔진이 그대로 인용할 수 있는 형태 */}
       <JsonLd data={buildFaqSchema()} />
       <HeroSection />
       <ProjectsSection projects={projects} />

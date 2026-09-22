@@ -7,13 +7,13 @@ import { sendGAEvent } from '@next/third-parties/google';
 import { useCursorStore } from '@/store/useCursorStore';
 
 /**
- * 제출 분기가 네 갈래다 — 정상 성공, 허니팟 성공(발송 없음), 타입 있는 오류, 예외.
+ * 제출 분기가 네 갈래다 - 정상 성공, 허니팟 성공(발송 없음), 타입 있는 오류, 예외.
  * 특히 허니팟 성공을 전환으로 세면 문의 지표가 봇만큼 부풀려지고(P6-15),
  * 예외를 놓치면 버튼이 loading에 묶여 다시 제출할 수 없다.
  */
 
 jest.mock('framer-motion', () => {
-  // 애니메이션 전용 prop은 DOM으로 흘리면 React가 경고한다 — 이름으로 걸러낸다
+  // 애니메이션 전용 prop은 DOM으로 흘리면 React가 경고한다 - 이름으로 걸러낸다
   const MOTION_ONLY = ['initial', 'animate', 'exit', 'transition', 'whileInView', 'viewport'];
   const stripMotionProps = (props: Record<string, unknown>) =>
     Object.fromEntries(Object.entries(props).filter(([key]) => !MOTION_ONLY.includes(key)));
@@ -69,7 +69,7 @@ describe('ContactForm', () => {
     (useCursorStore as unknown as jest.Mock).mockImplementation(() => jest.fn());
   });
 
-  it('정상 성공 — 성공 문구를 보이고 전환을 세며 입력을 비운다', async () => {
+  it('정상 성공 - 성공 문구를 보이고 전환을 세며 입력을 비운다', async () => {
     mockSend.mockResolvedValue({ success: true });
 
     render(<ContactForm />);
@@ -80,7 +80,7 @@ describe('ContactForm', () => {
     await waitFor(() => expect(screen.getByLabelText('Name')).toHaveValue(''));
   });
 
-  it('허니팟 성공 — 화면에는 성공이지만 전환으로 세지 않는다', async () => {
+  it('허니팟 성공 - 화면에는 성공이지만 전환으로 세지 않는다', async () => {
     // 봇에게 거부를 알리면 우회를 시도하므로 성공인 척한다. 다만 메일은 가지 않았다
     mockSend.mockResolvedValue({ success: true, trackAnalytics: false });
 
@@ -125,7 +125,7 @@ describe('ContactForm', () => {
     expect(mockSend).not.toHaveBeenCalled();
   });
   it('성공 문구는 role="status"로 바로 읽히고, 5초쯤 뒤 사라진다', async () => {
-    // 경계(정확히 5000ms)에 맞추면 타이머 스케줄 시점의 오차로 흔들린다 — 앞뒤로 여유를 둔다
+    // 경계(정확히 5000ms)에 맞추면 타이머 스케줄 시점의 오차로 흔들린다 - 앞뒤로 여유를 둔다
     jest.useFakeTimers();
     mockSend.mockResolvedValue({ success: true });
 

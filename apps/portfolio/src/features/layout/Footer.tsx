@@ -10,7 +10,7 @@ const QUICK_LINKS = [
   { label: 'Contact', href: '/contact' },
 ];
 
-// Contact 페이지의 Channels와 같은 순서로 둔다 — 목록이 두 곳에 있어 한쪽만 바꾸면 어긋난다
+// Contact 페이지의 Channels와 같은 순서로 둔다 - 목록이 두 곳에 있어 한쪽만 바꾸면 어긋난다
 const NETWORKS = [
   { label: 'GitHub,', href: 'https://github.com/seungyeub' },
   { label: 'Blog,', href: 'https://blog.naver.com/backsajang420' },
@@ -22,7 +22,7 @@ const NETWORKS = [
 ];
 
 /**
- * Footer — 모든 라우트에 공통으로 노출되는 하단 영역.
+ * Footer - 모든 라우트에 공통으로 노출되는 하단 영역.
  * 홈 전용 에필로그(GIF 캐러셀·철학 문구)는 EpilogueSection이 담당한다.
  */
 export default function Footer() {
@@ -67,8 +67,18 @@ export default function Footer() {
       {/* 거대한 포트폴리오 푸터 */}
       <div className='group/footer border-line flex w-full flex-col border-t'>
         <div className='site-container text-label flex w-full flex-col justify-between gap-2 px-6 pt-6 tracking-widest text-white/50 uppercase md:flex-row md:px-12 md:pt-10 md:text-xs'>
-          <span>Front-End Developer</span>
-          <span>All Rights Reserved</span>
+          {/* 처리방침은 모든 페이지에서 닿을 수 있어야 한다 - GA가 전 페이지에서 쿠키를 쓴다.
+              직군 표기(Front-End Developer)는 헤더 우측에 이미 있어 여기서는 뺐다.
+              세로로 쌓이는 화면에서는 Privacy를 위에 둔다 - 아래 워터마크(SEUNGYEUB ©2026)와
+              저작권 표기가 붙어 있어야 한 덩어리로 읽힌다. 가로로 펴지는 md부터는 순서를 되돌려
+              저작권을 왼쪽 끝, Privacy를 오른쪽 끝에 둔다.
+              글자 지연은 기본값(25ms)을 쓴다 - Quick Links·Networks와 같은 롤링으로 보이게 */}
+          <RollingLink
+            href='/privacy'
+            text='Privacy'
+            className='transition-colors duration-200 hover:text-white md:order-2'
+          />
+          <span className='md:order-1'>All Rights Reserved</span>
         </div>
 
         <motion.div

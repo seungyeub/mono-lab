@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-// 서버 컴포넌트라 'use client'가 붙은 motion 요소를 가져온다 — 페이지 전체를 클라이언트로 돌리지 않는다
+// 서버 컴포넌트라 'use client'가 붙은 motion 요소를 가져온다 - 페이지 전체를 클라이언트로 돌리지 않는다
 import * as motion from 'framer-motion/client';
 
 import RollingLink from '@/components/RollingText/RollingLink';
@@ -12,7 +12,7 @@ import { reveal } from '@/lib/motion';
 const DESCRIPTION =
   '프론트엔드 엔지니어 백승엽의 경력, 자격증, 기술 스택을 정리한 이력서 페이지입니다.';
 
-// 제목에 사이트명을 넣지 않는다 — 루트 layout의 title.template가 한 번만 덧붙인다
+// 제목에 사이트명을 넣지 않는다 - 루트 layout의 title.template가 한 번만 덧붙인다
 export const metadata: Metadata = {
   title: 'Resume',
   description: DESCRIPTION,
@@ -69,12 +69,12 @@ export default function ResumePage() {
               {...reveal('listItem')}
               className='lg:grid-cols-experience border-line grid grid-cols-2 gap-4 border-b py-5 lg:items-center'
             >
-              {/* col 1 — 회사명 (lg+) / 회사명+기간 (< lg) */}
+              {/* col 1 - 회사명 (lg+) / 회사명+기간 (< lg) */}
               <div className='flex flex-col gap-1'>
                 <span className='text-base font-medium md:text-lg'>{exp.company}</span>
                 <span className='text-sm text-gray-400 lg:hidden'>{exp.period}</span>
               </div>
-              {/* col 2 (소형) — 역할+고용형태, 오른쪽 정렬. lg 이상에서는 숨긴다 */}
+              {/* col 2 (소형) - 역할+고용형태, 오른쪽 정렬. lg 이상에서는 숨긴다 */}
               <div className='flex flex-col gap-1 text-right lg:hidden'>
                 <span className='text-sm text-gray-400 md:text-base'>{exp.role}</span>
                 <span className='text-sm text-white/50'>{exp.type}</span>
@@ -102,13 +102,13 @@ export default function ResumePage() {
               {...reveal('listItem')}
               className='lg:grid-cols-experience border-line grid grid-cols-2 gap-4 border-b py-5 lg:items-center'
             >
-              {/* 홈 자격증 목록과 같은 구성 — 경력의 기간·역할 자리에 취득일·발급기관 */}
-              {/* col 1 — 자격증명 (lg+) / 자격증명+취득일 (< lg) */}
+              {/* 홈 자격증 목록과 같은 구성 - 경력의 기간·역할 자리에 취득일·발급기관 */}
+              {/* col 1 - 자격증명 (lg+) / 자격증명+취득일 (< lg) */}
               <div className='flex flex-col gap-1'>
                 <span className='text-base font-medium md:text-lg'>{achievement.certificate}</span>
                 <span className='text-sm text-gray-400 lg:hidden'>{achievement.date}</span>
               </div>
-              {/* col 2 (소형) — 발급기관+결과, 오른쪽 정렬. lg 이상에서는 숨긴다 */}
+              {/* col 2 (소형) - 발급기관+결과, 오른쪽 정렬. lg 이상에서는 숨긴다 */}
               <div className='flex flex-col gap-1 text-right lg:hidden'>
                 <span className='text-sm text-gray-400 md:text-base'>
                   {achievement.organization}

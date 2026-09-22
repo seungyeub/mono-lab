@@ -18,7 +18,7 @@ import dynamic from 'next/dynamic';
  *
  * 동작 줄이기 사용자와 소프트웨어 렌더러 환경에서는 이 블록이 최종 화면이다. 테두리 상자 안의
  * 흐린 흑백 아바타는 로딩·실패 자리처럼 읽혀서, 상자를 없애고 아바타만 또렷하게 둔다(2026-09-16,
- * 네 안 비교 후 선택). 영역 크기는 그대로 둔다 — 줄이면 캔버스가 뜰 때 아래 콘텐츠가 밀린다.
+ * 네 안 비교 후 선택). 영역 크기는 그대로 둔다 - 줄이면 캔버스가 뜰 때 아래 콘텐츠가 밀린다.
  */
 function CardPlaceholder() {
   return (
@@ -30,7 +30,7 @@ function CardPlaceholder() {
 
 const InteractiveCardCanvas = dynamic(() => import('./components/InteractiveCardCanvas'), {
   ssr: false,
-  // idle 이후 청크를 받는 동안에도 같은 자리를 지킨다 — 기본 fallback은 null이라 영역이 비어 보인다
+  // idle 이후 청크를 받는 동안에도 같은 자리를 지킨다 - 기본 fallback은 null이라 영역이 비어 보인다
   loading: () => <CardPlaceholder />,
 });
 
@@ -52,7 +52,7 @@ export default function HeroSection() {
   // requestIdleCallback은 Safari에 없어 setTimeout으로 대체하고, 바쁜 페이지에서
   // 무한정 기다리지 않도록 timeout을 둔다.
   // 동작 줄이기 사용자에게는 흔들리는 3D 카드 대신 정적 플레이스홀더를 그대로 둔다
-  // GPU 없이 CPU로 WebGL을 그리는 환경도 플레이스홀더에 머문다 — 카드가 매 프레임 메인 스레드를
+  // GPU 없이 CPU로 WebGL을 그리는 환경도 플레이스홀더에 머문다 - 카드가 매 프레임 메인 스레드를
   // 수백 ms씩 잡아 페이지 전체가 굳는다(PR #99). 판정은 LCP 이후 이 콜백에서 한 번만 한다
   const prefersReducedMotion = useReducedMotion();
   const [canvasReady, setCanvasReady] = useState(false);
@@ -88,7 +88,7 @@ export default function HeroSection() {
       {/* ── 2단 메인 그리드 (상단 자연 흐름 배치) ── */}
       <div className='w-full'>
         <div className='site-container grid w-full grid-cols-1 gap-0 px-6 md:grid-cols-2 md:px-12'>
-          {/* LEFT — 타이포그래피 */}
+          {/* LEFT - 타이포그래피 */}
           <motion.div
             style={{ y: textY, opacity: textOpacity }}
             className='pointer-events-none z-10 col-start-1 row-start-1 flex flex-col gap-8 bg-transparent py-8 pr-0 md:pointer-events-auto md:mr-[-4px] md:py-12'
@@ -111,10 +111,10 @@ export default function HeroSection() {
               </motion.span>
             </div>
 
-            {/* 메인 헤드라인 — 이 h1이 LCP 요소다.
+            {/* 메인 헤드라인 - 이 h1이 LCP 요소다.
                 opacity를 0에서 시작하면 JS가 하이드레이션돼 페이드를 끝낼 때까지 "그려지지 않은"
                 것으로 잡혀 LCP가 13~15초까지 밀렸다(P3-11 실측). 텍스트는 첫 페인트부터 보이게 두고
-                위로 올라오는 움직임만 남긴다 — transform은 LCP 판정에 영향이 없다. */}
+                위로 올라오는 움직임만 남긴다 - transform은 LCP 판정에 영향이 없다. */}
             <motion.h1
               initial={{ y: 40 }}
               animate={{ y: 0 }}
@@ -150,7 +150,7 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT — 이미지 슬롯 (parallax & fade matching left) */}
+          {/* RIGHT - 이미지 슬롯 (parallax & fade matching left) */}
           <motion.div
             style={{ y: textY, opacity: textOpacity, pointerEvents }}
             initial={{ opacity: 0 }}
