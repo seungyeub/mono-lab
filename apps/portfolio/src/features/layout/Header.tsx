@@ -87,7 +87,7 @@ export default function Header() {
               Contact 페이지의 "Based in / Seoul, 한국"과 중복이라 강조를 뒤집었다. */}
           <div className='relative hidden h-min w-min max-w-[300px] flex-none flex-col content-start items-start gap-[3px] overflow-visible p-0 opacity-100 lg:flex'>
             <div className='relative flex transform-none flex-col justify-center whitespace-pre'>
-              <p className='font-semibold text-white'>Front-End Developer</p>
+              <p className='font-semibold text-white'>Software Engineer</p>
             </div>
             <div className='relative flex transform-none flex-col justify-center whitespace-pre text-[#999]'>
               <p>Seoul, 한국</p>
