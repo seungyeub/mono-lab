@@ -9,7 +9,7 @@ export const SITE_URL = 'https://seungyeub.vercel.app';
 
 export const SITE_NAME = 'Seungyeub Baek';
 
-export const SITE_TITLE = 'Seungyeub Baek | Frontend Engineer';
+export const SITE_TITLE = 'Seungyeub Baek | Software Engineer';
 
 export const SITE_DESCRIPTION =
   'Next.js, React, TypeScript 기반으로 인터페이스와 시스템을 구축하는 프론트엔드 엔지니어 백승엽의 포트폴리오입니다.';

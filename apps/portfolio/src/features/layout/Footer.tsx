@@ -68,7 +68,7 @@ export default function Footer() {
       <div className='group/footer border-line flex w-full flex-col border-t'>
         <div className='site-container text-label flex w-full flex-col justify-between gap-2 px-6 pt-6 tracking-widest text-white/50 uppercase md:flex-row md:px-12 md:pt-10 md:text-xs'>
           {/* 처리방침은 모든 페이지에서 닿을 수 있어야 한다 - GA가 전 페이지에서 쿠키를 쓴다.
-              직군 표기(Front-End Developer)는 헤더 우측에 이미 있어 여기서는 뺐다.
+              직군 표기(Software Engineer)는 헤더 우측에 이미 있어 여기서는 뺐다.
               세로로 쌓이는 화면에서는 Privacy를 위에 둔다 - 아래 워터마크(SEUNGYEUB ©2026)와
               저작권 표기가 붙어 있어야 한 덩어리로 읽힌다. 가로로 펴지는 md부터는 순서를 되돌려
               저작권을 왼쪽 끝, Privacy를 오른쪽 끝에 둔다.

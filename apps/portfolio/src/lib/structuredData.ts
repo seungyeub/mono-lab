@@ -46,7 +46,7 @@ export function buildPersonSchema(): Record<string, unknown> {
     name: SITE_NAME,
     alternateName: '백승엽',
     url: SITE_URL,
-    jobTitle: 'Frontend Engineer',
+    jobTitle: 'Software Engineer',
     description: SITE_DESCRIPTION,
     sameAs: SOCIAL_PROFILES,
     address: {
@@ -54,7 +54,7 @@ export function buildPersonSchema(): Record<string, unknown> {
       addressLocality: 'Seoul',
       addressCountry: 'KR',
     },
-    knowsAbout: ['Frontend Engineering', 'React', 'Next.js', 'TypeScript', 'Web Accessibility'],
+    knowsAbout: ['Software Engineering', 'React', 'Next.js', 'TypeScript', 'Web Accessibility'],
     hasOccupation: EXPERIENCES.map((experience) => {
       const { start, end } = parsePeriod(experience.period);
       return {

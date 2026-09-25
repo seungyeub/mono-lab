@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: OG_IMAGE_WIDTH,
         height: OG_IMAGE_HEIGHT,
-        alt: `${SITE_NAME} - Frontend Engineer 포트폴리오`,
+        alt: `${SITE_NAME} - Software Engineer 포트폴리오`,
       },
     ],
   },
