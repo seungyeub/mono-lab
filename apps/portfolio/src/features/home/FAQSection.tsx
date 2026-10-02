@@ -45,7 +45,7 @@ function FAQItem({ faq, index }: { faq: FaqItem; index: number }) {
                 transition={{ duration: 0.35, ease: SMOOTH }}
                 className='overflow-hidden'
               >
-                <p className='max-w-2xl pt-3 text-sm leading-relaxed text-gray-400 md:text-base lg:text-lg'>
+                <p className='max-w-2xl pt-3 text-sm leading-relaxed break-keep text-gray-400 md:text-base lg:text-lg'>
                   {faq.a}
                 </p>
               </motion.div>
@@ -84,7 +84,7 @@ export default function FAQSection() {
               </h2>
             </motion.div>
 
-            <h3 className='max-w-5xl text-base text-gray-400 md:text-lg'>
+            <h3 className='max-w-5xl text-base break-keep text-gray-400 md:text-lg'>
               작은 결정들이 모여 더 나은 서비스를 만듭니다. <br className='hidden lg:block' />
               개발 과정에서 중요하게 생각하는 기준과 원칙을 정리했습니다.
             </h3>
