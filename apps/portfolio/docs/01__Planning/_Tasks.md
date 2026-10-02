@@ -57,7 +57,10 @@
 - [x] 소프트웨어 렌더러 감지 시 3D 카드 대신 플레이스홀더 유지 - `src/lib/webglRenderer.ts`로 SwiftShader·llvmpipe·softpipe·WARP를 감지하면 카드를 올리지 않는다. 플레이스홀더는 네 안(현행·아바타·빈 공간·워터마크) 비교 후 테두리 없는 컬러 아바타로 바꿨다 (2026-09-16, TBT 조사 후속)
 - [ ] 프리뷰 URL Lighthouse 측정·임계값 (P6-6 보류분)
 - [x] 직함을 Software Engineer로 변경 - 헤더·Hero 표기, 페이지 제목, JSON-LD `jobTitle`·`knowsAbout`, OG 이미지와 alt, 3D 카드 모델(사용자 교체) (2026-09-25). 경력 `role`과 프로젝트 mdx는 당시 사실이라 그대로 둔다
-- [ ] Software Engineer 방향에 맞춘 한글 설명문 재작성 - 직함만 바꾸고 소개 문장은 아직 "프론트엔드" 중심이다. 대상: `SITE_DESCRIPTION`, `/resume` 소개문, `SkillsSection` 설명, `/projects`·`/contact` 페이지 설명, `faqData` 기술 스택 답변, OG 이미지의 기술 칩(React·Next.js·TypeScript), `mono-lab` 프로젝트 OG·갤러리 스크린샷(예전 화면이라 `FRONT-END DEVELOPER`가 보임). **`public/resume.pdf`는 사용자가 직접 교체** ("프론트엔드" 16회)
+- [x] Software Engineer 방향에 맞춘 한글 설명문 재작성 - 사이트 소개, `/resume`·`/projects`·`/contact` 설명, 홈 Skills 설명, FAQ 여섯 개 전체를 다시 썼다 (2026-10-02). FAQ는 화면 중심·다짐형에서 범위와 실제로 해 온 방식을 말하는 문장으로 바꿨다. **`public/resume.pdf`는 사용자가 직접 교체** ("프론트엔드" 16회)
+- [x] 홈 설명문의 한글 줄바꿈 - Skills·FAQ 소개문·FAQ 답변·Projects 설명문에 `break-keep`을 넣어 "개발 과 / 정에서"처럼 단어 중간에서 끊기지 않게 했다. Skills는 모바일에서 두 문장이 공백 없이 붙던 버그와 태블릿에서 마지막 단어만 떨어지던 문제도 고쳤다(`text-pretty`) (2026-10-02). **새 한글 문단을 넣을 때는 `break-keep`을 함께 준다**
+- [ ] (나중) OG 이미지의 기술 칩 - 지금 `React`·`Next.js`·`TypeScript`. 새 회사에서 쓰는 기술이 쌓이면 다시 정한다 (2026-10-02 보류)
+- [ ] (나중) `mono-lab` 프로젝트 OG·갤러리 스크린샷 - 예전 화면이라 `FRONT-END DEVELOPER`가 보인다. 사이트에 큰 업데이트가 있을 때 지금 화면으로 다시 찍는다 (2026-10-02 보류)
 - [x] GA 쿠키 고지 (P6-12의 남은 간극) - `/privacy` 페이지 + 푸터 링크 + 폼 고지에서 연결 (PR #107, 2026-09-22). 쿠키 동의 배너는 넣지 않는다 - 지금 GA4는 측정 ID가 있으면 동의 확인 없이 로드되고, 배너를 넣으려면 동의 전까지 GA를 막는 구조가 필요해 범위가 크게 달라진다. EU 방문자를 상대로 하거나 GA 속성에서 광고 기능(Google signals 등)을 켜면 다시 판단한다
 - [x] Hero 사원증 영역 세로 여백 (lg 이상) - 왼쪽 열 48→80px, 섹션 아래 40→60px, 카드 칸 최소 높이 400→480px (PR #108, 2026-09-22). **섹션 위쪽에는 여백을 주지 않는다** - 캔버스 윗변이 드러나면 카드를 매단 끈이 헤더 뒤에서 이어지지 않고 끊겨 보인다. 1023px과 1024px을 재서 태블릿 이하 무변화를 확인했다
 - [x] easing 곡선 토큰화 - `cubic-bezier(0.16,1,0.3,1)` 7개 파일 8곳을 `--ease-smooth` 토큰과 `SMOOTH` 상수로 모았다 (PR #98, 2026-09-15)

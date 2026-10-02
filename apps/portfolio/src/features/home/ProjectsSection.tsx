@@ -109,7 +109,7 @@ export default function ProjectsSection({ projects }: { projects: ProjectCard[] 
                     시각 크기는 클래스로 유지하므로 화면은 그대로다 (P2-5) */}
                 <h2 className='text-7xl tracking-tight md:text-8xl lg:text-9xl'>Projects.</h2>
               </motion.div>
-              <p className='text-base text-gray-400 md:text-lg'>
+              <p className='text-base break-keep text-gray-400 md:text-lg'>
                 모든 프로젝트는 추상적인 비전을 직관적이고 매끄러운 사용자 경험으로 구현해 내는
                 과정입니다.
                 <br />
