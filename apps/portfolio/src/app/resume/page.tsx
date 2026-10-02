@@ -10,7 +10,7 @@ import { publicAssetExists } from '@/lib/mdx';
 import { reveal } from '@/lib/motion';
 
 const DESCRIPTION =
-  '프론트엔드 엔지니어 백승엽의 경력, 자격증, 기술 스택을 정리한 이력서 페이지입니다.';
+  '소프트웨어 엔지니어 백승엽의 경력, 자격증, 기술 스택을 정리한 이력서 페이지입니다.';
 
 // 제목에 사이트명을 넣지 않는다 - 루트 layout의 title.template가 한 번만 덧붙인다
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export default function ResumePage() {
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Resume©</h1>
           <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
-            Next.js, React, TypeScript 기반으로 인터페이스와 시스템을 구축하는 프론트엔드 엔지니어
+            화면부터 서버, 배포까지 서비스 전체를 설계하고 구축하는 소프트웨어 엔지니어
             백승엽입니다.
           </p>
         </div>

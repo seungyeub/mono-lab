@@ -12,7 +12,7 @@ export const SITE_NAME = 'Seungyeub Baek';
 export const SITE_TITLE = 'Seungyeub Baek | Software Engineer';
 
 export const SITE_DESCRIPTION =
-  'Next.js, React, TypeScript 기반으로 인터페이스와 시스템을 구축하는 프론트엔드 엔지니어 백승엽의 포트폴리오입니다.';
+  '화면부터 서버, 배포까지 서비스 전체를 설계하고 구축하는 소프트웨어 엔지니어 백승엽의 포트폴리오입니다.';
 
 /** 링크 공유 시 미리보기에 쓰는 기본 이미지 (1200x630) */
 export const OG_IMAGE = '/images/og-default.png';

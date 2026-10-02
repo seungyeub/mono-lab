@@ -32,12 +32,13 @@ export default function SkillsSection() {
 
         <motion.p
           {...reveal('sectionLead', 0.15)}
-          className='mt-6 max-w-2xl text-base leading-relaxed text-gray-400 md:text-lg'
+          className='mt-6 max-w-3xl text-base leading-relaxed text-pretty break-keep text-gray-400 md:text-lg'
         >
-          프론트엔드를 중심으로 백엔드, 인프라, 디자인까지 서비스의 전체 생애주기를 다루는 기술
-          역량입니다.
+          서비스를 만들고 운영하는 전 과정의 기술입니다.{' '}
+          {/* sm 미만에서는 줄을 바꾸지 않고 이어 쓴다 - 공백이 없으면 두 문장이 붙는다 */}
           <br className='hidden sm:block' />
-          단순한 도구 나열이 아닌, 실무에서 검증된 기술 스택입니다.
+          화면부터 서버와 데이터베이스, 배포와 인프라, 개발 도구와 AI까지 실제 프로젝트에서 써 온
+          것만 모았습니다.
         </motion.p>
       </div>
 

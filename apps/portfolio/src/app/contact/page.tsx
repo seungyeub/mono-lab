@@ -28,7 +28,7 @@ function ContactRow({ label, children }: { label: string; children: ReactNode })
 }
 
 const DESCRIPTION =
-  '프론트엔드 개발 협업 및 채용 문의를 위해 백승엽에게 연락할 수 있는 페이지입니다.';
+  '소프트웨어 개발 협업 및 채용 문의를 위해 백승엽에게 연락할 수 있는 페이지입니다.';
 
 // 제목에 사이트명을 넣지 않는다 - 루트 layout의 title.template가 한 번만 덧붙인다
 export const metadata: Metadata = {
