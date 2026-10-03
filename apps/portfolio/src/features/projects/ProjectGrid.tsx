@@ -77,10 +77,10 @@ export default function ProjectGrid({ projects }: { projects: ProjectCard[] }) {
         {projects.map((project, index) => (
           <motion.div
             key={project.slug}
-            // 마운트 시 한꺼번에 돌면 화면 밖 카드는 이미 끝난 채로 스크롤된다 —
+            // 마운트 시 한꺼번에 돌면 화면 밖 카드는 이미 끝난 채로 스크롤된다 -
             // 뷰포트 진입 시점에 리빌하고, 2열일 때만 같은 행의 두 장을 좌→우로 어긋나게 한다
             {...reveal('gridCard', isTwoColumn ? (index % 2) * 0.08 : 0)}
-            // 등장 효과가 이 요소의 투명도를 다룬다 — CSS opacity 전환을 같이 걸면 모바일에서 카드가 검게 깜빡였다(0.5.1)
+            // 등장 효과가 이 요소의 투명도를 다룬다 - CSS opacity 전환을 같이 걸면 모바일에서 카드가 검게 깜빡였다(0.5.1)
             className={`flex flex-col gap-3 ${index % 2 === 1 ? 'md:mt-16' : ''}`}
           >
             <Link
@@ -108,7 +108,7 @@ export default function ProjectGrid({ projects }: { projects: ProjectCard[] }) {
                   <div className='absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10' />
                 </>
               ) : (
-                // 에셋 미확보 프로젝트 — 빈 상자 대신 제목을 읽히게 둔다
+                // 에셋 미확보 프로젝트 - 빈 상자 대신 제목을 읽히게 둔다
                 <div className='absolute inset-0 flex items-center justify-center px-6'>
                   <span className='text-center text-sm tracking-widest text-white/50 uppercase transition-colors duration-300 group-hover:text-white/70'>
                     {project.title}

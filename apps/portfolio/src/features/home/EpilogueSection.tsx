@@ -7,10 +7,11 @@ import TagBar from '@/components/TagBar';
 import { CAROUSEL_CARDS } from '@/data/carouselGifs';
 import { useCursorStore } from '@/store/useCursorStore';
 
-const TAGS = ['UI Precision', 'Motion Focused', 'Responsive Design', 'Detail-Driven'];
+// Hero 띠가 "어떻게 일하는가"라면 마지막 띠는 "그래서 무엇이 남는가"를 말한다 - 홈을 과정과 결과로 닫는다
+const TAGS = ['Built to Last', 'Easy to Change', 'Safe to Ship', 'Clear to Read'];
 
 /**
- * EpilogueSection — 홈 페이지 전용 에필로그(Scene 05).
+ * EpilogueSection - 홈 페이지 전용 에필로그(Scene 05).
  * GIF 캐러셀·태그 바·철학 문구로 구성되며, 홈의 마지막 섹션으로만 사용한다.
  * 사이트 공통 하단 영역(Quick Links/Networks·대형 타이포)은 Footer가 담당한다.
  */
@@ -76,7 +77,7 @@ export default function EpilogueSection() {
         <div className='mx-auto flex max-w-[640px] flex-col items-center gap-10 text-pretty lg:gap-12'>
           <ScrollRevealText
             lines={[
-              '보이지 않는 탄탄한 구조와 타협하지 않는 시각적 섬세함을 결합해 밀도 높은 프로덕트를 완성합니다. 모든 상태와 전환을 세심하게 다듬어, 어떤 스크린에서든 사용자가 마주하는 순간들이 명확하고 한결같으며 흔들림 없는 의도를 갖도록 설계합니다.',
+              '오늘 잘 돌아가는 것보다, 1년 뒤에도 고칠 수 있는 것을 만듭니다. 구조는 단순하게, 결정은 기록으로 남기고, 바뀔 때마다 자동으로 확인합니다. 그래서 다음 사람도, 다음의 나도 망설이지 않고 손댈 수 있는 서비스를 넘겨줍니다.',
             ]}
             align='center'
             className='w-full text-sm font-semibold break-keep sm:text-base lg:text-lg'

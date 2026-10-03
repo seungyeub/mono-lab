@@ -115,7 +115,7 @@ describe('SectionLabel', () => {
 
     // 2. 전달된 Props가 화면(document)에 정상적으로 텍스트로 나타나는지 전역 매처로 검증합니다.
     expect(screen.getByText('Left Text')).toBeInTheDocument();
-    expect(screen.getByText('SCENE — 01')).toBeInTheDocument();
+    expect(screen.getByText('SCENE - 01')).toBeInTheDocument();
     expect(screen.getByText('Right Text')).toBeInTheDocument();
   });
 });

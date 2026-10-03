@@ -6,7 +6,7 @@ describe('SectionLabel', () => {
     render(<SectionLabel scene='01' leftLabel='EXPERIENCE' rightLabel='WORKS' />);
 
     expect(screen.getByText('EXPERIENCE')).toBeInTheDocument();
-    expect(screen.getByText('SCENE — 01')).toBeInTheDocument();
+    expect(screen.getByText('SCENE - 01')).toBeInTheDocument();
     expect(screen.getByText('WORKS')).toBeInTheDocument();
   });
 });

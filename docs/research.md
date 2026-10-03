@@ -1,7 +1,7 @@
 # mono-lab 프로젝트 상세 분석 보고서
 
 > **작성일:** 2026-06-07  
-> **분석 대상:** `mono-lab` — Turborepo + pnpm 기반 모노레포 템플릿
+> **분석 대상:** `mono-lab` - Turborepo + pnpm 기반 모노레포 템플릿
 
 ---
 
@@ -91,13 +91,13 @@ packages:
 | 태스크        | dependsOn                   | cache          | 출력                                                |
 | ------------- | --------------------------- | -------------- | --------------------------------------------------- |
 | `build`       | `^build` (의존 패키지 먼저) | ✅             | `dist/**`, `.next/**` (캐시 제외: `.next/cache/**`) |
-| `lint`        | `^lint`                     | ✅             | —                                                   |
-| `check-types` | `^check-types`              | ✅             | —                                                   |
-| `dev`         | —                           | ❌ (캐시 없음) | persistent: true                                    |
+| `lint`        | `^lint`                     | ✅             | -                                                   |
+| `check-types` | `^check-types`              | ✅             | -                                                   |
+| `dev`         | -                           | ❌ (캐시 없음) | persistent: true                                    |
 
 **핵심 포인트:**
 
-- `build`는 **위상 정렬** 기반 — 의존되는 `packages/*`가 먼저 빌드된 후 `apps/*`가 빌드
+- `build`는 **위상 정렬** 기반 - 의존되는 `packages/*`가 먼저 빌드된 후 `apps/*`가 빌드
 - `dev`는 캐시를 사용하지 않으며 `persistent: true`로 지속 실행 (watch 모드)
 - `inputs`에 `.env*`를 포함하여 환경변수 변경 시 캐시 무효화
 
@@ -142,10 +142,10 @@ auto-install-peers = true
 
 주요 무시 항목:
 
-- `node_modules`, `.next/`, `dist/` — 빌드/의존성 산출물
-- `.turbo` — Turborepo 캐시
-- `.env.local`, `.env.*.local` — 로컬 환경변수
-- `.DS_Store`, `*.pem` — OS/보안 파일
+- `node_modules`, `.next/`, `dist/` - 빌드/의존성 산출물
+- `.turbo` - Turborepo 캐시
+- `.env.local`, `.env.*.local` - 로컬 환경변수
+- `.DS_Store`, `*.pem` - OS/보안 파일
 
 ---
 
@@ -186,11 +186,11 @@ auto-install-peers = true
 
 **주요 설정 의미:**
 
-- `strict: true` — 엄격한 타입 체킹 (null 안전성, 암시적 any 금지 등)
-- `noUncheckedIndexedAccess: true` — 인덱스 접근 시 `T | undefined` 체크 강제
-- `isolatedModules: true` — 파일별 독립 변환 보장 (SWC, esbuild 호환)
-- `module: "NodeNext"` — Node.js ESM/CJS 이중 해석 지원
-- `declaration: true` + `declarationMap: true` — 패키지 소비 시 타입 제공
+- `strict: true` - 엄격한 타입 체킹 (null 안전성, 암시적 any 금지 등)
+- `noUncheckedIndexedAccess: true` - 인덱스 접근 시 `T | undefined` 체크 강제
+- `isolatedModules: true` - 파일별 독립 변환 보장 (SWC, esbuild 호환)
+- `module: "NodeNext"` - Node.js ESM/CJS 이중 해석 지원
+- `declaration: true` + `declarationMap: true` - 패키지 소비 시 타입 제공
 
 **사용 방법:** 각 앱/패키지의 `tsconfig.json`에서 `"extends": "@repo/typescript-config/nextjs.json"` 등으로 상속.
 
@@ -354,7 +354,7 @@ export const postcssConfig = {
      }
    }
    ```
-3. `pnpm install` 실행 — `pnpm-workspace.yaml`의 `apps/*` 글로브에 의해 자동 인식
+3. `pnpm install` 실행 - `pnpm-workspace.yaml`의 `apps/*` 글로브에 의해 자동 인식
 4. 루트에서 `pnpm run dev` 시 Turborepo가 새 앱의 `dev` 스크립트도 함께 실행
 
 ### 4.3 패키지 간 의존 관계
@@ -378,7 +378,7 @@ apps/portfolio
 ```
 mono-lab/
 ├── .gitignore .................... Git 무시 규칙 (382B)
-├── .npmrc ........................ pnpm 설정 — auto-install-peers (26B)
+├── .npmrc ........................ pnpm 설정 - auto-install-peers (26B)
 ├── LICENSE ....................... MIT 라이선스 (1,066B)
 ├── README.md ..................... 프로젝트 소개 (1,372B)
 ├── PRD.md ........................ 제품 요구사항 문서 (4,788B)

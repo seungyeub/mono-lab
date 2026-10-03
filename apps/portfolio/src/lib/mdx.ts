@@ -50,7 +50,7 @@ export interface ProjectMetadata {
   /** 값이 있을 때만 CTA를 렌더링한다 (P0-3 계약) */
   liveUrl?: string;
   github?: string;
-  /** Hero 캐러셀 이미지 — 없으면 image 1장을, 그것도 없으면 타이포 플레이스홀더를 쓴다 */
+  /** Hero 캐러셀 이미지 - 없으면 image 1장을, 그것도 없으면 타이포 플레이스홀더를 쓴다 */
   carouselImages: string[];
   techStack: string[];
   overview: ProjectTextItem[];
@@ -64,7 +64,7 @@ function asRecord(value: unknown): Record<string, unknown> {
   return typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
 }
 
-/** 비어 있지 않은 문자열만 통과시킨다 — 빈 값이 UI에 렌더링되는 것을 막는다 */
+/** 비어 있지 않은 문자열만 통과시킨다 - 빈 값이 UI에 렌더링되는 것을 막는다 */
 function asText(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim() !== '' ? value : undefined;
 }
@@ -193,9 +193,9 @@ export function getProjectSeoMetadata(slug: string): { title: string; descriptio
   try {
     const { meta } = getProjectBySlug(slug);
     return {
-      // 사이트명은 루트 layout의 title.template가 붙인다 — 여기서 넣으면 두 번 붙는다
+      // 사이트명은 루트 layout의 title.template가 붙인다 - 여기서 넣으면 두 번 붙는다
       title: meta.title,
-      description: `${meta.title} — ${meta.category} 프로젝트 상세입니다.`,
+      description: `${meta.title} - ${meta.category} 프로젝트 상세입니다.`,
     };
   } catch {
     return null;
@@ -208,7 +208,7 @@ export interface ProjectCard {
   category: string;
   order: number;
   image: string;
-  /** image 파일이 실제로 public/에 있는지 — 없으면 카드가 제목 폴백을 보여준다 */
+  /** image 파일이 실제로 public/에 있는지 - 없으면 카드가 제목 폴백을 보여준다 */
   imageExists: boolean;
   href: string;
 }
@@ -233,11 +233,11 @@ export function getProjectCards(): ProjectCard[] {
 
 /**
  * 홈 ProjectsSection에 노출할 프로젝트 선택 목록.
- * 자동(최신순)이 아니라 **여기서 직접 슬러그를 골라** 큐레이션한다 — 배열 순서가 곧 노출 순서다.
+ * 자동(최신순)이 아니라 **여기서 직접 슬러그를 골라** 큐레이션한다 - 배열 순서가 곧 노출 순서다.
  * 항목을 바꾸려면 slug를 교체하면 되고, 오타·삭제된 슬러그는 테스트가 잡아낸다.
  *
  * 홈은 2열 격자라 **짝수를 유지해야 마지막 줄이 비지 않는다**(테스트로 강제).
- * `mono-lab`은 이 목록에 넣지 않는다 — 넣으면 9개가 되어 기존 8건 중 하나를 빼야 하는데,
+ * `mono-lab`은 이 목록에 넣지 않는다 - 넣으면 9개가 되어 기존 8건 중 하나를 빼야 하는데,
  * 남은 8건이 이미 선별된 결과라 Projects(`/projects`) 노출만으로 충분하다고 판단했다.
  */
 export const FEATURED_SLUGS = [

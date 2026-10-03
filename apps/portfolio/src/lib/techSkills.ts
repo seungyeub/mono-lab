@@ -28,7 +28,7 @@ import { SKILL_CATEGORIES, type SkillItem } from '@/data/skillsData';
  * 매핑해 아이콘·브랜드 컬러를 재사용한다. 표시 이름은 MDX 원문을 유지한다.
  */
 
-/** skillsData(44종)에 없는 기술의 보강 아이콘 — simple-icons 팩에서 확인된 것만 등재 */
+/** skillsData(44종)에 없는 기술의 보강 아이콘 - simple-icons 팩에서 확인된 것만 등재 */
 const EXTRA_SKILLS: SkillItem[] = [
   { name: 'PHP', icon: SiPhp, brandColor: '#777BB4' },
   { name: 'PostgreSQL', icon: SiPostgresql, brandColor: '#4169E1' },
@@ -91,7 +91,7 @@ for (const category of SKILL_CATEGORIES) {
   }
 }
 for (const skill of EXTRA_SKILLS) {
-  // skillsData가 우선 — 같은 이름이 생기면 홈과 동일한 아이콘을 쓴다
+  // skillsData가 우선 - 같은 이름이 생기면 홈과 동일한 아이콘을 쓴다
   const key = normalize(skill.name);
   if (!CANONICAL.has(key)) CANONICAL.set(key, skill);
 }

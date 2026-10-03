@@ -1,4 +1,4 @@
-// 경력/자격증 데이터 모듈 — ExperienceSection(홈)과 Resume 페이지에서 공유
+// 경력/자격증 데이터 모듈 - ExperienceSection(홈)과 Resume 페이지에서 공유
 export interface Experience {
   company: string;
   period: string;

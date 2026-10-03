@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import RollingLink from '@/components/RollingText/RollingLink';
-import Marquee from '@/components/Marquee';
+import TagBar from '@/components/TagBar';
 import { SMOOTH } from '@/lib/motion';
 import { detectSoftwareRenderer } from '@/lib/webglRenderer';
 import dynamic from 'next/dynamic';
@@ -18,7 +18,7 @@ import dynamic from 'next/dynamic';
  *
  * 동작 줄이기 사용자와 소프트웨어 렌더러 환경에서는 이 블록이 최종 화면이다. 테두리 상자 안의
  * 흐린 흑백 아바타는 로딩·실패 자리처럼 읽혀서, 상자를 없애고 아바타만 또렷하게 둔다(2026-09-16,
- * 네 안 비교 후 선택). 영역 크기는 그대로 둔다 — 줄이면 캔버스가 뜰 때 아래 콘텐츠가 밀린다.
+ * 네 안 비교 후 선택). 영역 크기는 그대로 둔다 - 줄이면 캔버스가 뜰 때 아래 콘텐츠가 밀린다.
  */
 function CardPlaceholder() {
   return (
@@ -30,19 +30,14 @@ function CardPlaceholder() {
 
 const InteractiveCardCanvas = dynamic(() => import('./components/InteractiveCardCanvas'), {
   ssr: false,
-  // idle 이후 청크를 받는 동안에도 같은 자리를 지킨다 — 기본 fallback은 null이라 영역이 비어 보인다
+  // idle 이후 청크를 받는 동안에도 같은 자리를 지킨다 - 기본 fallback은 null이라 영역이 비어 보인다
   loading: () => <CardPlaceholder />,
 });
 
-const MARQUEE_ITEMS = [
-  'Precision',
-  'Engineering',
-  'Interface',
-  'Interaction',
-  'Systems',
-  'Motion',
-  'Clarity',
-];
+// 제목이 "어떤 엔지니어인가"라면 띠는 "어떻게 일하는가"를 말한다. 제목의 명확함·정교함·의도를
+// 영어로 되받는 안(Clarity·Precision·Intent·Reliability)도 비교했으나 같은 말을 반복하고
+// 데스크톱에서 띠가 비어 보였다(2026-10-03). 두 단어 묶음은 Experience·Skills 띠와 형식이 같다
+const TAGS = ['Measure First', 'Verify Everything', 'Automate Checks', 'Record Decisions'];
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,7 +47,7 @@ export default function HeroSection() {
   // requestIdleCallback은 Safari에 없어 setTimeout으로 대체하고, 바쁜 페이지에서
   // 무한정 기다리지 않도록 timeout을 둔다.
   // 동작 줄이기 사용자에게는 흔들리는 3D 카드 대신 정적 플레이스홀더를 그대로 둔다
-  // GPU 없이 CPU로 WebGL을 그리는 환경도 플레이스홀더에 머문다 — 카드가 매 프레임 메인 스레드를
+  // GPU 없이 CPU로 WebGL을 그리는 환경도 플레이스홀더에 머문다 - 카드가 매 프레임 메인 스레드를
   // 수백 ms씩 잡아 페이지 전체가 굳는다(PR #99). 판정은 LCP 이후 이 콜백에서 한 번만 한다
   const prefersReducedMotion = useReducedMotion();
   const [canvasReady, setCanvasReady] = useState(false);
@@ -83,15 +78,18 @@ export default function HeroSection() {
     <section
       data-testid='hero-section'
       ref={containerRef}
-      className='relative flex min-h-8/12 w-full flex-col gap-6 pb-6 md:min-h-0 md:gap-16 md:pb-10'
+      // lg 이상에서만 아래 여백을 키운다. 위쪽은 주면 안 된다 - 캔버스 윗변이 드러나
+      // 카드를 매단 끈이 헤더 뒤에서 이어지지 않고 허공에서 시작한 것처럼 끊겨 보인다
+      className='relative flex min-h-8/12 w-full flex-col gap-6 pb-6 md:min-h-0 md:gap-16 md:pb-10 lg:pb-15'
     >
       {/* ── 2단 메인 그리드 (상단 자연 흐름 배치) ── */}
       <div className='w-full'>
         <div className='site-container grid w-full grid-cols-1 gap-0 px-6 md:grid-cols-2 md:px-12'>
-          {/* LEFT — 타이포그래피 */}
+          {/* LEFT - 타이포그래피 */}
           <motion.div
             style={{ y: textY, opacity: textOpacity }}
-            className='pointer-events-none z-10 col-start-1 row-start-1 flex flex-col gap-8 bg-transparent py-8 pr-0 md:pointer-events-auto md:mr-[-4px] md:py-12'
+            // lg 이상의 여백은 오른쪽 카드 칸 높이도 함께 정한다 - 카드 열이 이 행 높이에 맞춰 늘어난다
+            className='pointer-events-none z-10 col-start-1 row-start-1 flex flex-col gap-8 bg-transparent py-8 pr-0 md:pointer-events-auto md:mr-[-4px] md:py-12 lg:py-20'
           >
             {/* 상단 메타 */}
             <div className='text-label tracking-label mt-8 hidden flex-col gap-1 font-medium text-white/50 uppercase md:flex'>
@@ -100,7 +98,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-                FRONT-END DEVELOPER
+                SOFTWARE ENGINEER
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
@@ -111,10 +109,10 @@ export default function HeroSection() {
               </motion.span>
             </div>
 
-            {/* 메인 헤드라인 — 이 h1이 LCP 요소다.
+            {/* 메인 헤드라인 - 이 h1이 LCP 요소다.
                 opacity를 0에서 시작하면 JS가 하이드레이션돼 페이드를 끝낼 때까지 "그려지지 않은"
                 것으로 잡혀 LCP가 13~15초까지 밀렸다(P3-11 실측). 텍스트는 첫 페인트부터 보이게 두고
-                위로 올라오는 움직임만 남긴다 — transform은 LCP 판정에 영향이 없다. */}
+                위로 올라오는 움직임만 남긴다 - transform은 LCP 판정에 영향이 없다. */}
             <motion.h1
               initial={{ y: 40 }}
               animate={{ y: 0 }}
@@ -150,14 +148,14 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT — 이미지 슬롯 (parallax & fade matching left) */}
+          {/* RIGHT - 이미지 슬롯 (parallax & fade matching left) */}
           <motion.div
             style={{ y: textY, opacity: textOpacity, pointerEvents }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, ease: SMOOTH, delay: 0.3 }}
             // 배경이미지(hero.jpg) 및 배경색상 제거, 투명(bg-transparent) 처리하여 로딩 중 여백 연출
-            className='relative col-start-1 row-start-1 h-[120vw] w-full rounded-xl bg-transparent sm:h-[96vw] md:col-start-2 md:h-full md:min-h-[350px] lg:min-h-[400px]'
+            className='md:min-h-hero-card lg:min-h-hero-card-lg relative col-start-1 row-start-1 h-[120vw] w-full rounded-xl bg-transparent sm:h-[96vw] md:col-start-2 md:h-full'
           >
             {/* 웹 접근성(a11y) 스크린리더를 위한 대체 텍스트 */}
             <span className='sr-only'>인터랙티브 3D 포트폴리오 사원증 뷰어</span>
@@ -182,18 +180,14 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* ── 하단 Marquee 띠 ── */}
+      {/* ── 하단 태그 띠 - 흘러가는 마퀴 대신 다른 섹션과 같은 흰 띠로 멈춰 둔다 ── */}
       <div className='mt-4 w-full md:mt-8'>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <Marquee
-            items={Array.from({ length: 2 }).flatMap(() => MARQUEE_ITEMS)}
-            speed={100}
-            textClassName='text-white/70'
-          />
+          <TagBar tags={TAGS} />
         </motion.div>
       </div>
     </section>

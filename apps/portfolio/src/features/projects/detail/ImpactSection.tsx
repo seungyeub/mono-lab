@@ -2,7 +2,7 @@ import type { ProjectImpact } from '@/lib/mdx';
 import SectionHeading from './SectionHeading';
 
 /**
- * Impact & Results — 좌: Key Metrics(라벨 ··· 큰 값 행), 우: Achievements(번호 목록).
+ * Impact & Results - 좌: Key Metrics(라벨 ··· 큰 값 행), 우: Achievements(번호 목록).
  * 한쪽만 있으면 해당 카드만 1열로 렌더링한다.
  */
 export default function ImpactSection({ impact }: { impact: ProjectImpact }) {

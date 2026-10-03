@@ -38,7 +38,7 @@ function getIconColor(colorMode: ColorMode, brandColor: string, isHovered: boole
 // ─────────────────────────────────────────────
 
 /**
- * SkillIcon — 아이콘 래퍼 컴포넌트
+ * SkillIcon - 아이콘 래퍼 컴포넌트
  *
  * @icons-pack/react-simple-icons 컴포넌트와 커스텀 SVG를
  * 동일한 인터페이스로 렌더링합니다.

@@ -1,6 +1,6 @@
 name: Sync master → develop
 
-# 릴리스 태그가 생기면 master → develop 역머지 PR을 연다 — git-flow의 마지막 단계.
+# 릴리스 태그가 생기면 master → develop 역머지 PR을 연다 - git-flow의 마지막 단계.
 # 0.3.0 때 사람이 빠뜨린 단계라 기계가 PR을 열어 두게 한다. 머지는 사람이 Merge commit으로 한다.
 #
 # 태그는 release-please가 PAT로 만들므로 이 워크플로를 발화시킨다(deploy-portfolio.yml과 같은 이벤트).
@@ -10,7 +10,7 @@ on:
     tags:
       - 'portfolio@*'
   # 수동 실행. 태그 이벤트를 놓쳤거나 동작을 확인하고 싶을 때 기존 태그를 넣어 돌린다.
-  # GitHub는 workflow_dispatch를 기본 브랜치(master)에 있는 워크플로에만 연다 — develop에만 있는 동안은 실행할 수 없다
+  # GitHub는 workflow_dispatch를 기본 브랜치(master)에 있는 워크플로에만 연다 - develop에만 있는 동안은 실행할 수 없다
   workflow_dispatch:
     inputs:
       tag:
@@ -94,7 +94,7 @@ jobs:
             { echo "## 이미 열린 역머지 PR"; echo "$PR_URL"; } >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
-          # PR은 없는데 브랜치만 남아 있으면(닫힌 PR 등) 어느 쪽이 맞는지 사람이 봐야 한다 — 덮어쓰지 않는다
+          # PR은 없는데 브랜치만 남아 있으면(닫힌 PR 등) 어느 쪽이 맞는지 사람이 봐야 한다 - 덮어쓰지 않는다
           if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
             echo "::error::브랜치 $BRANCH 가 이미 있다. 지우고 다시 실행하거나 직접 PR을 열어라"
             exit 1
@@ -110,7 +110,7 @@ jobs:
           BRANCH: ${{ steps.meta.outputs.branch }}
         run: |
           set -eu
-          # 태그 커밋이 아니라 master 끝에서 만든다 — 태그 뒤에 master로 더 들어온 것(연이은 hotfix 등)도 함께 가져간다
+          # 태그 커밋이 아니라 master 끝에서 만든다 - 태그 뒤에 master로 더 들어온 것(연이은 hotfix 등)도 함께 가져간다
           git push origin "origin/master:refs/heads/$BRANCH"
 
           COMMITS=$(git log --oneline --no-decorate origin/develop..origin/master)

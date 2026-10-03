@@ -22,7 +22,7 @@ jobs:
     name: Update Playwright Snapshots
     runs-on: ubuntu-latest
 
-    # playwright.yml과 반드시 동일한 이미지를 쓴다 — baseline을 촬영하는 환경과
+    # playwright.yml과 반드시 동일한 이미지를 쓴다 - baseline을 촬영하는 환경과
     # 검증하는 환경이 다르면 스냅샷이 영구히 어긋난다.
     container:
       image: mcr.microsoft.com/playwright:v1.61.0-noble
@@ -78,7 +78,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 브라우저 설치 단계 없음 — 컨테이너 이미지에 내장되어 있다(playwright.yml과 동일).
+      # 브라우저 설치 단계 없음 - 컨테이너 이미지에 내장되어 있다(playwright.yml과 동일).
       - name: Log Playwright version and bundled browsers
         run: |
           cd apps/portfolio

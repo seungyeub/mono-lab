@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * PageLoader — 첫 방문 시 검정 오버레이 + 스피너가 ~1.5초 보인 뒤
+ * PageLoader - 첫 방문 시 검정 오버레이 + 스피너가 ~1.5초 보인 뒤
  * 위로 슬라이드 아웃되며 콘텐츠를 reveal하는 로더.
  * sessionStorage를 이용해 같은 세션에서는 한 번만 표시.
  */

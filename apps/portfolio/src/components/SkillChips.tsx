@@ -124,7 +124,7 @@ export default function SkillChips({
           key={skill.name}
           skill={skill}
           categoryName={categoryName}
-          // 같은 분류 안의 순번으로만 준다 — 분류 순번까지 더하면 뒤쪽 분류는 첫 칩부터 늦게 떴다.
+          // 같은 분류 안의 순번으로만 준다 - 분류 순번까지 더하면 뒤쪽 분류는 첫 칩부터 늦게 떴다.
           // 상한은 여러 줄로 감긴 칩이 화면 안에서 오래 기다리지 않게 하려는 것
           animationDelay={Math.min(index, 8) * 0.03}
           animate={animate}

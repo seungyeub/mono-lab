@@ -3,7 +3,7 @@ import ImageCarousel from './ImageCarousel';
 import SectionHeading from './SectionHeading';
 
 /**
- * Demonstrations — 데모마다 이미지 캐러셀 ↔ 설명을 2열로 배치하고, 홀수 번째는 좌우를
+ * Demonstrations - 데모마다 이미지 캐러셀 ↔ 설명을 2열로 배치하고, 홀수 번째는 좌우를
  * 뒤집어 리듬을 만든다(레퍼런스 구성). images는 서버에서 실존 검증을 마친 경로만 받는다.
  */
 export default function DemonstrationsSection({

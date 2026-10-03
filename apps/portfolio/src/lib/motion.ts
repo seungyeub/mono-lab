@@ -51,33 +51,33 @@ const VARIANTS: Record<RevealVariant, RevealSpec> = {
   /** `/projects` 목록 카드 */
   gridCard: { y: 40, duration: 0.7, margin: '-80px', ease: SMOOTH },
 
-  /** 화면을 가득 채우는 대제목 — Projects., FAQ. */
+  /** 화면을 가득 채우는 대제목 - Projects., FAQ. */
   displayTitle: { y: 20, duration: 1.2, margin: '-40px', ease: SMOOTH },
 
-  /** 섹션 제목 — Skills. */
+  /** 섹션 제목 - Skills. */
   sectionTitle: { y: 24, duration: 0.8, margin: '-60px', ease: SMOOTH },
 
   /** 섹션 제목 아래 설명문 */
   sectionLead: { y: 16, duration: 0.7, margin: '-60px', ease: 'easeOut' },
 
   /**
-   * 목록 한 줄 — 경력·자격증.
+   * 목록 한 줄 - 경력·자격증.
    * 행이 스크롤로 한 줄씩 들어오므로 순번 지연 없이 화면 안쪽에서 시작한다.
    * 화면 밖 60px에서 시작하면 화면 맨 아래 띠에서 끝나 효과가 보이지 않았다(2026-09-11 비교).
    * 100px·16px·0.6초로는 움직임이 약해 180px·28px·0.8초로 키웠다(2026-09-17 비교).
-   * 시작을 늦추는 것과 거리를 늘리는 것은 함께 가야 한다 — 거리만 늘리면 화면 아래에서 끝나고,
+   * 시작을 늦추는 것과 거리를 늘리는 것은 함께 가야 한다 - 거리만 늘리면 화면 아래에서 끝나고,
    * 시작만 늦추면 움직임이 여전히 작다. 창 844·800·900에서 14행 모두 완주를 확인했다.
    */
   listItem: { y: 28, duration: 0.8, margin: '-180px 0px' },
 
-  /** 아코디언 한 칸 — FAQ. 값과 이유는 listItem과 같다 */
+  /** 아코디언 한 칸 - FAQ. 값과 이유는 listItem과 같다 */
   faqItem: { y: 28, duration: 0.8, margin: '-180px 0px' },
 
   /**
-   * 작은 항목 — Skills 분류 제목, 스킬 칩.
+   * 작은 항목 - Skills 분류 제목, 스킬 칩.
    * 분류는 한 줄씩 들어오므로 분류 순번 지연을 두지 않고 화면 안 100px에서 시작한다.
    * 한 줄에 함께 들어오는 칩끼리의 시차만 호출부(SkillChips)에서 상한을 두어 준다.
-   * listItem을 키울 때 여기도 같이 키워 봤으나(0.7초) 오히려 어긋나 보여 되돌렸다(2026-09-17) —
+   * listItem을 키울 때 여기도 같이 키워 봤으나(0.7초) 오히려 어긋나 보여 되돌렸다(2026-09-17) -
    * 칩은 시차가 최대 0.24초 붙어서 한 덩어리가 0.74초로 이미 목록 한 행(0.8초)과 비슷하고,
    * 높이 30px짜리가 12px를 움직여 크기 대비로는 목록 행보다 크게 움직인다.
    */

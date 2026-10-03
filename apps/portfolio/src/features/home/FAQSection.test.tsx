@@ -56,6 +56,6 @@ describe('FAQSection', () => {
 
     // 주요 질문 렌더링 검증
     expect(screen.getByText('주로 사용하는 기술 스택은 무엇인가요?')).toBeInTheDocument();
-    expect(screen.getByText('인터페이스는 어떤 방식으로 개발하시나요?')).toBeInTheDocument();
+    expect(screen.getByText('어디까지 맡을 수 있나요?')).toBeInTheDocument();
   });
 });

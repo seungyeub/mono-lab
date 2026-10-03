@@ -75,11 +75,11 @@ describe('contactSchema', () => {
   });
 
   describe('company (허니팟)', () => {
-    it('없어도 통과한다 — 사람은 채우지 않는 칸이다', () => {
+    it('없어도 통과한다 - 사람은 채우지 않는 칸이다', () => {
       expect(contactSchema.safeParse(valid).success).toBe(true);
     });
 
-    it('값이 있어도 스키마는 통과시킨다 — 봇 판정은 서버 액션이 한다', () => {
+    it('값이 있어도 스키마는 통과시킨다 - 봇 판정은 서버 액션이 한다', () => {
       const parsed = contactSchema.safeParse({ ...valid, company: 'bot inc' });
 
       expect(parsed.success).toBe(true);

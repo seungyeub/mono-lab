@@ -3,7 +3,7 @@ import type { ProjectImplementation } from '@/lib/mdx';
 import SectionHeading from './SectionHeading';
 
 /**
- * Technical Implementation — 좌: Architecture(시스템 설계 한 줄 + Key Highlights 번호 목록),
+ * Technical Implementation - 좌: Architecture(시스템 설계 한 줄 + Key Highlights 번호 목록),
  * 우: Code Snippet(터미널 크롬). 코드가 없으면 Architecture 카드만 1열로 렌더링한다.
  */
 export default async function ImplementationSection({
@@ -95,14 +95,14 @@ export default async function ImplementationSection({
               </p>
             )}
 
-            {/* 터미널 크롬 — 신호등은 톤에 맞춰 회색조로 */}
+            {/* 터미널 크롬 - 신호등은 톤에 맞춰 회색조로 */}
             <div className='flex flex-col gap-3'>
               {highlighted.map((html, index) => (
                 <div
                   key={implementation.codeSnippet[index]}
                   className='border-line overflow-hidden rounded-lg border bg-black'
                 >
-                  {/* 브라우저 창 느낌을 내는 장식 — 신호등 색은 통념대로 둔다 */}
+                  {/* 브라우저 창 느낌을 내는 장식 - 신호등 색은 통념대로 둔다 */}
                   <div className='border-line flex items-center gap-1.5 border-b bg-white/5 px-4 py-2.5'>
                     <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-[#EF4444]/70' />
                     <span aria-hidden className='h-2.5 w-2.5 rounded-full bg-[#F59E0B]/70' />

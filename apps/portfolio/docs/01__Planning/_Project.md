@@ -32,11 +32,11 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 
 - Home 랜딩 페이지 (Hero, Works, Skills, Experience, FAQ, Epilogue 섹션)
 - Work Case Study 서브 페이지 (MDX 기반 동적 라우팅, 10개 실제 프로젝트)
-- Resume 페이지 (경력/자격증 데이터 — ExperienceSection과 데이터 공유)
+- Resume 페이지 (경력/자격증 데이터 - ExperienceSection과 데이터 공유)
 - Contact 폼 (React Hook Form + Zod + Resend Server Action)
 - 공통 레이아웃 (Header, Footer, CustomCursor, SmoothScroll/Lenis)
 - CI/CD 파이프라인 (GitHub Actions, Playwright VRT, Lighthouse, SonarCloud, CodeRabbit)
-- 재사용 가능한 인프라 템플릿 (`frontend-foundation` — 별도 GitHub 레포)
+- 재사용 가능한 인프라 템플릿 (`frontend-foundation` - 별도 GitHub 레포)
 
 ### Excluded
 
@@ -55,7 +55,7 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 프로젝트를 진행하면서 반드시 지킬 원칙
 
 - 기존 에디토리얼 디자인 무드(다크 테마, 미니멀 타이포그래피, 여백)를 절대 해치지 않는다
-- 한 번에 하나의 단계만 진행한다 — 중간에 문제가 생기면 멈추고 논의한다
+- 한 번에 하나의 단계만 진행한다 - 중간에 문제가 생기면 멈추고 논의한다
 - 새로운 기능은 반드시 계획서(`docs/plan/`) 작성 및 승인 후에 구현한다
 - 컴포넌트는 기존 패턴(`ProjectsSection`, `ExperienceSection`)과 일관성을 유지한다
 
@@ -66,9 +66,9 @@ Framer 포트폴리오 템플릿(Palmer / Helios)을 레퍼런스로 삼아 **Ne
 알고 있는 제약사항
 
 - Antigravity 1.0의 대화 기록은 `~/.gemini/antigravity-backup/` 에만 보존됨 (현재 시스템에서 직접 참조 불가)
-- `@icons-pack/react-simple-icons` 에서 지원하지 않는 아이콘은 커스텀 SVG로 `public/icons/` 에 별도 관리 (현재 `customIconPath` 사용처 15개 — 일부 비최적화 SVG 존재, P2-2에서 정식 교체 예정)
+- `@icons-pack/react-simple-icons` 에서 지원하지 않는 아이콘은 커스텀 SVG로 `public/icons/` 에 별도 관리 (현재 `customIconPath` 사용처 15개 - 일부 비최적화 SVG 존재, P2-2에서 정식 교체 예정)
 - ~~Skills Section Phase 4(레이아웃/색상 최종 확정) 완료 전까지 임시 비교 토글 UI가 `SkillsSection.tsx` 에 존재함~~ → Phase 4 완료, Chips + Brand 확정 및 토글 UI 제거됨 (2026-06-23)
-- Work Detail 상세 페이지의 이미지/코드 스니펫은 `filterExistingPublicImages` 기반 조건부 렌더링 — 자료가 준비된 프로젝트만 해당 영역이 활성화됨
+- Work Detail 상세 페이지의 이미지/코드 스니펫은 `filterExistingPublicImages` 기반 조건부 렌더링 - 자료가 준비된 프로젝트만 해당 영역이 활성화됨
 
 ---
 

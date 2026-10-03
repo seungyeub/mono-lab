@@ -30,7 +30,7 @@ function ErrorNotice({ code }: { code: ContactErrorCode }) {
  * 성공 문구를 보여 주는 시간. 발송 뒤 입력칸은 비워지는데 문구가 계속 남아 있으면,
  * 새로 쓰는 문의가 이미 보낸 것처럼 읽힌다. 그래서 시간이 지나거나 다시 입력을
  * 시작하면 거둔다. 문구는 role='status'로 나타나는 즉시 읽히므로, 사라져도 스크린리더
- * 사용자가 놓치지 않는다. 오류 문구는 거두지 않는다 — 직접 연락할 주소를 읽고 옮겨
+ * 사용자가 놓치지 않는다. 오류 문구는 거두지 않는다 - 직접 연락할 주소를 읽고 옮겨
  * 적을 시간이 필요하다.
  */
 const SUCCESS_NOTICE_MS = 5000;
@@ -83,7 +83,7 @@ export default function ContactForm() {
 
   const inputClass =
     'w-full bg-transparent border-b border-line-strong py-3 text-lg text-white placeholder-white/25 focus:outline-none';
-  // 연락처 열과 같은 효과 — 아래 선 위에 흰 선이 겹쳐 있다가 hover·focus 시 왼쪽에서 오른쪽으로 자란다
+  // 연락처 열과 같은 효과 - 아래 선 위에 흰 선이 겹쳐 있다가 hover·focus 시 왼쪽에서 오른쪽으로 자란다
   const fieldClass = 'group/row relative flex flex-col gap-2';
   const underlineClass =
     'pointer-events-none absolute bottom-0 left-0 h-px w-0 bg-white transition-[width] duration-500 ease-out group-hover/row:w-full group-focus-within/row:w-full';
@@ -183,7 +183,7 @@ export default function ContactForm() {
         )}
       </div>
 
-      {/* 허니팟 — 화면 밖에 두고 탭 순서·자동완성·보조기기에서 모두 제외한다. 봇만 채운다 */}
+      {/* 허니팟 - 화면 밖에 두고 탭 순서·자동완성·보조기기에서 모두 제외한다. 봇만 채운다 */}
       <div aria-hidden='true' className='absolute -left-[9999px] h-px w-px overflow-hidden'>
         <label htmlFor='contact-company'>Company</label>
         <input
@@ -236,7 +236,7 @@ export default function ContactForm() {
 
         {/*
           수집 시점 고지 (P6-12). 별도 처리방침 페이지를 두는 대신, 실제로 이름·이메일을
-          입력하는 이 자리에서만 알린다 — 개인 포트폴리오에 처리방침 문서는 과하다고 판단했다.
+          입력하는 이 자리에서만 알린다 - 개인 포트폴리오에 처리방침 문서는 과하다고 판단했다.
           문장은 실제 동작과 어긋나면 안 된다: 폼은 이름·이메일·메시지를 모두 보내고, 발송은
           Resend를 거치며, 받은 메일은 메일함과 Resend 발송 기록 양쪽에 남는다.
           "보관하지 않는다"처럼 지킬 수 없는 약속은 쓰지 않는다.
@@ -254,6 +254,14 @@ export default function ContactForm() {
             className='border-b border-white/40 align-baseline text-white/80 transition-colors hover:border-white hover:text-white'
           />
           를 거치며, 받은 내용은 제 메일함과 Resend 발송 기록에 남습니다.
+          <br />
+          {/* 방문 분석(GA)까지 포함한 전체 내용은 처리방침에 있다 */}
+          <RollingLink
+            href='/privacy'
+            text='개인정보 처리방침'
+            stagger={0}
+            className='border-b border-white/40 align-baseline text-white/80 transition-colors hover:border-white hover:text-white'
+          />
         </p>
       </div>
     </form>

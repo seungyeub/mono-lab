@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
  * 반응형 분기를 쓰는 컴포넌트(ProjectGrid 등)가 effect에서 이를 호출하면
  * TypeError로 죽으므로 최소 구현을 채워 둔다.
  *
- * 기본값은 matches: false — 모바일 우선으로, SSR 초기 상태와 같다.
+ * 기본값은 matches: false - 모바일 우선으로, SSR 초기 상태와 같다.
  * 특정 테스트에서 데스크톱을 흉내 내려면 이 함수를 직접 목킹하면 된다.
  */
 Object.defineProperty(window, 'matchMedia', {

@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * RollingText — Helios 스타일 글자별 stagger 롤링 텍스트.
+ * RollingText - Helios 스타일 글자별 stagger 롤링 텍스트.
  *
  * 구조: 각 글자마다 .char-wrap 컨테이너를 만들어
  * 위(top)와 아래(bottom) 두 레이어를 독립적으로 이동시킵니다.
@@ -34,7 +34,7 @@ export default function RollingText({ text, className = '', stagger = 25 }: Roll
             height: '1.25em',
           }}
         >
-          {/* Top layer — slides UP on hover */}
+          {/* Top layer - slides UP on hover */}
           <span
             className='inline-block translate-y-0 transition-transform ease-in-out group-hover/roll:-translate-y-full'
             style={{
@@ -45,7 +45,7 @@ export default function RollingText({ text, className = '', stagger = 25 }: Roll
             {char === ' ' ? '\u00A0' : char}
           </span>
 
-          {/* Bottom layer — starts below, slides INTO view on hover */}
+          {/* Bottom layer - starts below, slides INTO view on hover */}
           <span
             className='absolute top-0 left-0 inline-block translate-y-full transition-transform ease-in-out group-hover/roll:translate-y-0'
             style={{
