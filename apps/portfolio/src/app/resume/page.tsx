@@ -40,7 +40,7 @@ export default function ResumePage() {
       <div className='border-line flex flex-col justify-between gap-8 border-b pb-12 md:flex-row md:items-end'>
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Resume©</h1>
-          <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
+          <p className='mt-2 max-w-xl text-base text-pretty break-keep text-gray-400 md:text-lg'>
             화면부터 서버, 배포까지 서비스 전체를 설계하고 구축하는 소프트웨어 엔지니어
             백승엽입니다.
           </p>

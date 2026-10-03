@@ -53,7 +53,7 @@ export default function PrivacyPage() {
       <div className='border-line border-b pb-12'>
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Privacy©</h1>
-          <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
+          <p className='mt-2 max-w-xl text-base text-pretty break-keep text-gray-400 md:text-lg'>
             이 사이트가 무엇을 수집하고 어디에 쓰는지, 원하지 않을 때 어떻게 막는지 적어 둡니다.
           </p>
         </div>

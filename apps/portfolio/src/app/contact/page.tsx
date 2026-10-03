@@ -56,7 +56,7 @@ export default function ContactPage() {
       <div className='border-line border-b pb-12'>
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Contact©</h1>
-          <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
+          <p className='mt-2 max-w-xl text-base text-pretty break-keep text-gray-400 md:text-lg'>
             궁금한 점이 있다면 언제든지 편하게 문의 주세요. 채용 제안과 협업 문의 모두 환영합니다.
           </p>
         </div>
