@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.8.0](https://github.com/seungyeub/mono-lab/compare/portfolio@0.7.0...portfolio@0.8.0) (2026-10-03)
+
+
+### Features
+
+* **portfolio:** Hero 마퀴를 일하는 방식을 말하는 흰 띠로 바꿈 ([2c98cc3](https://github.com/seungyeub/mono-lab/commit/2c98cc30b3c33539d896cfadf5e77e9a074bf741))
+* **portfolio:** Hero 마퀴를 흰 띠로, 에필로그 띠와 문구 재작성 ([902cdb2](https://github.com/seungyeub/mono-lab/commit/902cdb2c3fc64250f1b9070c5aeadda75e950a39))
+* **portfolio:** Software Engineer 방향에 맞춰 소개 문구와 FAQ를 다시 씀 ([08633bb](https://github.com/seungyeub/mono-lab/commit/08633bb493a2336d30c5904ef4ff51735eb4dd00))
+* **portfolio:** Software Engineer 방향에 맞춰 소개 문구와 FAQ를 다시 씀 ([0d15dd4](https://github.com/seungyeub/mono-lab/commit/0d15dd4033aadbf1439dc9f0b7e972df3f9748e5))
+* **portfolio:** 개인정보 처리방침 페이지와 푸터 링크 추가 ([74b8ad2](https://github.com/seungyeub/mono-lab/commit/74b8ad2cf41faaeb2bfd2056cf8fc66f0caecc23))
+* **portfolio:** 개인정보 처리방침 페이지와 푸터 링크 추가 ([e0ae757](https://github.com/seungyeub/mono-lab/commit/e0ae7573763a43dbe8ce28755b29efa14ed3c8c4))
+* **portfolio:** 데스크톱에서 Hero 사원증 영역의 세로 여백 확대 ([f77689a](https://github.com/seungyeub/mono-lab/commit/f77689a124994bacd6e40273a2f58c142886ffde))
+* **portfolio:** 데스크톱에서 Hero 사원증 영역의 세로 여백 확대 ([e330644](https://github.com/seungyeub/mono-lab/commit/e330644fd28a174533bb499f259e8dbe9eeddcc4))
+* **portfolio:** 에필로그 띠와 문구를 결과물의 성질로 다시 씀 ([6d019fa](https://github.com/seungyeub/mono-lab/commit/6d019fa326dcbe9863a343c811b4b54614c73901))
+* **portfolio:** 직함을 Software Engineer로 변경 ([d8fa701](https://github.com/seungyeub/mono-lab/commit/d8fa701000a4beb9a525be1b1006956d12786d0c))
+* **portfolio:** 직함을 Software Engineer로 변경 ([7e75bbd](https://github.com/seungyeub/mono-lab/commit/7e75bbd7e5ae1ab8cde47f950302357ff61d4bb1))
+
+
+### Bug Fixes
+
+* **portfolio:** FAQ와 Projects 설명문이 한글 단어 중간에서 끊기지 않게 ([6e60bc4](https://github.com/seungyeub/mono-lab/commit/6e60bc49a7323921d972fe815aa5a1a167b69588))
+* **portfolio:** 프로젝트 설명의 사실관계·기여 표기 정정 ([#106](https://github.com/seungyeub/mono-lab/issues/106)) ([56a7ef3](https://github.com/seungyeub/mono-lab/commit/56a7ef38b5801a808922038f89499eb48e685323))
+
+
+### Refactoring
+
+* **portfolio:** Hero 카드 칸 높이를 spacing 토큰으로, GA 고지 근거를 실제 설정으로 좁힘 ([541143c](https://github.com/seungyeub/mono-lab/commit/541143c9ea71a5675c605f1ccc541484082b5d4e))
+
 ## [0.7.0](https://github.com/seungyeub/mono-lab/compare/portfolio@0.6.0...portfolio@0.7.0) (2026-09-20)
 
 
