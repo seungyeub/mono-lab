@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import RollingLink from '@/components/RollingText/RollingLink';
-import Marquee from '@/components/Marquee';
+import TagBar from '@/components/TagBar';
 import { SMOOTH } from '@/lib/motion';
 import { detectSoftwareRenderer } from '@/lib/webglRenderer';
 import dynamic from 'next/dynamic';
@@ -34,15 +34,10 @@ const InteractiveCardCanvas = dynamic(() => import('./components/InteractiveCard
   loading: () => <CardPlaceholder />,
 });
 
-const MARQUEE_ITEMS = [
-  'Precision',
-  'Engineering',
-  'Interface',
-  'Interaction',
-  'Systems',
-  'Motion',
-  'Clarity',
-];
+// 제목이 "어떤 엔지니어인가"라면 띠는 "어떻게 일하는가"를 말한다. 제목의 명확함·정교함·의도를
+// 영어로 되받는 안(Clarity·Precision·Intent·Reliability)도 비교했으나 같은 말을 반복하고
+// 데스크톱에서 띠가 비어 보였다(2026-10-03). 두 단어 묶음은 Experience·Skills 띠와 형식이 같다
+const TAGS = ['Measure First', 'Verify Everything', 'Automate Checks', 'Record Decisions'];
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -185,18 +180,14 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* ── 하단 Marquee 띠 ── */}
+      {/* ── 하단 태그 띠 - 흘러가는 마퀴 대신 다른 섹션과 같은 흰 띠로 멈춰 둔다 ── */}
       <div className='mt-4 w-full md:mt-8'>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <Marquee
-            items={Array.from({ length: 2 }).flatMap(() => MARQUEE_ITEMS)}
-            speed={100}
-            textClassName='text-white/70'
-          />
+          <TagBar tags={TAGS} />
         </motion.div>
       </div>
     </section>
