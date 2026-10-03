@@ -27,15 +27,17 @@ Vincent Driessen이 2010년에 제안한 모델이다. 그는 2020년에 같은 
 
 방식이 갈리는 이유는 하나다 - **release-please는 PR을 보지 않고 master의 git log를 읽는다.** master에 어떤 커밋이 어떤 제목으로 남느냐가 버전과 CHANGELOG를 정한다.
 
-| PR                                          | 방식             | 제목                                         | 왜                                                                                                                                                                       |
-| ------------------------------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 항목 하나짜리 → `develop`                   | **squash**       | `feat(portfolio): …` 등 Conventional Commits | 작업 중 커밋을 하나로 정리한다. 이 제목이 나중에 CHANGELOG 한 줄이 된다                                                                                                  |
-| 여러 항목을 묶은 PR → `develop`             | **Merge commit** | 자유                                         | 항목별 커밋을 살려야 CHANGELOG에 따로 남는다                                                                                                                             |
-| `develop`·`release/*`·`hotfix/*` → `master` | **Merge commit** | **Conventional 형식이 아닌 제목**            | 개별 커밋이 master에 그대로 들어가야 release-please가 읽는다. 제목이 `fix(...)`면 merge commit 본문까지 한 건으로 더 세어 CHANGELOG에 요약 줄이 중복된다(0.5.3에서 발생) |
-| release-please의 릴리스 PR → `master`       | **squash**       | 자동 생성(`release(portfolio): x.y.z`)       | 버전 파일과 CHANGELOG 갱신 한 건이면 충분하다                                                                                                                            |
-| `chore/sync-master-*` → `develop`           | **Merge commit** | 기본값                                       | master의 이력을 develop에 그대로 잇는다                                                                                                                                  |
+| PR                                          | 방식             | 제목                                         | 왜                                                                                                                                                                         |
+| ------------------------------------------- | ---------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 항목 하나짜리 → `develop`                   | **squash**       | `feat(portfolio): …` 등 Conventional Commits | 작업 중 커밋을 하나로 정리한다. 이 제목이 나중에 CHANGELOG 한 줄이 된다                                                                                                    |
+| 여러 항목을 묶은 PR → `develop`             | **Merge commit** | **Conventional 형식이 아닌 제목**            | 항목별 커밋을 살려야 CHANGELOG에 따로 남는다. 제목이 `feat(...)`면 merge commit 본문으로 들어간 PR 제목까지 한 건으로 더 세어 CHANGELOG가 중복된다(0.8.0에서 다섯 줄 발생) |
+| `develop`·`release/*`·`hotfix/*` → `master` | **Merge commit** | **Conventional 형식이 아닌 제목**            | 개별 커밋이 master에 그대로 들어가야 release-please가 읽는다. 제목이 `fix(...)`면 merge commit 본문까지 한 건으로 더 세어 CHANGELOG에 요약 줄이 중복된다(0.5.3에서 발생)   |
+| release-please의 릴리스 PR → `master`       | **squash**       | 자동 생성(`release(portfolio): x.y.z`)       | 버전 파일과 CHANGELOG 갱신 한 건이면 충분하다                                                                                                                              |
+| `chore/sync-master-*` → `develop`           | **Merge commit** | 기본값                                       | master의 이력을 develop에 그대로 잇는다                                                                                                                                    |
 
-master로 가는 Merge commit 제목은 `Release 0.6.0 - …` 또는 GitHub 기본값 `Merge pull request #…`처럼 타입 없이 쓴다.
+**Merge commit으로 머지하는 PR은 어디로 가든 PR 제목을 타입 없이 쓴다.** 저장소 설정(`merge_commit_message: PR_TITLE`)상 PR 제목이 merge commit 본문으로 들어가고, release-please는 그 본문을 커밋 하나로 다시 센다. master로 가는 PR은 `Release 0.8.0 - …`, develop으로 가는 여러 항목 PR은 `Hero 마퀴를 흰 띠로, 에필로그 재작성`처럼 쓴다. conventional 제목은 **squash로 머지하는 PR에만** 쓴다 - 그 제목이 곧 커밋 제목이 되기 때문이다.
+
+PR을 만들 때 **머지 방식부터 정하고 제목을 짓는다.** 여러 항목을 담게 됐다면 머지 전에 `gh pr edit <번호> --title`로 제목을 고친다. 릴리스 PR이 열리면 CHANGELOG 항목 수를 커밋 수와 대조해 중복과 누락을 확인한다.
 
 ## 4. 역머지 - 자동으로 열리고, 사람이 머지한다
 
