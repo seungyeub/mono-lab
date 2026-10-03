@@ -21,7 +21,7 @@ function ContactRow({ label, children }: { label: string; children: ReactNode })
   return (
     <motion.div
       {...reveal('listItem')}
-      className='group/row border-line relative flex flex-col gap-1 border-b py-4'
+      className='group/row border-line-strong relative flex flex-col gap-1 border-b py-4'
     >
       <dt className='text-label tracking-label font-medium text-white uppercase'>{label}</dt>
       <dd>{children}</dd>

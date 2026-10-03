@@ -62,12 +62,12 @@ export default function ResumePage() {
       {/* ── Experience ── */}
       <section className='mt-16 flex flex-col gap-6'>
         <h2 className='font-semibold text-white'>Experience</h2>
-        <div className='border-line flex flex-col border-t'>
+        <div className='border-line-strong flex flex-col border-t'>
           {EXPERIENCES.map((exp) => (
             <motion.div
               key={`${exp.company}-${exp.period}`}
               {...reveal('listItem')}
-              className='lg:grid-cols-experience border-line grid grid-cols-2 gap-4 border-b py-5 lg:items-center'
+              className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-5 lg:items-center'
             >
               {/* col 1 - 회사명 (lg+) / 회사명+기간 (< lg) */}
               <div className='flex flex-col gap-1'>
@@ -95,12 +95,12 @@ export default function ResumePage() {
       {/* ── Certifications ── */}
       <section className='mt-16 flex flex-col gap-6'>
         <h2 className='font-semibold text-white'>Certifications</h2>
-        <div className='border-line flex flex-col border-t'>
+        <div className='border-line-strong flex flex-col border-t'>
           {ACHIEVEMENTS.map((achievement) => (
             <motion.div
               key={achievement.certificate}
               {...reveal('listItem')}
-              className='lg:grid-cols-experience border-line grid grid-cols-2 gap-4 border-b py-5 lg:items-center'
+              className='lg:grid-cols-experience border-line-strong grid grid-cols-2 gap-4 border-b py-5 lg:items-center'
             >
               {/* 홈 자격증 목록과 같은 구성 - 경력의 기간·역할 자리에 취득일·발급기관 */}
               {/* col 1 - 자격증명 (lg+) / 자격증명+취득일 (< lg) */}
@@ -132,12 +132,12 @@ export default function ResumePage() {
       {/* ── Skills ── */}
       <section className='mt-16 flex flex-col gap-6'>
         <h2 className='font-semibold text-white'>Skills</h2>
-        <div className='border-line flex flex-col border-t'>
+        <div className='border-line-strong flex flex-col border-t'>
           {SKILL_CATEGORIES.map((category) => (
             <motion.div
               key={category.title}
               {...reveal('listItem')}
-              className='border-line grid grid-cols-1 gap-1 border-b py-5 md:grid-cols-[1fr_3fr] md:gap-4'
+              className='border-line-strong grid grid-cols-1 gap-1 border-b py-5 md:grid-cols-[1fr_3fr] md:gap-4'
             >
               <span className='text-base font-medium md:text-lg'>{category.title}</span>
               <p className='text-sm leading-relaxed text-gray-400 md:text-base'>

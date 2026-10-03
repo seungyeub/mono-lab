@@ -38,7 +38,7 @@ export const metadata: Metadata = {
  */
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <section className='border-line flex flex-col gap-3 border-b py-8 md:flex-row md:gap-12'>
+    <section className='border-line-strong flex flex-col gap-3 border-b py-8 md:flex-row md:gap-12'>
       <h2 className='shrink-0 text-lg font-medium text-white md:w-52 md:text-xl'>{label}</h2>
       <div className='text-sm leading-relaxed break-keep text-gray-400 md:text-base'>
         {children}
