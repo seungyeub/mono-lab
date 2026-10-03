@@ -30,7 +30,7 @@ export default function ProjectsPage() {
       <div className='border-line border-b px-6 pt-32 pb-12 md:px-12'>
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Projects©</h1>
-          <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
+          <p className='mt-2 max-w-xl text-base text-pretty break-keep text-gray-400 md:text-lg'>
             웹 서비스와 앱, 사내 시스템과 데이터 파이프라인까지 2017년부터 만들어 온 작업들입니다.
           </p>
         </div>

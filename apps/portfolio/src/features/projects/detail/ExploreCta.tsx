@@ -21,8 +21,14 @@ export default function ExploreCta({ liveUrl, github }: { liveUrl?: string; gith
     <section className='mt-20 md:mt-28'>
       <div className='border-line hover:border-line-strong flex flex-col items-center gap-6 rounded-2xl border bg-white/5 px-6 py-12 text-center transition-colors duration-500 md:py-16'>
         <h2 className='text-2xl font-semibold tracking-tight md:text-3xl'>Explore the Project</h2>
+        {/* 있는 링크만 말한다 - 사이트만 있는 프로젝트에 "소스 코드"를, 저장소만 있는 프로젝트에
+            "운영 중인 사이트"를 말하면 버튼과 어긋난다 */}
         <p className='max-w-xl text-sm text-gray-400 md:text-base'>
-          운영 중인 사이트와 소스 코드에서 실제 결과물을 확인할 수 있습니다.
+          {liveUrl && github
+            ? '운영 중인 사이트와 소스 코드에서 실제 결과물을 확인할 수 있습니다.'
+            : liveUrl
+              ? '운영 중인 사이트에서 실제 결과물을 확인할 수 있습니다.'
+              : '소스 코드와 커밋·PR 기록에서 실제 결과물을 확인할 수 있습니다.'}
         </p>
         <div className='flex flex-col gap-4 sm:flex-row'>
           {liveUrl && (

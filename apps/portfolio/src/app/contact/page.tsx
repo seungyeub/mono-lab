@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+// 서버 컴포넌트라 'use client'가 붙은 motion 요소를 가져온다 - 페이지 전체를 클라이언트로 돌리지 않는다
+import * as motion from 'framer-motion/client';
 
 import { CONTACT_PUBLIC_EMAIL, SITE_NAME, buildPageOpenGraph } from '@/lib/siteConfig';
 import ContactForm from '@/features/contact/ContactForm';
 import RollingLink from '@/components/RollingText/RollingLink';
+import { reveal } from '@/lib/motion';
 
 // 푸터 Networks와 같은 순서로 둔다 - 목록이 두 곳에 있어 한쪽만 바꾸면 어긋난다
 const NETWORKS = [
@@ -16,14 +19,17 @@ const NETWORKS = [
 /** 연락처 한 행. 아래 선 위에 흰 선이 겹쳐 있다가 hover 시 왼쪽에서 오른쪽으로 자란다 */
 function ContactRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className='group/row border-line relative flex flex-col gap-1 border-b py-4'>
+    <motion.div
+      {...reveal('listItem')}
+      className='group/row border-line-strong relative flex flex-col gap-1 border-b py-4'
+    >
       <dt className='text-label tracking-label font-medium text-white uppercase'>{label}</dt>
       <dd>{children}</dd>
       <span
         aria-hidden='true'
         className='absolute -bottom-px left-0 h-px w-0 bg-white transition-[width] duration-500 ease-out group-hover/row:w-full'
       />
-    </div>
+    </motion.div>
   );
 }
 
@@ -50,7 +56,7 @@ export default function ContactPage() {
       <div className='border-line border-b pb-12'>
         <div className='flex flex-col gap-4'>
           <h1 className='text-4xl font-medium tracking-tight md:text-6xl'>Contact©</h1>
-          <p className='mt-2 max-w-xl text-base text-gray-400 md:text-lg'>
+          <p className='mt-2 max-w-xl text-base text-pretty break-keep text-gray-400 md:text-lg'>
             궁금한 점이 있다면 언제든지 편하게 문의 주세요. 채용 제안과 협업 문의 모두 환영합니다.
           </p>
         </div>

@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import RollingButton from '@/components/RollingText/RollingButton';
 import RollingLink from '@/components/RollingText/RollingLink';
 import { sendContactEmail, type ContactErrorCode } from '@/lib/actions';
+import { reveal } from '@/lib/motion';
 import { contactSchema, type ContactFormData } from '@/lib/contactSchema';
 import { CONTACT_PUBLIC_EMAIL, GA_MEASUREMENT_ID } from '@/lib/siteConfig';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -107,7 +108,7 @@ export default function ContactForm() {
     >
       <p className='-mb-4 font-semibold text-white'>Send a Message</p>
       {/* Name */}
-      <div className={fieldClass}>
+      <motion.div {...reveal('listItem')} className={fieldClass}>
         <label htmlFor='contact-name' className={labelClass}>
           Name
         </label>
@@ -129,10 +130,10 @@ export default function ContactForm() {
             {errors.name.message}
           </p>
         )}
-      </div>
+      </motion.div>
 
       {/* Email */}
-      <div className={fieldClass}>
+      <motion.div {...reveal('listItem')} className={fieldClass}>
         <label htmlFor='contact-email' className={labelClass}>
           Email
         </label>
@@ -155,10 +156,10 @@ export default function ContactForm() {
             {errors.email.message}
           </p>
         )}
-      </div>
+      </motion.div>
 
       {/* Message */}
-      <div className={fieldClass}>
+      <motion.div {...reveal('listItem')} className={fieldClass}>
         <label htmlFor='contact-message' className={labelClass}>
           Message
         </label>
@@ -181,7 +182,7 @@ export default function ContactForm() {
             {errors.message.message}
           </p>
         )}
-      </div>
+      </motion.div>
 
       {/* 허니팟 - 화면 밖에 두고 탭 순서·자동완성·보조기기에서 모두 제외한다. 봇만 채운다 */}
       <div aria-hidden='true' className='absolute -left-[9999px] h-px w-px overflow-hidden'>
