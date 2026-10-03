@@ -94,13 +94,6 @@
     }
   }
 
-  /* 동작 줄이기: 무한 반복 애니메이션은 아예 멈춘다 (framer-motion 밖의 CSS 애니메이션) */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-      animation: none !important;
-    }
-  }
-
   /* Lenis smooth scrolling recommended CSS */
   html.lenis,
   html.lenis body {

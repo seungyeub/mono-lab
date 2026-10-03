@@ -64,6 +64,8 @@ git rm apps/portfolio/e2e/snapshot.spec.ts-snapshots/footer-baseline-*.png
 # 커밋·푸시 후 Update Visual Snapshots 워크플로 실행 - "doesn't exist"로 새로 촬영된다
 ```
 
+**위 섹션의 높이가 바뀌면 아래 섹션의 기준 이미지도 어긋날 수 있습니다.** 홈 Hero의 마퀴를 흰 띠로 바꿨을 때(2026-10-03), 손대지 않은 Projects의 모바일 기준 이미지가 1px 짧게 찍혀(3105→3104) 실패했습니다. Hero 높이가 소수점 단위로 달라져 아래 섹션의 시작 위치가 반 픽셀 밀린 것으로, 차이 이미지에서 모든 가장자리가 고르게 빨갛다면 이 경우입니다. 결함이 아니므로 그 기준 이미지도 함께 지우고 다시 찍습니다.
+
 봇 커밋 뒤에는 CI가 `action_required`로 멈추므로, 본인 계정 커밋을 하나 더 올려야 전체 검사가 다시 돕니다.
 
 ---
